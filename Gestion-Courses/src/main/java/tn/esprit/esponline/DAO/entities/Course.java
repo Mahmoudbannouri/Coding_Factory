@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+
 @ToString
 @Getter
 @Setter
@@ -49,8 +49,18 @@ public class Course {
     )
     private Set<User> students;
 
+    public Course(String title, String description, Date startDate, Date endDate) {
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.rate = 0; // Default value
+        this.image = ""; // Default value
+    }
 
+    public Course() {
 
+    }
 
 
     // Optionally: you can also add a setter if needed
@@ -105,4 +115,7 @@ public class Course {
     public void setImage(String image) {
         this.image = image;
     }
+
+    // Add a constructor with relevant parameters
+
 }
