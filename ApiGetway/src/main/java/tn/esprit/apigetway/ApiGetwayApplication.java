@@ -26,7 +26,7 @@ public class ApiGetwayApplication {
                 .route("gestion-course", r -> r.path("/gestion-course/**")
                         .uri("lb://gestion-course"))  // Ensure this matches the Eureka service name
                 .route("gestion-events", r -> r.path("/event/**")
-                        .uri("lb://GESTION-EVENTS"))
+                        .uri("lb://EVENT"))
                 .build();
     }
 }
