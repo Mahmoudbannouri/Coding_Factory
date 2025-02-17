@@ -15,13 +15,18 @@ public class ApiGetwayApplication {
         SpringApplication.run(ApiGetwayApplication.class, args);
     }
 
-//dynamique
-@Bean
-public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
-    return builder.routes()
-            .route("gestion-pfe", r -> r.path("/pfe/**")
-                    .uri("lb://GESTION-PFE")) // Doit correspondre au nom du service dans Eureka
-            .build();
-}
-
+    // Dynamique configuration for multiple routes
+    @Bean
+    public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
+        return builder.routes()
+                // Route for gestion-pfe service
+                .route("gestion-pfe", r -> r.path("/pfe/**")
+                        .uri("lb://GESTION-PFE"))  // Ensure this matches the Eureka service name
+                // Route for gestion-course service
+                .route("gestion-course", r -> r.path("/gestion-course/**")
+                        .uri("lb://gestion-course"))  // Ensure this matches the Eureka service name
+                .route("gestion-events", r -> r.path("/event/**")
+                        .uri("lb://GESTION-EVENTS"))
+                .build();
+    }
 }
