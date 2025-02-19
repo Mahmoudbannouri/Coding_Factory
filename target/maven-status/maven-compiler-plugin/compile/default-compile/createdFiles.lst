@@ -1,0 +1,9 @@
+com\partnershipmanagement\Entities\Partnership.class
+com\partnershipmanagement\Entities\PartnershipAssessment.class
+com\partnershipmanagement\Services\IPartnershipService.class
+com\partnershipmanagement\PartnershipManagementApplication.class
+com\partnershipmanagement\Repositories\PartnershipRepository.class
+com\partnershipmanagement\Controllers\PartnershipController.class
+com\partnershipmanagement\Entities\Centre.class
+com\partnershipmanagement\Entities\Entreprise.class
+com\partnershipmanagement\Services\PartnershipService.class
