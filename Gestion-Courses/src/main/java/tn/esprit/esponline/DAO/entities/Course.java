@@ -2,7 +2,13 @@ package tn.esprit.esponline.DAO.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
+
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -21,20 +27,34 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull(message = "Title is required")
+    @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
     private String title;
+
+    @NotNull(message = "Description is required")
+    @Size(min = 1, max = 500, message = "Description must be between 1 and 500 characters")
     private String description;
+
+    @NotNull(message = "Rate is required")
+    @Min(value = 0, message = "Rate must be at least 0")
+    @Max(value = 5, message = "Rate must be at most 5")
     private int rate;
+
     private java.sql.Date startDate;
     private java.sql.Date endDate;
+
+    @NotNull(message = "image is required")
     private String image;  // Assuming it's a URL to the image or path.
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Category is required")
     private CategoryEnum categoryCourse;
 
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private User trainer;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)

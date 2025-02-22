@@ -4,8 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.esponline.DAO.entities.CourseResource;
 import tn.esprit.esponline.Services.ICourseResourceService;
@@ -48,7 +50,7 @@ public class CourseResourceRestController {
             @ApiResponse(responseCode = "400", description = "Invalid resource data")
     })
     @PostMapping
-    public CourseResource addResource(@RequestBody CourseResource resource) {
+    public CourseResource addResource(@Valid @RequestBody CourseResource resource) {
         if (resource.getCourse() == null) {
             throw new IllegalArgumentException("Course must not be null");
         }
@@ -62,7 +64,7 @@ public class CourseResourceRestController {
             @ApiResponse(responseCode = "404", description = "Resource not found")
     })
     @PutMapping("/{id}")
-    public CourseResource updateResource(@RequestBody CourseResource resource, @PathVariable int id) {
+    public CourseResource updateResource(@Valid @RequestBody CourseResource resource, @PathVariable int id) {
         return courseResourceService.updateResource(resource, id);
     }
 
