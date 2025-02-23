@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +60,7 @@ public class CourseRestController {
             @ApiResponse(responseCode = "400", description = "Invalid course data")
     })
     @PostMapping
-    public Course addCourse(@RequestBody Course course) {
+    public Course addCourse(@Valid @RequestBody Course course) {
         return courseService.addCourse(course);
     }
 
@@ -69,7 +70,7 @@ public class CourseRestController {
             @ApiResponse(responseCode = "404", description = "Course not found")
     })
     @PutMapping("/{id}")
-    public Course updateCourse(@RequestBody Course course, @PathVariable int id) {
+    public Course updateCourse(@Valid @RequestBody Course course, @PathVariable int id) {
         return courseService.updateCourse(course, id);
     }
 
