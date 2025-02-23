@@ -1,4 +1,5 @@
 package tn.esprit.gestionpfe.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,6 +25,7 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name = "pfe_id")
     @JsonIgnore
+    @JsonBackReference
     private Pfe pfe; // Évite la boucle infinie
 
 }

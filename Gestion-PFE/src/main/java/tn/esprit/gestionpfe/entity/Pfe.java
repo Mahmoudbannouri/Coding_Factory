@@ -1,5 +1,6 @@
 package tn.esprit.gestionpfe.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -55,7 +56,7 @@ public class Pfe {
     private List<String> juryNames = new ArrayList<>();
 
     @OneToMany(mappedBy = "pfe", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Feedback> feedbackEntities;// Liste des feedbacks sous forme d'entité
 
 
