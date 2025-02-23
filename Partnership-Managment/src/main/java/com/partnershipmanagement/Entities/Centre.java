@@ -1,5 +1,6 @@
 package com.partnershipmanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -21,10 +22,11 @@ public class Centre {
 
     String name;
     String description;
-
+@JsonIgnore
     @ManyToOne
     User admin;
-    @OneToMany(mappedBy = "centre", cascade = CascadeType.ALL)
-    List<Partnership> partnerships;
+    @JsonIgnore
+    @OneToMany(mappedBy = "center", cascade = CascadeType.ALL)
+    List<Proposal> proposals;
 
 }

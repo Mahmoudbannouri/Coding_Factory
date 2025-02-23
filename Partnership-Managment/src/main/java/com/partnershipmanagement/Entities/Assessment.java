@@ -1,11 +1,13 @@
 package com.partnershipmanagement.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,8 +25,9 @@ public class Assessment {
 
     String feedback;
     @ElementCollection
-    ArrayList<String>
-    rules = new ArrayList<>();
+    List<String> rules; // Use List instead of ArrayList
+
+    @JsonIgnore
     @OneToOne
     Partnership partnership;
 }
