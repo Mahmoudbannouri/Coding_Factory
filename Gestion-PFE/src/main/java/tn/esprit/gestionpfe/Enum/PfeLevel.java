@@ -1,4 +1,4 @@
-package tn.esprit.gestionpfe;
+package tn.esprit.gestionpfe.Enum;
 
 public enum PfeLevel {
 

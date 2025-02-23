@@ -21,6 +21,8 @@ public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
     return builder.routes()
             .route("gestion-pfe", r -> r.path("/pfe/**")
                     .uri("lb://GESTION-PFE")) // Doit correspondre au nom du service dans Eureka
+            .route("gestion-pfe", r -> r.path("/feedbacks/**")
+                    .uri("lb://Gestion-PFE")) // Nouvelle route pour le microservice Feedbacks
             .build();
 }
 
