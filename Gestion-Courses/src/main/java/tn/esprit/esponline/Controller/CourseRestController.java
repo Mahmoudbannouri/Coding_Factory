@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.esponline.DAO.entities.Course;
+import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.Services.ICourseService;
 
 import java.util.List;
@@ -93,5 +94,15 @@ public class CourseRestController {
     @PostMapping("/{courseId}/enroll/{studentId}")
     public Course enrollStudentInCourse(@PathVariable int courseId, @PathVariable int studentId) {
         return courseService.enrollStudentInCourse(courseId, studentId);
+    }
+
+    @Operation(summary = "Get all students", description = "This endpoint retrieves all students.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved all students"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/students")
+    public List<User> getAllStudents() {
+        return courseService.getAllStudents();
     }
 }
