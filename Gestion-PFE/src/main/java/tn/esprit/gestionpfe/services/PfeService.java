@@ -2,6 +2,7 @@ package tn.esprit.gestionpfe.services;
 
 import org.springframework.stereotype.Service;
 import tn.esprit.gestionpfe.entity.Pfe;
+import tn.esprit.gestionpfe.repository.FeedbackRepository;
 import tn.esprit.gestionpfe.repository.PfeRepository;
 
 import java.sql.Date;
@@ -13,9 +14,12 @@ import java.util.Optional;
 public class PfeService implements IPfeService {
 
     private final PfeRepository pfeRepository;
+    private final FeedbackRepository feedbackRepository;
 
-    public PfeService(PfeRepository pfeRepository) {
+    // Correction : Injection des dépendances dans le constructeur
+    public PfeService(PfeRepository pfeRepository, FeedbackRepository feedbackRepository) {
         this.pfeRepository = pfeRepository;
+        this.feedbackRepository = feedbackRepository; // Initialisation de feedbackRepository
     }
 
     public Pfe createPfe(Pfe pfe) {
@@ -35,13 +39,16 @@ public class PfeService implements IPfeService {
                 .map(pfe -> {
                     pfe.setProjectTitle(updatedPfe.getProjectTitle());
                     pfe.setDescription(updatedPfe.getDescription());
-                   // pfe.setStartDate(updatedPfe.getStartDate());
-                    //pfe.setEndDate(updatedPfe.getEndDate());
+                   pfe.setStartDate(updatedPfe.getStartDate());
+                    pfe.setEndDate(updatedPfe.getEndDate());
                    pfe.setLevel(updatedPfe.getLevel());
                     pfe.setStatus(updatedPfe.getStatus());
                    pfe.setStudentId(updatedPfe.getStudentId());
                     pfe.setTrainerId(updatedPfe.getTrainerId());
                     pfe.setEntrepriseId(updatedPfe.getEntrepriseId());
+                    pfe.setMeetingDate(updatedPfe.getMeetingDate());
+                    pfe.setMeetingLink(updatedPfe.getMeetingLink());
+                    pfe.setMeetingNotes(updatedPfe.getMeetingNotes());
                     return pfeRepository.save(pfe);
                 })
                 .orElseThrow(() -> new RuntimeException("PFE non trouvé"));
@@ -71,16 +78,18 @@ public class PfeService implements IPfeService {
                 .orElseThrow(() -> new RuntimeException("PFE non trouvé"));
     }
 
-    public Pfe removeDocumentById(Long pfeId, Long documentId) {
+    public Pfe removeDocument(Long pfeId, String documentName) {
         return pfeRepository.findById(pfeId).map(pfe -> {
-            if (documentId < pfe.getDocuments().size()) {
-                pfe.getDocuments().remove(documentId);
+            List<String> documents = pfe.getDocuments();
+            if (documents != null && documents.remove(documentName)) {
                 return pfeRepository.save(pfe);
             } else {
-                throw new RuntimeException("Document non trouvé");
+                throw new RuntimeException("Document non trouvé ou déjà supprimé");
             }
         }).orElseThrow(() -> new RuntimeException("PFE non trouvé"));
     }
+
+
 
 
     // -------------------------------------
@@ -103,16 +112,25 @@ public class PfeService implements IPfeService {
         }).orElseThrow(() -> new RuntimeException("PFE non trouvé"));
     }
 
-    public Pfe removeMeetingDate(Long pfeId, Long meetingId) {
+
+
+
+    public Pfe removeMeetingDate(Long pfeId, Date meetingDate) {
         return pfeRepository.findById(pfeId).map(pfe -> {
-            if (meetingId < pfe.getMeetingDates().size()) {
-                pfe.getMeetingDates().remove(meetingId);
+            // Convertir `meetingDate` en `java.sql.Date`
+            Date sqlMeetingDate = new Date(meetingDate.getTime());
+
+            if (pfe.getMeetingDates().contains(sqlMeetingDate)) {
+                pfe.getMeetingDates().remove(sqlMeetingDate);
                 return pfeRepository.save(pfe);
             } else {
                 throw new RuntimeException("Date de réunion non trouvée");
             }
         }).orElseThrow(() -> new RuntimeException("PFE non trouvé"));
     }
+
+
+
 
     // -------------------------------------
     // CRUD POUR LE JURY
@@ -129,14 +147,17 @@ public class PfeService implements IPfeService {
                 .orElseThrow(() -> new RuntimeException("PFE non trouvé"));
     }
 
-    public Pfe removeJuryMemberById(Long pfeId, Long juryMemberId) {
+    @Override
+    public Pfe removeJuryMember(Long pfeId, String juryMemberName) {
         return pfeRepository.findById(pfeId).map(pfe -> {
-            if (juryMemberId < pfe.getJuryNames().size()) {
-                pfe.getJuryNames().remove(juryMemberId);
+            if (pfe.getJuryNames() != null && pfe.getJuryNames().contains(juryMemberName)) {
+                pfe.getJuryNames().remove(juryMemberName);
                 return pfeRepository.save(pfe);
             } else {
-                throw new RuntimeException("Membre du jury non trouvé");
+                throw new RuntimeException("Membre du jury non trouvé ou liste vide");
             }
         }).orElseThrow(() -> new RuntimeException("PFE non trouvé"));
     }
+
+
 }

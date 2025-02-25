@@ -1,6 +1,7 @@
 package tn.esprit.gestionpfe.restControlier;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +11,8 @@ import tn.esprit.gestionpfe.services.PfeService;
 
 import java.sql.Date;
 import java.util.List;
-
+import org.springframework.format.annotation.DateTimeFormat;
+import java.sql.Date;
 @RestController
 @RequestMapping("/pfe")
 public class PfeRestAPI {
@@ -66,10 +68,17 @@ public class PfeRestAPI {
         return ResponseEntity.ok(pfeService.getDocuments(pfeId));
     }
 
-    @DeleteMapping("/{pfeId}/documents/{documentId}")
-    public ResponseEntity<Pfe> removeDocument(@PathVariable Long pfeId, @PathVariable Long documentId) {
-        return ResponseEntity.ok(pfeService.removeDocumentById(pfeId, documentId));
+    @DeleteMapping("/{pfeId}/document")
+    public ResponseEntity<?> removeDocument(@PathVariable Long pfeId, @RequestParam String documentName) {
+        try {
+            Pfe updatedPfe = pfeService.removeDocument(pfeId, documentName);
+            return ResponseEntity.ok(updatedPfe);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
+
+
 
     // Gestion des Réunions
     @PostMapping("/{pfeId}/meetings")
@@ -82,10 +91,18 @@ public class PfeRestAPI {
         return ResponseEntity.ok(pfeService.getMeetingDates(pfeId));
     }
 
-    @DeleteMapping("/{pfeId}/meetings/{meetingId}")
-    public ResponseEntity<Pfe> removeMeeting(@PathVariable Long pfeId, @PathVariable Long meetingId) {
-        return ResponseEntity.ok(pfeService.removeMeetingDate(pfeId, meetingId));
+    @DeleteMapping("/{pfeId}/meeting")
+    public ResponseEntity<?> removeMeeting(@PathVariable Long pfeId,
+                                           @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date meetingDate) {
+        try {
+            Pfe updatedPfe = pfeService.removeMeetingDate(pfeId, meetingDate);
+            return ResponseEntity.ok(updatedPfe);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
+
+
 
     // Gestion du Jury
     @PostMapping("/{pfeId}/jury")
@@ -98,8 +115,10 @@ public class PfeRestAPI {
         return ResponseEntity.ok(pfeService.getJuryMembers(pfeId));
     }
 
-    @DeleteMapping("/{pfeId}/jury/{juryMemberId}")
-    public ResponseEntity<Pfe> removeJuryMember(@PathVariable Long pfeId, @PathVariable Long juryMemberId) {
-        return ResponseEntity.ok(pfeService.removeJuryMemberById(pfeId, juryMemberId));
+    @DeleteMapping("/{pfeId}/jury/{juryMemberName}")
+    public ResponseEntity<Pfe> removeJuryMember(@PathVariable Long pfeId, @PathVariable String juryMemberName) {
+        return ResponseEntity.ok(pfeService.removeJuryMember(pfeId, juryMemberName));
     }
+
+
 }

@@ -1,5 +1,6 @@
 package tn.esprit.gestionpfe.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,12 +25,15 @@ public class Pfe {
 
     private String projectTitle;
     private String description;
-
    private Date startDate;
-
-
     private Date endDate;
+    private Long studentId; // Clé étrangère vers User (étudiant)
+    private Long trainerId; // Clé étrangère vers User (formateur)
+    private Long entrepriseId; // Clé étrangère vers Entreprise
 
+    private String meetingLink;
+    private String meetingNotes;
+    private Date meetingDate;
 
    @Enumerated(EnumType.STRING)
     private PfeLevel level; // Licence, Master, Ingénieur
@@ -37,13 +41,7 @@ public class Pfe {
     @Enumerated(EnumType.STRING)
     private PfeStatus status; // En cours, Validé, Refusé
 
-    private Long studentId; // Clé étrangère vers User (étudiant)
-    private Long trainerId; // Clé étrangère vers User (formateur)
-    private Long entrepriseId; // Clé étrangère vers Entreprise
 
-   private String meetingLink;
-    private String meetingNotes;
-    private LocalDateTime meetingDate;
 
     @ElementCollection
     private List<String> documents = new ArrayList<>();
@@ -55,7 +53,7 @@ public class Pfe {
     private List<String> juryNames = new ArrayList<>();
 
     @OneToMany(mappedBy = "pfe", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @JsonBackReference
     private List<Feedback> feedbackEntities;// Liste des feedbacks sous forme d'entité
 
 

@@ -17,15 +17,16 @@ public interface IPfeService {
         // Gestion des Documents
         Pfe addDocumentToPfe(Long pfeId, String documentUrl);
         List<String> getDocuments(Long pfeId);
-        Pfe removeDocumentById(Long pfeId, Long documentId);
+        Pfe removeDocument(Long pfeId, String documentName);
+
 
         // Gestion des Réunions
         Pfe addMeetingDate(Long pfeId, Date meetingDate);
         List<Date> getMeetingDates(Long pfeId);
-        Pfe removeMeetingDate(Long pfeId, Long meetingId);
+        Pfe removeMeetingDate(Long pfeId, Date meetingDate);
 
         // Gestion du Jury
         Pfe addJuryMember(Long pfeId, String juryMember);
         List<String> getJuryMembers(Long pfeId);
-        Pfe removeJuryMemberById(Long pfeId, Long juryMemberId);
+        Pfe removeJuryMember(Long pfeId, String juryMemberName);
 }
