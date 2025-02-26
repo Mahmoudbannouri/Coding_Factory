@@ -1,0 +1,59 @@
+<!-- Knowledge base categories Content start  -->
+<section class="kb-categories position-relative">
+  <div class="kb-overlay" [ngClass]="{show: isShowCategory}" (click)="isShowCategory = false;"></div>
+  <div class="row">
+    <!-- left side menubar section -->
+    <div class="col-md-3 mt-md-2">
+      <div class="kb-sidebar" [ngClass]="{show: isShowCategory}">
+        <i class="ft-x font-medium-5 d-md-none kb-close-icon cursor-pointer" (click)="isShowCategory = false;"></i>
+        <h6 class="mb-3">Categories</h6>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="javascript:void(0)" class="kb-effect">All (564)</a></li>
+          <li class="mb-2"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Transaction Fees (64)</a>
+          </li>
+          <li class="mb-2"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Worldwide Good Support
+              (5)</a></li>
+          <li class="mb-2"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Refund Policy (54)</a></li>
+          <li class="mb-2"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Bank Transfer (4)</a></li>
+          <li class="mb-2"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Personal Details (20)</a>
+          </li>
+          <li><a href="javascript:void(0)" class="kb-categories-text kb-effect">Security (64)</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- right side section -->
+    <div class="col-md-9">
+      <button class="btn btn-primary mb-1 kb-menu d-md-none" (click)="isShowCategory = true;">
+        <i class="ft-menu mr-1"></i>
+        <span>Categories</span>
+      </button>
+      <div class="row match-height">
+        <div class="col-lg-4 col-sm-6" *ngFor="let category of kbCategories">
+          <div class="card">
+            <a href="javascript:;" (click)="viewQuestions(kb)">
+              <div class="card-content">
+                <div class="card-body">
+                  <h5 class="card-title">{{category.name}}</h5>
+                  <p class="card-text kb-categories-text kb-ellipsis">{{category.content}}</p>
+                  <ul class="list-unstyled users-list m-0 d-flex align-items-center">
+                    <li *ngFor="let tooltip of category.tooltips" data-toggle="tooltip" data-popup="tooltip-custom"
+                      placement="bottom" [ngbTooltip]="tooltip.name" class="avatar pull-up" container="body">
+                      <img [src]="tooltip.avatar" alt="Avatar" height="30" width="30">
+                    </li>
+                    <li class="d-inline-block pl-2">
+                      <p class="kb-categories-text mb-0 font-small-3">{{category.text}}</p>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="col-12">
+          <ngb-pagination class="mt-2 d-flex justify-content-center" [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Knowledge base categories Content ends -->

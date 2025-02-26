@@ -1,6 +1,7 @@
 package tn.esprit.esponline.Services;
 
 import tn.esprit.esponline.DAO.entities.Course;
+import tn.esprit.esponline.DAO.entities.User;
 
 import java.util.List;
 
@@ -14,4 +15,8 @@ public interface ICourseService {
     Course enrollStudentInCourse(int courseId, int studentId);
 
     Course findById(Long courseId);
+
+    List<User> getAllStudents();
+
+    List<User> getEnrolledStudents(int courseId);
 }

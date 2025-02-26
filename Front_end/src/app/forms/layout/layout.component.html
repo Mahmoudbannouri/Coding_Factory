@@ -1,0 +1,445 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Form Layouts</div>
+  </div>
+</div>
+<!-- Basic Form & Hidden Label Layouts starts -->
+<section id="basic-hidden-label-form-layouts">
+  <div class="row match-height">
+    <!-- Basic Form starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Basic Form</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>This is the most basic and default form having inputs, labels and buttons.</p>
+            <form>
+              <div class="form-row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-1">First Name</label>
+                    <input type="text" id="basic-form-1" class="form-control" name="fname">
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-2">Last Name</label>
+                    <input type="text" id="basic-form-2" class="form-control" name="lname">
+                  </div>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-3">E-mail</label>
+                    <input type="text" id="basic-form-3" class="form-control" name="email">
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-4">Contact Number</label>
+                    <input type="number" id="basic-form-4" class="form-control" name="phone">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-2">
+                <label for="basic-form-5">Company</label>
+                <input type="text" id="basic-form-5" class="form-control" name="company">
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-6">Interested in</label>
+                    <select id="basic-form-6" name="interested" class="form-control">
+                      <option value="none" selected disabled>Interested in</option>
+                      <option value="design">Design</option>
+                      <option value="development">Development</option>
+                      <option value="illustration">Illustration</option>
+                      <option value="branding">Branding</option>
+                      <option value="video">Video</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group mb-2">
+                    <label for="basic-form-7">Budget</label>
+                    <select id="basic-form-7" name="budget" class="form-control">
+                      <option value="0" selected disabled>Budget</option>
+                      <option value="less than $5000">less than $5000</option>
+                      <option value="$5000 - $10000">$5000 - $10000</option>
+                      <option value="$10000 - $20000">$10000 - $20000</option>
+                      <option value="more than $20000">more than $20000</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-2">
+                <label for="basic-form-8">Select File</label>
+                <input type="file" class="form-control-file" id="basic-form-8">
+              </div>
+              <div class="form-group mb-2">
+                <label for="basic-form-9">About Project</label>
+                <textarea id="basic-form-9" rows="4" class="form-control" name="comment"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Basic Form ends -->
+    <!-- Hidden Label starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Hidden Label Form</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Use <code>label.sr-only</code> to hide a label and <code>input.round</code> for round inputs. You may add <code>placeholder</code> attribute.</p>
+            <form>
+              <div class="form-group">
+                <label class="sr-only" for="hidden-label-form-1">Company Name</label>
+                <input type="text" id="hidden-label-form-1" class="form-control round" name="cname" placeholder="Company Name">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="hidden-label-form-2">Employee Name</label>
+                <input type="text" id="hidden-label-form-2" class="form-control round" name="ename" placeholder="Employee Name">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="hidden-label-form-3">Employee ID</label>
+                <input type="number" id="hidden-label-form-3" class="form-control round" name="eid" placeholder="Employee ID">
+              </div>
+              <div class="form-group position-relative">
+                <label class="sr-only" for="hidden-label-form-4">Date</label>
+                <input type="text" id="hidden-label-form-4" class="form-control pickadate round" placeholder="Joining Date">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="hidden-label-form-5">Supervisor Name</label>
+                <input type="text" id="hidden-label-form-5" class="form-control round" name="sname" placeholder="Supervisor Name">
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="hidden-label-form-6">Details</label>
+                <textarea id="hidden-label-form-6" rows="4" class="form-control round" name="comment2" placeholder="Details"></textarea>
+              </div>
+              <div class="form-group">
+                <label class="sr-only" for="hidden-label-form-7">Signature</label>
+                <input type="text" id="hidden-label-form-7" class="form-control round" name="sign" placeholder="Signature">
+              </div>
+              <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Hidden Label ends -->
+  </div>
+</section>
+<!-- Basic Form & Hidden Label Layouts ends -->
+
+<!-- Horizontal Form Layout starts -->
+<section id="horizontal-form-layout">
+  <div class="row match-height">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Horizontal Form</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Use <code>label.col-form-label</code> for proper padding to a label. You can align label to right side by using <code>.text-right</code>. Use <code>input.square</code> for square inputs.</p>
+            <form>
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-1">First Name</label>
+                    <div class="col-md-9">
+                      <input type="text" class="form-control square" id="horizontal-form-1" name="first-name">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-2">Last Name</label>
+                    <div class="col-md-9">
+                      <input type="text" class="form-control square" id="horizontal-form-2" name="last-name">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-md-3">
+                <div class="col-md-6 col-12">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-3">Username</label>
+                    <div class="col-md-9">
+                      <input type="text" class="form-control square" id="horizontal-form-3" name="username">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-4">Nick Name</label>
+                    <div class="col-md-9">
+                      <input type="text" class="form-control square" id="horizontal-form-4" name="nick-name">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-5">Email</label>
+                    <div class="col-md-9">
+                      <input type="email" class="form-control square" id="horizontal-form-5" name="e-mail">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-6">Website</label>
+                    <div class="col-md-9">
+                      <input type="text" class="form-control square" id="horizontal-form-6" name="website">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-7">Contact Number</label>
+                    <div class="col-md-9">
+                      <input type="number" class="form-control square" id="horizontal-form-7" name="phone-number">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="horizontal-form-9">About Project</label>
+                    <div class="col-md-9">
+                      <textarea id="horizontal-form-9" rows="6" class="form-control square" name="comment3"></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Horizontal Form Layout ends -->
+
+<!-- Form Action Form Layout starts -->
+<section id="action-form-layout">
+  <div class="row match-height">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Form Actions</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>You can use form actions on top & bottom and can also align them inside the form.</p>
+            <form>
+              <button type="button" class="btn btn-primary mb-2 mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary mb-2"><i class="ft-x mr-1"></i>Cancel</button>
+              <div class="form-group">
+                <label for="form-action-1">Issue Title</label>
+                <input type="text" id="form-action-1" class="form-control" name="issue-title">
+              </div>
+              <div class="form-group">
+                <label for="form-action-2">Opened By</label>
+                <input type="text" id="form-action-2" class="form-control" name="opened-by">
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 col-12">
+                  <div class="form-group position-relative">
+                    <label for="form-action-3">Issue Opened</label>
+                    <input type="text" id="form-action-3" class="form-control pickadate" placeholder="Opened Date" name="date-opened">
+                  </div>
+                </div>
+                <div class="col-md-6 col-12">
+                  <div class="form-group position-relative">
+                    <label for="form-action-4">Issue Closed</label>
+                    <input type="text" id="form-action-4" class="form-control pickadate" placeholder="Closed Date" name="date-closed">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="form-action-5">Priority</label>
+                <select id="form-action-5" name="priority" class="form-control">
+                  <option value="Low">Low</option>
+                  <option value="Medium">Medium</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="form-action-6">Status</label>
+                <select id="form-action-6" name="status" class="form-control">
+                  <option value="Not started">Not started</option>
+                  <option value="Started">Started</option>
+                  <option value="Started but not fixed">Started but not fixed</option>
+                  <option value="Fixed">Fixed</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="form-action-7">Comment</label>
+                <textarea id="form-action-7" rows="4" class="form-control" name="comment4"></textarea>
+              </div>
+              <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Form Action Form Layout ends -->
+
+<!-- Bordered & Striped Row Form Layout starts -->
+<section id="bordered-striped-form-layout">
+  <div class="row match-height">
+    <!-- Bordered Form Layout starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Bordered Form</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Use <code>form.form-bordered .form-group</code> for bordered form and <code>label.label-control</code> for proper padding to a label.</p>
+            <form class="form-bordered">
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="bordered-form-1">Employee Name</label>
+                <div class="col-md-9">
+                  <div class="position-relative has-icon-left">
+                    <input type="text" id="bordered-form-1" class="form-control" name="employeename">
+                    <div class="form-control-position">
+                      <i class="ft-user"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="bordered-form-2">Project Name</label>
+                <div class="col-md-9">
+                  <div class="position-relative has-icon-left">
+                    <input type="text" id="bordered-form-2" class="form-control" name="projectname">
+                    <div class="form-control-position">
+                      <i class="ft-briefcase"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="bordered-form-3">Rate Per Hour</label>
+                <div class="col-md-9">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input type="text" id="bordered-form-3" class="form-control" aria-label="Amount (to the nearest dollar)" name="rateperhour">
+                    <div class="input-group-append">
+                      <span class="input-group-text">.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="bordered-form-4">Time</label>
+                <div class="col-md-9">
+                  <div class="position-relative has-icon-left">
+                    <input type="text" id="bordered-form-4" class="form-control pickatime" name="time">
+                    <div class="form-control-position">
+                      <i class="ft-clock"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row last mb-3">
+                <label class="col-md-3 label-control" for="bordered-form-6">Notes</label>
+                <div class="col-md-9">
+                  <div class="position-relative has-icon-left">
+                    <textarea id="bordered-form-6" rows="4" class="form-control" name="notes"></textarea>
+                    <div class="form-control-position">
+                      <i class="ft-file"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bordered Form Layout ends -->
+    <!-- Striped Row Form Layout starts -->
+    <div class="col-lg-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Striped Row</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Use <code>form.striped-rows .form-group</code> for striped form and <code>label.label-control</code> for proper padding to a label. You can use bordered and striped both at the same time.</p>
+            <form class="striped-rows">
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="striped-form-1">Full Name</label>
+                <div class="col-md-9">
+                  <input type="text" id="striped-form-1" class="form-control" name="fullname" placeholder="Full Name">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="striped-form-2">Title</label>
+                <div class="col-md-9">
+                  <input type="text" id="striped-form-2" class="form-control" name="title" placeholder="Title">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="striped-form-3">Company</label>
+                <div class="col-md-9">
+                  <input type="text" id="striped-form-3" class="form-control" name="company3" placeholder="Company">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="striped-form-4">Email</label>
+                <div class="col-md-9">
+                  <input type="email" id="striped-form-4" class="form-control" name="email2" placeholder="E-mail">
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-md-3 label-control" for="striped-form-5">Contact Number</label>
+                <div class="col-md-9">
+                  <input type="number" id="striped-form-5" class="form-control" name="contact" placeholder="Contact Number">
+                </div>
+              </div>
+              <div class="form-group row last mb-3">
+                <label class="col-md-3 label-control">Existing Customer</label>
+                <div class="col-md-9">
+                  <div class="input-group col-md-9">
+                    <div class="radio d-inline-block mr-2 mb-1">
+                      <input type="radio" id="striped-form-6" name="striped-radio">
+                      <label for="striped-form-6">Yes</label>
+                    </div>
+                    <div class="radio d-inline-block">
+                      <input type="radio" id="striped-form-7" checked name="striped-radio">
+                      <label for="striped-form-7">No</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="button" class="btn btn-primary mr-2"><i class="ft-check-square mr-1"></i>Save</button>
+              <button type="button" class="btn btn-secondary"><i class="ft-x mr-1"></i>Cancel</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Striped Row Form Layout ends -->
+  </div>
+</section>
+<!-- Bordered & Striped Row Form Layout ends -->

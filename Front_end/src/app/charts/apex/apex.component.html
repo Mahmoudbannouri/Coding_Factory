@@ -1,0 +1,451 @@
+<div class="row ">
+  <div class="col-sm-12">
+      <div class="content-header">Apex Charts</div>
+      <p class="content-sub-header">A modern charting library to build interactive charts and visualizations with simple API.</p>
+  </div>
+</div>
+
+<section id="apexchart">
+  <div class="row">
+      <!-- Line Chart starts -->
+      <div class="col-xl-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Line Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="lineChartOptions.series"
+                    [colors]="lineChartOptions.colors"
+                    [chart]="lineChartOptions.chart"
+                    [xaxis]="lineChartOptions.xaxis"
+                    [yaxis]="lineChartOptions.yaxis"
+                    [title]="lineChartOptions.title"
+                    [dataLabels]="lineChartOptions.dataLabels"
+                    [stroke]="lineChartOptions.stroke"
+                    [grid]="lineChartOptions.grid"
+                    [tooltip]="lineChartOptions.tooltip"
+                    [plotOptions]="lineChartOptions.plotOptions"
+                    [fill]="lineChartOptions.fill"
+                    [legend]="lineChartOptions.legend"
+                    [labels]="lineChartOptions.labels"
+                    [markers]="lineChartOptions.markers"
+                    [theme]="lineChartOptions.theme"
+                    [responsive]="lineChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Line Chart ends -->
+
+      <!-- Line Area Chart starts -->
+      <div class="col-xl-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Line Area Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="lineAreaChartOptions.series"
+                    [colors]="lineAreaChartOptions.colors"
+                    [chart]="lineAreaChartOptions.chart"
+                    [xaxis]="lineAreaChartOptions.xaxis"
+                    [yaxis]="lineAreaChartOptions.yaxis"
+                    [title]="lineAreaChartOptions.title"
+                    [dataLabels]="lineAreaChartOptions.dataLabels"
+                    [stroke]="lineAreaChartOptions.stroke"
+                    [grid]="lineAreaChartOptions.grid"
+                    [tooltip]="lineAreaChartOptions.tooltip"
+                    [plotOptions]="lineAreaChartOptions.plotOptions"
+                    [fill]="lineAreaChartOptions.fill"
+                    [legend]="lineAreaChartOptions.legend"
+                    [labels]="lineAreaChartOptions.labels"
+                    [markers]="lineAreaChartOptions.markers"
+                    [theme]="lineAreaChartOptions.theme"
+                    [responsive]="lineAreaChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Line Area Chart ends -->
+
+      <!-- Column Chart starts -->
+      <div class="col-xl-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Column Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="columnChartOptions.series"
+                    [colors]="columnChartOptions.colors"
+                    [chart]="columnChartOptions.chart"
+                    [xaxis]="columnChartOptions.xaxis"
+                    [yaxis]="columnChartOptions.yaxis"
+                    [title]="columnChartOptions.title"
+                    [dataLabels]="columnChartOptions.dataLabels"
+                    [stroke]="columnChartOptions.stroke"
+                    [grid]="columnChartOptions.grid"
+                    [tooltip]="columnChartOptions.tooltip"
+                    [plotOptions]="columnChartOptions.plotOptions"
+                    [fill]="columnChartOptions.fill"
+                    [legend]="columnChartOptions.legend"
+                    [labels]="columnChartOptions.labels"
+                    [markers]="columnChartOptions.markers"
+                    [theme]="columnChartOptions.theme"
+                    [responsive]="columnChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Column Chart ends -->
+
+      <!-- Bar Chart starts -->
+      <div class="col-xl-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Bar Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="barChartOptions.series"
+                    [colors]="barChartOptions.colors"
+                    [chart]="barChartOptions.chart"
+                    [xaxis]="barChartOptions.xaxis"
+                    [yaxis]="barChartOptions.yaxis"
+                    [title]="barChartOptions.title"
+                    [dataLabels]="barChartOptions.dataLabels"
+                    [stroke]="barChartOptions.stroke"
+                    [grid]="barChartOptions.grid"
+                    [tooltip]="barChartOptions.tooltip"
+                    [plotOptions]="barChartOptions.plotOptions"
+                    [fill]="barChartOptions.fill"
+                    [legend]="barChartOptions.legend"
+                    [labels]="barChartOptions.labels"
+                    [markers]="barChartOptions.markers"
+                    [theme]="barChartOptions.theme"
+                    [responsive]="barChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Bar Chart ends -->
+  </div>
+
+  <!-- Mixed Chart starts -->
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Mixed Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="mixedChartOptions.series"
+                    [colors]="mixedChartOptions.colors"
+                    [chart]="mixedChartOptions.chart"
+                    [xaxis]="mixedChartOptions.xaxis"
+                    [yaxis]="mixedChartOptions.yaxis"
+                    [title]="mixedChartOptions.title"
+                    [dataLabels]="mixedChartOptions.dataLabels"
+                    [stroke]="mixedChartOptions.stroke"
+                    [grid]="mixedChartOptions.grid"
+                    [tooltip]="mixedChartOptions.tooltip"
+                    [plotOptions]="mixedChartOptions.plotOptions"
+                    [fill]="mixedChartOptions.fill"
+                    [legend]="mixedChartOptions.legend"
+                    [labels]="mixedChartOptions.labels"
+                    [markers]="mixedChartOptions.markers"
+                    [theme]="mixedChartOptions.theme"
+                    [responsive]="mixedChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Mixed Chart ends -->
+
+  <!-- Candlestick Chart starts -->
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Candlestick Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                      <apx-chart
+                      [series]="candlestickChartOptions.series"
+                      [colors]="candlestickChartOptions.colors"
+                      [chart]="candlestickChartOptions.chart"
+                      [xaxis]="candlestickChartOptions.xaxis"
+                      [yaxis]="candlestickChartOptions.yaxis"
+                      [title]="candlestickChartOptions.title"
+                      [dataLabels]="candlestickChartOptions.dataLabels"
+                      [stroke]="candlestickChartOptions.stroke"
+                      [grid]="candlestickChartOptions.grid"
+                      [tooltip]="candlestickChartOptions.tooltip"
+                      [plotOptions]="candlestickChartOptions.plotOptions"
+                      [fill]="candlestickChartOptions.fill"
+                      [legend]="candlestickChartOptions.legend"
+                      [labels]="candlestickChartOptions.labels"
+                      [markers]="candlestickChartOptions.markers"
+                      [theme]="candlestickChartOptions.theme"
+                      [responsive]="candlestickChartOptions.responsive"
+                    ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Candlestick Chart ends -->
+
+  <div class="row">
+      <!-- 3D Bubble Chart starts -->
+      <div class="col-xl-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">3D Bubble Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="bubbleChartOptions.series"
+                    [colors]="bubbleChartOptions.colors"
+                    [chart]="bubbleChartOptions.chart"
+                    [xaxis]="bubbleChartOptions.xaxis"
+                    [yaxis]="bubbleChartOptions.yaxis"
+                    [title]="bubbleChartOptions.title"
+                    [dataLabels]="bubbleChartOptions.dataLabels"
+                    [stroke]="bubbleChartOptions.stroke"
+                    [grid]="bubbleChartOptions.grid"
+                    [tooltip]="bubbleChartOptions.tooltip"
+                    [plotOptions]="bubbleChartOptions.plotOptions"
+                    [fill]="bubbleChartOptions.fill"
+                    [legend]="bubbleChartOptions.legend"
+                    [labels]="bubbleChartOptions.labels"
+                    [markers]="bubbleChartOptions.markers"
+                    [theme]="bubbleChartOptions.theme"
+                    [responsive]="bubbleChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- 3D Bubble Chart ends -->
+
+      <!-- Scatter Chart starts -->
+      <div class="col-xl-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Scatter Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                      <apx-chart
+                      [series]="scatterChartOptions.series"
+                      [colors]="scatterChartOptions.colors"
+                      [chart]="scatterChartOptions.chart"
+                      [xaxis]="scatterChartOptions.xaxis"
+                      [yaxis]="scatterChartOptions.yaxis"
+                      [title]="scatterChartOptions.title"
+                      [dataLabels]="scatterChartOptions.dataLabels"
+                      [stroke]="scatterChartOptions.stroke"
+                      [grid]="scatterChartOptions.grid"
+                      [tooltip]="scatterChartOptions.tooltip"
+                      [plotOptions]="scatterChartOptions.plotOptions"
+                      [fill]="scatterChartOptions.fill"
+                      [legend]="scatterChartOptions.legend"
+                      [labels]="scatterChartOptions.labels"
+                      [markers]="scatterChartOptions.markers"
+                      [theme]="scatterChartOptions.theme"
+                      [responsive]="scatterChartOptions.responsive"
+                    ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Scatter Chart ends -->
+  </div>
+
+  <!-- Heat Map Chart starts -->
+  <div class="row">
+      <div class="col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Heat Map Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                      <apx-chart
+                      [series]="heatMapChartOptions.series"
+                      [colors]="heatMapChartOptions.colors"
+                      [chart]="heatMapChartOptions.chart"
+                      [xaxis]="heatMapChartOptions.xaxis"
+                      [yaxis]="heatMapChartOptions.yaxis"
+                      [title]="heatMapChartOptions.title"
+                      [dataLabels]="heatMapChartOptions.dataLabels"
+                      [stroke]="heatMapChartOptions.stroke"
+                      [grid]="heatMapChartOptions.grid"
+                      [tooltip]="heatMapChartOptions.tooltip"
+                      [plotOptions]="heatMapChartOptions.plotOptions"
+                      [fill]="heatMapChartOptions.fill"
+                      [legend]="heatMapChartOptions.legend"
+                      [labels]="heatMapChartOptions.labels"
+                      [markers]="heatMapChartOptions.markers"
+                      [theme]="heatMapChartOptions.theme"
+                      [responsive]="heatMapChartOptions.responsive"
+                    ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- Heat Map Chart ends -->
+
+  <div class="row">
+      <!-- Pie Chart starts -->
+      <div class="col-lg-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Pie Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                        <apx-chart
+                        [series]="pieChartOptions.series"
+                        [colors]="pieChartOptions.colors"
+                        [chart]="pieChartOptions.chart"
+                        [xaxis]="pieChartOptions.xaxis"
+                        [yaxis]="pieChartOptions.yaxis"
+                        [title]="pieChartOptions.title"
+                        [dataLabels]="pieChartOptions.dataLabels"
+                        [stroke]="pieChartOptions.stroke"
+                        [grid]="pieChartOptions.grid"
+                        [tooltip]="pieChartOptions.tooltip"
+                        [plotOptions]="pieChartOptions.plotOptions"
+                        [fill]="pieChartOptions.fill"
+                        [legend]="pieChartOptions.legend"
+                        [labels]="pieChartOptions.labels"
+                        [markers]="pieChartOptions.markers"
+                        [theme]="pieChartOptions.theme"
+                        [responsive]="pieChartOptions.responsive"
+                      ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Pie Chart ends -->
+
+      <!-- Donut Chart starts -->
+      <div class="col-lg-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Donut Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                        <apx-chart
+                        [series]="donutChartOptions.series"
+                        [colors]="donutChartOptions.colors"
+                        [chart]="donutChartOptions.chart"
+                        [xaxis]="donutChartOptions.xaxis"
+                        [yaxis]="donutChartOptions.yaxis"
+                        [title]="donutChartOptions.title"
+                        [dataLabels]="donutChartOptions.dataLabels"
+                        [stroke]="donutChartOptions.stroke"
+                        [grid]="donutChartOptions.grid"
+                        [tooltip]="donutChartOptions.tooltip"
+                        [plotOptions]="donutChartOptions.plotOptions"
+                        [fill]="donutChartOptions.fill"
+                        [legend]="donutChartOptions.legend"
+                        [labels]="donutChartOptions.labels"
+                        [markers]="donutChartOptions.markers"
+                        [theme]="donutChartOptions.theme"
+                        [responsive]="donutChartOptions.responsive"
+                      ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Donut Chart ends -->
+  </div>
+
+  <div class="row">
+      <!-- Radial Bar Chart starts -->
+      <div class="col-lg-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Radial Bar Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                      <apx-chart
+                        [series]="radialBarChartOptions.series"
+                        [colors]="radialBarChartOptions.colors"
+                        [chart]="radialBarChartOptions.chart"
+                        [xaxis]="radialBarChartOptions.xaxis"
+                        [yaxis]="radialBarChartOptions.yaxis"
+                        [title]="radialBarChartOptions.title"
+                        [dataLabels]="radialBarChartOptions.dataLabels"
+                        [stroke]="radialBarChartOptions.stroke"
+                        [grid]="radialBarChartOptions.grid"
+                        [tooltip]="radialBarChartOptions.tooltip"
+                        [plotOptions]="radialBarChartOptions.plotOptions"
+                        [fill]="radialBarChartOptions.fill"
+                        [legend]="radialBarChartOptions.legend"
+                        [labels]="radialBarChartOptions.labels"
+                        [markers]="radialBarChartOptions.markers"
+                        [theme]="radialBarChartOptions.theme"
+                        [responsive]="radialBarChartOptions.responsive"
+                      ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Radial Bar Chart ends -->
+
+      <!-- Radar Chart starts -->
+      <div class="col-lg-6 col-12">
+          <div class="card">
+              <div class="card-header">
+                  <h4 class="card-title">Radar Chart</h4>
+              </div>
+              <div class="card-content">
+                  <div class="card-body">
+                    <apx-chart
+                    [series]="radarChartOptions.series"
+                    [colors]="radarChartOptions.colors"
+                    [chart]="radarChartOptions.chart"
+                    [xaxis]="radarChartOptions.xaxis"
+                    [yaxis]="radarChartOptions.yaxis"
+                    [title]="radarChartOptions.title"
+                    [dataLabels]="radarChartOptions.dataLabels"
+                    [stroke]="radarChartOptions.stroke"
+                    [grid]="radarChartOptions.grid"
+                    [tooltip]="radarChartOptions.tooltip"
+                    [plotOptions]="radarChartOptions.plotOptions"
+                    [fill]="radarChartOptions.fill"
+                    [legend]="radarChartOptions.legend"
+                    [labels]="radarChartOptions.labels"
+                    [markers]="radarChartOptions.markers"
+                    [theme]="radarChartOptions.theme"
+                    [responsive]="radarChartOptions.responsive"
+                  ></apx-chart>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <!-- Radar Chart ends -->
+  </div>
+</section>

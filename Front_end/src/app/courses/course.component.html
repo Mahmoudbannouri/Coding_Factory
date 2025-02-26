@@ -1,0 +1,118 @@
+<div class="course-container">
+  <!-- Search Input and Filters -->
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..." class="search-input" (ngModelChange)="filterCourses()">
+    <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="filterCourses()">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categoryEnum | keyvalue" [value]="category.value">
+        {{ category.value }}
+      </option>
+    </select>
+  </div>
+
+  <!-- No Courses Available -->
+  <div *ngIf="filteredCourses.length === 0">
+    <p>No courses available.</p>
+  </div>
+
+  <!-- Add New Course Modal -->
+  <app-add-course-modal
+    [showModal]="showModal"
+    (showModalChange)="showModal = $event"
+    (courseAdded)="onCourseAdded($event)">
+  </app-add-course-modal>
+
+  <!-- Edit Course Modal -->
+  <app-edit-course-modal
+    [showModal]="showEditModal"
+    [courseId]="selectedCourse?.id"
+    (showModalChange)="showEditModal = $event"
+    (courseUpdated)="onCourseUpdated($event)">
+  </app-edit-course-modal>
+
+  <!-- All Courses Section -->
+  <div *ngIf="filteredCourses.length > 0">
+    <h3>All Courses</h3>
+    <div class="course-cards-container">
+      <div *ngFor="let course of getPaginatedCourses(); let i = index" class="course-card">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">{{ course.title }}</h4>
+            <p><strong>Created by:</strong> {{ course.trainer?.name }}</p>
+          </div>
+          <div class="card-content">
+            <a [href]="course.link" target="_blank">
+              <img *ngIf="course.image" [src]="getFile(course.image)" alt="Course Image" width="200">
+            </a>
+            <div class="card-body">
+              <p><strong>Description:</strong> {{ course.description }}</p>
+              <p><strong>Level:</strong> {{ course.level }}</p>
+              <p class="badge">{{ course.categoryCourse }}</p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button (click)="openResourcesModal(course)" class="btn-primary round">
+              <span class="icon">📦</span>Resources
+            </button>
+            <button (click)="openAddResourceModal(course)" class="btn-secondary round">
+              <span class="icon" style="color: white;">➕</span>Add Resource
+            </button>
+            <button (click)="deleteCourse(course.id)" class="btn-danger round">
+              <span class="icon">🗑️</span> Delete
+            </button>
+            <button (click)="openEditModal(course)" class="btn-warning round">
+              <span class="icon">✏️</span> Edit
+            </button>
+            <button (click)="openStudentsModal(course)" class="btn-info round">
+              <span class="icon">👥</span> View Students
+            </button>
+            <button (click)="openEnrollModal(course)" class="btn-success round">
+              <span class="icon">👥</span> Enroll Students
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div class="pagination-controls">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === getTotalPages()">Next</button>
+    </div>
+  </div>
+
+  <!-- Add Course Resource Modal -->
+  <app-add-course-resource
+    [showModal]="showAddResourceModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showAddResourceModal = $event"
+    (resourceAdded)="onResourceAdded($event)">
+  </app-add-course-resource>
+
+  <!-- Show Course Resource Modal -->
+  <app-show-course-resource
+    [showModal]="showResourcesModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showResourcesModal = $event"
+    (resourceAdded)="onResourceAdded($event)">
+  </app-show-course-resource>
+
+  <!-- Enroll Students Modal -->
+  <app-enroll-students-modal
+    [showModal]="showEnrollModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showEnrollModal = $event"
+    (studentsEnrolled)="onStudentsEnrolled()">
+  </app-enroll-students-modal>
+
+  <!-- View Students Modal -->
+  <app-show-students-modal
+    [showModal]="showStudentsModal"
+    [students]="enrolledStudents"
+    (showModalChange)="showStudentsModal = $event">
+  </app-show-students-modal>
+
+  <!-- Floating Plus Button -->
+  <button class="floating-plus" (click)="openAddCourseModal()">+</button>
+</div>

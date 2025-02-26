@@ -1,0 +1,182 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Sweet Alerts</div>
+    <p class="content-sub-header mb-1">A beautiful, responsive, customizable, accessible popup boxes</p>
+  </div>
+</div>
+<!-- // Basic example starts -->
+<section id="basic-examples">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Basic Examples</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>SweetAlert automatically centers itself on the page and looks great no matter if you're using a desktop
+              computer, mobile or tablet. It's even highly customizable, as you can see below!</p>
+            <button type="button" class="btn bg-light-primary mr-1 basic-alert mb-1 mb-sm-0"
+              (click)="swal.BasicAlert()">Basic</button>
+            <button type="button" class="btn bg-light-primary mr-1 with-title mb-1 mb-sm-0"
+              (click)="swal.WithTitle()">With Title</button>
+            <button type="button" class="btn bg-light-primary mr-1 footer-alert mb-1 mb-sm-0"
+              (click)="swal.WithFooter()">With Footer</button>
+            <button type="button" class="btn bg-light-primary mr-1 html-alert mb-1 mb-sm-0"
+              (click)="swal.HtmlAlert()">HTML</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- // Basic example end -->
+
+<!-- Sweet alert Positions starts -->
+<section id="sweet-alert-position">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Position</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>You can specify position of your alert with
+              <code>position:  top-start | top-end | bottom-start | bottom-end </code> in TS.</p>
+            <button class="btn bg-light-success mr-1 position-top-start mb-1 mb-md-0"
+              (click)="swal.PositionTopStart()">Top Start</button>
+            <button class="btn bg-light-success mr-1 position-top-end mb-1 mb-md-0" (click)="swal.PositionTopEnd()">Top
+              End</button>
+            <button class="btn bg-light-success mr-1 position-bottom-start mb-1 mb-md-0"
+              (click)="swal.PositionBottomStart()">Bottom Start</button>
+            <button class="btn bg-light-success mr-1 position-bottom-end mb-1 mb-md-0"
+              (click)="swal.PositionBottomEnd()">Bottom End</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Sweet alert Positions ends -->
+
+
+<!-- SweetAlert Animations starts -->
+<section id="sweet-alert-animations">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Animations</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Use <code>customClass</code> parameter to add animation to your alert in TS.</p>
+            <button class="btn bg-light-primary mr-1 bounce-in-animation mb-1 mb-md-0"
+              (click)="swal.BounceInAnimation()">Bounce In</button>
+            <button class="btn bg-light-success mr-1 fade-in-animation mb-1 mb-md-0"
+              (click)="swal.FadeInAnimation()">Fade In</button>
+            <button class="btn bg-light-danger mr-1 flip-x-animation mb-1 mb-md-0" (click)="swal.FlipXAnimation()">Flip
+              In</button>
+            <button class="btn bg-light-info mr-1 tada-animation mb-1 mb-md-0"
+              (click)="swal.TadaAnimation()">Tada</button>
+            <button class="btn bg-light-warning mr-1 shake-animation mb-1 mb-md-0"
+              (click)="swal.ShakeAnimation()">Shake</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- SweetAlert Animations ends -->
+
+<!-- Types section start -->
+<section id="types">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Types</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>SweetAlert comes with 4 built-in types which will show a corresponding icon animation: "success",
+              "error", "info" and "warning". You can also set it as "input" to get a prompt modal. It can either be put
+              in the object under the key "icon" or passed as the third parameter of the function.</p>
+            <button type="button" class="btn bg-light-success mr-1 type-success mb-1 mb-sm-0"
+              (click)="swal.TypeSuccess()">Success</button>
+            <button type="button" class="btn bg-light-danger mr-1 type-error mb-1 mb-sm-0"
+              (click)="swal.TypeError()">Error</button>
+            <button type="button" class="btn bg-light-info mr-1 type-info mb-1 mb-sm-0"
+              (click)="swal.TypeInfo()">Info</button>
+            <button type="button" class="btn bg-light-warning mr-1 type-warning mb-1 mb-sm-0"
+              (click)="swal.TypeWarning()">Warning</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- // Types section end -->
+
+<!-- Options section start -->
+<section id="options">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Options</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <button type="button" class="btn bg-light-primary mr-1 custom-icon mb-1 mb-lg-0"
+              (click)="swal.CustomIcon()">Custom Icon</button>
+            <button type="button" class="btn bg-light-primary mr-1 auto-close mb-1 mb-lg-0"
+              (click)="swal.AutoClose()">Auto Close</button>
+            <button type="button" class="btn bg-light-primary mr-1 outside-click mb-1 mb-lg-0"
+              (click)="swal.OutsideClick()">Click Outside (disabled)</button>
+            <button type="button" class="btn bg-light-primary mr-1 prompt-function mb-1 mb-lg-0"
+              (click)="swal.PromptFunction()">Question</button>
+            <button type="button" class="btn bg-light-primary mr-1 ajax-request mb-1 mb-lg-0"
+              (click)="swal.AjaxRequest()">Ajax</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- // Options section end -->
+
+<!-- Confirm option section start -->
+<section id="confirm-option">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Confirm Options</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-6 col-12 mb-3 mb-md-0">
+                <h6>Confirm Button Text</h6>
+                <p>Use <code>confirmButtonText: "Your text here!"</code> option to change the text of the "Confirm"
+                  button. </p>
+                <button type="button" class="btn bg-light-success confirm-text" (click)="swal.ConfirmText()">Confirm
+                  Text</button>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Confirm Button Color</h6>
+                <p>Use <code>confirmButtonClass</code> option to change the color of the
+                  "Confirm" button. </p>
+                <button type="button" class="btn bg-light-success confirm-color" (click)="swal.ConfirmColor()">Confirm
+                  Button Color</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- // Confirm option section end -->

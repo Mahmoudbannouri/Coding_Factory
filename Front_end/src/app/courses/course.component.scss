@@ -1,0 +1,697 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input,
+.category-dropdown {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus,
+.category-dropdown:focus {
+  border-color: #007bff;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 900px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: modalIn 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Add Course Form */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-content input,
+.modal-content select,
+.modal-content textarea {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.modal-content input:focus,
+.modal-content select:focus,
+.modal-content textarea:focus {
+  border-color: #007bff;
+}
+
+button[type="submit"] {
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.btn-close {
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Course Cards */
+
+
+
+
+
+
+
+
+/* Course Cards */
+.course-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%; /* Ensure consistent height */
+}
+
+.course-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 15px;
+  flex: 1;
+}
+
+/* In your course.component.scss */
+.course-card .card-footer {
+  display: flex;
+  flex-wrap: wrap;  /* Allow buttons to wrap */
+  justify-content: space-between; /* Distribute buttons evenly */
+  gap: 10px; /* Space between buttons */
+}
+
+.course-card .card-footer button {
+  flex: 1 1 30%;  /* Each button takes 30% of the row, allowing up to 3 per row */
+  max-width: 30%;  /* Ensure buttons don't exceed 3 per row */
+  padding: 10px 15px;
+  font-size: 14px;  /* Adjust the font size as needed */
+  text-align: center;  /* Center text inside the button */
+}
+
+@media (max-width: 768px) {
+  .course-card .card-footer button {
+    flex: 1 1 45%;  /* Two buttons per row on medium screens */
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-card .card-footer button {
+    flex: 1 1 100%;  /* One button per row on small screens */
+    max-width: 100%;
+  }
+}
+.course-card .card-footer .btn-secondary .icon {
+  color: #fff; /* Ensure the icon is visible */
+  font-size: 1.5em; /* Increase the icon size */
+}
+
+/* Optional: Give the "Add Resource" button a different background color */
+.course-card .card-footer .btn-secondary {
+  background-color: #4CAF50; /* Green background for the "Add Resource" button */
+  color: white;
+}
+.course-card .card-footer .btn-success {
+  background-color: #80ff00; /* Bright green color for the "Enroll Student" button */
+  color: white; /* Ensure the text is readable */
+}
+
+/* Optional: Change the hover effect for the "Enroll Student" button */
+.course-card .card-footer .btn-success:hover {
+  background-color: #66cc00; /* Slightly darker green on hover */
+}
+
+/* Pagination Controls */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination-controls button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.pagination-controls span {
+  margin: 0 20px;
+  font-size: 16px;
+}
+
+
+/* Floating Plus Button */
+.floating-plus {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.floating-plus:hover {
+  background-color: #0056b3;
+}
+
+.floating-plus:active {
+  transform: scale(0.95);
+}
+
+/* Rating Stars */
+.card-body p span {
+  font-size: 24px;
+  color: #ffd700;
+  animation: starAnimation 0.5s ease-in-out;
+}
+
+@keyframes starAnimation {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+
+
+.bg-success {
+  background-color: #28a745;
+}
+
+.bg-info {
+  background-color: #17a2b8;
+}
+
+.bg-danger {
+  background-color: #dc3545;
+}
+
+.bg-warning {
+  background-color: #ffc107;
+}
+
+.bg-primary {
+  background-color: #007bff;
+}
+
+.bg-secondary {
+  background-color: #6c757d;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .course-cards-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+
+  .course-card {
+    max-width: 100%;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+}
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+/* Search Input and Filters */
+/* Search Container */
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;  /* Adds some space between the input and dropdown */
+}
+
+.search-input,
+.category-dropdown {
+  width: 45%; /* Adjust width for better balance */
+  padding: 12px 15px; /* More padding for a spacious feel */
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 25px; /* Rounder corners for a modern look */
+  outline: none;
+  background-color: #fff; /* White background for clarity */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  transition: all 0.3s ease;
+}
+
+/* Focused State */
+.search-input:focus,
+.category-dropdown:focus {
+  border-color: #80ff00; /* Soft green for a fresh, friendly feel */
+  box-shadow: 0 0 10px rgba(128, 255, 0, 0.5); /* Highlighted focus with a subtle green glow */
+}
+
+/* Placeholder Styling */
+.search-input::placeholder,
+.category-dropdown::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Hover Effect */
+.search-input:hover,
+.category-dropdown:hover {
+  border-color: #007bff; /* Subtle blue hover effect */
+}
+
+
+
+/* Category Dropdown */
+.category-dropdown {
+  font-size: 16px;
+  border-radius: 25px;
+  padding: 12px 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.category-dropdown:focus {
+  border-color: #80ff00;
+  box-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
+}
+
+/* Add a clear button in the search bar for better usability */
+.clear-btn {
+  background-color: #80ff00;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-btn:hover {
+  background-color: #66cc00; /* Darker green on hover */
+}
+
+.clear-btn:focus {
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-input,
+  .category-dropdown {
+    width: 100%;
+  }
+}
+
+
+.search-input:focus, .category-dropdown:focus {
+  border-color: #007bff;
+}
+
+/* Course Cards */
+.course-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.card-footer {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.floating-plus {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.floating-plus:hover {
+  background-color: #0056b3;
+}
+
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.badge {
+  background-color: #80ff00;
+  color: rgb(0, 0, 0);
+  border-radius: 12px;
+  padding: 5px 12px;  /* Adds space between text and edges */
+  font-size: 14px;     /* Adjusts font size */
+  text-align: center;
+  display: inline-block;
+}
+
+/* Category Badge Styling */
+.category-badge {
+  background-color: #007bff; /* Adjust the background color as needed */
+  color: #fff;
+  font-size: 12px; /* Smaller font size */
+  padding: 5px 10px; /* Add spacing between text and edges */
+  border-radius: 20px;
+  display: inline-block;
+  text-align: center;
+  margin-right: 5px; /* Optional: Adds space between multiple badges */
+}
+
+/* Optional: If you have a random category color, you can combine it with this */
+.random-category-color {
+  color: hsl(
+    calc(random(360)), /* Random hue */
+    70%,               /* Saturation */
+    60%                /* Lightness */
+  );
+}
+
+
+/* Category Text Size Control */
+.category-text-size {
+  font-size: 14px; /* Set a smaller font size if needed */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Search Container */
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.search-input,
+.category-dropdown {
+  width: 70%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-input:focus,
+.category-dropdown:focus {
+  border-color: #007bff;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+/* Course Cards */
+.course-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card-header {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+/* Button Styles for the Course Cards */
+.card-footer button {
+  padding: 8px 16px; /* Adjust the padding as needed */
+  font-size: 10px; /* Optional: Adjust the font size to fit better */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-footer button .icon {
+  margin-right: 4px; /* Optional: Adds some space between the icon and text */
+}
+
+.card-footer {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.floating-plus {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.floating-plus:hover {
+  background-color: #0056b3;
+}
+

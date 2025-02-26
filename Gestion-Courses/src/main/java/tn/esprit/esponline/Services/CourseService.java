@@ -3,13 +3,16 @@ package tn.esprit.esponline.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tn.esprit.esponline.DAO.entities.Course;
+import tn.esprit.esponline.DAO.entities.RoleNameEnum;
 import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.DAO.repositories.CourseRepository;
 import tn.esprit.esponline.DAO.repositories.UserRepository;
 import tn.esprit.esponline.Services.ICourseService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService implements ICourseService {
@@ -61,16 +64,32 @@ public class CourseService implements ICourseService {
             Course course = courseOpt.get();
             User student = studentOpt.get();
 
-            course.getStudents().add(student);
-            courseRepository.save(course);
-
-            return course;
+            if (student.getRole().getName() == RoleNameEnum.STUDENT) {
+                if (course.getStudents().contains(student)) {
+                    throw new IllegalArgumentException("Student is already enrolled in this course.");
+                }
+                course.getStudents().add(student);
+                return courseRepository.save(course);
+            }
         }
         return null;
     }
-
+    public List<User> getAllStudents() {
+        return userRepository.findByRoleName(RoleNameEnum.STUDENT);
+    }
     @Override
     public Course findById(Long courseId) {
         return courseRepository.findById(courseId);
     }
+
+    @Override
+    public List<User> getEnrolledStudents(int courseId) {
+        Optional<Course> courseOpt = courseRepository.findById(courseId);
+        if (courseOpt.isPresent()) {
+            Course course = courseOpt.get();
+            return new ArrayList<>(course.getStudents());
+        }
+        return List.of();
+    }
 }
+

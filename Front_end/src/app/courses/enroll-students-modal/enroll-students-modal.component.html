@@ -1,0 +1,23 @@
+<div class="modal" [ngClass]="{ 'show': showModal }">
+  <div class="modal-content">
+    <h3>Enroll Students in {{ selectedCourse?.title }}</h3>
+
+    <div class="student-list">
+      <label for="studentSelect">Search and Select a Student:</label>
+      <ng-select [items]="filteredStudents"
+                 bindLabel="name"
+                 bindValue="id"
+                 [(ngModel)]="selectedStudentId"
+                 (change)="onStudentSelectChange($event)"
+                 [searchable]="true"
+                 placeholder="Search students..."
+                 class="ng-select">
+      </ng-select>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="enrollSelectedStudent()" class="btn-primary">Enroll Selected Student</button>
+      <button (click)="closeModal()" class="btn-secondary">Close</button>
+    </div>
+  </div>
+</div>

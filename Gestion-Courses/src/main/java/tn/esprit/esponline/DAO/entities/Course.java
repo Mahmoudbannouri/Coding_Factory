@@ -31,17 +31,16 @@ public class Course {
     @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
     private String title;
 
+    @Size(min = 1, max = 20, message = "level must be between 1 and 100 characters")
+    @NotNull(message = "Level is required")
+    private String level;
+
     @NotNull(message = "Description is required")
     @Size(min = 1, max = 500, message = "Description must be between 1 and 500 characters")
     private String description;
 
-    @NotNull(message = "Rate is required")
-    @Min(value = 0, message = "Rate must be at least 0")
-    @Max(value = 5, message = "Rate must be at most 5")
-    private int rate;
 
-    private java.sql.Date startDate;
-    private java.sql.Date endDate;
+
 
     @NotNull(message = "image is required")
     private String image;  // Assuming it's a URL to the image or path.
@@ -69,12 +68,10 @@ public class Course {
     )
     private Set<User> students;
 
-    public Course(String title, String description, Date startDate, Date endDate) {
+    public Course(String title, String description,String level) {
         this.title = title;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.rate = 0; // Default value
+        this.level=level;
         this.image = ""; // Default value
     }
 
@@ -100,17 +97,8 @@ public class Course {
         return description;
     }
 
-    public int getRate() {
-        return rate;
-    }
 
-    public Date getStartDate() {
-        return startDate;
-    }
 
-    public Date getEndDate() {
-        return endDate;
-    }
 
     public CategoryEnum getCategoryCourse() {
         return categoryCourse;
@@ -134,6 +122,14 @@ public class Course {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     // Add a constructor with relevant parameters

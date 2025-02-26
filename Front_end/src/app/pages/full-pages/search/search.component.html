@@ -1,0 +1,564 @@
+<section class="search-wrapper">
+  <!-- Search Bar -->
+  <div class="search-bar mt-3">
+    <!-- input search -->
+    <form action="javascript:;">
+      <div class="page-search-input form-group position-relative">
+        <input type="search" class="form-control rounded-right form-control-lg shadow pl-2" id="searchbar"
+          placeholder="Search">
+        <button class="btn btn-primary search-btn rounded position-absolute" type="button">
+          <span class="d-none d-sm-block">Search</span>
+          <i class="ft-search d-block d-sm-none"></i>
+        </button>
+      </div>
+    </form>
+    <!--/ input search -->
+  </div>
+  <div class="row search-menu">
+    <div class="col-12">
+      <!-- search menu tab -->
+      <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>
+            <i class="ft-search mr-1"></i>
+            <span class="d-none d-sm-inline-block">All</span>
+          </a>
+        </li>
+        <li [ngbNavItem]="2">
+          <a ngbNavLink>
+            <i class="ft-image mr-1"></i>
+            <span class="d-none d-sm-inline-block">Images</span>
+          </a>
+        </li>
+        <li [ngbNavItem]="3">
+          <a ngbNavLink>
+            <i class="ft-trending-up mr-1"></i>
+            <span class="d-none d-sm-inline-block">News</span>
+          </a>
+        </li>
+        <li [ngbNavItem]="4">
+          <a ngbNavLink>
+            <i class="ft-video mr-1"></i>
+            <span class="d-none d-sm-inline-block">Videos</span>
+          </a>
+        </li>
+        <li [ngbNavItem]="5">
+          <a ngbNavLink>
+            <i class="ft-edit-2 mr-1"></i>
+            <span class="d-none d-sm-inline-block">Tools</span>
+          </a>
+        </li>
+        <li ngbDropdown class="nav-item">
+          <a href (click)="false" class="nav-link" ngbDropdownToggle>Settings</a>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem>Privacy</button>
+            <button ngbDropdownItem>Filter</button>
+          </div>
+        </li>
+        <li ngbDropdown class="nav-item">
+          <a href (click)="false" class="nav-link" ngbDropdownToggle>More</a>
+          <div ngbDropdownMenu>
+            <button ngbDropdownItem>Image Search</button>
+            <button ngbDropdownItem>Advance Search</button>
+          </div>
+        </li>
+
+      </ul>
+      <!--/ search menu tab -->
+    </div>
+    <div class="col-12">
+      <!-- search data searching speed -->
+      <div class="search-speed mb-1 mt-4">
+        <small class="text-muted">About 133,000,000 results (0.45seconds)</small>
+      </div>
+      <!--/ search data searching speed -->
+    </div>
+  </div>
+  <!-- Search Bar end -->
+
+  <!-- seach result section -->
+  <div class="row">
+    <!--Search Result-->
+    <!-- Search content area -->
+    <div class="col-lg-8 col-md-7 col-12 order-2 order-md-1">
+      <div id="searchResults" class="row search-results">
+        <!-- Web results -->
+        <div class="col-12 web-result">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title cursor-pointer">
+                <a href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/html/ltr/vertical-menu-template/dashboard-analytics.html"
+                  target="_blank">Vuexy HTML Admin Dashboard Template by PIXINVENT</a>
+              </h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p>This resource is also a developer-friendly VueJS admin dashboard templates. If you would like to see
+                  a preview of the coded version you can explore the...</p>
+                <span class="badge bg-light-primary mb-sm-0 mb-1 mr-2">Vuexy</span>
+                <span class="badge bg-light-primary mb-sm-0 mb-1 mr-2">Template</span>
+                <span class="badge bg-light-primary mb-sm-0 mb-1">HTML Admin Template</span>
+              </div>
+              <div class="card-footer border-top d-flex justify-content-between align-items-center">
+                <small class="text-truncate">
+                  <a href="https://1.envato.market/vusax_admin" class="success darken-3"
+                    target="_blank">https://1.envato.market/vusax_admin</a>
+                </small>
+                <i class="ft-more-vertical- font-small-4 cursor-pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="media align-items-center my-2 mx-3">
+            <a href="https://twitter.com/pixinvents" class="pr-3" target="_blank">
+              <img src="assets/img/pages/pixinvent.jpg" alt="pixinvent" class="rounded-circle" height="50" width="50">
+            </a>
+            <div class="media-body d-sm-flex justify-content-between align-items-center">
+              <div class="media-text mb-2 mb-sm-0">
+                <h5 class="mb-1">
+                  <a href="https://twitter.com/pixinvents" target="_blank">PIXINVENT (@Pixinvents) .Twitter</a>
+                </h5>
+                <a href="https://twitter.com/pixinvents" class="success darken-3"
+                  target="_blank">https://twitter.com/pixinvents</a>
+              </div>
+              <div class="media-link">
+                <a href="https://twitter.com/pixinvents" class="btn btn-primary round" target="_blank">Follow</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 web-result">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title cursor-pointer">
+                <a href="https://dribbble.com/shots/6065222-vuexy-Vuejs-Vuejs-Admin-Dashboard-Template"
+                  target="_blank">Vuexy Vuejs - Vuejs Admin Dashboard Template by Anand on Dribbble</a>
+              </h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <div class="meta-data mb-2">
+                  <span class="rating warning align-middle">
+                    <i class="ft-star-on"></i>
+                    <i class="ft-star-on"></i>
+                    <i class="ft-star-on"></i>
+                    <i class="ft-star-on"></i>
+                    <i class="ft-star-on"></i>
+                  </span>
+                  <span class="font-small-2 ml-2">Rating: 5 - ‎49 reviews - ‎Starting from $32.00 (US dollars) - ‎In
+                    stock</span>
+                </div>
+                <p>Feb 22, 2019 - FREE SKETCH & ADOBE XD FILE INCLUDED Vuexy – Vuejs Admin Dashboard Template – is the
+                  most developer friendly & highly customisable VueJS Admin Dashboard Template based on Vue CLI, Vuex &
+                  Vuexy component framework. Vuexy provides unique features like fuzzy search, bookmarks...</p>
+                <span class="badge bg-light-primary mb-sm-0 mb-1 mr-2">Vuexy</span>
+                <span class="badge bg-light-primary mb-sm-0 mb-1">Anand On Dribbble</span>
+              </div>
+              <div class="card-footer border-top d-flex justify-content-between align-items-center">
+                <small class="text-truncate">
+                  <a href="https://dribbble.com/shots/6065222-vuexy-Vuejs-Vuejs-Admin-Dashboard-Template"
+                    class="success darken-3 "
+                    target="_blank">https://dribbble.com/shots/6065222-vuexy-Vuejs-Vuejs-Admin-Dashboard-Template</a>
+                </small>
+                <i class="ft-more-vertical- font-small-4 cursor-pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Video results -->
+        <div class="col-12 video-result mb-2 mt-4">
+          <h4>Video</h4>
+          <div class="video-result-swiper swiper-container py-1" [swiper]="swiperVideoResultConfig">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide rounded">
+                <div class="slide-content">
+                  <a href="https://www.youtube.com/watch?time_continue=8&v=Y2zBqYEJCdw" target="_blank">
+                    <div class="position-relative mb-1">
+                      <img src="assets/img/pages/apex.jpg" alt="apex" class="card-img">
+                      <div class="card-img-overlay overlay-dark rounded">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                          <i class="ft-play-circle font-large-2 text-center"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span>Most developer friendly and highly customizable react - redux & bs4 admin dashboard
+                      template.</span>
+                  </a>
+                </div>
+                <div class="action-link d-flex flex-column mt-3">
+                  <a href="https://www.youtube.com/watch?time_continue=8&v=Y2zBqYEJCdw" target="_blank">Youtube
+                    Results</a>
+                  <small>1 day ago</small>
+                </div>
+              </div>
+              <div class="swiper-slide rounded">
+                <div class="slide-content">
+                  <a href="https://www.youtube.com/watch?v=ik9Nf7idrXY" target="_blank">
+                    <div class="position-relative mb-1">
+                      <img src="assets/img/pages/materialize.jpg" alt="materialize" class="card-img">
+                      <div class="card-img-overlay overlay-dark rounded">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                          <i class="ft-play-circle font-large-2 text-center"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span>#1 Selling & Most Popular Material Design Admin Template of All Time Join The 4,000+ Satisfied
+                      Customers</span>
+                  </a>
+                </div>
+                <div class="action-link d-flex flex-column mt-3">
+                  <a href="https://www.youtube.com/watch?v=ik9Nf7idrXY" target="_blank">More Related</a>
+                  <small>1,769 views </small>
+                </div>
+              </div>
+              <div class="swiper-slide rounded">
+                <div class="slide-content">
+                  <a href="https://www.youtube.com/watch?v=e7QTyzx-lYE" target="_blank">
+                    <div class="position-relative mb-1">
+                      <img src="assets/img/pages/modern.jpg" alt="modern" class="card-img">
+                      <div class="card-img-overlay overlay-dark rounded">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                          <i class="ft-play-circle font-large-2 text-center"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span>Modern Admin the most complete & feature packed bootstrap 4 admin template of 2019!</span>
+                  </a>
+                </div>
+                <div class="action-link d-flex flex-column mt-3">
+                  <a href="https://www.youtube.com/watch?v=e7QTyzx-lYE" target="_blank">Youtube Results</a>
+                  <small>4 Year ago</small>
+                </div>
+              </div>
+              <div class="swiper-slide rounded">
+                <div class="slide-content">
+                  <a href="https://www.youtube.com/watch?v=4irB7FBO3j8" target="_blank">
+                    <div class="position-relative mb-1">
+                      <img src="assets/img/pages/stack.jpg" alt="stack" class="card-img">
+                      <div class="card-img-overlay overlay-dark rounded">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                          <i class="ft-play-circle font-large-2 text-center"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span>Stack Admin Ultimate Bootstrap 4 Admin Template for Next Generation Applications.</span>
+                  </a>
+                </div>
+                <div class="action-link d-flex flex-column mt-3">
+                  <a href="https://www.youtube.com/watch?v=4irB7FBO3j8" target="_blank">Youtube Results</a>
+                  <small>1 Month ago</small>
+                </div>
+              </div>
+              <div class="swiper-slide rounded">
+                <div class="slide-content">
+                  <a href="https://www.youtube.com/watch?v=xBa6ma7F_VA" target="_blank">
+                    <div class="position-relative mb-1">
+                      <img src="assets/img/pages/vuexy.jpg" alt="vuexy" class="card-img">
+                      <div class="card-img-overlay overlay-dark rounded">
+                        <div class="d-flex justify-content-center align-items-center h-100">
+                          <i class="ft-play-circle font-large-2 text-center"></i>
+                        </div>
+                      </div>
+                    </div>
+                    <span>The most developer friendly & highly customisable VueJS + HTML5 Admin & Dashboard Template of
+                      2019!</span>
+                  </a>
+                </div>
+                <div class="action-link d-flex flex-column mt-3">
+                  <a href="https://www.youtube.com/watch?v=xBa6ma7F_VA" target="_blank">Youtube Results</a>
+                  <small>3 Month ago</small>
+                </div>
+              </div>
+            </div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+        </div>
+        <!-- Web results -->
+        <div class="col-12 web-result">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title cursor-pointer">
+                <a href="https://getbootstrap.com/docs/4.4/getting-started/introduction/" target="_blank">Getting
+                  Started | Bootstrap</a>
+              </h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p class="m-0">Get started with Bootstrap, the world’s most popular framework for building responsive,
+                  mobile-first sites.</p>
+              </div>
+              <div class="card-footer border-top d-flex justify-content-between align-items-center">
+                <small class="text-truncate">
+                  <a href="https://getbootstrap.com/docs/4.4/getting-started/introduction/" class="success darken-3"
+                    target="_blank">https://getbootstrap.com/docs/4.4/getting-started/introduction/</a>
+                </small>
+                <i class="ft-more-vertical- font-small-4 cursor-pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 web-result">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title cursor-pointer">
+                <a href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/"
+                  target="_blank">Introduction | Vuexy Admin Documentation - Pixinvent</a>
+              </h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p class="m-0">Vuexy VueJS. The most developer friendly & highly customisable VueJS + HTML5 Admin &
+                  Dashboard Template of 2019</p>
+              </div>
+              <div class="card-footer border-top d-flex justify-content-between align-items-center">
+                <small class="text-truncate">
+                  <a href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/"
+                    class="success darken-3"
+                    target="_blank">https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/</a>
+                </small>
+                <i class="ft-more-vertical- font-small-4 cursor-pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 web-result">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title cursor-pointer">
+                <a href="https://www.uplabs.com/posts/vuesax-vuejs-vuejs-admin-dashboard-template" target="_blank">Vuexy
+                  Vuejs - Vuejs Admin Dashboard Template - UpLabs</a>
+              </h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <p class="m-0">FREE SKETCH, ADOBE XD & FIGMA FILE INCLUDED Vuexy – Vuejs Admin Dashboard Template – is
+                  the most
+                  developer friendly & highly customisable...</p>
+              </div>
+              <div class="card-footer border-top d-flex justify-content-between align-items-center">
+                <small class="text-truncate">
+                  <a href="https://www.uplabs.com/posts/vuesax-vuejs-vuejs-admin-dashboard-template"
+                    class="success darken-3"
+                    target="_blank">https://www.uplabs.com/posts/vuesax-vuejs-vuejs-admin-dashboard-template</a>
+                </small>
+                <i class="ft-more-vertical- font-small-4 cursor-pointer"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Image results -->
+        <div class="col-12 image-result">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">People also search for</h4>
+            </div>
+            <div class="card-content">
+              <div class="card-body">
+                <div class="row text-center">
+                  <div class="col-lg-2 col-sm-4 col-6">
+                    <div class="suggestion mb-lg-0 mb-1">
+                      <a href="https://1.envato.market/apex_admin" target="_blank">
+                        <img src="assets/img/pages/1-apex.png" alt="Image description" height="40" width="40">
+                        <span class="font-small-2 mt-2 d-block">Apex</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 col-6">
+                    <div class="suggestion mb-lg-0 mb-1">
+                      <a href="https://1.envato.market/stack_admin" target="_blank">
+                        <img src="assets/img/pages/2-stack.png" alt="Image description" height="40" width="40">
+                        <span class="font-small-2 mt-2 d-block">Stack</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 col-6">
+                    <div class="suggestion mb-lg-0 mb-1">
+                      <a href="https://1.envato.market/convex_html_admin" target="_blank">
+                        <img src="assets/img/pages/3-convex.png" alt="Image description" height="40" width="40">
+                        <span class="font-small-2 mt-2 d-block">Convex</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 col-6">
+                    <div class="suggestion mb-lg-0 mb-1">
+                      <a href="https://1.envato.market/materialize_admin" target="_blank">
+                        <img src="assets/img/pages/4-materialize.png" alt="Image description" height="40" width="40">
+                        <span class="font-small-2 mt-2 d-block">Materialize</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 col-6">
+                    <div class="suggestion mb-lg-0 mb-1">
+                      <a href="https://1.envato.market/modern_admin" target="_blank">
+                        <img src="assets/img/pages/modern-thumbnail.png" alt="Image description" height="40" width="40">
+                        <span class="font-small-2 mt-2 d-block">Modern</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-lg-2 col-sm-4 col-6">
+                    <div class="suggestion mb-lg-0 mb-1">
+                      <a href="https://1.envato.market/vusax_admin" target="_blank">
+                        <img src="assets/img/pages/thumbnail.png" alt="Image description" height="40" width="40">
+                        <span class="font-small-2 mt-2 d-block">Vuexy</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Related Links -->
+        <div class="col-12 search-option my-2">
+          <h4>Searches related to apex</h4>
+          <div class="row">
+            <div class="col-sm-6 col-12 my-2">
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">clean and minimal admin</span>
+                </a>
+              </p>
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">dashboard</span>
+                </a>
+              </p>
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">Template download</span>
+                </a>
+              </p>
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">download</span>
+                </a>
+              </p>
+            </div>
+            <div class="col-sm-6 col-12 my-2">
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">dashboard template</span>
+                </a>
+              </p>
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">admin dashboard template</span>
+                </a>
+              </p>
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">template</span>
+                </a>
+              </p>
+              <p class="mb-1">
+                <a href="javascript:;">
+                  <span class="cursor-pointer">apex admin </span>
+                  <span class="text-bold-500 cursor-pointer">tutorial</span>
+                </a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--Pagination -->
+        <div class="col-12 search-pagination">
+          <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+              <li class="page-item"><a class="page-link" href="javascript:;" aria-label="Previous">«</a></li>
+              <li class="page-item active"><a class="page-link" href="javascript:;">1</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:;">2</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:;">3</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:;">4</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:;">5</a></li>
+              <li class="page-item"><a class="page-link" href="javascript:;" aria-label="Next">»</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+    <!--/ Search content area -->
+    <!-- Search Sidebar area -->
+    <div class="col-lg-4 col-md-5 col-12 order-1 order-md-2">
+      <div class="card box-search">
+        <div class="card-body">
+          <div class="text-center">
+            <img class="img-fluid rounded" src="assets/img/pages/vuexy-banner.jpg" alt="logo">
+          </div>
+          <h5 class="mt-3">Vuexy HTML Admin Dashboard Template</h5>
+          <small>Clean Bootstrap 4 Dashboard HTML Template</small>
+          <p class="mt-1">
+            <a href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/landing/" class="align-middle"
+              target="_blank">
+              <i class="ft-external-link mr-1 align-middle"></i>
+              <span>View on Themeforest</span>
+            </a>
+          </p>
+          <p>If you’re a developer looking for an admin dashboard that is made with you in mind, look no further than
+            Vuexy. A powerful admin dashboard template built on Vue.js. Vuexy is developer-friendly, rich with features
+            and highly customizable.</p>
+          <div class="row knowledge-panel text-center mb-1">
+            <div class="col border-right">
+              <p class="mb-0">5,587</p>
+              <small>Sales</small>
+            </div>
+            <div class="col border-right">
+              <p class="mb-0">367</p>
+              <small>Comments</small>
+            </div>
+            <div class="col d-inline-block">
+              <p class="mb-0">5</p>
+              <small>Ratings</small>
+            </div>
+          </div>
+          <div class="py-1 knowledge-panel-info">
+            <ul class="list-unstyled">
+              <li class="pb-1">Bootstrap : <span class="text-bold-500">v4.3.1</span></li>
+              <li class="pb-1">Created : <span class="text-bold-500">Mar 8 2019</span></li>
+              <li class="pb-1">Last Update : <span class="text-bold-500">April 7 2020</span></li>
+              <li class="pb-1">Documentation : <span class="text-bold-500">Well Documented</span></li>
+              <li class="pb-1">Layout : <span class="text-bold-500">Responsive</span></li>
+            </ul>
+          </div>
+          <h6>Connect With Us</h6>
+          <div class="knowledge-panel-suggestion">
+            <div class="suggestion d-inline-block text-center mr-2">
+              <a href="https://www.facebook.com/pixinvents" target="_blank">
+                <i class="ft-facebook font-medium-5"></i>
+                <span class="font-small-2 d-block">Facebook</span>
+              </a>
+            </div>
+            <div class="suggestion d-inline-block text-center mr-2">
+              <a href="https://www.linkedin.com/in/pixinvent-creative-studio-561a4713b/" target="_blank">
+                <i class="ft-linkedin font-medium-5"></i>
+                <span class="font-small-2 d-block">Linkedin</span>
+              </a>
+            </div>
+            <div class="suggestion d-inline-block text-center mr-2">
+              <a href="https://twitter.com/pixinvents" target="_blank">
+                <i class="ft-twitter font-medium-5"></i>
+                <span class="font-small-2 d-block">Twitter</span>
+              </a>
+            </div>
+            <div class="suggestion d-inline-block text-center">
+              <a href="https://www.youtube.com/channel/UClOcB3o1goJ293ri_Hxpklg" target="_blank">
+                <i class="ft-youtube font-medium-5"></i>
+                <span class="font-small-2 d-block">Youtube</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--/ Search Sidebar area -->
+  </div>
+</section>
+<!--/ Search result section -->

@@ -1,0 +1,392 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Account Settings</div>
+    <p class="content-sub-header mb-1">Configure account settings to your needs.</p>
+  </div>
+</div>
+<!-- Account Settings starts -->
+<div class="row">
+  <div class="col-md-3 mt-3">
+    <!-- Nav tabs -->
+    <ul class="nav flex-column nav-pills" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'general'}"
+          (click)="setActiveTab('general')" id="general-tab" data-toggle="tab" role="tab" aria-controls="general"
+          aria-selected="true">
+          <i class="ft-settings mr-1 align-middle"></i>
+          <span class="align-middle">General</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'change-password'}"
+          (click)="setActiveTab('change-password')" id="change-password-tab" data-toggle="tab" role="tab"
+          aria-controls="change-password" aria-selected="false">
+          <i class="ft-lock mr-1 align-middle"></i>
+          <span class="align-middle">Change Password</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'info'}"
+          (click)="setActiveTab('info')" id="info-tab" data-toggle="tab" role="tab" aria-controls="info"
+          aria-selected="false">
+          <i class="ft-info mr-1 align-middle"></i>
+          <span class="align-middle">Info</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'social-links'}"
+          (click)="setActiveTab('social-links')" id="social-links-tab" data-toggle="tab" role="tab"
+          aria-controls="social-links" aria-selected="false">
+          <i class="ft-twitter mr-1 align-middle"></i>
+          <span class="align-middle">Social Links</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'connections'}"
+          (click)="setActiveTab('connections')" id="connections-tab" data-toggle="tab" role="tab"
+          aria-controls="connections" aria-selected="false">
+          <i class="ft-link mr-1 align-middle"></i>
+          <span class="align-middle">Connections</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="javascript:;" [ngClass]="{active: activeTab === 'notifications'}"
+          (click)="setActiveTab('notifications')" id="notifications-tab" data-toggle="tab" role="tab"
+          aria-controls="notifications" aria-selected="false">
+          <i class="ft-bell mr-1 align-middle"></i>
+          <span class="align-middle">Notifications</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-9">
+    <!-- Tab panes -->
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="tab-content">
+            <!-- General Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'general'}" id="general" role="tabpanel"
+              aria-labelledby="general-tab">
+              <div class="media">
+                <img src="assets/img/portrait/small/avatar-s-8.png" alt="profile-img" class="rounded mr-3" height="64"
+                  width="64">
+                <div class="media-body">
+                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-start px-0 mb-sm-2">
+                    <label class="btn btn-sm bg-light-primary mb-sm-0" for="select-files">Upload Photo</label>
+                    <input type="file" id="select-files" hidden>
+                    <button class="btn btn-sm bg-light-secondary ml-sm-2">Reset</button>
+                  </div>
+                  <p class="text-muted mb-0 mt-1 mt-sm-0">
+                    <small>Allowed JPG, GIF or PNG. Max size of 800kB</small>
+                  </p>
+                </div>
+              </div>
+              <hr class="mt-1 mt-sm-2">
+              <form [formGroup]="generalForm" (ngSubmit)="onGeneralFormSubmit()">
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="username">Username</label>
+                    <div class="controls">
+                      <input type="text" formControlName="username" class="form-control" placeholder="Username"
+                        [ngClass]="{ 'is-invalid': generalFormSubmitted && gf.username.invalid, 'is-valid': generalFormSubmitted && !gf.username.invalid }"
+                        required>
+                      <div *ngIf="generalFormSubmitted && (gf.username.invalid || gf.username.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
+                    </div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="name">Name</label>
+                    <div class="controls">
+                      <input type="text" formControlName="name" class="form-control" placeholder="Name"
+                        [ngClass]="{ 'is-invalid': generalFormSubmitted && gf.name.invalid, 'is-valid': generalFormSubmitted && !gf.name.invalid }"
+                        required>
+                      <div *ngIf="generalFormSubmitted && (gf.name.invalid || gf.name.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
+                    </div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="email">E-mail</label>
+                    <div class="controls">
+                      <input type="text" formControlName="email" class="form-control" placeholder="E-mail"
+                        [ngClass]="{ 'is-invalid': generalFormSubmitted && gf.email.invalid, 'is-valid': generalFormSubmitted && !gf.email.invalid }"
+                        required>
+                      <div *ngIf="generalFormSubmitted && (gf.email.invalid || gf.email.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <ngb-alert type="light-warning" class="mb-2" *ngIf="alertVisible" (close)="alertVisible = false">
+                      <p class="mb-0">Your email is not confirmed. Please check your inbox.</p>
+                      <a href="javascript:;" class="font-weight-bold text-warning">Resend confirmation</a>
+                    </ngb-alert>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="company">Company</label>
+                    <div class="controls">
+                      <input type="text" formControlName="company" class="form-control" placeholder="Company Name"
+                        aria-invalid="false"
+                        [ngClass]="{ 'is-invalid': generalFormSubmitted && gf.company.invalid, 'is-valid': generalFormSubmitted && !gf.company.invalid }"
+                        required>
+                      <div *ngIf="generalFormSubmitted && (gf.company.invalid || gf.company.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
+                    </div>
+                  </div>
+                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                    <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
+                    <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Change Password Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'change-password'}" id="change-password"
+              role="tabpanel" aria-labelledby="change-password-tab">
+              <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordFormSubmit()">
+                <div class="form-group">
+                  <label for="old-password">Old Password</label>
+                  <div class="controls">
+                    <input type="password" formControlName="oldPassword" class="form-control" placeholder="Old Password"
+                      [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.oldPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.oldPassword.invalid }"
+                      required>
+                    <div
+                      *ngIf="changePasswordFormSubmitted && (cpf.oldPassword.invalid || cpf.oldPassword.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="new-password">New Password</label>
+                  <div class="controls">
+                    <input type="password" formControlName="newPassword" class="form-control" placeholder="New Password"
+                      [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.newPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.newPassword.invalid }"
+                      required>
+                    <div
+                      *ngIf="changePasswordFormSubmitted && (cpf.newPassword.invalid || cpf.newPassword.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="retype-new-password">Retype New Password</label>
+                  <div class="controls">
+                    <input type="password" formControlName="retypeNewPassword" class="form-control"
+                      placeholder="New Password"
+                      [ngClass]="{ 'is-invalid': changePasswordFormSubmitted && cpf.retypeNewPassword.invalid, 'is-valid': changePasswordFormSubmitted && !cpf.retypeNewPassword.invalid }"
+                      required>
+                    <div
+                      *ngIf="changePasswordFormSubmitted && (cpf.retypeNewPassword.invalid || cpf.retypeNewPassword.errors?.required)"
+                      class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is required
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex flex-sm-row flex-column justify-content-end">
+                  <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
+                  <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Info Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'info'}" id="info" role="tabpanel"
+              aria-labelledby="info-tab">
+              <form [formGroup]="infoForm" (ngSubmit)="onInfoFormSubmit()">
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="bio">Bio</label>
+                    <textarea formControlName="bio" class="form-control" placeholder="Your Bio data here..."
+                      rows="3"></textarea>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="bdate">Birth Date</label>
+                    <div class="controls">
+                      <input ngbDatepicker (click)="datePicker.toggle()" #datePicker="ngbDatepicker"
+                        formControlName="bdate" type="text" class="form-control pickadate" required
+                        [ngClass]="{ 'is-invalid': infoFormSubmitted && inf.bdate.invalid, 'is-valid': infoFormSubmitted && !inf.bdate.invalid }"
+                        placeholder="Birth date">
+                      <div *ngIf="infoFormSubmitted && (inf.bdate.invalid || inf.bdate.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
+                    </div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="country">Country</label>
+                    <div class="controls">
+                      <ng-select [items]="countries" bindLabel="name" placeholder="Select country">
+                      </ng-select>
+                    </div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="languages">Languages</label>
+                    <ng-select [multiple]="true" [(ngModel)]="selectedLanguages" [ngModelOptions]="{standalone: true}">
+                      <ng-option *ngFor="let language of languages" [value]="language.value">{{language.name}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="phone">Phone</label>
+                    <div class="controls">
+                      <input formControlName="phone" type="text" class="form-control" required
+                        placeholder="Phone number"
+                        [ngClass]="{ 'is-invalid': infoFormSubmitted && inf.phone.invalid, 'is-valid': infoFormSubmitted && !inf.phone.invalid }"
+                        value="(+656) 254 2568">
+                      <div *ngIf="infoFormSubmitted && (inf.phone.invalid || inf.phone.errors?.required)"
+                        class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
+                        required</div>
+                    </div>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="website">Website</label>
+                    <input formControlName="website" type="text" class="form-control" placeholder="Website Address">
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="music">Favourite Music</label>
+                    <ng-select [multiple]="true" [(ngModel)]="selectedMusic" [ngModelOptions]="{standalone: true}">
+                      <ng-option *ngFor="let m of music" [value]="m.value">{{m.name}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="movies">Favourite Movies</label>
+                    <ng-select [multiple]="true" [(ngModel)]="selectedMovies" [ngModelOptions]="{standalone: true}">
+                      <ng-option *ngFor="let movie of movies" [value]="movie.value">{{movie.name}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                    <button type="submit" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
+                    <button type="reset" class="btn btn-secondary mb-1">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Social Links Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'social-links'}" id="social-links" role="tabpanel"
+              aria-labelledby="social-links-tab">
+              <form [formGroup]="socialForm" (ngSubmit)="onSocialFormSubmit()">
+                <div class="row">
+                  <div class="col-12 form-group">
+                    <label for="twitter">Twitter</label>
+                    <input formControlName="twitter" type="text" class="form-control" placeholder="Add link"
+                      value="https://www.twitter.com">
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="facebook">Facebook</label>
+                    <input formControlName="facebook" type="text" class="form-control" placeholder="Add link">
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="google+">Google+</label>
+                    <input formControlName="googlePlus" type="text" class="form-control" placeholder="Add link">
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="linkedin">Linkedin</label>
+                    <input formControlName="linkedin" type="text" class="form-control" placeholder="Add link"
+                      value="https://www.linkedin.com">
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="instagram">Instagram</label>
+                    <input formControlName="instagram" type="text" class="form-control" placeholder="Add link">
+                  </div>
+                  <div class="col-12 form-group">
+                    <label for="quora">Quora</label>
+                    <input formControlName="quora" type="text" class="form-control" placeholder="Add link">
+                  </div>
+                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                    <button type="button" class="btn btn-primary mr-sm-2 mb-1">Save Changes</button>
+                    <button type="button" class="btn btn-secondary mb-1">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Connections Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'connections'}" id="connections" role="tabpanel"
+              aria-labelledby="connections-tab">
+              <form novalidate>
+                <div class="row">
+                  <div class="col-12 my-2">
+                    <button type="button" class="btn btn-info">Connect to <strong>Twitter</strong></button>
+                  </div>
+                  <div class="col-12 my-2">
+                    <button type="button" class=" btn btn-sm btn-secondary float-right">edit</button>
+                    <h6>You are connected to facebook.</h6>
+                    <p>johndoe@gmail.com</p>
+                  </div>
+                  <div class="col-12 my-2">
+                    <button type="button" class="btn btn-danger">Connect to <strong>Google</strong></button>
+                  </div>
+                  <div class="col-12 my-2">
+                    <button type="button" class=" btn btn-sm btn-secondary float-right">edit</button>
+                    <h6>You are connected to Instagram.</h6>
+                    <p>johndoe@gmail.com</p>
+                  </div>
+                  <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                    <button type="button" class="btn btn-primary mr-sm-2 mb-1">Save changes</button>
+                    <button type="button" class="btn btn-secondary mb-1">Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Notifications Tab -->
+            <div class="tab-pane" [ngClass]="{active: activeTab === 'notifications'}" id="notifications" role="tabpanel"
+              aria-labelledby="notifications-tab">
+              <div class="row">
+                <h6 class="col-12 text-bold-400 pl-0">Activity</h6>
+                <div class="col-12 mb-2">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input id="switch1" type="checkbox" class="custom-control-input" checked>
+                    <label for="switch1" class="custom-control-label">Email me when someone comments on my
+                      article</label>
+                  </div>
+                </div>
+                <div class="col-12 mb-2">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input id="switch2" type="checkbox" class="custom-control-input" checked>
+                    <label for="switch2" class="custom-control-label">Email me when someone answers on my form</label>
+                  </div>
+                </div>
+                <div class="col-12 mb-2">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input id="switch3" type="checkbox" class="custom-control-input" disabled>
+                    <label for="switch3" class="custom-control-label">Email me when someone follows me</label>
+                  </div>
+                </div>
+                <h6 class="col-12 text-bold-400 pl-0 mt-3">Application</h6>
+                <div class="col-12 mb-2">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input id="switch4" type="checkbox" class="custom-control-input" checked>
+                    <label for="switch4" class="custom-control-label">News and announcements</label>
+                  </div>
+                </div>
+                <div class="col-12 mb-2">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input id="switch5" type="checkbox" class="custom-control-input" disabled>
+                    <label for="switch5" class="custom-control-label">Weekly product updates</label>
+                  </div>
+                </div>
+                <div class="col-12 mb-2">
+                  <div class="custom-control custom-switch custom-control-inline">
+                    <input id="switch6" type="checkbox" class="custom-control-input" checked>
+                    <label for="switch6" class="custom-control-label">Weekly blog digest</label>
+                  </div>
+                </div>
+                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                  <button type="button" class="btn btn-primary mr-sm-2 mb-1">Save changes</button>
+                  <button type="button" class="btn btn-secondary mb-1">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Account Settings ends -->

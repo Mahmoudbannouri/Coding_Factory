@@ -1,0 +1,147 @@
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: auto;
+  transition: opacity 0.3s ease;
+}
+
+/* Search Bar */
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  transition: background-color 0.3s;
+}
+
+.search-bar:focus {
+  background-color: #e0e0e0;
+}
+
+/* Modal Content */
+.modal-content {
+  background: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 900px;
+  width: 90%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: modalIn 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Resource Header */
+.resource-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.resource-header button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #ff9800; /* New Button Color */
+  color: white;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.resource-header button:hover {
+  background-color: #f57c00;
+  transform: scale(1.05);
+}
+
+.resource-header button i {
+  margin-right: 8px; /* Space between the icon and title */
+}
+
+/* Trashcan Icon Button */
+.delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.delete-btn:hover {
+  transform: scale(1.2);
+}
+
+.delete-btn i {
+  font-size: 18px;
+  color: #d32f2f;
+}
+
+/* Resource Details */
+.resource-details {
+  margin-top: 15px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.resource-details:hover {
+  background-color: #f1f1f1;
+}
+
+/* Resource Media */
+.resource-media {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.resource-video,
+.resource-document {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.document-frame {
+  width: 90%;
+  height: 500px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin: 0 auto;
+}
+
+/* Close Button */
+.btn-close {
+  padding: 12px 25px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #e53935;
+  transition: background-color 0.3s ease;
+}
+
+.btn-close:hover {
+  background-color: #d32f2f;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}

@@ -1,0 +1,49 @@
+<div class="modal" [ngClass]="{ 'show': showModal }">
+  <div class="modal-content">
+    <h3>Resources for {{ selectedCourse?.title }}</h3>
+
+    <!-- Search Bar -->
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Search resources..."
+      class="search-bar"
+    />
+
+    <div *ngFor="let resource of filteredResources" class="resource-card">
+      <div class="resource-header">
+        <!-- Resource Dropdown Button -->
+        <button (click)="toggleResourceDetails(resource)" class="resource-btn">
+          <i class="fas fa-archive"></i> <!-- Archive Icon -->
+          {{ resource.title }}
+          <span *ngIf="expandedResource?.id === resource.id">▼</span>
+          <span *ngIf="expandedResource?.id !== resource.id">▶</span>
+        </button>
+
+        <!-- Delete Button (Same Size) -->
+        <button (click)="deleteResource(resource.id)" class="resource-btn delete-btn">
+          🗑️ Delete
+        </button>
+      </div>
+
+      <div *ngIf="expandedResource?.id === resource.id" class="resource-details">
+        <p><strong>Description:</strong> {{ resource.description }}</p>
+
+        <div class="resource-media">
+          <div class="resource-video" *ngIf="resource.link_video">
+            <video width="100%" controls>
+              <source [src]="resource.link_video" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+          <div class="resource-document" *ngIf="resource.link_doccument">
+            <iframe [src]="getDocumentUrl(resource.link_doccument)" class="document-frame"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button (click)="closeModal()" class="btn-danger btn-close">Close</button>
+  </div>
+</div>
