@@ -63,6 +63,9 @@
             <button (click)="openEditModal(course)" class="btn-warning round">
               <span class="icon">✏️</span> Edit
             </button>
+            <button (click)="openStudentsModal(course)" class="btn-info round">
+              <span class="icon">👥</span> View Students
+            </button>
             <button (click)="openEnrollModal(course)" class="btn-success round">
               <span class="icon">👥</span> Enroll Students
             </button>
@@ -88,16 +91,12 @@
   </app-add-course-resource>
 
   <!-- Show Course Resource Modal -->
-<!-- Show Course Resource Modal -->
-<!-- Show Course Resource Modal -->
-<app-show-course-resource
-  [showModal]="showResourcesModal"
-  [selectedCourse]="selectedCourse"
-  (showModalChange)="showResourcesModal = $event"
-  (resourceAdded)="onResourceAdded($event)">
-</app-show-course-resource>
-
-
+  <app-show-course-resource
+    [showModal]="showResourcesModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showResourcesModal = $event"
+    (resourceAdded)="onResourceAdded($event)">
+  </app-show-course-resource>
 
   <!-- Enroll Students Modal -->
   <app-enroll-students-modal
@@ -106,6 +105,13 @@
     (showModalChange)="showEnrollModal = $event"
     (studentsEnrolled)="onStudentsEnrolled()">
   </app-enroll-students-modal>
+
+  <!-- View Students Modal -->
+  <app-show-students-modal
+    [showModal]="showStudentsModal"
+    [students]="enrolledStudents"
+    (showModalChange)="showStudentsModal = $event">
+  </app-show-students-modal>
 
   <!-- Floating Plus Button -->
   <button class="floating-plus" (click)="openAddCourseModal()">+</button>

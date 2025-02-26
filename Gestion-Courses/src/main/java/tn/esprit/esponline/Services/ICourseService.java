@@ -17,4 +17,6 @@ public interface ICourseService {
     Course findById(Long courseId);
 
     List<User> getAllStudents();
+
+    List<User> getEnrolledStudents(int courseId);
 }

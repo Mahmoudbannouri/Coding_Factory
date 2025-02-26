@@ -191,12 +191,53 @@ button[type="submit"]:hover {
   flex: 1;
 }
 
-.card-footer {
-  padding: 10px 15px;
-  border-top: 1px solid #ddd;
+/* In your course.component.scss */
+.course-card .card-footer {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;  /* Allow buttons to wrap */
+  justify-content: space-between; /* Distribute buttons evenly */
+  gap: 10px; /* Space between buttons */
+}
+
+.course-card .card-footer button {
+  flex: 1 1 30%;  /* Each button takes 30% of the row, allowing up to 3 per row */
+  max-width: 30%;  /* Ensure buttons don't exceed 3 per row */
+  padding: 10px 15px;
+  font-size: 14px;  /* Adjust the font size as needed */
+  text-align: center;  /* Center text inside the button */
+}
+
+@media (max-width: 768px) {
+  .course-card .card-footer button {
+    flex: 1 1 45%;  /* Two buttons per row on medium screens */
+    max-width: 45%;
+  }
+}
+
+@media (max-width: 480px) {
+  .course-card .card-footer button {
+    flex: 1 1 100%;  /* One button per row on small screens */
+    max-width: 100%;
+  }
+}
+.course-card .card-footer .btn-secondary .icon {
+  color: #fff; /* Ensure the icon is visible */
+  font-size: 1.5em; /* Increase the icon size */
+}
+
+/* Optional: Give the "Add Resource" button a different background color */
+.course-card .card-footer .btn-secondary {
+  background-color: #4CAF50; /* Green background for the "Add Resource" button */
+  color: white;
+}
+.course-card .card-footer .btn-success {
+  background-color: #80ff00; /* Bright green color for the "Enroll Student" button */
+  color: white; /* Ensure the text is readable */
+}
+
+/* Optional: Change the hover effect for the "Enroll Student" button */
+.course-card .card-footer .btn-success:hover {
+  background-color: #66cc00; /* Slightly darker green on hover */
 }
 
 /* Pagination Controls */
@@ -331,20 +372,98 @@ body {
 }
 
 /* Search Input and Filters */
+/* Search Container */
 .search-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  gap: 20px;  /* Adds some space between the input and dropdown */
 }
 
-.search-input, .category-dropdown {
-  width: 70%;
-  padding: 10px;
+.search-input,
+.category-dropdown {
+  width: 45%; /* Adjust width for better balance */
+  padding: 12px 15px; /* More padding for a spacious feel */
   font-size: 16px;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 25px; /* Rounder corners for a modern look */
+  outline: none;
+  background-color: #fff; /* White background for clarity */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  transition: all 0.3s ease;
 }
+
+/* Focused State */
+.search-input:focus,
+.category-dropdown:focus {
+  border-color: #80ff00; /* Soft green for a fresh, friendly feel */
+  box-shadow: 0 0 10px rgba(128, 255, 0, 0.5); /* Highlighted focus with a subtle green glow */
+}
+
+/* Placeholder Styling */
+.search-input::placeholder,
+.category-dropdown::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Hover Effect */
+.search-input:hover,
+.category-dropdown:hover {
+  border-color: #007bff; /* Subtle blue hover effect */
+}
+
+
+
+/* Category Dropdown */
+.category-dropdown {
+  font-size: 16px;
+  border-radius: 25px;
+  padding: 12px 15px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.category-dropdown:focus {
+  border-color: #80ff00;
+  box-shadow: 0 0 10px rgba(128, 255, 0, 0.5);
+}
+
+/* Add a clear button in the search bar for better usability */
+.clear-btn {
+  background-color: #80ff00;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-btn:hover {
+  background-color: #66cc00; /* Darker green on hover */
+}
+
+.clear-btn:focus {
+  outline: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .search-input,
+  .category-dropdown {
+    width: 100%;
+  }
+}
+
 
 .search-input:focus, .category-dropdown:focus {
   border-color: #007bff;

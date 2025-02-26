@@ -24,19 +24,20 @@ export class CourseComponent implements OnInit {
   showResourcesModal = false;
   showEditModal = false;
   showEnrollModal = false;
+  showStudentsModal = false;
   searchQuery = '';
   selectedCategory = '';
-  currentPage = 1; // Page actuelle pour la pagination
-  itemsPerPage = 6; // Nombre d'éléments à afficher par page
+  currentPage = 1;
+  itemsPerPage = 6;
+  enrolledStudents: User[] = [];
 
   constructor(private courseService: CourseService, private courseResourceService: CourseResourceService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.getAllCourses();
-    this.assignRandomColorsToCategories(); // Assigner des couleurs aléatoires aux catégories
+    this.assignRandomColorsToCategories();
   }
 
-  // Fonction pour générer des couleurs aléatoires
   generateRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -46,10 +47,9 @@ export class CourseComponent implements OnInit {
     return color;
   }
 
-  // Fonction pour assigner des couleurs aléatoires à chaque catégorie dans CategoryEnum
   assignRandomColorsToCategories(): void {
     Object.keys(this.categoryEnum).forEach(category => {
-      this.categoryColors[category] = this.generateRandomColor();  // Assigner une couleur à chaque catégorie
+      this.categoryColors[category] = this.generateRandomColor();
     });
   }
 
@@ -58,10 +58,10 @@ export class CourseComponent implements OnInit {
       (data) => {
         this.courses = data.map(course => ({
           ...course,
-          image: this.getFile(course.image)  // Assurer que l'URL de l'image est correcte
+          image: this.getFile(course.image)
         }));
         this.filterCourses();
-        this.cdr.detectChanges(); // Assurer la mise à jour de la vue
+        this.cdr.detectChanges();
       },
       (error) => {
         console.error('Erreur lors de la récupération des cours:', error);
@@ -70,12 +70,9 @@ export class CourseComponent implements OnInit {
   }
 
   getFile(fileName: string): string {
-    // Si fileName contient déjà l'URL complète, la retourner directement.
     if (fileName.startsWith('https://')) {
-      return fileName;  // Pas besoin de préfixer l'URL de base à nouveau
+      return fileName;
     }
-
-    // Si c'est juste un nom de fichier, préfixer avec l'URL de base.
     return `https://wbptqnvcpiorvwjotqwx.supabase.co/storage/v1/object/public/course-images/${fileName}`;
   }
 
@@ -84,29 +81,25 @@ export class CourseComponent implements OnInit {
       (this.searchQuery === '' || course.title.toLowerCase().includes(this.searchQuery.toLowerCase())) &&
       (this.selectedCategory === '' || course.categoryCourse.toLowerCase() === this.selectedCategory.toLowerCase())
     );
-    this.currentPage = 1; // Réinitialiser à la première page après le filtrage
-    this.cdr.detectChanges(); // Assurer la mise à jour de l'interface utilisateur
+    this.currentPage = 1;
+    this.cdr.detectChanges();
   }
 
-  // Obtenir le sous-ensemble de cours pour la page actuelle
   getPaginatedCourses(): Course[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage; // Calculer l'index de début du sous-ensemble
-    return this.filteredCourses.slice(startIndex, startIndex + this.itemsPerPage); // Retourner le sous-ensemble de cours
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    return this.filteredCourses.slice(startIndex, startIndex + this.itemsPerPage);
   }
 
-  // Calculer le nombre total de pages
   getTotalPages(): number {
-    return Math.ceil(this.filteredCourses.length / this.itemsPerPage); // Le nombre total de pages est la longueur des cours filtrés divisée par le nombre d'éléments par page
+    return Math.ceil(this.filteredCourses.length / this.itemsPerPage);
   }
 
-  // Passer à la page suivante si ce n'est pas la dernière page
   nextPage(): void {
     if (this.currentPage < this.getTotalPages()) {
       this.currentPage++;
     }
   }
 
-  // Passer à la page précédente si ce n'est pas la première page
   prevPage(): void {
     if (this.currentPage > 1) {
       this.currentPage--;
@@ -180,6 +173,7 @@ export class CourseComponent implements OnInit {
     this.showResourcesModal = false;
     this.showEditModal = false;
     this.showEnrollModal = false;
+    this.showStudentsModal = false;
     this.cdr.detectChanges();
   }
 
@@ -208,5 +202,19 @@ export class CourseComponent implements OnInit {
   onStudentsEnrolled(): void {
     this.getAllCourses();
     this.cdr.detectChanges();
+  }
+
+  openStudentsModal(course: Course): void {
+    this.selectedCourse = course;
+    this.courseService.getEnrolledStudents(course.id).subscribe(
+      (students) => {
+        this.enrolledStudents = students;
+        this.showStudentsModal = true;
+        this.cdr.detectChanges();
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des étudiants inscrits:', error);
+      }
+    );
   }
 }

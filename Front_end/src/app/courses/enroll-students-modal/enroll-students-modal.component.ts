@@ -98,7 +98,7 @@ export class EnrollStudentsModalComponent implements OnInit {
           console.error('Error enrolling student:', error);
           Swal.fire({
             title: 'Error',
-            text: 'Failed to enroll student.',
+            text: 'Failed to enroll student already exists.',
             icon: 'error',
             confirmButtonText: 'OK'
           });

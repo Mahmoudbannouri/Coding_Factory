@@ -105,4 +105,15 @@ public class CourseRestController {
     public List<User> getAllStudents() {
         return courseService.getAllStudents();
     }
+
+    @Operation(summary = "Get enrolled students for a course", description = "This endpoint retrieves the list of students enrolled in a specific course.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved enrolled students"),
+            @ApiResponse(responseCode = "404", description = "Course not found")
+    })
+    @GetMapping("/{courseId}/students")
+    public List<User> getEnrolledStudents(@PathVariable int courseId) {
+        return courseService.getEnrolledStudents(courseId);
+    }
+
 }

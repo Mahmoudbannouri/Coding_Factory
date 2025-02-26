@@ -16,6 +16,7 @@ import { AddCourseModalComponent } from './add-course-modal/add-course-modal.com
 import { EditCourseModalComponent } from './edit-course-modal/edit-course-modal.component';
 import { EnrollStudentsModalComponent } from './enroll-students-modal/enroll-students-modal.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ShowStudentsModalComponent } from './show-students-modal/show-students-modal.component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         ShowCourseResourceComponent,
         AddCourseModalComponent,
         EditCourseModalComponent,
-        EnrollStudentsModalComponent
+        EnrollStudentsModalComponent,
+        ShowStudentsModalComponent
     ]
 })
 export class CourseModule { }

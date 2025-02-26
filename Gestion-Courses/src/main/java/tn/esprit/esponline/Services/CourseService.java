@@ -82,6 +82,7 @@ public class CourseService implements ICourseService {
         return courseRepository.findById(courseId);
     }
 
+    @Override
     public List<User> getEnrolledStudents(int courseId) {
         Optional<Course> courseOpt = courseRepository.findById(courseId);
         if (courseOpt.isPresent()) {

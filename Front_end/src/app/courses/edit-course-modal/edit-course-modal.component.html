@@ -26,7 +26,11 @@
       <!-- Course Level (Text Input) -->
       <div class="form-group">
         <label for="level">Level</label>
-        <input id="level" [(ngModel)]="course.level" name="level" required />
+        <select id="level" [(ngModel)]="course.level" name="level" required>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
       </div>
 
       <!-- Image URL -->

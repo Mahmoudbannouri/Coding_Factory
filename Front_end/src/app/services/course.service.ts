@@ -55,6 +55,6 @@ export class CourseService {
 
    // Fetch students enrolled in a specific course
    getEnrolledStudents(courseId: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/${courseId}/enrolled-students`);
+    return this.http.get<User[]>(`${this.apiUrl}/${courseId}/students`);
   }
 }
