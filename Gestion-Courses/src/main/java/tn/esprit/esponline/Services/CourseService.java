@@ -9,8 +9,10 @@ import tn.esprit.esponline.DAO.repositories.CourseRepository;
 import tn.esprit.esponline.DAO.repositories.UserRepository;
 import tn.esprit.esponline.Services.ICourseService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService implements ICourseService {
@@ -63,6 +65,9 @@ public class CourseService implements ICourseService {
             User student = studentOpt.get();
 
             if (student.getRole().getName() == RoleNameEnum.STUDENT) {
+                if (course.getStudents().contains(student)) {
+                    throw new IllegalArgumentException("Student is already enrolled in this course.");
+                }
                 course.getStudents().add(student);
                 return courseRepository.save(course);
             }
@@ -77,5 +82,13 @@ public class CourseService implements ICourseService {
         return courseRepository.findById(courseId);
     }
 
-
+    public List<User> getEnrolledStudents(int courseId) {
+        Optional<Course> courseOpt = courseRepository.findById(courseId);
+        if (courseOpt.isPresent()) {
+            Course course = courseOpt.get();
+            return new ArrayList<>(course.getStudents());
+        }
+        return List.of();
+    }
 }
+

@@ -5,11 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/CourseService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ICourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ICourseService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,24 +30,25 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Gestion__courses",
+    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -110,7 +110,9 @@
       <workItem from="1740333738932" duration="632000" />
       <workItem from="1740408567767" duration="627000" />
       <workItem from="1740433659003" duration="58000" />
-      <workItem from="1740485108452" duration="4042000" />
+      <workItem from="1740485108452" duration="5050000" />
+      <workItem from="1740504944486" duration="681000" />
+      <workItem from="1740561847995" duration="4517000" />
     </task>
     <servers />
   </component>
