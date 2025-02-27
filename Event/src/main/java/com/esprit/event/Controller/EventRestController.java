@@ -110,7 +110,7 @@ public class EventRestController {
         List<User> participants = eventService.getParticipants(eventID);
         return ResponseEntity.ok(participants);
     }
-    @DeleteMapping("/{eventID}/deroll/{userID}")
+    @DeleteMapping("/deroll/{eventID}/{userID}")
     public ResponseEntity<Event> derollFromEvent(@PathVariable int eventID, @PathVariable int userID) {
         Event updatedEvent = eventService.derollFromEvent(eventID, userID);
         return ResponseEntity.ok(updatedEvent);
