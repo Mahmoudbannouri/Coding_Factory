@@ -18,7 +18,6 @@ import java.util.List;
 @Tag(name = "Courses", description = "This web service handles CRUD operations for courses.")
 @RestController
 @RequestMapping("/courses")
-@CrossOrigin(origins = "*")
 public class CourseRestController {
 
     @Autowired
@@ -116,4 +115,15 @@ public class CourseRestController {
         return courseService.getEnrolledStudents(courseId);
     }
 
+    @PutMapping("/{id}/update-rate")
+public ResponseEntity<Void> updateCourseRate(@PathVariable int id, @RequestBody double rate) {
+    Course course = courseService.getCourseById(id);
+    if (course != null) {
+        course.setRate(rate);
+        courseService.updateCourse(course, id);
+        return ResponseEntity.ok().build();
+    } else {
+        return ResponseEntity.notFound().build();
+    }
+}
 }

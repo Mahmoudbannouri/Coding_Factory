@@ -42,12 +42,22 @@
           </div>
           <div class="card-content">
             <a [href]="course.link" target="_blank">
-              <img *ngIf="course.image" [src]="getFile(course.image)" alt="Course Image" width="200">
+              <img *ngIf="course.image" [src]="getFile(course.image)" alt="Course Image" class="course-image">
             </a>
             <div class="card-body">
               <p><strong>Description:</strong> {{ course.description }}</p>
               <p><strong>Level:</strong> {{ course.level }}</p>
               <p class="badge">{{ course.categoryCourse }}</p>
+            </div>
+            <!-- Add this for the rating display -->
+            <div class="rating">
+              <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [ngClass]="{'filled': star <= course.rate}">
+                ⭐
+              </span>
+              <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
+              <button (click)="openReviewModal(course)" class="add-review-button round">
+                <span class="icon">⭐</span> Rate
+              </button>
             </div>
           </div>
           <div class="card-footer">
@@ -112,6 +122,14 @@
     [students]="enrolledStudents"
     (showModalChange)="showStudentsModal = $event">
   </app-show-students-modal>
+
+  <!-- Add Review Modal -->
+  <app-review-modal
+    [showModal]="showReviewModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showReviewModal = $event"
+    (reviewAdded)="onReviewAdded()">
+  </app-review-modal>
 
   <!-- Floating Plus Button -->
   <button class="floating-plus" (click)="openAddCourseModal()">+</button>

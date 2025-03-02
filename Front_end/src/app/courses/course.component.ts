@@ -25,6 +25,7 @@ export class CourseComponent implements OnInit {
   showEditModal = false;
   showEnrollModal = false;
   showStudentsModal = false;
+  showReviewModal = false;
   searchQuery = '';
   selectedCategory = '';
   currentPage = 1;
@@ -123,7 +124,17 @@ export class CourseComponent implements OnInit {
     this.filterCourses();
     this.cdr.detectChanges();
   }
-
+  openReviewModal(course: Course): void {
+    this.selectedCourse = course;
+    this.showReviewModal = true;
+    this.cdr.detectChanges();
+  }
+  
+  // Add this method to handle review submission
+  onReviewAdded(): void {
+    this.getAllCourses(); // Refresh the course list to show updated ratings
+    this.cdr.detectChanges();
+  }
   onResourceAdded(resource: CourseResource): void {
     if (this.selectedCourse && this.selectedCourse.resources) {
       this.selectedCourse.resources.push(resource);
