@@ -1,0 +1,42 @@
+<div class="modal" [class.show]="showModal">
+    <div class="modal-content">
+      <h3>Add a Review for {{ selectedCourse?.title }}</h3>
+      <form (ngSubmit)="submitReview()">
+        <div class="form-group">
+          <label for="studentId">Student ID</label>
+          <input
+            type="number"
+            id="studentId"
+            [(ngModel)]="review.studentId"
+            name="studentId"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="rating">Rating (1-5)</label>
+          <input
+            type="number"
+            id="rating"
+            [(ngModel)]="review.rating"
+            name="rating"
+            min="1"
+            max="5"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="comment">Comment</label>
+          <textarea
+            id="comment"
+            [(ngModel)]="review.comment"
+            name="comment"
+            rows="3"
+          ></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">Submit</button>
+          <button type="button" class="btn-cancel" (click)="closeModal()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>

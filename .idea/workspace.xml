@@ -4,7 +4,36 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="" />
+    <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/DTO/entity/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/ReviewsApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/clients/CourseServiceClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/repositories/ReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/test/java/tn/esprit/reviews/reviews/ReviewsApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +45,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/Front_end/matngular/package.json" />
   </component>
@@ -23,6 +55,9 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2tAltLO8bE7qeF7aJlHuhar0Bjc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -30,6 +65,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
@@ -38,12 +74,14 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Gestion__courses",
-    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend",
+    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.general",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -111,10 +149,14 @@
       <workItem from="1740485108452" duration="5050000" />
       <workItem from="1740504944486" duration="681000" />
       <workItem from="1740561847995" duration="10762000" />
+      <workItem from="1740916794200" duration="1428000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -39,7 +39,7 @@ public class Course {
     @Size(min = 1, max = 500, message = "Description must be between 1 and 500 characters")
     private String description;
 
-
+    private double rate; // Average rating of the course
 
 
     @NotNull(message = "image is required")
@@ -130,6 +130,14 @@ public class Course {
 
     public void setLevel(String level) {
         this.level = level;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     // Add a constructor with relevant parameters
