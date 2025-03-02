@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/course-resources")
-@CrossOrigin(origins = "*")
 public class CourseResourceRestController {
 
     @Autowired

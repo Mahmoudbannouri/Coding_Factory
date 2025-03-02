@@ -5,39 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/DTO/entity/Review.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/ReviewsApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/clients/CourseServiceClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/repositories/ReviewRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/test/java/tn/esprit/reviews/reviews/ReviewsApplicationTests.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/http.interceptor.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/http.interceptor.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/interceptors/http.interceptor.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/config/CorsConfig.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,6 +44,9 @@
   </component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/Front_end/matngular/package.json" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
@@ -74,7 +71,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Gestion__courses",
-    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews",
+    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews/pom.xml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -92,7 +89,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ApiGetwayApplication">
+  <component name="RunManager" selected="Spring Boot.ReviewsApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -133,6 +130,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ReviewsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="reviews" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="tn.esprit.reviews.reviews.ReviewsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -149,7 +153,7 @@
       <workItem from="1740485108452" duration="5050000" />
       <workItem from="1740504944486" duration="681000" />
       <workItem from="1740561847995" duration="10762000" />
-      <workItem from="1740916794200" duration="1428000" />
+      <workItem from="1740916794200" duration="3765000" />
     </task>
     <servers />
   </component>

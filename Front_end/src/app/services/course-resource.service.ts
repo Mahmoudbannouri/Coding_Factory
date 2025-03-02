@@ -7,7 +7,7 @@ import { CourseResource } from '../models/CourseResource';
   providedIn: 'root',
 })
 export class CourseResourceService {
-  private baseURL = 'http://localhost:8081/course-resources';
+  private baseURL = 'http://localhost:8090/course-resources';
 
   constructor(private httpClient: HttpClient) {}
 

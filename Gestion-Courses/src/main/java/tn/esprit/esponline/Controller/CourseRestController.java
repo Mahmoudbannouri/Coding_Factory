@@ -18,7 +18,6 @@ import java.util.List;
 @Tag(name = "Courses", description = "This web service handles CRUD operations for courses.")
 @RestController
 @RequestMapping("/courses")
-@CrossOrigin(origins = "*")
 public class CourseRestController {
 
     @Autowired

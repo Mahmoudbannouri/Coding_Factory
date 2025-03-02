@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ReviewService {
-  private apiUrl = 'http://localhost:8082/reviews'; // Adjust URL to your Reviews Microservice
+  private apiUrl = 'http://localhost:8090/reviews'; // Adjust URL to your Reviews Microservice
 
   constructor(private http: HttpClient) {}
 
