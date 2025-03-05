@@ -51,7 +51,5 @@ This project is a **Course Management System** developed as part of the coursewo
 ### Microservices
 - Spring Cloud (Service Discovery & API Gateway)
 
-## Directory Structure
-├── frontend/ │ └── Angular App └── backend/ ├── Course Microservice ├── Event Microservice ├── User Microservice ├── PFE Microservice ├── Evaluation Microservice └── Partnership Microservice
 
 
