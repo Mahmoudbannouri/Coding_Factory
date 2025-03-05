@@ -26,6 +26,10 @@ export class AddCourseResourceComponent {
   documentUploading: boolean = false;
   videoUploading: boolean = false;
 
+  titleError: boolean = false;
+  descriptionError: boolean = false;
+  resourceTypeError: boolean = false;
+
   constructor(private courseResourceService: CourseResourceService, private supabaseService: SupabaseService) {}
 
   closeModal(): void {
@@ -34,6 +38,14 @@ export class AddCourseResourceComponent {
   }
 
   async addResourceToCourse(): Promise<void> {
+    this.titleError = this.newResource.title?.length > 20 || !this.newResource.title;
+    this.descriptionError = this.newResource.description?.length > 100 || !this.newResource.description;
+    this.resourceTypeError = this.newResource.resourceType?.length > 20 || !this.newResource.resourceType;
+
+    if (this.titleError || this.descriptionError || this.resourceTypeError) {
+      return;
+    }
+
     const newResource = new CourseResource();
     newResource.title = this.newResource.title;
     newResource.resourceType = this.newResource.resourceType;

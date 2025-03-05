@@ -5,21 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/http.interceptor.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/http.interceptor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/interceptors/http.interceptor.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.spec.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/DTO/entity/Recommendation.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/DTO/entity/SentimentAnalysisResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/GeminiAIService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/repositories/recommendationRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/DTO/entity/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/DTO/entity/Review.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/config/CorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/clients/CourseServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/clients/CourseServiceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +50,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -79,6 +100,7 @@
     "nodejs_package_manager_path": "npm",
     "run.code.analysis.last.selected.profile": "pProject Default",
     "settings.editor.selected.configurable": "preferences.general",
+    "ts.external.directory.path": "C:\\Users\\banno\\OneDrive\\Bureau\\new crm project\\Coding_Factory_Backend\\Front_end\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -153,7 +175,10 @@
       <workItem from="1740485108452" duration="5050000" />
       <workItem from="1740504944486" duration="681000" />
       <workItem from="1740561847995" duration="10762000" />
-      <workItem from="1740916794200" duration="3765000" />
+      <workItem from="1740916794200" duration="4414000" />
+      <workItem from="1740925765076" duration="1858000" />
+      <workItem from="1740927845339" duration="80000" />
+      <workItem from="1741077826727" duration="40210000" />
     </task>
     <servers />
   </component>

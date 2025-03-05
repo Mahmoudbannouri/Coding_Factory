@@ -18,7 +18,8 @@ import { EnrollStudentsModalComponent } from './enroll-students-modal/enroll-stu
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ShowStudentsModalComponent } from './show-students-modal/show-students-modal.component';
 import { ReviewModalComponent } from './review-modal/review-modal.component';
-
+import { AIImprovementsModalComponent } from './aiimprovements-modal/aiimprovements-modal.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import { ReviewModalComponent } from './review-modal/review-modal.component';
         CourseRoutingModule,
         NgbModule,
         QuillModule.forRoot(),
+        FontAwesomeModule,
         FormsModule,
         PerfectScrollbarModule,
         PipeModule,
@@ -39,7 +41,8 @@ import { ReviewModalComponent } from './review-modal/review-modal.component';
         EditCourseModalComponent,
         EnrollStudentsModalComponent,
         ShowStudentsModalComponent,
-        ReviewModalComponent
+        ReviewModalComponent,
+        AIImprovementsModalComponent
     ]
 })
 export class CourseModule { }
