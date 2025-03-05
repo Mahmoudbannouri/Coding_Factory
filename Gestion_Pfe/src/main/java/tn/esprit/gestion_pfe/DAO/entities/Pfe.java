@@ -4,7 +4,6 @@ import ch.qos.logback.core.status.StatusManager;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import tn.esprit.gestion_pfe.DAO.Enum.CategoryEnum;
 import tn.esprit.gestion_pfe.DAO.Enum.PfeLevel;
 import tn.esprit.gestion_pfe.DAO.Enum.PfeStatus;
 
@@ -25,11 +24,11 @@ public class Pfe {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String projectTitle;//v
+    private String projectTitle;
     private String description;
     private Date startDate;
     private Date endDate;
-    private Long studentId;//v
+    private Long studentId;
     private Long trainerId;
     private Long entrepriseId;
     private String meetingLink;
@@ -43,18 +42,14 @@ public class Pfe {
     private PfeStatus status; // En cours, Validé, Refusé
 
     @Enumerated(EnumType.STRING)
-    private CategoryEnum category;
+    private PfeStatus Category; // En cours, Validé, Refusé
 
-
-    @Builder.Default
     @ElementCollection
     private List<String> documents = new ArrayList<>();
 
-    @Builder.Default
     @ElementCollection
     private List<Date> meetingDates = new ArrayList<>();
 
-    @Builder.Default
     @ElementCollection
     private List<String> juryNames = new ArrayList<>();
 
@@ -166,12 +161,12 @@ public class Pfe {
         this.status = status;
     }
 
-    public CategoryEnum getCategory() {
-        return category; // Utilisation de la variable en minuscules
+    public PfeStatus getCategory() {
+        return Category;
     }
 
-    public void setCategory(CategoryEnum category) {
-        this.category = category; // Utilisation de 'this' pour faire référence à l'attribut
+    public void setCategory(PfeStatus category) {
+        Category = category;
     }
 
     public List<String> getDocuments() {
