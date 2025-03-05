@@ -28,17 +28,32 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review addReview(Review review) {
+        // Check if the comment is empty or null
+        if (review.getComment() == null || review.getComment().trim().isEmpty()) {
+            // Save the review without generating recommendations
+            Review savedReview = reviewRepository.save(review);
+            updateCourseRate(review.getCourseId());
+            return savedReview;
+        }
+
+        // If the comment is not empty, proceed with sentiment analysis and recommendations
         SentimentAnalysisResult result = geminiAIService.analyzeSentiment(review.getComment());
         System.out.println("Sentiment Analysis Result: " + result);
+
+        // Save the review
         Review savedReview = reviewRepository.save(review);
-        // Generate recommendations using the AI service
-        String aiRecommendations = geminiAIService.generateRecommendations(review.getComment());
-        String formattedRecommendations = geminiAIService.extractKeyPoints(aiRecommendations);
+
+        // Use the extracted suggestion directly from the sentiment analysis result
+        String aiRecommendations = result.getSuggestion();
+        System.out.println("AI Recommendations: " + aiRecommendations);
+
+        // Create and save the recommendation
         Recommendation recommendation = new Recommendation();
-        recommendation.setRecommendation(formattedRecommendations);
+        recommendation.setRecommendation(aiRecommendations);
         recommendation.setReview(savedReview);
         rec.save(recommendation);
 
+        // Update the course rate
         updateCourseRate(review.getCourseId());
 
         return savedReview;
@@ -51,6 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
         System.out.println("Reviews found: " + reviews);
         return reviews;
     }
+
     @Override
     public void deleteRecommendation(Long courseId, String recommendationText) {
         System.out.println("Deleting recommendation for Course ID: " + courseId + ", Text: " + recommendationText);
@@ -67,6 +83,7 @@ public class ReviewServiceImpl implements ReviewService {
             }
         }
     }
+
     @Override
     public String getAIRecommendationsForCourse(Long courseId) {
         System.out.println("Fetching AI recommendations for Course ID: " + courseId);
@@ -92,6 +109,7 @@ public class ReviewServiceImpl implements ReviewService {
 
         return recommendations.toString().trim();
     }
+
     @Override
     public double getAverageRatingByCourseId(Long courseId) {
         List<Review> reviews = reviewRepository.findByCourseId(courseId);

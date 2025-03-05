@@ -53,41 +53,26 @@ export class AIImprovementsModalComponent implements OnInit, OnChanges {
   formatRecommendations(recommendations: string): { title: string, text: string }[] {
     const formattedRecommendations: { title: string, text: string }[] = [];
     const lines = recommendations.split('\n');
-  
-    let currentTitle = '';
-    let currentText = '';
-  
+
     for (const line of lines) {
-      if (line.startsWith('*')) {
-        // If a new title is found, push the previous recommendation
-        if (currentTitle) {
-          formattedRecommendations.push({ title: currentTitle, text: this.formatText(currentText.trim()) });
+        if (line.trim().startsWith("Professor,")) {
+            formattedRecommendations.push({
+                title: "Suggestion",
+                text: line.trim()
+            });
         }
-        // Start a new recommendation
-        currentTitle = line.substring(1).trim();
-        currentText = '';
-      } else {
-        // Append to the current text
-        currentText += line + '\n';
-      }
     }
-  
-    // Push the last recommendation
-    if (currentTitle) {
-      formattedRecommendations.push({ title: currentTitle, text: this.formatText(currentText.trim()) });
-    }
-  
+
     // If no recommendations are found, return a default message
     if (formattedRecommendations.length === 0) {
-      formattedRecommendations.push({ title: 'No Recommendations', text: 'Nothing to add in this comment.' });
+        formattedRecommendations.push({ title: 'No Recommendations', text: 'No suggestions available for this course.' });
     }
-  
+
     return formattedRecommendations;
-  }
-  
+}
   // Helper method to format text: make content between ** bold and blue, and remove **
   formatText(text: string): string {
-    if (!text) return 'Nothing to add in this comment.';
+    if (!text) return '.';
   
     // Replace **content** with <strong style="color: #007bff;">content</strong>
     text = text.replace(/\*\*(.*?)\*\*/g, '<strong style="color: #007bff;">$1</strong>');
@@ -96,7 +81,7 @@ export class AIImprovementsModalComponent implements OnInit, OnChanges {
     text = text.replace(/(\.\s*)(.*?)(:)/g, '$1<strong>$2</strong>$3');
   
     return text;
-  }
+  } 
 
   removeRecommendation(recommendation: { title: string, text: string }): void {
     console.log("Deleting recommendation:", recommendation); // Debugging
