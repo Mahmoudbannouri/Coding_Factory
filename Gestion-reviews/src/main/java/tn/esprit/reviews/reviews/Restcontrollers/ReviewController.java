@@ -4,9 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.reviews.reviews.DTO.entity.Review;
-import tn.esprit.reviews.services.ReviewService;
+import tn.esprit.reviews.reviews.Services.GeminiAIService;
+import tn.esprit.reviews.reviews.Services.ReviewService;
+import tn.esprit.reviews.reviews.repositories.ReviewRepository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/reviews")
@@ -14,6 +19,12 @@ public class ReviewController {
 
     @Autowired
     private ReviewService reviewService;
+
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private GeminiAIService geminiAIService;
 
     @PostMapping
     public Review addReview(@RequestBody Review review) {
@@ -33,6 +44,16 @@ public class ReviewController {
         double averageRating = reviewService.getAverageRatingByCourseId(courseId);
         return ResponseEntity.ok(averageRating);
     }
-
-
+    @DeleteMapping("/courses/{courseId}/recommendations")
+    public ResponseEntity<Void> deleteRecommendation(@PathVariable Long courseId, @RequestParam String text) {
+        reviewService.deleteRecommendation(courseId, text);
+        return ResponseEntity.noContent().build();
+    }
+    @GetMapping("/courses/{courseId}/ai-recommendations")
+    public ResponseEntity<Map<String, String>> getAIRecommendations(@PathVariable Long courseId) {
+        String recommendations = reviewService.getAIRecommendationsForCourse(courseId);
+        Map<String, String> response = new HashMap<>();
+        response.put("recommendations", recommendations);
+        return ResponseEntity.ok(response);
+    }
 }

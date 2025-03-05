@@ -8,6 +8,7 @@
         {{ category.value }}
       </option>
     </select>
+    <button class="clear-button" (click)="clearFilters()">Clear</button>
   </div>
 
   <!-- No Courses Available -->
@@ -49,14 +50,16 @@
               <p><strong>Level:</strong> {{ course.level }}</p>
               <p class="badge">{{ course.categoryCourse }}</p>
             </div>
-            <!-- Add this for the rating display -->
+            <!-- Rating Stars -->
             <div class="rating">
-              <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star" [ngClass]="{'filled': star <= course.rate}">
-                ⭐
-              </span>
+              <div class="stars-container">
+                <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
+                <i *ngIf="hasPartialStar(course.rate)" class="bi bi-star-half star partial"></i>
+                <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star star"></i>
+              </div>
               <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
               <button (click)="openReviewModal(course)" class="add-review-button round">
-                <span class="icon">⭐</span> Rate
+                <i class="bi bi-star-fill icon"></i> Rate
               </button>
             </div>
           </div>
@@ -78,6 +81,9 @@
             </button>
             <button (click)="openEnrollModal(course)" class="btn-success round">
               <span class="icon">👥</span> Enroll Students
+            </button>
+            <button (click)="openAIImprovementsModal(course)" class="btn-ai-improvements round">
+              <span class="icon">🤖</span> AI Improvements
             </button>
           </div>
         </div>
@@ -130,6 +136,13 @@
     (showModalChange)="showReviewModal = $event"
     (reviewAdded)="onReviewAdded()">
   </app-review-modal>
+
+  <!-- AI Improvements Modal -->
+  <app-ai-improvements-modal
+    [showModal]="showAIImprovementsModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showAIImprovementsModal = $event">
+  </app-ai-improvements-modal>
 
   <!-- Floating Plus Button -->
   <button class="floating-plus" (click)="openAddCourseModal()">+</button>

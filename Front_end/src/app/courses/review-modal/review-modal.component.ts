@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Course } from '../../models/courses';
 import { ReviewService } from '../../services/review';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-review-modal',
@@ -15,9 +16,11 @@ export class ReviewModalComponent {
 
   review = {
     studentId: 0,
-    rating: 1,
+    rating: 1, // Default rating
     comment: '',
   };
+
+  loading = false; // Add a loading state
 
   constructor(private reviewService: ReviewService) {}
 
@@ -26,7 +29,14 @@ export class ReviewModalComponent {
     this.showModalChange.emit(false);
   }
 
+  // Method to set the rating when a star is clicked
+  setRating(rating: number): void {
+    this.review.rating = rating;
+  }
+
   submitReview() {
+    this.loading = true;
+
     const reviewData = {
       studentId: this.review.studentId,
       courseId: this.selectedCourse.id,
@@ -35,12 +45,27 @@ export class ReviewModalComponent {
     };
 
     this.reviewService.addReview(reviewData).subscribe(
-      () => {
+      (response: any) => {
+        this.loading = false;
+        Swal.fire({
+          title: 'Success!',
+          text: 'Your review has been submitted successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK',
+        });
         this.reviewAdded.emit();
         this.closeModal();
       },
       (error) => {
+        this.loading = false;
         console.error('Error adding review:', error);
+        console.error('Raw error response:', error.error); // Log the raw error response
+        Swal.fire({
+          title: 'Error',
+          text: 'There was an error adding your review. Please try again.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
       }
     );
   }

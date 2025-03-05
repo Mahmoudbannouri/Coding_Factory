@@ -26,6 +26,10 @@ export class AddCourseResourceComponent {
   documentUploading: boolean = false;
   videoUploading: boolean = false;
 
+  titleError: boolean = false;
+  descriptionError: boolean = false;
+  resourceTypeError: boolean = false;
+
   constructor(private courseResourceService: CourseResourceService, private supabaseService: SupabaseService) {}
 
   closeModal(): void {
@@ -34,6 +38,10 @@ export class AddCourseResourceComponent {
   }
 
   async addResourceToCourse(): Promise<void> {
+    if (this.isAddButtonDisabled) {
+      return;
+    }
+
     const newResource = new CourseResource();
     newResource.title = this.newResource.title;
     newResource.resourceType = this.newResource.resourceType;
@@ -181,8 +189,23 @@ export class AddCourseResourceComponent {
     return fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
   }
 
-  // Disable the button until both document and video are uploaded
+  // Validate title input
+  validateTitle(): void {
+    this.titleError = !this.newResource.title || this.newResource.title.length > 20;
+  }
+
+  // Validate description input
+  validateDescription(): void {
+    this.descriptionError = !this.newResource.description || this.newResource.description.length > 100;
+  }
+
+  // Validate resource type input
+  validateResourceType(): void {
+    this.resourceTypeError = !this.newResource.resourceType || this.newResource.resourceType.length > 20;
+  }
+
+  // Disable the button until all required fields are valid and files are uploaded
   get isAddButtonDisabled(): boolean {
-    return !(this.documentUploaded && this.videoUploaded);
+    return this.titleError || this.descriptionError || this.resourceTypeError || !this.newResource.title || !this.newResource.description || !this.newResource.resourceType || !this.documentUploaded || !this.videoUploaded;
   }
 }

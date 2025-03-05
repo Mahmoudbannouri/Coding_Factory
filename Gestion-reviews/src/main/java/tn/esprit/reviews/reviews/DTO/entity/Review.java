@@ -1,18 +1,23 @@
 package tn.esprit.reviews.reviews.DTO.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import tn.esprit.reviews.reviews.DTO.entity.Recommendation;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "reviews")
 public class Review {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +33,25 @@ public class Review {
     @Max(value = 5, message = "Rating must be at most 5")
     private int rating;
 
+    @Lob // Maps to LONG TEXT or CLOB in the database
     private String comment; // Optional comment for the review
+
+
+
+  // Store as a comma-separated string
+
+    @OneToMany(mappedBy = "review", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonManagedReference // Use this annotation to manage serialization
+    private List<Recommendation> recommendations = new ArrayList<>();
+
+    public Review(Long id, Long studentId, Long courseId, int rating, String comment, List<Recommendation> recommendations) {
+        this.id = id;
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.rating = rating;
+        this.comment = comment;
+        this.recommendations = recommendations;
+    }
 
     public Long getId() {
         return id;
@@ -69,4 +92,20 @@ public class Review {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+
+
+
+
+
+
+    public List<Recommendation> getRecommendations() {
+        return recommendations;
+    }
+
+    public void setRecommendations(List<Recommendation> recommendations) {
+        this.recommendations = recommendations;
+    }
+
+    // Getters and setters
 }

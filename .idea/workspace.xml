@@ -5,21 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/http.interceptor.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/http.interceptor.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/interceptors/http.interceptor.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Restcontrollers/ReviewController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/config/CorsConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/GeminiAIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/GeminiAIService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +32,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -60,28 +63,29 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Gestion__courses",
-    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews/pom.xml",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.general",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Gestion__courses&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews/pom.xml&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\banno\\OneDrive\\Bureau\\new crm project\\Coding_Factory_Backend\\Front_end\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -153,7 +157,11 @@
       <workItem from="1740485108452" duration="5050000" />
       <workItem from="1740504944486" duration="681000" />
       <workItem from="1740561847995" duration="10762000" />
-      <workItem from="1740916794200" duration="3765000" />
+      <workItem from="1740916794200" duration="4414000" />
+      <workItem from="1740925765076" duration="1858000" />
+      <workItem from="1740927845339" duration="80000" />
+      <workItem from="1741077826727" duration="47968000" />
+      <workItem from="1741171959894" duration="8790000" />
     </task>
     <servers />
   </component>

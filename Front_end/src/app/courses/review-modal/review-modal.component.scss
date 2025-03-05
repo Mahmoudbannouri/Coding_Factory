@@ -98,3 +98,23 @@
   .btn-cancel:hover {
     background-color: #c82333;
   }
+  .star-rating-picker {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .star-rating-picker .star {
+    font-size: 24px; /* Adjust size as needed */
+    color: #ddd; /* Default color for empty stars */
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .star-rating-picker .star.filled i {
+    color: #ffd700; /* Color for filled stars */
+  }
+  
+  .star-rating-picker .star:hover {
+    transform: scale(1.2); /* Hover effect */
+  }

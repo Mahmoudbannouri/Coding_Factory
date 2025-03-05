@@ -31,6 +31,7 @@ export class CourseComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 6;
   enrolledStudents: User[] = [];
+  showAIImprovementsModal: boolean;
 
   constructor(private courseService: CourseService, private courseResourceService: CourseResourceService, private cdr: ChangeDetectorRef) {}
 
@@ -124,22 +125,56 @@ export class CourseComponent implements OnInit {
     this.filterCourses();
     this.cdr.detectChanges();
   }
+
   openReviewModal(course: Course): void {
     this.selectedCourse = course;
     this.showReviewModal = true;
     this.cdr.detectChanges();
   }
-  
-  // Add this method to handle review submission
+
   onReviewAdded(): void {
     this.getAllCourses(); // Refresh the course list to show updated ratings
     this.cdr.detectChanges();
   }
+
   onResourceAdded(resource: CourseResource): void {
     if (this.selectedCourse && this.selectedCourse.resources) {
       this.selectedCourse.resources.push(resource);
       this.cdr.detectChanges();
     }
+  }
+
+  openAIImprovementsModal(course: Course): void {
+    console.log('Opening AI Improvements Modal for Course ID:', course.id);
+    this.selectedCourse = course;
+    this.showAIImprovementsModal = true;
+    this.cdr.detectChanges();
+  }
+
+  // Helper method to get the number of filled stars
+  getFilledStars(rate: number): number[] {
+    const filledStars = Math.floor(rate); // Get the integer part of the rate
+    return Array(filledStars).fill(0); // Create an array of length `filledStars`
+  }
+
+  // Helper method to check if there is a partial star
+  hasPartialStar(rate: number): boolean {
+    return rate % 1 !== 0; // Check if there is a fractional part
+  }
+
+  // Helper method to get the number of empty stars
+  getEmptyStars(rate: number): number[] {
+    const totalStars = 5;
+    const filledStars = Math.floor(rate);
+    const hasPartial = this.hasPartialStar(rate);
+    const emptyStars = totalStars - filledStars - (hasPartial ? 1 : 0); // Subtract filled and partial stars
+    return Array(emptyStars).fill(0); // Create an array of length `emptyStars`
+  }
+
+  // Example mapping function
+  mapCourseIdToReviewsService(courseId: number): number {
+    // Add logic to map the course ID to the Reviews Microservice ID
+    return courseId; // Replace with actual mapping logic
   }
 
   openResourcesModal(course: Course): void {
@@ -227,5 +262,11 @@ export class CourseComponent implements OnInit {
         console.error('Erreur lors de la récupération des étudiants inscrits:', error);
       }
     );
+  }
+
+  clearFilters(): void {
+    this.searchQuery = '';
+    this.selectedCategory = '';
+    this.filterCourses();
   }
 }
