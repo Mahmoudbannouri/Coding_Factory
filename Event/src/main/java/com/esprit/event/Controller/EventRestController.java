@@ -4,12 +4,16 @@ import com.esprit.event.DAO.entities.Centre;
 import com.esprit.event.DAO.entities.Event;
 import com.esprit.event.DAO.entities.User;
 import com.esprit.event.Services.IEventService;
+import com.esprit.event.Services.GeminiAiService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +25,14 @@ public class EventRestController {
 
     @Autowired
     private IEventService eventService;
+    @Autowired
+    private GeminiAiService geminiAIService;
 
+    @PostMapping("/generate-description")
+    public ResponseEntity<Map<String, String>> generateEventDescription(@RequestBody Event event) throws IOException {
+        // Use the OpenAI service to generate a description based on the event details
+        return geminiAIService.generateEventDescription(event);
+    }
     // Add Event (Only Admins or Trainers can add)
     @PostMapping("/add/{userId}")
     public ResponseEntity<Map<String, String>> addEvent(@RequestBody Event event, @PathVariable int userId) {
@@ -36,6 +47,8 @@ public class EventRestController {
             response.put("status", "error");
             response.put("message", e.getMessage());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -72,6 +85,12 @@ public class EventRestController {
     public ResponseEntity<List<Event>> getAllEvents() {
         List<Event> events = eventService.getAllEvents();
         return ResponseEntity.ok(events);
+    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/getImage/{imageUrl}")
+    public ResponseEntity<Resource> getImages(@PathVariable String imageUrl) {
+
+        return eventService.getEventImage(imageUrl);
     }
 
     // Get Event by ID

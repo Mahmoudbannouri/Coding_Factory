@@ -7,16 +7,33 @@ import com.esprit.event.DAO.repository.UserRepository;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class EventServiceImpl implements IEventService{
+    @Value("${upload.directory}")
+    private String uploadDirectory;
+
     @Autowired
     private EventRepository eventRepo;
     @Autowired
@@ -25,26 +42,113 @@ public class EventServiceImpl implements IEventService{
     private ICentreRepository centreRepo;
     @Autowired
     private JavaMailSender mailSender;
+
+    private final Path uploadDir = Paths.get("/uploads");
     @Override
-    public Event addEvent(Event event,int userID) {
-        User user=userRepo.findById(userID).orElse(null);
+    public ResponseEntity<Resource> getEventImage(String imageUrl) {
+        try {
+            // Construct the file path
+            String filePath = "uploads/" + imageUrl;
+            File file = new File(filePath);
+
+            if (!file.exists()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            }
+
+            // Use FileSystemResource to load the file
+            Resource resource = new FileSystemResource(file);
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_PNG) // Adjust the media type if needed
+                    .body(resource);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+    @Override
+    public Event addEvent(Event event, int userID) throws IOException {
+        User user = userRepo.findById(userID).orElse(null);
 
         if (!(user.getRole().getName() == RoleNameEnum.ADMIN || user.getRole().getName() == RoleNameEnum.TRAINER)) {
             throw new IllegalStateException("You do not have permission to add an event. Only Admins and Trainers can add events.");
         }
+        if (event.getImageUrl() != null && !event.getImageUrl().isEmpty()) {
+            String imageUrl = saveBase64Image(event.getImageUrl());
+            event.setImageUrl(imageUrl);
+        }
+        // Set the event creator
         event.setEventCreator(user);
 
-
+        // The imageUrl is already part of the event object passed in the request body
         return eventRepo.save(event);
     }
+    private String saveBase64Image(String base64Image) throws IOException {
+        if (base64Image == null || base64Image.isEmpty()) {
+            throw new IllegalArgumentException("Base64 image string is empty or null.");
+        }
 
+        // Check if the base64 string has the expected prefix
+        if (!base64Image.startsWith("data:image/")) {
+            throw new IllegalArgumentException("Invalid base64 image format. Expected 'data:image/...;base64,' prefix.");
+        }
+
+        // Extract the base64 data (remove the "data:image/...;base64," prefix)
+        String[] parts = base64Image.split(",");
+        if (parts.length < 2) {
+            throw new IllegalArgumentException("Invalid base64 image format. Could not split the string.");
+        }
+        String base64Data = parts[1];
+
+        // Decode the base64 string
+        byte[] imageBytes;
+        try {
+            imageBytes = Base64.getDecoder().decode(base64Data);
+        } catch (IllegalArgumentException e) {
+            throw new IOException("Failed to decode base64 image string.", e);
+        }
+
+        // Save the file
+        String uploadDir = "uploads/";
+        File uploadPath = new File(uploadDir);
+
+        if (!uploadPath.exists()) {
+            if (!uploadPath.mkdirs()) {
+                throw new IOException("Failed to create upload directory: " + uploadDir);
+            }
+        }
+
+        // Generate a unique file name
+        String fileName = UUID.randomUUID().toString() + ".png";
+        File file = new File(uploadPath, fileName);
+
+        try {
+            Files.write(file.toPath(), imageBytes);
+        } catch (IOException e) {
+            throw new IOException("Failed to write image file: " + file.getAbsolutePath(), e);
+        }
+
+        return fileName;
+    }
     @Override
     public Event updateEvent(int id, Event updatedEvent) {
+
         return eventRepo.findById(id).map(existingEvent -> {
             existingEvent.setEventName(updatedEvent.getEventName());
             existingEvent.setEventDescription(updatedEvent.getEventDescription());
             existingEvent.setEventDate(updatedEvent.getEventDate());
             existingEvent.setEventCategory(updatedEvent.getEventCategory());
+
+            // Update the image URL if provided
+            if (updatedEvent.getImageUrl() != null && !updatedEvent.getImageUrl().isEmpty()) {
+                // Only update the image URL if it's different
+                if (!existingEvent.getImageUrl().equals(updatedEvent.getImageUrl())) {
+                    try {
+                        existingEvent.setImageUrl(saveBase64Image(updatedEvent.getImageUrl()));
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
 
             // Fetch and set the Centre entity
             Centre centre = centreRepo.findById(updatedEvent.getCentre().getCentreID())

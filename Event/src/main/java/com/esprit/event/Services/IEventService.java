@@ -3,11 +3,15 @@ package com.esprit.event.Services;
 import com.esprit.event.DAO.entities.Centre;
 import com.esprit.event.DAO.entities.Event;
 import com.esprit.event.DAO.entities.User;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IEventService {
-    public Event addEvent(Event event,int userID);
+    public Event addEvent(Event event,int userID) throws IOException;
     public Event updateEvent(int id,Event updatedEvent);
     public void deleteEvent(int id);
     public List<Event> getAllEvents();
@@ -17,4 +21,5 @@ public interface IEventService {
     public Event derollFromEvent(int eventID,int userID);
     public List<Centre> getCenters();
     public void sendMail(String toSend,String subject,String Body);
+    public ResponseEntity<Resource> getEventImage(String imageUrl);
 }
