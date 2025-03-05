@@ -15,17 +15,17 @@
                 <ngb-alert type="light-danger" class="mb-2" *ngIf="isLoginFailed" (close)="isLoginFailed = false">
                   <p class="mb-0">Login failed!</p>
                 </ngb-alert>
-                <form [formGroup]="loginForm">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                   <div class="form-group">
-                    <input type="text" formControlName="username" class="form-control" placeholder="Username"
-                      [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.username.invalid, 'is-valid': loginFormSubmitted && !lf.username.invalid }"
+                    <input type="email" formControlName="email" class="form-control" placeholder="Email"
+                      [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.email.invalid, 'is-valid': loginFormSubmitted && !lf.email.invalid }"
                       required>
-                    <div *ngIf="loginFormSubmitted && (lf.username.invalid || lf.username.errors?.required)"
+                    <div *ngIf="loginFormSubmitted && (lf.email.invalid || lf.email.errors?.required)"
                       class="help-block mt-1 text-danger"> <i class="ft-alert-circle align-middle"></i> This is
                       required</div>
                   </div>
                   <div class="form-group">
-                    <input type="password" formControlName="password" class="form-control" placeholder="Old Password"
+                    <input type="password" formControlName="password" class="form-control" placeholder="Password"
                       [ngClass]="{ 'is-invalid': loginFormSubmitted && lf.password.invalid, 'is-valid': loginFormSubmitted && !lf.password.invalid }"
                       required>
                     <div *ngIf="loginFormSubmitted && (lf.password.invalid || lf.password.errors?.required)"
@@ -43,7 +43,7 @@
                   </div>
                   <div class="d-flex justify-content-between flex-sm-row flex-column">
                     <a [routerLink]="['/pages/register']" class="btn bg-light-primary mb-2 mb-sm-0">Register</a>
-                    <a  class="btn btn-primary" (click)="onSubmit()">Login</a>
+                    <button type="submit" class="btn btn-primary">Login</button>
                   </div>
                 </form>
                 <hr>
