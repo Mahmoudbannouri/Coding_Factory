@@ -21,7 +21,7 @@ public class GeminiAIService {
     @Value("${gemini.api.key}")
     private String geminiApiKey;
 
-    private static final String DEFAULT_PROMPT = "You are an expert educational consultant. Your sole purpose is to provide concise and actionable suggestions for professors based on student feedback. You MUST provide a suggestion for the professor. Absolutely do not address the student. Output should be a single sentence starting with 'Professor, ...' and limited to 70 words. Feedback:  ";
+    private static final String DEFAULT_PROMPT = "You are an expert educational consultant. Your sole purpose is to provide concise and actionable suggestions for professors based on student feedback give him technical advices he can do also on points titles . You MUST provide a suggestion for the professor. Absolutely do not address the student. Output should be starting with 'Professor, ...' Limit max 50 words in one senetence . Feedback:  ";
 
     public SentimentAnalysisResult analyzeSentiment(String text) {
         String fullPrompt = DEFAULT_PROMPT + text;
@@ -60,7 +60,6 @@ public class GeminiAIService {
 
                     if (partsArray.isArray() && partsArray.size() > 0) {
                         String suggestion = partsArray.get(0).path("text").asText();
-                        suggestion = validateSuggestion(suggestion);
                         result.setSuggestion(suggestion);
                         System.out.println("Final Suggestion Inserted: " + suggestion);
                     }
@@ -73,50 +72,5 @@ public class GeminiAIService {
         return result;
     }
 
-    private String validateSuggestion(String suggestion) {
-        if (suggestion.toLowerCase().contains("student")) {
-            return "Provide more interactive exercises."; // Fallback suggestion
-        }
-        return suggestion;
-    }
 
-    public String generateRecommendations(String text) {
-        String apiUrl = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + geminiApiKey;
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
-        Map<String, Object> requestBody = new HashMap<>();
-        Map<String, Object> contents = new HashMap<>();
-        Map<String, Object> parts = new HashMap<>();
-        parts.put("text", text);
-        contents.put("parts", List.of(parts));
-        requestBody.put("contents", List.of(contents));
-
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(requestBody, headers);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<Map> response = restTemplate.postForEntity(apiUrl, request, Map.class);
-
-        if (response.getBody() != null) {
-            Map<String, Object> responseBody = response.getBody();
-            Map<String, Object> candidates = ((List<Map<String, Object>>) responseBody.get("candidates")).get(0);
-            Map<String, Object> content = (Map<String, Object>) candidates.get("content");
-            List<Map<String, Object>> partsList = (List<Map<String, Object>>) content.get("parts");
-            String aiResponse = (String) partsList.get(0).get("text");
-
-            // Extract the suggestion
-            return extractSuggestion(aiResponse);
-        } else {
-            return "Error: Unable to fetch AI response.";
-        }
-    }
-
-    private String extractSuggestion(String aiResponse) {
-        try {
-            return aiResponse; // Directly return the AI response as plain text
-        } catch (Exception e) {
-            System.err.println("Error parsing AI response: " + e.getMessage());
-            return "No suggestion available due to an error.";
-        }
-    }
 }

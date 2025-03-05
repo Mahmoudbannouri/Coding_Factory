@@ -263,4 +263,10 @@ export class CourseComponent implements OnInit {
       }
     );
   }
+
+  clearFilters(): void {
+    this.searchQuery = '';
+    this.selectedCategory = '';
+    this.filterCourses();
+  }
 }

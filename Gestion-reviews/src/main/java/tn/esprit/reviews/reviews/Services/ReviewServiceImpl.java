@@ -71,10 +71,30 @@ public class ReviewServiceImpl implements ReviewService {
     public void deleteRecommendation(Long courseId, String recommendationText) {
         System.out.println("Deleting recommendation for Course ID: " + courseId + ", Text: " + recommendationText);
         List<Review> reviews = reviewRepository.findByCourseId(courseId);
+
+        // Normalize the recommendationText (trim and remove extra spaces)
+        String normalizedRecommendationText = recommendationText.trim();
+
+        if (reviews.isEmpty()) {
+            System.out.println("No reviews found for Course ID: " + courseId);
+            return;
+        }
+
         for (Review review : reviews) {
+            System.out.println("Checking review ID: " + review.getId());
             List<Recommendation> recommendations = rec.findByReviewId(review.getId());
+
+            if (recommendations.isEmpty()) {
+                System.out.println("No recommendations found for Review ID: " + review.getId());
+                continue;
+            }
+
             for (Recommendation recommendation : recommendations) {
-                if (recommendation.getRecommendation().equals(recommendationText)) {
+                // Normalize the recommendation text from the database before comparison
+                String normalizedDbText = recommendation.getRecommendation().trim();
+                System.out.println("Checking recommendation ID: " + recommendation.getId() + ", Text: " + normalizedDbText);
+
+                if (normalizedDbText.equals(normalizedRecommendationText)) {
                     System.out.println("Found recommendation to delete: " + recommendation.getId());
                     rec.delete(recommendation); // Delete the recommendation
                     System.out.println("Recommendation deleted successfully.");

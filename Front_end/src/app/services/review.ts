@@ -32,7 +32,7 @@ getAIRecommendations(courseId: number): Observable<{ recommendations: string }> 
 deleteRecommendation(courseId: number, recommendationText: string): Observable<void> {
   console.log("Calling deleteRecommendation API for Course ID:", courseId, "Text:", recommendationText); // Debugging
   return this.http.delete<void>(`${this.apiUrl}/courses/${courseId}/recommendations`, {
-    params: { text: recommendationText }
+      params: { text: recommendationText }
   });
 }
 }

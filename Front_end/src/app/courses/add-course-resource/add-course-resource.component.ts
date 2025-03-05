@@ -38,11 +38,7 @@ export class AddCourseResourceComponent {
   }
 
   async addResourceToCourse(): Promise<void> {
-    this.titleError = this.newResource.title?.length > 20 || !this.newResource.title;
-    this.descriptionError = this.newResource.description?.length > 100 || !this.newResource.description;
-    this.resourceTypeError = this.newResource.resourceType?.length > 20 || !this.newResource.resourceType;
-
-    if (this.titleError || this.descriptionError || this.resourceTypeError) {
+    if (this.isAddButtonDisabled) {
       return;
     }
 
@@ -193,8 +189,23 @@ export class AddCourseResourceComponent {
     return fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
   }
 
-  // Disable the button until both document and video are uploaded
+  // Validate title input
+  validateTitle(): void {
+    this.titleError = !this.newResource.title || this.newResource.title.length > 20;
+  }
+
+  // Validate description input
+  validateDescription(): void {
+    this.descriptionError = !this.newResource.description || this.newResource.description.length > 100;
+  }
+
+  // Validate resource type input
+  validateResourceType(): void {
+    this.resourceTypeError = !this.newResource.resourceType || this.newResource.resourceType.length > 20;
+  }
+
+  // Disable the button until all required fields are valid and files are uploaded
   get isAddButtonDisabled(): boolean {
-    return !(this.documentUploaded && this.videoUploaded);
+    return this.titleError || this.descriptionError || this.resourceTypeError || !this.newResource.title || !this.newResource.description || !this.newResource.resourceType || !this.documentUploaded || !this.videoUploaded;
   }
 }

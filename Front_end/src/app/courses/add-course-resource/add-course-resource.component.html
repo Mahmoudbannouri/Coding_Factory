@@ -4,19 +4,19 @@
 
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" id="title" [(ngModel)]="newResource.title" placeholder="Enter resource title" />
+      <input type="text" id="title" [(ngModel)]="newResource.title" (input)="validateTitle()" placeholder="Enter resource title" />
       <div *ngIf="titleError" class="error-message">Title must be less than 20 characters.</div>
     </div>
 
     <div class="form-group">
       <label for="description">Description:</label>
-      <textarea id="description" [(ngModel)]="newResource.description" placeholder="Enter resource description"></textarea>
+      <textarea id="description" [(ngModel)]="newResource.description" (input)="validateDescription()" placeholder="Enter resource description"></textarea>
       <div *ngIf="descriptionError" class="error-message">Description must be less than 100 characters.</div>
     </div>
 
     <div class="form-group">
       <label for="resourceType">Resource Type:</label>
-      <input type="text" id="resourceType" [(ngModel)]="newResource.resourceType" placeholder="Enter resource type" />
+      <input type="text" id="resourceType" [(ngModel)]="newResource.resourceType" (input)="validateResourceType()" placeholder="Enter resource type" />
       <div *ngIf="resourceTypeError" class="error-message">Resource Type must be less than 20 characters.</div>
     </div>
 

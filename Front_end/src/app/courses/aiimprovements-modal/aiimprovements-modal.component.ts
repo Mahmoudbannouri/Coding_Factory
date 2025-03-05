@@ -53,23 +53,36 @@ export class AIImprovementsModalComponent implements OnInit, OnChanges {
   formatRecommendations(recommendations: string): { title: string, text: string }[] {
     const formattedRecommendations: { title: string, text: string }[] = [];
     const lines = recommendations.split('\n');
-
+  
     for (const line of lines) {
-        if (line.trim().startsWith("Professor,")) {
-            formattedRecommendations.push({
-                title: "Suggestion",
-                text: line.trim()
-            });
-        }
+      if (line.trim().startsWith("Professor,")) {
+        formattedRecommendations.push({
+          title: "Suggestion",
+          text: line.trim()
+        });
+      } else if (line.trim().startsWith("*")) {
+        formattedRecommendations.push({
+          title: "Actionable Advice",
+          text: line.trim().replace("*", "").trim()
+        });
+      } else if (line.trim().startsWith("-")) {
+        formattedRecommendations.push({
+          title: "Technical Advice",
+          text: line.trim().replace("-", "").trim()
+        });
+      }
     }
-
+  
     // If no recommendations are found, return a default message
     if (formattedRecommendations.length === 0) {
-        formattedRecommendations.push({ title: 'No Recommendations', text: 'No suggestions available for this course.' });
+      formattedRecommendations.push({
+        title: 'General Suggestions',
+        text: ''
+      });
     }
-
+  
     return formattedRecommendations;
-}
+  }
   // Helper method to format text: make content between ** bold and blue, and remove **
   formatText(text: string): string {
     if (!text) return '.';
@@ -87,28 +100,28 @@ export class AIImprovementsModalComponent implements OnInit, OnChanges {
     console.log("Deleting recommendation:", recommendation); // Debugging
     // Call the service to delete the recommendation from the database
     this.reviewService.deleteRecommendation(this.selectedCourse.id, recommendation.text).subscribe(
-      () => {
-        console.log("Recommendation deleted successfully from the database."); // Debugging
-        // Remove the recommendation from the UI
-        const formattedRecommendations = this.formatRecommendations(this.recommendations || '');
-        const updatedRecommendations = formattedRecommendations.filter(
-          (rec) => rec.title !== recommendation.title || rec.text !== recommendation.text
-        );
-  
-        // Convert the updated recommendations back to a string
-        this.recommendations = updatedRecommendations
-          .map((rec) => `*${rec.title}**${rec.text}`)
-          .join('\n');
-  
-        console.log("Updated recommendations:", this.recommendations); // Debugging
-        Swal.fire('Success', 'Improvement marked as done and removed.', 'success');
-      },
-      (error) => {
-        console.error("Error deleting recommendation:", error); // Debugging
-        Swal.fire('Error', 'Failed to remove the recommendation.', 'error');
-      }
+        () => {
+            console.log("Recommendation deleted successfully from the database."); // Debugging
+            // Remove the recommendation from the UI
+            const formattedRecommendations = this.formatRecommendations(this.recommendations || '');
+            const updatedRecommendations = formattedRecommendations.filter(
+                (rec) => rec.title !== recommendation.title || rec.text !== recommendation.text
+            );
+
+            // Convert the updated recommendations back to a string
+            this.recommendations = updatedRecommendations
+                .map((rec) => `*${rec.title}**${rec.text}`)
+                .join('\n');
+
+            console.log("Updated recommendations:", this.recommendations); // Debugging
+            Swal.fire('Success', 'Improvement marked as done and removed.', 'success');
+        },
+        (error) => {
+            console.error("Error deleting recommendation:", error); // Debugging
+            Swal.fire('Error', 'Failed to remove the recommendation.', 'error');
+        }
     );
-  }
+}
 
   closeModal(): void {
     this.showModal = false;

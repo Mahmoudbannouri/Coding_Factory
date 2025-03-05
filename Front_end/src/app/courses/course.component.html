@@ -8,6 +8,7 @@
         {{ category.value }}
       </option>
     </select>
+    <button class="clear-button" (click)="clearFilters()">Clear</button>
   </div>
 
   <!-- No Courses Available -->
@@ -49,31 +50,18 @@
               <p><strong>Level:</strong> {{ course.level }}</p>
               <p class="badge">{{ course.categoryCourse }}</p>
             </div>
-            <!-- Add this for the rating display -->
             <!-- Rating Stars -->
-
-
-  <!-- Rating Stars -->
-<!-- Rating Stars -->
-<div class="rating">
-  <!-- Display stars based on the course.rate value -->
-  <div class="stars-container">
-    <!-- Filled Stars -->
-    <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
-    <!-- Partial Star -->
-    <i *ngIf="hasPartialStar(course.rate)" class="bi bi-star-half star partial"></i>
-    <!-- Empty Stars -->
-    <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star star"></i>
-  </div>
-  <!-- Display the rating value -->
-  <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
-  <!-- Add Review Button -->
-  <button (click)="openReviewModal(course)" class="add-review-button round">
-    <i class="bi bi-star-fill icon"></i> Rate
-  </button>
-</div>
-
-
+            <div class="rating">
+              <div class="stars-container">
+                <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
+                <i *ngIf="hasPartialStar(course.rate)" class="bi bi-star-half star partial"></i>
+                <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star star"></i>
+              </div>
+              <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
+              <button (click)="openReviewModal(course)" class="add-review-button round">
+                <i class="bi bi-star-fill icon"></i> Rate
+              </button>
+            </div>
           </div>
           <div class="card-footer">
             <button (click)="openResourcesModal(course)" class="btn-primary round">
@@ -150,11 +138,12 @@
   </app-review-modal>
 
   <!-- AI Improvements Modal -->
-<app-ai-improvements-modal
-[showModal]="showAIImprovementsModal"
-[selectedCourse]="selectedCourse"
-(showModalChange)="showAIImprovementsModal = $event">
-</app-ai-improvements-modal>
+  <app-ai-improvements-modal
+    [showModal]="showAIImprovementsModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showAIImprovementsModal = $event">
+  </app-ai-improvements-modal>
+
   <!-- Floating Plus Button -->
   <button class="floating-plus" (click)="openAddCourseModal()">+</button>
 </div>
