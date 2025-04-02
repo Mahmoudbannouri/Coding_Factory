@@ -38,8 +38,25 @@ public class PfeRestController {
 
 
     @PostMapping("/create")
-    public Pfe createPfe(@RequestBody Pfe pfe) {
-        return pfeService.createPfe(pfe);
+    public ResponseEntity<?> createPfe(@RequestBody Pfe pfe) {
+        try {
+            // Validation manuelle des dates
+            if (pfe.getStartDate() != null && pfe.getEndDate() != null
+                    && pfe.getStartDate().after(pfe.getEndDate())) {
+                return ResponseEntity.badRequest()
+                        .body("La date de fin doit être postérieure à la date de début");
+            }
+
+            Pfe createdPfe = pfeService.createPfe(pfe);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdPfe);
+        } catch (Exception e) {
+            // Log l'erreur complète
+            System.err.println("Erreur lors de la création du PFE:");
+            e.printStackTrace();
+
+            return ResponseEntity.internalServerError()
+                    .body("Erreur lors de la création du PFE: " + e.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
@@ -107,6 +124,5 @@ public class PfeRestController {
 
 
 
-
-
+    
 }

@@ -10,13 +10,7 @@ import java.util.List;
 @EnableDiscoveryClient
 @SpringBootApplication
 public class GestionPfeApplication {
-    private final PfeRepository pfeRepository;
-    private final FeedbackRepository feedbackRepository;
 
-    public GestionPfeApplication(PfeRepository pfeRepository, FeedbackRepository feedbackRepository) {
-        this.pfeRepository = pfeRepository;
-        this.feedbackRepository = feedbackRepository;
-    }
     public static void main(String[] args) {
         SpringApplication.run(GestionPfeApplication.class, args);
     }

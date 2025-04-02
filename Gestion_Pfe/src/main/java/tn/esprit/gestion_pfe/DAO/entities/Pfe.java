@@ -2,8 +2,11 @@ package tn.esprit.gestion_pfe.DAO.entities;
 
 import ch.qos.logback.core.status.StatusManager;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.Date;
+import tn.esprit.gestion_pfe.DAO.Enum.CategoryEnum;
 import tn.esprit.gestion_pfe.DAO.Enum.PfeLevel;
 import tn.esprit.gestion_pfe.DAO.Enum.PfeStatus;
 
@@ -26,13 +29,16 @@ public class Pfe {
 
     private String projectTitle;
     private String description;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date endDate;
     private Long studentId;
     private Long trainerId;
     private Long entrepriseId;
     private String meetingLink;
     private String meetingNotes;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date meetingDate;
 
     @Enumerated(EnumType.STRING)
@@ -42,14 +48,20 @@ public class Pfe {
     private PfeStatus status; // En cours, Validé, Refusé
 
     @Enumerated(EnumType.STRING)
-    private PfeStatus Category; // En cours, Validé, Refusé
+    @Column(length = 50)
+    private CategoryEnum category;
 
+
+    @Builder.Default
     @ElementCollection
     private List<String> documents = new ArrayList<>();
 
+    @Builder.Default
     @ElementCollection
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private List<Date> meetingDates = new ArrayList<>();
 
+    @Builder.Default
     @ElementCollection
     private List<String> juryNames = new ArrayList<>();
 
@@ -161,12 +173,12 @@ public class Pfe {
         this.status = status;
     }
 
-    public PfeStatus getCategory() {
-        return Category;
+    public CategoryEnum getCategory() {
+        return category; // Utilisation de la variable en minuscules
     }
 
-    public void setCategory(PfeStatus category) {
-        Category = category;
+    public void setCategory(CategoryEnum category) {
+        this.category = category; // Utilisation de 'this' pour faire référence à l'attribut
     }
 
     public List<String> getDocuments() {
