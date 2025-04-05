@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/courses';
-import { SupabaseService } from '../../services/supabase.service';
+import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +16,7 @@ export class AddCourseModalComponent {
   categoryEnum = ["WEB_DEVELOPMENT", "DATA_SCIENCE", "SECURITY", "AI", "CLOUD"];
 
   newCourse: Course = new Course();
-  imageUploading: boolean = false; // Flag to handle the image upload process
+  imageUploading: boolean = false;
 
   // Error messages for validation
   titleError: string | null = null;
@@ -25,14 +25,26 @@ export class AddCourseModalComponent {
   levelError: string | null = null;
   imageError: string | null = null;
 
-  constructor(private courseService: CourseService, private supabaseService: SupabaseService) {}
+  constructor(
+    private courseService: CourseService,
+    private http: HttpClient
+  ) {}
 
   closeModal(): void {
     this.showModal = false;
     this.showModalChange.emit(this.showModal);
+    this.resetForm();
   }
 
-  // Validate the form fields in real-time
+  resetForm(): void {
+    this.newCourse = new Course();
+    this.titleError = null;
+    this.descriptionError = null;
+    this.categoryError = null;
+    this.levelError = null;
+    this.imageError = null;
+  }
+
   validateForm(): boolean {
     let isValid = true;
 
@@ -85,7 +97,6 @@ export class AddCourseModalComponent {
     return isValid;
   }
 
-  // Check if the form is valid for button activation
   isFormValid(): boolean {
     return (
       !!this.newCourse.title &&
@@ -98,84 +109,41 @@ export class AddCourseModalComponent {
     );
   }
 
-  // Handle image selection and upload
   async onImageSelected(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      try {
-        console.log('Selected file:', file);
+    if (!file) return;
 
-        // Check if the file already exists in Supabase storage
-        let fileName = file.name;
-        const fileExists = await this.supabaseService.fileExists(fileName);
-
-        // If file exists, generate a new name with versioning
-        let version = 1;
-        while (fileExists) {
-          version++;
-          const fileExtension = fileName.split('.').pop();
-          fileName = fileName.replace(`.${fileExtension}`, `-v${version}.${fileExtension}`);
-          const fileExists = await this.supabaseService.fileExists(fileName); // Check again with the new name
-        }
-
-        // Upload the file with the new or original name
-        const uploadData = await this.uploadFileToSupabase(file, fileName); // Pass the new name if needed
-        if (uploadData && uploadData.publicUrl) {
-          this.newCourse.image = uploadData.publicUrl; // Set the new image URL
-          this.imageError = null; // Clear image error if upload is successful
-          Swal.fire({
-            title: 'Success!',
-            text: 'File uploaded successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK'
-          });
-        } else {
-          Swal.fire({
-            title: 'Error',
-            text: 'Error uploading the image. Please try again.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
-
-      } catch (error) {
-        console.error('Error handling image:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'An error occurred while handling the image.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-    }
-  }
-
-  // Upload image to Supabase and get the URL/path
-  async uploadFileToSupabase(file: File, fileName: string) {
-    this.imageUploading = true; // Set flag to indicate upload in progress
+    this.imageUploading = true;
+    
     try {
-      // Upload the file to Supabase with the new name
-      const data = await this.supabaseService.uploadFile(fileName, file);
+      const formData = new FormData();
+      formData.append('file', file);
 
-      if (data && data.path) {
-        // Once uploaded, get the public URL
-        const publicUrl = await this.supabaseService.getPublicUrl(data.path);
-        return { publicUrl };
-      } else {
-        return null;
+      // Add responseType: 'text' since we're expecting a plain string URL
+      const fileUrl = await this.http.post(
+        'http://localhost:8090/courses/upload',
+        formData,
+        { responseType: 'text' }  // Important change here
+      ).toPromise();
+
+      if (fileUrl) {
+        this.newCourse.image = fileUrl;
+        this.imageError = null;
+        Swal.fire('Success!', 'File uploaded successfully!', 'success');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error uploading file:', error);
-      return null;
+      const errorMsg = error.error?.message || error.message || 'Failed to upload image';
+      this.imageError = errorMsg;
+      Swal.fire('Error', errorMsg, 'error');
     } finally {
-      this.imageUploading = false; // Reset flag after upload attempt
+      this.imageUploading = false;
     }
-  }
+}
 
-  // Add course after image upload is successful
   addCourse(): void {
     if (!this.validateForm()) {
-      return; // Stop if form is invalid
+      return;
     }
 
     this.courseService.addCourse(this.newCourse).subscribe(

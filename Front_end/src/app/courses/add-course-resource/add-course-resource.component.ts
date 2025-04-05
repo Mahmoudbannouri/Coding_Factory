@@ -1,7 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CourseResourceService } from '../../services/course-resource.service';
 import { CourseResource } from '../../models/CourseResource';
-import { SupabaseService } from '../../services/supabase.service';
 import { Course } from '../../models/courses';
 import Swal from 'sweetalert2';
 
@@ -30,52 +29,37 @@ export class AddCourseResourceComponent {
   descriptionError: boolean = false;
   resourceTypeError: boolean = false;
 
-  constructor(private courseResourceService: CourseResourceService, private supabaseService: SupabaseService) {}
+  constructor(private courseResourceService: CourseResourceService) {}
 
   closeModal(): void {
     this.showModal = false;
     this.showModalChange.emit(this.showModal);
+    this.resetForm();
+  }
+
+  resetForm(): void {
+    this.newResource = new CourseResource();
+    this.documentUploaded = false;
+    this.videoUploaded = false;
+    this.titleError = false;
+    this.descriptionError = false;
+    this.resourceTypeError = false;
   }
 
   async addResourceToCourse(): Promise<void> {
-    if (this.isAddButtonDisabled) {
+    if (!this.validateForm()) {
       return;
     }
 
-    const newResource = new CourseResource();
-    newResource.title = this.newResource.title;
-    newResource.resourceType = this.newResource.resourceType;
-    newResource.description = this.newResource.description;
-    newResource.uploadDate = new Date(); // Ensure date is in ISO format
-
-    // Ensure correct links are assigned based on resource type
-    if (this.newResource.link_doccument) {
-      newResource.link_doccument = this.newResource.link_doccument;
-    }
-    if (this.newResource.link_video) {
-      newResource.link_video = this.newResource.link_video;
-    }
-
-    // Ensure course is selected
-    if (!this.selectedCourse || !this.selectedCourse.id) {
-      Swal.fire({
-        title: 'Error',
-        text: 'Please select a valid course.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-      return;
-    }
-
-    // Create a minimal course object with only the id property
-    newResource.course = { id: this.selectedCourse.id } as Course;
-
-    // Log the resource data before sending
-    console.log('Request Data:', newResource);
+    const resourceToAdd: CourseResource = {
+      ...this.newResource,
+      uploadDate: new Date(),
+      course: { id: this.selectedCourse?.id } as Course
+    };
 
     try {
-      const response = await this.courseResourceService.addResource(newResource).toPromise();
-      if (this.selectedCourse.resources) {
+      const response = await this.courseResourceService.addResource(resourceToAdd).toPromise();
+      if (this.selectedCourse?.resources) {
         this.selectedCourse.resources.push(response);
       }
       this.closeModal();
@@ -86,55 +70,80 @@ export class AddCourseResourceComponent {
         icon: 'success',
         confirmButtonText: 'OK'
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error adding resource:', error);
+      const errorMsg = error.error?.message || 'Something went wrong while adding the resource';
       Swal.fire({
         title: 'Error',
-        text: 'Something went wrong while adding the resource.',
+        text: errorMsg,
         icon: 'error',
         confirmButtonText: 'OK'
       });
     }
   }
 
-  async onDocumentSelected(event: Event): Promise<void> {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) {
-      console.error('No file selected');
-      return;
+  validateForm(): boolean {
+    let isValid = true;
+
+    // Validate Title
+    if (!this.newResource.title) {
+      this.titleError = true;
+      isValid = false;
+    } else {
+      this.titleError = this.newResource.title.length > 20;
+      isValid = !this.titleError;
     }
 
-    const uniqueFileName = `${new Date().getTime()}_${this.sanitizeFileName(file.name)}`;
-    this.documentUploading = true;
+    // Validate Description
+    if (!this.newResource.description) {
+      this.descriptionError = true;
+      isValid = false;
+    } else {
+      this.descriptionError = this.newResource.description.length > 100;
+      isValid = isValid && !this.descriptionError;
+    }
 
-    try {
-      // Upload file to Supabase Storage
-      const { path, error } = await this.supabaseService.uploadFile(uniqueFileName, file);
+    // Validate Resource Type
+    if (!this.newResource.resourceType) {
+      this.resourceTypeError = true;
+      isValid = false;
+    } else {
+      this.resourceTypeError = this.newResource.resourceType.length > 20;
+      isValid = isValid && !this.resourceTypeError;
+    }
 
-      if (error || !path) {
-        throw new Error(error?.message || 'Upload failed, no data returned.');
-      }
-
-      console.log('Uploaded file path:', path);
-
-      // Get the public URL
-      const publicUrl = await this.supabaseService.getPublicUrl(path);
-      if (!publicUrl) {
-        throw new Error('Failed to retrieve public URL.');
-      }
-
-      // ✅ Assign the document URL and update flag
-      this.newResource.link_doccument = publicUrl;
-      this.documentUploaded = true;
-      console.log('Document public URL:', publicUrl);
-    } catch (error) {
-      console.error('Error uploading document:', error);
+    // Validate Course Selection
+    if (!this.selectedCourse?.id) {
       Swal.fire({
         title: 'Error',
-        text: 'Failed to upload document.',
+        text: 'Please select a valid course.',
         icon: 'error',
         confirmButtonText: 'OK'
       });
+      return false;
+    }
+
+    return isValid;
+  }
+
+  async onDocumentSelected(event: Event): Promise<void> {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+
+    this.documentUploading = true;
+    this.documentUploaded = false;
+    
+    try {
+      const fileUrl = await this.courseResourceService.uploadDocument(file).toPromise();
+      if (fileUrl) {
+        this.newResource.link_doccument = fileUrl;
+        this.documentUploaded = true;
+        Swal.fire('Success!', 'Document uploaded successfully!', 'success');
+      }
+    } catch (error: any) {
+      console.error('Error uploading document:', error);
+      const errorMsg = error.error?.message || 'Failed to upload document';
+      Swal.fire('Error', errorMsg, 'error');
     } finally {
       this.documentUploading = false;
     }
@@ -142,70 +151,30 @@ export class AddCourseResourceComponent {
 
   async onVideoSelected(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      const uniqueFileName = `${new Date().getTime()}_${this.sanitizeFileName(file.name)}`;
-      this.videoUploading = true;
+    if (!file) return;
 
-      try {
-        // Upload the video
-        const response = await this.supabaseService.uploadFile(uniqueFileName, file);
-
-        if (response.error) {
-          throw new Error(response.error);
-        }
-
-        // Log the uploaded file data
-        console.log('Video upload response:', response);
-
-        // Check if the file path is available
-        if (response.path) {
-          const publicUrl = await this.supabaseService.getPublicUrl(response.path);
-          if (publicUrl) {
-            this.newResource.link_video = publicUrl;
-            this.videoUploaded = true;
-            console.log('Video public URL:', publicUrl);
-          } else {
-            throw new Error('Failed to retrieve public URL for the video');
-          }
-        } else {
-          throw new Error('No file path returned for the video upload');
-        }
-      } catch (error) {
-        console.error('Error uploading video:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Error uploading video.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      } finally {
-        this.videoUploading = false;
+    this.videoUploading = true;
+    this.videoUploaded = false;
+    
+    try {
+      const fileUrl = await this.courseResourceService.uploadVideo(file).toPromise();
+      if (fileUrl) {
+        this.newResource.link_video = fileUrl;
+        this.videoUploaded = true;
+        Swal.fire('Success!', 'Video uploaded successfully!', 'success');
       }
+    } catch (error: any) {
+      console.error('Error uploading video:', error);
+      const errorMsg = error.error?.message || 'Failed to upload video';
+      Swal.fire('Error', errorMsg, 'error');
+    } finally {
+      this.videoUploading = false;
     }
   }
 
-  // Helper function to sanitize file names
-  sanitizeFileName(fileName: string): string {
-    return fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
-  }
-
-  // Validate title input
-  validateTitle(): void {
-    this.titleError = !this.newResource.title || this.newResource.title.length > 20;
-  }
-
-  // Validate description input
-  validateDescription(): void {
-    this.descriptionError = !this.newResource.description || this.newResource.description.length > 100;
-  }
-
-  // Validate resource type input
-  validateResourceType(): void {
-    this.resourceTypeError = !this.newResource.resourceType || this.newResource.resourceType.length > 20;
-  }
-
-  // Disable the button until all required fields are valid and files are uploaded
   get isAddButtonDisabled(): boolean {
-    return this.titleError || this.descriptionError || this.resourceTypeError || !this.newResource.title || !this.newResource.description || !this.newResource.resourceType || !this.documentUploaded || !this.videoUploaded;
+    return this.titleError || this.descriptionError || this.resourceTypeError || 
+           !this.newResource.title || !this.newResource.description || 
+           !this.newResource.resourceType || !this.documentUploaded || !this.videoUploaded;
   }
 }

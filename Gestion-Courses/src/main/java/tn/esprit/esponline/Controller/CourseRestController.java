@@ -7,12 +7,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.esponline.DAO.entities.Course;
 import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.Services.ICourseService;
+import tn.esprit.esponline.Services.IFileStorageService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +27,9 @@ public class CourseRestController {
 
     @Autowired
     private ICourseService courseService;
+
+    @Autowired
+    private IFileStorageService fileStorageService;
 
     @Operation(summary = "Retrieve all courses", description = "This endpoint retrieves all courses from the database.")
     @ApiResponses(value = {
@@ -71,8 +78,16 @@ public class CourseRestController {
             @ApiResponse(responseCode = "404", description = "Course not found")
     })
     @PutMapping("/{id}")
-    public Course updateCourse(@Valid @RequestBody Course course, @PathVariable int id) {
-        return courseService.updateCourse(course, id);
+    public ResponseEntity<Course> updateCourse(
+            @PathVariable int id,
+            @Valid @RequestBody Course course) {
+
+        Course updatedCourse = courseService.updateCourse(course, id);
+        if (updatedCourse != null) {
+            return ResponseEntity.ok(updatedCourse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @Operation(summary = "Delete a course", description = "This endpoint deletes a course by its ID.")
@@ -118,7 +133,7 @@ public class CourseRestController {
 
 
     ///hedhi mta3 node js
-    /*
+
     @PutMapping("/{id}/update-rate")
     public ResponseEntity<Void> updateCourseRate(
             @PathVariable int id,
@@ -145,8 +160,9 @@ public class CourseRestController {
         }
     }
 
-    */
+
     ///hedhi mta3 springboot
+    /*
     @PutMapping("/{id}/update-rate")
     public ResponseEntity<Void> updateCourseRate(@PathVariable int id, @RequestBody double rate) {
         Course course = courseService.getCourseById(id);
@@ -156,6 +172,28 @@ public class CourseRestController {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+*/
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileUrl = fileStorageService.uploadFile(file);
+            return ResponseEntity.ok(fileUrl); // Just return the plain string URL
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to upload file: " + e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete-file")
+    public ResponseEntity<String> deleteFile(@RequestParam String fileUrl) {
+        try {
+            fileStorageService.deleteFile(fileUrl);
+            return ResponseEntity.ok("File deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete file: " + e.getMessage());
         }
     }
 }

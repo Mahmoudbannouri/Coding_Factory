@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/courses';
-import { SupabaseService } from '../../services/supabase.service';
+import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,11 +17,19 @@ export class EditCourseModalComponent implements OnInit {
 
   categoryEnum = ["WEB_DEVELOPMENT", "DATA_SCIENCE", "SECURITY", "AI", "CLOUD"];
   course: Course = new Course();
+  imageUploading: boolean = false;
   imageUploaded: boolean = false;
+
+  // Error messages for validation
+  titleError: string | null = null;
+  descriptionError: string | null = null;
+  categoryError: string | null = null;
+  levelError: string | null = null;
+  imageError: string | null = null;
 
   constructor(
     private courseService: CourseService,
-    private supabaseService: SupabaseService,
+    private http: HttpClient,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -41,7 +49,8 @@ export class EditCourseModalComponent implements OnInit {
     this.courseService.getCourseById(this.courseId).subscribe(
       (data) => {
         this.course = data;
-        this.cdr.detectChanges(); // Manually trigger change detection
+        this.imageUploaded = !!this.course.image;
+        this.cdr.detectChanges();
       },
       (error) => {
         console.error('Error fetching course:', error);
@@ -54,75 +63,118 @@ export class EditCourseModalComponent implements OnInit {
     this.showModalChange.emit(this.showModal);
   }
 
-  async updateCourse(): Promise<void> {
-    try {
-      const updatedCourse = await this.courseService.updateCourse(this.courseId, this.course).toPromise();
-      this.courseUpdated.emit(updatedCourse);
-      this.closeModal();
-      Swal.fire({
-        title: 'Success!',
-        text: 'Course updated successfully!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
-    } catch (error) {
-      console.error('Error updating course:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'Something went wrong while updating the course.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+  validateForm(): boolean {
+    let isValid = true;
+
+    // Validate Title
+    if (!this.course.title) {
+      this.titleError = 'Title is required.';
+      isValid = false;
+    } else if (this.course.title.length > 20) {
+      this.titleError = 'Title must be less than 20 characters.';
+      isValid = false;
+    } else {
+      this.titleError = null;
     }
+
+    // Validate Description
+    if (!this.course.description) {
+      this.descriptionError = 'Description is required.';
+      isValid = false;
+    } else if (this.course.description.length > 100) {
+      this.descriptionError = 'Description must be less than 100 characters.';
+      isValid = false;
+    } else {
+      this.descriptionError = null;
+    }
+
+    // Validate Category
+    if (!this.course.categoryCourse) {
+      this.categoryError = 'Category is required.';
+      isValid = false;
+    } else {
+      this.categoryError = null;
+    }
+
+    // Validate Level
+    if (!this.course.level) {
+      this.levelError = 'Level is required.';
+      isValid = false;
+    } else {
+      this.levelError = null;
+    }
+
+    return isValid;
+  }
+
+  updateCourse(): void {
+    if (!this.validateForm()) {
+      return;
+    }
+
+    this.courseService.updateCourse(this.courseId, this.course).subscribe(
+      (updatedCourse) => {
+        this.courseUpdated.emit(updatedCourse);
+        this.closeModal();
+        Swal.fire({
+          title: 'Success!',
+          text: 'Course updated successfully!',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+      },
+      (error) => {
+        console.error('Error updating course:', error);
+        if (error.error) {
+          const errorMessages = Object.values(error.error).join('\n');
+          Swal.fire({
+            title: 'Validation Error',
+            text: errorMessages,
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        } else {
+          Swal.fire({
+            title: 'Error',
+            text: 'Something went wrong while updating the course.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
+        }
+      }
+    );
   }
 
   async onImageSelected(event: Event): Promise<void> {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) {
-      console.error('No file selected');
-      return;
-    }
+    if (!file) return;
 
-    const uniqueFileName = `${new Date().getTime()}_${this.sanitizeFileName(file.name)}`;
-
+    this.imageUploading = true;
+    
     try {
-      // Upload file to Supabase Storage
-      const { path, error } = await this.supabaseService.uploadFile(uniqueFileName, file);
+      const formData = new FormData();
+      formData.append('file', file);
 
-      if (error || !path) {
-        throw new Error(error?.message || 'Upload failed, no data returned.');
+      const fileUrl = await this.http.post(
+        'http://localhost:8090/courses/upload',
+        formData,
+        { responseType: 'text' }
+      ).toPromise();
+
+      if (fileUrl) {
+        this.course.image = fileUrl;
+        this.imageUploaded = true;
+        this.imageError = null;
+        Swal.fire('Success!', 'Image uploaded successfully!', 'success');
       }
-
-      console.log('Uploaded file path:', path);
-
-      // Get the public URL
-      const publicUrl = await this.supabaseService.getPublicUrl(path);
-      if (!publicUrl) {
-        throw new Error('Failed to retrieve public URL.');
-      }
-
-      // Assign the image URL and update flag
-      this.course.image = publicUrl;
-      this.imageUploaded = true;
-      console.log('Image public URL:', publicUrl);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error uploading image:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'Failed to upload image.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+      const errorMsg = error.error?.message || error.message || 'Failed to upload image';
+      this.imageError = errorMsg;
+      Swal.fire('Error', errorMsg, 'error');
+    } finally {
+      this.imageUploading = false;
+      this.cdr.detectChanges();
     }
-  }
-
-  // Helper function to sanitize file names
-  sanitizeFileName(fileName: string): string {
-    return fileName.replace(/[^a-zA-Z0-9._-]/g, '_');
-  }
-
-  // Disable the button until the image is uploaded
-  get isUpdateButtonDisabled(): boolean {
-    return !this.imageUploaded;
   }
 }

@@ -5,24 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5161cbd0-55ff-4c56-bdea-d69ff131abac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/db.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/eureka.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/controllers/reviewController.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Recommendation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/Review.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/models/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/reviewRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/courseServiceClient.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/geminiService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/reviewService.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/services/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Services/FileStorageService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Services/IFileStorageService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/services/review.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/services/review.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/courses/edit-course-modal/edit-course-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/courses/edit-course-modal/edit-course-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,9 +30,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2vAcLFSMzgtXAtHkZQwMMjxjx6D" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -54,7 +45,7 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Gestion__courses",
     "javascript.nodejs.core.library.configured.version": "16.20.2",
     "javascript.nodejs.core.library.typings.version": "16.18.126",
     "node.js.detected.package.eslint": "true",
@@ -88,6 +79,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743591260367</updated>
       <workItem from="1743591261390" duration="24726000" />
+      <workItem from="1743863414381" duration="1834000" />
     </task>
     <servers />
   </component>

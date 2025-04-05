@@ -8,10 +8,17 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import tn.esprit.esponline.DAO.entities.CourseResource;
+import tn.esprit.esponline.Services.FileStorageService;
 import tn.esprit.esponline.Services.ICourseResourceService;
+import tn.esprit.esponline.Services.IFileStorageService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Tag(name = "Course Resources", description = "This web service handles CRUD operations for course resources.")
@@ -19,6 +26,11 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/course-resources")
 public class CourseResourceRestController {
+
+
+    @Autowired
+    private IFileStorageService fileStorageService; // Changed to use the interface
+
 
     @Autowired
     private ICourseResourceService courseResourceService;
@@ -75,5 +87,50 @@ public class CourseResourceRestController {
     @DeleteMapping("/{id}")
     public void deleteResource(@PathVariable int id) {
         courseResourceService.deleteResource(id);
+    }
+
+
+    @PostMapping(value = "/upload-document", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadDocument(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileUrl = fileStorageService.uploadDocument(file);
+            return ResponseEntity.ok(fileUrl);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to upload document: " + e.getMessage());
+        }
+    }
+
+    @PostMapping(value = "/upload-video", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> uploadVideo(@RequestParam("file") MultipartFile file) {
+        try {
+            String fileUrl = fileStorageService.uploadVideo(file);
+            return ResponseEntity.ok(fileUrl);
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to upload video: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete-document")
+    public ResponseEntity<String> deleteDocument(@RequestParam String fileUrl) {
+        try {
+            fileStorageService.deleteDocument(fileUrl);
+            return ResponseEntity.ok("Document deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete document: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/delete-video")
+    public ResponseEntity<String> deleteVideo(@RequestParam String fileUrl) {
+        try {
+            fileStorageService.deleteVideo(fileUrl);
+            return ResponseEntity.ok("Video deleted successfully");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Failed to delete video: " + e.getMessage());
+        }
     }
 }
