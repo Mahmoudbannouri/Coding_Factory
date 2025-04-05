@@ -14,6 +14,7 @@ import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.Services.ICourseService;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Courses", description = "This web service handles CRUD operations for courses.")
 @RestController
@@ -115,6 +116,37 @@ public class CourseRestController {
         return courseService.getEnrolledStudents(courseId);
     }
 
+
+    ///hedhi mta3 node js
+    /*
+    @PutMapping("/{id}/update-rate")
+    public ResponseEntity<Void> updateCourseRate(
+            @PathVariable int id,
+            @RequestBody Map<String, Double> request) {
+
+        try {
+            if (request == null || !request.containsKey("rate")) {
+                return ResponseEntity.badRequest().build();
+            }
+
+            Double rate = request.get("rate");
+            Course course = courseService.getCourseById(id);
+
+            if (course == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            course.setRate(rate);
+            courseService.updateCourse(course, id);
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    */
+    ///hedhi mta3 springboot
     @PutMapping("/{id}/update-rate")
     public ResponseEntity<Void> updateCourseRate(@PathVariable int id, @RequestBody double rate) {
         Course course = courseService.getCourseById(id);

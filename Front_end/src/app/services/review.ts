@@ -15,9 +15,8 @@ export class ReviewService {
     return this.http.post(this.apiUrl, review);
   }
 
- // review.service.ts
-// review.service.ts
-// review.service.ts
+ // review.service.ts 
+
 getAIRecommendations(courseId: number): Observable<{ recommendations: string }> {
   console.log('Fetching AI recommendations for Course ID:', courseId);
   return this.http.get<{ recommendations: string }>(

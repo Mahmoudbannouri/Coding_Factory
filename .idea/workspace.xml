@@ -5,23 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/.idea/review_node.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/app.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/config/db.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/config/eureka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/controllers/reviewController.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/models/Recommendation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/models/Review.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/models/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/routes/reviewRoutes.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/services/courseServiceClient.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/services/geminiService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/services/reviewService.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/review_node/services/server.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-resource/add-course-resource.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/aiimprovements-modal/aiimprovements-modal.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app.module.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/review.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/GeminiAIService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/GeminiAIService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-reviews/src/main/java/tn/esprit/reviews/reviews/Services/ReviewServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,8 +82,9 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Gestion__courses&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews/pom.xml&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -93,7 +103,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ReviewsApplication">
+  <component name="RunManager" selected="Spring Boot.ApiGetwayApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -142,6 +152,13 @@
       </method>
     </configuration>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -162,6 +179,11 @@
       <workItem from="1740927845339" duration="80000" />
       <workItem from="1741077826727" duration="47968000" />
       <workItem from="1741171959894" duration="8790000" />
+      <workItem from="1741207580920" duration="1916000" />
+      <workItem from="1741243655744" duration="2164000" />
+      <workItem from="1741285929498" duration="4352000" />
+      <workItem from="1743588457734" duration="1595000" />
+      <workItem from="1743590931603" duration="325000" />
     </task>
     <servers />
   </component>
