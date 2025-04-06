@@ -1,45 +1,84 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { NgForm, UntypedFormGroup, FormControl, Validators, UntypedFormBuilder } from '@angular/forms';
-
-// import custom validator to validate that password and confirm password fields match
-import { MustMatch } from '../../../shared/directives/must-match.validator';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MustMatch } from '../../../shared/directives/must-match.validator';
+import { AuthService } from 'app/shared/auth/auth.service';
 
 @Component({
   selector: 'app-register-page',
   templateUrl: './register-page.component.html',
   styleUrls: ['./register-page.component.scss']
 })
-
 export class RegisterPageComponent implements OnInit {
+  registerForm!: FormGroup;
   registerFormSubmitted = false;
-  registerForm: UntypedFormGroup;
-  constructor(private formBuilder: UntypedFormBuilder, private router: Router) { }
 
-  ngOnInit() {
+  showPassword = false;
+  showConfirmPassword = false;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]], // Only numbers allowed
+      address: ['', Validators.required],
+      dateOfBirth: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]], // At least 6 characters
       confirmPassword: ['', Validators.required],
+      role: ['', Validators.required],
       acceptTerms: [false, Validators.requiredTrue]
     }, {
       validator: MustMatch('password', 'confirmPassword')
     });
   }
 
+  selectRole(role: string): void {
+    this.registerForm.patchValue({ role });
+  }
+  
+
+  togglePasswordVisibility(field: string): void {
+    if (field === 'password') {
+      this.showPassword = !this.showPassword;
+    } else if (field === 'confirmPassword') {
+      this.showConfirmPassword = !this.showConfirmPassword;
+    }
+  }
+
   get rf() {
     return this.registerForm.controls;
   }
 
-
-  //  On submit click, reset field value
-  onSubmit() {
+  onSubmit(): void {
     this.registerFormSubmitted = true;
     if (this.registerForm.invalid) {
       return;
     }
 
-    this.router.navigate(['/pages/login']);
+    const userData = {
+      name: this.registerForm.value.name,
+      email: this.registerForm.value.email,
+      phoneNumber: this.registerForm.value.phoneNumber,
+      address: this.registerForm.value.address,
+      dateOfBirth: this.registerForm.value.dateOfBirth,
+      password: this.registerForm.value.password,
+      roles: [this.registerForm.value.role]
+    };
+
+    this.authService.register(userData).subscribe({
+      next: (response) => {
+        console.log('User registered:', response);
+        this.router.navigate(['/pages/login']);// ✅ Correct path
+      },
+      error: (error) => {
+        console.error('Registration error:', error);
+      }
+    });
   }
 }
