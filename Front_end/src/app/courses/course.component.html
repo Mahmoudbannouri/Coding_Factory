@@ -1,8 +1,9 @@
 <div class="course-container">
   <!-- Search Input and Filters -->
   <div class="search-container">
-    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..." class="search-input" (ngModelChange)="filterCourses()">
-    <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="filterCourses()">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..." 
+           class="search-input" (ngModelChange)="onSearchChange()">
+    <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="onSearchChange()">
       <option value="">All Categories</option>
       <option *ngFor="let category of categoryEnum | keyvalue" [value]="category.value">
         {{ category.value }}
@@ -11,8 +12,13 @@
     <button class="clear-button" (click)="clearFilters()">Clear</button>
   </div>
 
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="loading-indicator">
+    Loading courses...
+  </div>
+
   <!-- No Courses Available -->
-  <div *ngIf="filteredCourses.length === 0">
+  <div *ngIf="!loading && page.content.length === 0">
     <p>No courses available.</p>
   </div>
 
@@ -32,10 +38,10 @@
   </app-edit-course-modal>
 
   <!-- All Courses Section -->
-  <div *ngIf="filteredCourses.length > 0">
+  <div *ngIf="!loading && page.content.length > 0">
     <h3>All Courses</h3>
     <div class="course-cards-container">
-      <div *ngFor="let course of getPaginatedCourses(); let i = index" class="course-card">
+      <div *ngFor="let course of page.content; let i = index" class="course-card">
         <div class="card">
           <div class="card-header">
             <h4 class="card-title">{{ course.title }}</h4>
@@ -92,9 +98,9 @@
 
     <!-- Pagination Controls -->
     <div class="pagination-controls">
-      <button (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-      <span>Page {{ currentPage }} of {{ getTotalPages() }}</span>
-      <button (click)="nextPage()" [disabled]="currentPage === getTotalPages()">Next</button>
+      <button (click)="prevPage()" [disabled]="page.number === 0">Previous</button>
+      <span>Page {{ page.number + 1 }} of {{ page.totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="page.number >= page.totalPages - 1">Next</button>
     </div>
   </div>
 

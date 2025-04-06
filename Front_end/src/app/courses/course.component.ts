@@ -5,7 +5,8 @@ import { Course } from '../models/courses';
 import { User } from '../models/User';
 import { CategoryEnum } from '../models/CategoryEnum';
 import Swal from 'sweetalert2';
-import { CourseResource } from 'app/models/CourseResource';
+import { CourseResource } from '../models/CourseResource';
+import { Page } from '../models/page';
 
 @Component({
   selector: 'app-course',
@@ -15,8 +16,14 @@ import { CourseResource } from 'app/models/CourseResource';
 export class CourseComponent implements OnInit {
   categoryEnum = CategoryEnum;
   categoryColors: { [key: string]: string } = {};
-  courses: Course[] = [];
-  filteredCourses: Course[] = [];
+  page: Page<Course> = {
+    content: [],
+    totalElements: 0,
+    totalPages: 0,
+    size: 6,
+    number: 0,
+    numberOfElements: 0
+  };
   selectedCourse: Course | null = null;
   trainers: User[] = [];
   showModal = false;
@@ -28,15 +35,18 @@ export class CourseComponent implements OnInit {
   showReviewModal = false;
   searchQuery = '';
   selectedCategory = '';
-  currentPage = 1;
-  itemsPerPage = 6;
   enrolledStudents: User[] = [];
-  showAIImprovementsModal: boolean;
+  showAIImprovementsModal = false;
+  loading = false;
 
-  constructor(private courseService: CourseService, private courseResourceService: CourseResourceService, private cdr: ChangeDetectorRef) {}
+  constructor(
+    private courseService: CourseService, 
+    private courseResourceService: CourseResourceService, 
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this.getAllCourses();
+    this.searchCourses();
     this.assignRandomColorsToCategories();
   }
 
@@ -55,20 +65,35 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  getAllCourses(): void {
-    this.courseService.getAllCourses().subscribe(
-      (data) => {
-        this.courses = data.map(course => ({
-          ...course,
-          image: this.getFile(course.image)
-        }));
-        this.filterCourses();
+  searchCourses(): void {
+    this.loading = true;
+    this.courseService.searchCourses(
+      this.searchQuery,
+      this.selectedCategory as CategoryEnum,
+      this.page.number,
+      this.page.size
+    ).subscribe(
+      (page) => {
+        this.page = {
+          ...page,
+          content: page.content.map(course => ({
+            ...course,
+            image: this.getFile(course.image)
+          }))
+        };
+        this.loading = false;
         this.cdr.detectChanges();
       },
       (error) => {
-        console.error('Erreur lors de la récupération des cours:', error);
+        console.error('Error searching courses:', error);
+        this.loading = false;
       }
     );
+  }
+
+  onSearchChange(): void {
+    this.page.number = 0; // Reset to first page when search/filter changes
+    this.searchCourses();
   }
 
   getFile(fileName: string): string {
@@ -78,33 +103,17 @@ export class CourseComponent implements OnInit {
     return `https://wbptqnvcpiorvwjotqwx.supabase.co/storage/v1/object/public/course-images/${fileName}`;
   }
 
-  filterCourses(): void {
-    this.filteredCourses = this.courses.filter(course =>
-      (this.searchQuery === '' || course.title.toLowerCase().includes(this.searchQuery.toLowerCase())) &&
-      (this.selectedCategory === '' || course.categoryCourse.toLowerCase() === this.selectedCategory.toLowerCase())
-    );
-    this.currentPage = 1;
-    this.cdr.detectChanges();
-  }
-
-  getPaginatedCourses(): Course[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    return this.filteredCourses.slice(startIndex, startIndex + this.itemsPerPage);
-  }
-
-  getTotalPages(): number {
-    return Math.ceil(this.filteredCourses.length / this.itemsPerPage);
-  }
-
   nextPage(): void {
-    if (this.currentPage < this.getTotalPages()) {
-      this.currentPage++;
+    if (this.page.number < this.page.totalPages - 1) {
+      this.page.number++;
+      this.searchCourses();
     }
   }
 
   prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+    if (this.page.number > 0) {
+      this.page.number--;
+      this.searchCourses();
     }
   }
 
@@ -121,8 +130,7 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseAdded(course: Course): void {
-    this.courses.push(course);
-    this.filterCourses();
+    this.searchCourses(); // Refresh the list
     this.cdr.detectChanges();
   }
 
@@ -133,7 +141,7 @@ export class CourseComponent implements OnInit {
   }
 
   onReviewAdded(): void {
-    this.getAllCourses(); // Refresh the course list to show updated ratings
+    this.searchCourses(); // Refresh the course list to show updated ratings
     this.cdr.detectChanges();
   }
 
@@ -151,30 +159,21 @@ export class CourseComponent implements OnInit {
     this.cdr.detectChanges();
   }
 
-  // Helper method to get the number of filled stars
   getFilledStars(rate: number): number[] {
-    const filledStars = Math.floor(rate); // Get the integer part of the rate
-    return Array(filledStars).fill(0); // Create an array of length `filledStars`
+    const filledStars = Math.floor(rate);
+    return Array(filledStars).fill(0);
   }
 
-  // Helper method to check if there is a partial star
   hasPartialStar(rate: number): boolean {
-    return rate % 1 !== 0; // Check if there is a fractional part
+    return rate % 1 !== 0;
   }
 
-  // Helper method to get the number of empty stars
   getEmptyStars(rate: number): number[] {
     const totalStars = 5;
     const filledStars = Math.floor(rate);
     const hasPartial = this.hasPartialStar(rate);
-    const emptyStars = totalStars - filledStars - (hasPartial ? 1 : 0); // Subtract filled and partial stars
-    return Array(emptyStars).fill(0); // Create an array of length `emptyStars`
-  }
-
-  // Example mapping function
-  mapCourseIdToReviewsService(courseId: number): number {
-    // Add logic to map the course ID to the Reviews Microservice ID
-    return courseId; // Replace with actual mapping logic
+    const emptyStars = totalStars - filledStars - (hasPartial ? 1 : 0);
+    return Array(emptyStars).fill(0);
   }
 
   openResourcesModal(course: Course): void {
@@ -187,27 +186,27 @@ export class CourseComponent implements OnInit {
         this.cdr.detectChanges();
       },
       (error) => {
-        console.error('Erreur lors de la récupération des ressources:', error);
+        console.error('Error fetching resources:', error);
       }
     );
   }
 
   deleteCourse(courseId: number): void {
     Swal.fire({
-      title: 'are you sure?',
-      text: 'you cant have this course again !',
+      title: 'Are you sure?',
+      text: 'You won\'t be able to recover this course!',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'yes, delete!',
-      cancelButtonText: 'Non, keep it'
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
         this.courseService.deleteCourse(courseId).subscribe(() => {
-          this.getAllCourses();
-          Swal.fire('Deleted!', 'The course is deleted.', 'success');
+          this.searchCourses();
+          Swal.fire('Deleted!', 'The course has been deleted.', 'success');
         }, (error) => {
-          console.error('Error while deleting the course :', error);
-          Swal.fire('Error!', 'Error while deleting the course.', 'error');
+          console.error('Error deleting course:', error);
+          Swal.fire('Error!', 'Error deleting course.', 'error');
         });
       }
     });
@@ -230,23 +229,18 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseUpdated(updatedCourse: Course): void {
-    const index = this.courses.findIndex(course => course.id === updatedCourse.id);
-    if (index !== -1) {
-      this.courses[index] = updatedCourse;
-      this.filterCourses();
-      this.cdr.detectChanges();
-    }
+    this.searchCourses(); // Refresh the list
+    this.cdr.detectChanges();
   }
 
   openEnrollModal(course: Course): void {
-    console.log('Ouverture du modal d\'inscription pour le cours:', course);
     this.selectedCourse = course;
     this.showEnrollModal = true;
     this.cdr.detectChanges();
   }
 
   onStudentsEnrolled(): void {
-    this.getAllCourses();
+    this.searchCourses(); // Refresh the list
     this.cdr.detectChanges();
   }
 
@@ -259,7 +253,7 @@ export class CourseComponent implements OnInit {
         this.cdr.detectChanges();
       },
       (error) => {
-        console.error('Erreur lors de la récupération des étudiants inscrits:', error);
+        console.error('Error fetching enrolled students:', error);
       }
     );
   }
@@ -267,6 +261,7 @@ export class CourseComponent implements OnInit {
   clearFilters(): void {
     this.searchQuery = '';
     this.selectedCategory = '';
-    this.filterCourses();
+    this.page.number = 0;
+    this.searchCourses();
   }
 }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Course } from '../models/courses';
 import { User } from '../models/User';
+import { Page } from '../models/page'; // You'll need to create this interface
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +58,19 @@ export class CourseService {
    getEnrolledStudents(courseId: number): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/${courseId}/students`);
   }
+  searchCourses(searchQuery: string = '', category: string = '', page: number = 0, size: number = 6): Observable<Page<Course>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
 
+    if (searchQuery) {
+      params = params.set('searchQuery', searchQuery);
+    }
+    if (category) {
+      params = params.set('category', category);
+    }
+
+    return this.http.get<Page<Course>>(`${this.apiUrl}/search`, { params });
+  }
   
 }

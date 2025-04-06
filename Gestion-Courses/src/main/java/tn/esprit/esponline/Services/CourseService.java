@@ -1,18 +1,21 @@
 package tn.esprit.esponline.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import tn.esprit.esponline.DAO.entities.CategoryEnum;
 import tn.esprit.esponline.DAO.entities.Course;
 import tn.esprit.esponline.DAO.entities.RoleNameEnum;
 import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.DAO.repositories.CourseRepository;
 import tn.esprit.esponline.DAO.repositories.UserRepository;
-import tn.esprit.esponline.Services.ICourseService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseService implements ICourseService {
@@ -33,6 +36,12 @@ public class CourseService implements ICourseService {
         return courseRepository.save(course);
     }
 
+
+    @Override
+    public Page<Course> searchCourses(String searchQuery, CategoryEnum category, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("title").ascending());
+        return courseRepository.searchCourses(searchQuery, category, pageable);
+    }
     @Override
     public Course updateCourse(Course course, int courseId) {
         Optional<Course> existingCourse = courseRepository.findById(courseId);

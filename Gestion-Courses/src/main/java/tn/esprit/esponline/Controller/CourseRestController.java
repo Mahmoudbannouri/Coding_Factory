@@ -6,11 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.esponline.DAO.entities.CategoryEnum;
 import tn.esprit.esponline.DAO.entities.Course;
 import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.Services.ICourseService;
@@ -130,7 +132,16 @@ public class CourseRestController {
     public List<User> getEnrolledStudents(@PathVariable int courseId) {
         return courseService.getEnrolledStudents(courseId);
     }
-
+    @GetMapping("/search")
+    public ResponseEntity<Page<Course>> searchCourses(
+            @RequestParam(required = false) String searchQuery,
+            @RequestParam(required = false) CategoryEnum category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "6") int size
+    ) {
+        Page<Course> courses = courseService.searchCourses(searchQuery, category, page, size);
+        return ResponseEntity.ok(courses);
+    }
 
     ///hedhi mta3 node js
 

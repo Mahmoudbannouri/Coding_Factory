@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5161cbd0-55ff-4c56-bdea-d69ff131abac" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Services/FileStorageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Services/IFileStorageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/courses/edit-course-modal/edit-course-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/courses/edit-course-modal/edit-course-modal.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="5161cbd0-55ff-4c56-bdea-d69ff131abac" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -79,7 +69,7 @@
       <option name="presentableId" value="Default" />
       <updated>1743591260367</updated>
       <workItem from="1743591261390" duration="24726000" />
-      <workItem from="1743863414381" duration="1834000" />
+      <workItem from="1743863414381" duration="2562000" />
     </task>
     <servers />
   </component>
