@@ -24,6 +24,7 @@ public class ApiGetwayApplication {
                         .uri("lb://GESTION-PFE"))  // Ensure this matches the Eureka service name
                 // Route for gestion-course service
                 .route("gestion-course", r -> r.path("/gestion-course/**")
+
                         .uri("lb://gestion-course"))  // Ensure this matches the Eureka service name
                 // Route for Spring Boot gestion-reviews service
                 .route("gestion-reviews", r -> r.path("/reviews/**")

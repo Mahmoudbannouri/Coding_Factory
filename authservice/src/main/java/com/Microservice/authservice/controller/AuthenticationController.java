@@ -5,6 +5,7 @@ import com.Microservice.authservice.dao.request.SignUpRequest;
 import com.Microservice.authservice.dao.request.SingninRequest;
 import com.Microservice.authservice.dao.request.response.JwtAuthenticationResponse;
 import com.Microservice.authservice.entities.RefreshToken;
+import com.Microservice.authservice.entities.Role;
 import com.Microservice.authservice.exception.TokenRefreshException;
 import com.Microservice.authservice.service.AuthenticationService;
 import com.Microservice.authservice.service.RefreshTokenService;
@@ -15,7 +16,9 @@ import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController

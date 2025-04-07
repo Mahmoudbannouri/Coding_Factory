@@ -466,7 +466,57 @@ button[type="submit"]:hover {
   margin: 0 20px;
   font-size: 16px;
 }
+/* Add Course Button */
+.add-course-button {
+  background-color: #3f51b5; /* Professional blue color */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Makes it perfectly round */
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin-left: 10px;
+}
 
+.add-course-button:hover {
+  background-color: #303f9f; /* Darker shade on hover */
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.add-course-button:active {
+  transform: scale(0.95);
+}
+
+/* Update search container to properly align items */
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Make sure clear button and add button stay together */
+.clear-button {
+  margin-right: 0; /* Remove any right margin */
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+/* Rest of your existing styles */
 /* Floating Plus Button */
 .floating-plus {
   position: fixed;

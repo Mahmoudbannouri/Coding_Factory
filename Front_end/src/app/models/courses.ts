@@ -2,6 +2,7 @@ import { User } from './User';
 import { CourseResource } from './CourseResource';
 import { CategoryEnum } from './CategoryEnum';
 
+// course.model.ts
 export class Course {
   id!: number;
   title!: string;
@@ -9,7 +10,8 @@ export class Course {
   level!: string;
   image!: string;
   categoryCourse!: CategoryEnum;
-  trainer?: User;
+  trainerId?: number;  // Changed from User to just ID
   resources?: CourseResource[];
-  students?: User[];
+  studentIds?: number[];  // Changed from User[] to number[]
+  rate?: number;
 }

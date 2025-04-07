@@ -7,6 +7,7 @@ import { CategoryEnum } from '../models/CategoryEnum';
 import Swal from 'sweetalert2';
 import { CourseResource } from '../models/CourseResource';
 import { Page } from '../models/page';
+import { StorageService } from 'app/shared/auth/storage.service';
 
 @Component({
   selector: 'app-course',
@@ -26,6 +27,7 @@ export class CourseComponent implements OnInit {
   };
   selectedCourse: Course | null = null;
   trainers: User[] = [];
+  enrolledStudents: User[] = []; // or any[] if you have a specific interface for enrolled students
   showModal = false;
   showAddResourceModal = false;
   showResourcesModal = false;
@@ -35,21 +37,183 @@ export class CourseComponent implements OnInit {
   showReviewModal = false;
   searchQuery = '';
   selectedCategory = '';
-  enrolledStudents: User[] = [];
   showAIImprovementsModal = false;
   loading = false;
+  public isTrainerLoggedIn = false;
+  public isStudentLoggedIn = false;
+  public StorageService = StorageService; // Make the service available in template
 
   constructor(
     private courseService: CourseService, 
     private courseResourceService: CourseResourceService, 
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private storageService: StorageService
   ) {}
 
   ngOnInit(): void {
-    this.searchCourses();
+    if (!this.storageService.isLoggedIn()) {
+      return;
+    }
+  
+    // First set the roles
+    this.updateRoleFlags();
+    
+    console.log('Raw user data:', this.storageService.getUser());
+    console.log('Processed role:', StorageService.getUserRole());
+    console.log('Is trainer:', this.isTrainerLoggedIn); // Use the property
+    console.log(`User is ${this.isTrainerLoggedIn ? 'Trainer' : this.isStudentLoggedIn ? 'Student' : 'Guest'}`);
+    
     this.assignRandomColorsToCategories();
+    this.loadInitialCourses();
+  }
+  
+
+  private updateRoleFlags(): void {
+    const role = StorageService.getUserRole()?.replace(/[\[\]]/g, '');
+    this.isTrainerLoggedIn = role === 'TRAINER';
+    this.isStudentLoggedIn = role === 'STUDENT';
+    this.cdr.detectChanges(); // Add this to ensure UI updates
+  }
+  getCategoryValues(): string[] {
+    return Object.keys(CategoryEnum).filter(key => isNaN(Number(key)));
+  }
+  getCategoryDisplayName(category: string): string {
+    if (!category) return '';
+    return category.toLowerCase().split('_').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+  }
+  // Fix the ngAfterViewInit debug code
+ngAfterViewInit() {
+  setTimeout(() => {
+    const btn = document.querySelector('.floating-add-button') as HTMLElement;
+    console.log('Button element:', btn);
+    if (btn) {
+      console.log('Computed styles:', window.getComputedStyle(btn));
+      console.log('Parent visible:', (btn as any).offsetParent !== null);
+    }
+  }, 1000);
+}
+
+
+  
+  
+loadInitialCourses(): void {
+  this.loading = true;
+  this.cdr.detectChanges();
+  
+  const subscription = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+    ? this.courseService.getMyCourses().subscribe(
+        (courses: Course[] | Page<Course>) => {
+          this.handleCoursesResponse(courses);
+        },
+        (err: any) => {
+          this.handleCoursesError(err);
+        }
+      )
+    : this.courseService.getAllCoursesWithPagination(
+        this.searchQuery, 
+        this.selectedCategory,
+        0,
+        6
+      ).subscribe(
+        (page: Page<Course>) => {
+          this.handleCoursesResponse(page);
+        },
+        (err: any) => {
+          this.handleCoursesError(err);
+        }
+      );
+}
+
+private handleCoursesResponse(courses: Course[] | Page<Course>): void {
+  this.page = {
+    content: Array.isArray(courses) ? courses : courses.content,
+    totalElements: Array.isArray(courses) ? courses.length : courses.totalElements,
+    totalPages: Array.isArray(courses) ? Math.ceil(courses.length / this.page.size) : courses.totalPages,
+    size: this.page.size,
+    number: 0,
+    numberOfElements: Array.isArray(courses) ? courses.length : courses.numberOfElements
+  };
+  this.loading = false;
+  this.cdr.detectChanges();
+}
+
+private handleCoursesError(err: any): void {
+  console.error('Error loading courses:', err);
+  this.loading = false;
+  this.cdr.detectChanges();
+  Swal.fire('Error', 'Failed to load courses', 'error');
+}
+
+  searchCourses(): void {
+    this.loading = true;
+    
+    const observable = this.isTrainerLoggedIn || this.isStudentLoggedIn
+      ? this.courseService.searchMyCourses(
+          this.searchQuery,
+          this.selectedCategory,
+          this.page.number,
+          this.page.size
+        )
+      : this.courseService.getAllCoursesWithPagination(
+          this.searchQuery,
+          this.selectedCategory,
+          this.page.number,
+          this.page.size
+        );
+  
+    observable.subscribe({
+      next: (page) => {
+        this.page = {
+          ...page,
+          content: page.content.map(course => ({
+            ...course,
+            image: this.getFile(course.image)
+          }))
+        };
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error searching courses:', error);
+        this.loading = false;
+        Swal.fire('Error', 'Failed to load courses', 'error');
+      }
+    });
   }
 
+  enrollInCourse(course: Course): void {
+    this.courseService.enrollCurrentUser(course.id).subscribe({
+      next: () => {
+        Swal.fire('Success', 'Enrolled successfully!', 'success');
+        this.searchCourses(); // Refresh the list
+      },
+      error: (err) => {
+        Swal.fire('Error', err.error.message || 'Enrollment failed', 'error');
+      }
+    });
+  }
+  private loadTrainerCourses(): void {
+    this.loading = true;
+    this.courseService.getMyCourses().subscribe({
+      next: (courses) => {
+        this.page = {
+          ...this.page,
+          content: courses.map(course => ({
+            ...course,
+            image: this.getFile(course.image)
+          }))
+        };
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        console.error('Error loading trainer courses:', err);
+        Swal.fire('Error', 'Failed to load your courses', 'error');
+      }
+    });
+  }
   generateRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -65,34 +229,8 @@ export class CourseComponent implements OnInit {
     });
   }
 
-  searchCourses(): void {
-    this.loading = true;
-    this.courseService.searchCourses(
-      this.searchQuery,
-      this.selectedCategory as CategoryEnum,
-      this.page.number,
-      this.page.size
-    ).subscribe(
-      (page) => {
-        this.page = {
-          ...page,
-          content: page.content.map(course => ({
-            ...course,
-            image: this.getFile(course.image)
-          }))
-        };
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
-      (error) => {
-        console.error('Error searching courses:', error);
-        this.loading = false;
-      }
-    );
-  }
-
   onSearchChange(): void {
-    this.page.number = 0; // Reset to first page when search/filter changes
+    this.page.number = 0;
     this.searchCourses();
   }
 
@@ -125,14 +263,24 @@ export class CourseComponent implements OnInit {
   }
 
   openAddCourseModal(): void {
+    console.log('Current user role:', StorageService.getUserRole());
     this.showModal = true;
     this.cdr.detectChanges();
   }
 
   onCourseAdded(course: Course): void {
-    this.searchCourses(); // Refresh the list
+    if (this.isTrainerLoggedIn) {
+      // For trainers, reload their specific courses
+      this.loadTrainerCourses();
+    } else {
+      // For others, refresh the general search
+      this.searchCourses();
+    }
+    this.page.content = [course, ...this.page.content];
+    this.page.totalElements++;
     this.cdr.detectChanges();
   }
+  
 
   openReviewModal(course: Course): void {
     this.selectedCourse = course;
@@ -141,7 +289,7 @@ export class CourseComponent implements OnInit {
   }
 
   onReviewAdded(): void {
-    this.searchCourses(); // Refresh the course list to show updated ratings
+    this.searchCourses();
     this.cdr.detectChanges();
   }
 
@@ -201,12 +349,20 @@ export class CourseComponent implements OnInit {
       cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.courseService.deleteCourse(courseId).subscribe(() => {
-          this.searchCourses();
-          Swal.fire('Deleted!', 'The course has been deleted.', 'success');
-        }, (error) => {
-          console.error('Error deleting course:', error);
-          Swal.fire('Error!', 'Error deleting course.', 'error');
+        this.courseService.deleteCourse(courseId).subscribe({
+          next: () => {
+            // Remove the deleted course from the local array
+            this.page.content = this.page.content.filter(course => course.id !== courseId);
+            // Update the total elements count
+            this.page.totalElements--;
+            
+            Swal.fire('Deleted!', 'The course has been deleted.', 'success');
+            this.cdr.detectChanges(); // Trigger change detection
+          },
+          error: (error) => {
+            console.error('Error deleting course:', error);
+            Swal.fire('Error!', 'Error deleting course.', 'error');
+          }
         });
       }
     });
@@ -229,7 +385,12 @@ export class CourseComponent implements OnInit {
   }
 
   onCourseUpdated(updatedCourse: Course): void {
-    this.searchCourses(); // Refresh the list
+    const index = this.page.content.findIndex(c => c.id === updatedCourse.id);
+    if (index !== -1) {
+      this.page.content[index] = updatedCourse;
+      this.cdr.detectChanges();
+    }
+    this.searchCourses();
     this.cdr.detectChanges();
   }
 
@@ -240,22 +401,32 @@ export class CourseComponent implements OnInit {
   }
 
   onStudentsEnrolled(): void {
-    this.searchCourses(); // Refresh the list
-    this.cdr.detectChanges();
+    if (this.selectedCourse) {
+      this.courseService.getEnrolledStudentsWithDetails(this.selectedCourse.id)
+        .subscribe(students => {
+          this.enrolledStudents = students;
+          this.showStudentsModal = true; // Show students modal after enrollment
+        });
+    }
   }
 
   openStudentsModal(course: Course): void {
     this.selectedCourse = course;
-    this.courseService.getEnrolledStudents(course.id).subscribe(
-      (students) => {
-        this.enrolledStudents = students;
+    this.loading = true;
+    
+    this.courseService.getEnrolledStudentsWithDetails(course.id).subscribe({
+      next: (students) => {
+        this.enrolledStudents = students; // This should now be an array of student objects
         this.showStudentsModal = true;
+        this.loading = false;
         this.cdr.detectChanges();
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching enrolled students:', error);
+        this.loading = false;
+        Swal.fire('Error', 'Failed to load enrolled students', 'error');
       }
-    );
+    });
   }
 
   clearFilters(): void {

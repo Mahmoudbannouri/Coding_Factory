@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import tn.esprit.esponline.DAO.entities.Course;
 import tn.esprit.esponline.DAO.entities.CourseResource;
 import tn.esprit.esponline.Services.FileStorageService;
 import tn.esprit.esponline.Services.ICourseResourceService;
@@ -45,14 +46,12 @@ public class CourseResourceRestController {
         return courseResourceService.getAllResources();
     }
 
-    @Operation(summary = "Retrieve resources by course ID", description = "This endpoint retrieves resources by the specified course ID.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Successfully retrieved resources"),
-            @ApiResponse(responseCode = "404", description = "Course not found")
-    })
-    @GetMapping("/course/{courseId}")
-    public List<CourseResource> getResourcesByCourseId(@PathVariable int courseId) {
-        return courseResourceService.getResourcesByCourseId(courseId);
+    @Operation(summary = "Retrieve resources by course ID", description = "This endpoint retrieves resources by the specified course ID.")@GetMapping("/course/{courseId}")
+    public ResponseEntity<List<CourseResource>> getResourcesByCourseId(@PathVariable int courseId) {
+        Course course = new Course();
+        course.setId(courseId);
+        List<CourseResource> resources = courseResourceService.getResourcesByCourseId(courseId);
+        return ResponseEntity.ok(resources);
     }
 
     @Operation(summary = "Add a new resource", description = "This endpoint adds a new course resource to the database.")

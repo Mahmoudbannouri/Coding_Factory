@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Course } from '../../models/courses';
 import { ReviewService } from '../../services/review';
 import Swal from 'sweetalert2';
+import { StorageService } from 'app/shared/auth/storage.service';
 
 @Component({
   selector: 'app-review-modal',
@@ -23,7 +24,10 @@ export class ReviewModalComponent {
   loading = false; // Add a loading state
 
   constructor(private reviewService: ReviewService) {}
-
+// In review-modal.component.ts
+ngOnInit(): void {
+  this.review.studentId = StorageService.getUserId();
+}
   closeModal() {
     this.showModal = false;
     this.showModalChange.emit(false);
