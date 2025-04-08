@@ -44,6 +44,16 @@ public class ReviewController {
         double averageRating = reviewService.getAverageRatingByCourseId(courseId);
         return ResponseEntity.ok(averageRating);
     }
+    // In ReviewController.java
+    // In ReviewController.java
+    @GetMapping("/has-reviewed")
+    public ResponseEntity<Boolean> hasStudentReviewed(
+            @RequestParam Long studentId,
+            @RequestParam Long courseId) {
+
+        boolean hasReviewed = reviewService.hasStudentReviewed(studentId, courseId);
+        return ResponseEntity.ok(hasReviewed);
+    }
     @DeleteMapping("/courses/{courseId}/recommendations")
     public ResponseEntity<Void> deleteRecommendation(@PathVariable Long courseId, @RequestParam String text) {
         reviewService.deleteRecommendation(courseId, text);

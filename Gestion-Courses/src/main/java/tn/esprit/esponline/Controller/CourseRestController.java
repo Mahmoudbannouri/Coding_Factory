@@ -278,21 +278,16 @@ public class CourseRestController {
 
         return ResponseEntity.ok(courseService.searchCourses(searchQuery, categoryEnum, page, size));
     }
-    @Operation(summary = "Update course rating")
     @PutMapping("/{id}/update-rate")
-    public ResponseEntity<Void> updateCourseRate(
-            @PathVariable int id,
-            @RequestBody Map<String, Double> request) {
-        if (request == null || !request.containsKey("rate")) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<Void> updateCourseRate(@PathVariable int id, @RequestBody double rate) {
         Course course = courseService.getCourseById(id);
-        if (course == null) {
+        if (course != null) {
+            course.setRate(rate);
+            courseService.updateCourse(course, id);
+            return ResponseEntity.ok().build();
+        } else {
             return ResponseEntity.notFound().build();
         }
-        course.setRate(request.get("rate"));
-        courseService.updateCourse(course, id);
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

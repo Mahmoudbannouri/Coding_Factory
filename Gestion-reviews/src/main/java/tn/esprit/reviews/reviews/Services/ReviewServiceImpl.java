@@ -26,39 +26,38 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     private GeminiAIService geminiAIService;
 
+    // In ReviewServiceImpl.java
     @Override
     public Review addReview(Review review) {
-        // Check if the comment is empty or null
+        // First check if the student has already reviewed this course
+        if (reviewRepository.existsByStudentIdAndCourseId(review.getStudentId(), review.getCourseId())) {
+            throw new IllegalStateException("You have already reviewed this course");
+        }
+
+        // Rest of your existing addReview logic
         if (review.getComment() == null || review.getComment().trim().isEmpty()) {
-            // Save the review without generating recommendations
             Review savedReview = reviewRepository.save(review);
             updateCourseRate(review.getCourseId());
             return savedReview;
         }
 
-        // If the comment is not empty, proceed with sentiment analysis and recommendations
         SentimentAnalysisResult result = geminiAIService.analyzeSentiment(review.getComment());
-        System.out.println("Sentiment Analysis Result: " + result);
-
-        // Save the review
         Review savedReview = reviewRepository.save(review);
 
-        // Use the extracted suggestion directly from the sentiment analysis result
         String aiRecommendations = result.getSuggestion();
-        System.out.println("AI Recommendations: " + aiRecommendations);
-
-        // Create and save the recommendation
         Recommendation recommendation = new Recommendation();
         recommendation.setRecommendation(aiRecommendations);
         recommendation.setReview(savedReview);
         rec.save(recommendation);
 
-        // Update the course rate
         updateCourseRate(review.getCourseId());
-
         return savedReview;
     }
-
+    // In ReviewServiceImpl.java
+    @Override
+    public boolean hasStudentReviewed(Long studentId, Long courseId) {
+        return reviewRepository.existsByStudentIdAndCourseId(studentId, courseId);
+    }
     @Override
     public List<Review> getReviewsByCourseId(Long courseId) {
         System.out.println("Fetching reviews for course ID: " + courseId);

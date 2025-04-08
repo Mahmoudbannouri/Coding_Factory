@@ -14,4 +14,5 @@ export class Course {
   resources?: CourseResource[];
   studentIds?: number[];  // Changed from User[] to number[]
   rate?: number;
+  hasReviewed: boolean;
 }

@@ -441,20 +441,33 @@ button[type="submit"]:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 .pagination-controls button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+}
+/* In your component's CSS */
+.add-review-button.reviewed {
+  background-color: #28a745;
+  cursor: not-allowed;
 }
 
+.add-review-button.reviewed:hover {
+  background-color: #28a745;
+}
+
+.add-review-button:disabled {
+  opacity: 1; /* Keep it fully visible but not clickable */
+}
 .pagination-controls button:disabled {
-  background-color: #ccc;
+  background-color: #cccccc;
   cursor: not-allowed;
 }
 

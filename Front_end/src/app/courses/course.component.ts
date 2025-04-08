@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { CourseResource } from '../models/CourseResource';
 import { Page } from '../models/page';
 import { StorageService } from 'app/shared/auth/storage.service';
+import { ReviewService } from 'app/services/review';
 
 @Component({
   selector: 'app-course',
@@ -47,7 +48,8 @@ export class CourseComponent implements OnInit {
     private courseService: CourseService, 
     private courseResourceService: CourseResourceService, 
     private cdr: ChangeDetectorRef,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private reviewService: ReviewService
   ) {}
 
   ngOnInit(): void {
@@ -103,9 +105,14 @@ loadInitialCourses(): void {
   this.cdr.detectChanges();
   
   const subscription = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
-    ? this.courseService.getMyCourses().subscribe(
-        (courses: Course[] | Page<Course>) => {
-          this.handleCoursesResponse(courses);
+    ? this.courseService.searchMyCourses(
+        this.searchQuery,
+        this.selectedCategory,
+        this.page.number,  // Use current page number
+        this.page.size     // Use current page size
+      ).subscribe(
+        (page: Page<Course>) => {
+          this.handleCoursesResponse(page);
         },
         (err: any) => {
           this.handleCoursesError(err);
@@ -114,8 +121,8 @@ loadInitialCourses(): void {
     : this.courseService.getAllCoursesWithPagination(
         this.searchQuery, 
         this.selectedCategory,
-        0,
-        6
+        this.page.number,  // Use current page number
+        this.page.size     // Use current page size
       ).subscribe(
         (page: Page<Course>) => {
           this.handleCoursesResponse(page);
@@ -127,12 +134,25 @@ loadInitialCourses(): void {
 }
 
 private handleCoursesResponse(courses: Course[] | Page<Course>): void {
+  const courseList = Array.isArray(courses) ? courses : courses.content;
+  const studentId = StorageService.getUserId();
+  
+  if (this.isStudentLoggedIn && studentId) {
+    courseList.forEach(course => {
+      this.reviewService.hasStudentReviewed(studentId, course.id)
+        .subscribe(hasReviewed => {
+          course.hasReviewed = hasReviewed;
+          this.cdr.detectChanges();
+        });
+    });
+  }
+
   this.page = {
-    content: Array.isArray(courses) ? courses : courses.content,
+    content: courseList,
     totalElements: Array.isArray(courses) ? courses.length : courses.totalElements,
     totalPages: Array.isArray(courses) ? Math.ceil(courses.length / this.page.size) : courses.totalPages,
     size: this.page.size,
-    number: 0,
+    number: Array.isArray(courses) ? 0 : courses.number,
     numberOfElements: Array.isArray(courses) ? courses.length : courses.numberOfElements
   };
   this.loading = false;
@@ -146,42 +166,43 @@ private handleCoursesError(err: any): void {
   Swal.fire('Error', 'Failed to load courses', 'error');
 }
 
-  searchCourses(): void {
-    this.loading = true;
-    
-    const observable = this.isTrainerLoggedIn || this.isStudentLoggedIn
-      ? this.courseService.searchMyCourses(
-          this.searchQuery,
-          this.selectedCategory,
-          this.page.number,
-          this.page.size
-        )
-      : this.courseService.getAllCoursesWithPagination(
-          this.searchQuery,
-          this.selectedCategory,
-          this.page.number,
-          this.page.size
-        );
+searchCourses(): void {
+  this.loading = true;
   
-    observable.subscribe({
-      next: (page) => {
-        this.page = {
-          ...page,
-          content: page.content.map(course => ({
-            ...course,
-            image: this.getFile(course.image)
-          }))
-        };
-        this.loading = false;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        console.error('Error searching courses:', error);
-        this.loading = false;
-        Swal.fire('Error', 'Failed to load courses', 'error');
-      }
-    });
-  }
+  const observable = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+    ? this.courseService.searchMyCourses(
+        this.searchQuery,
+        this.selectedCategory,
+        this.page.number,
+        this.page.size
+      )
+    : this.courseService.getAllCoursesWithPagination(
+        this.searchQuery,
+        this.selectedCategory,
+        this.page.number,
+        this.page.size
+      );
+
+  observable.subscribe({
+    next: (page) => {
+      this.page = {
+        ...page,
+        content: page.content.map(course => ({
+          ...course,
+          image: this.getFile(course.image)
+        }))
+      };
+      this.loading = false;
+      this.cdr.detectChanges();
+    },
+    error: (error) => {
+      console.error('Error searching courses:', error);
+      this.loading = false;
+      Swal.fire('Error', 'Failed to load courses', 'error');
+      this.cdr.detectChanges();
+    }
+  });
+}
 
   enrollInCourse(course: Course): void {
     this.courseService.enrollCurrentUser(course.id).subscribe({
