@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-@CrossOrigin(origins = "http://localhost:4200")
 public class ApiGetwayApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ApiGetwayApplication.class, args);
     }
 
-    // Dynamique configuration for multiple routes
+    // Dynamic configuration for multiple routes
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
@@ -27,8 +26,9 @@ public class ApiGetwayApplication {
                 // Route for gestion-course service
                 .route("gestion-course", r -> r.path("/gestion-course/**")
                         .uri("lb://gestion-course"))  // Ensure this matches the Eureka service name
-                .route("gestion-events", r -> r.path("/event/**")
-                        .uri("lb://EVENT"))
-                .build();
+                // Route for gestion-reviews service
+                .route("gestion-reviews", r -> r.path("/reviews/**")
+                        .uri("lb://reviews-service"))  // Ensure this matches the Eureka service name
+                .build(); // Only one .build() is needed
     }
 }

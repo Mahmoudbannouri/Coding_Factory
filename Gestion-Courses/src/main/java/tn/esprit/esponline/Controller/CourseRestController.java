@@ -4,11 +4,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.esponline.DAO.entities.Course;
+import tn.esprit.esponline.DAO.entities.User;
 import tn.esprit.esponline.Services.ICourseService;
 
 import java.util.List;
@@ -16,7 +18,6 @@ import java.util.List;
 @Tag(name = "Courses", description = "This web service handles CRUD operations for courses.")
 @RestController
 @RequestMapping("/courses")
-@CrossOrigin(origins = "*")
 public class CourseRestController {
 
     @Autowired
@@ -59,7 +60,7 @@ public class CourseRestController {
             @ApiResponse(responseCode = "400", description = "Invalid course data")
     })
     @PostMapping
-    public Course addCourse(@RequestBody Course course) {
+    public Course addCourse(@Valid @RequestBody Course course) {
         return courseService.addCourse(course);
     }
 
@@ -69,7 +70,7 @@ public class CourseRestController {
             @ApiResponse(responseCode = "404", description = "Course not found")
     })
     @PutMapping("/{id}")
-    public Course updateCourse(@RequestBody Course course, @PathVariable int id) {
+    public Course updateCourse(@Valid @RequestBody Course course, @PathVariable int id) {
         return courseService.updateCourse(course, id);
     }
 
@@ -92,5 +93,37 @@ public class CourseRestController {
     @PostMapping("/{courseId}/enroll/{studentId}")
     public Course enrollStudentInCourse(@PathVariable int courseId, @PathVariable int studentId) {
         return courseService.enrollStudentInCourse(courseId, studentId);
+    }
+
+    @Operation(summary = "Get all students", description = "This endpoint retrieves all students.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved all students"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
+    @GetMapping("/students")
+    public List<User> getAllStudents() {
+        return courseService.getAllStudents();
+    }
+
+    @Operation(summary = "Get enrolled students for a course", description = "This endpoint retrieves the list of students enrolled in a specific course.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved enrolled students"),
+            @ApiResponse(responseCode = "404", description = "Course not found")
+    })
+    @GetMapping("/{courseId}/students")
+    public List<User> getEnrolledStudents(@PathVariable int courseId) {
+        return courseService.getEnrolledStudents(courseId);
+    }
+
+    @PutMapping("/{id}/update-rate")
+    public ResponseEntity<Void> updateCourseRate(@PathVariable int id, @RequestBody double rate) {
+        Course course = courseService.getCourseById(id);
+        if (course != null) {
+            course.setRate(rate);
+            courseService.updateCourse(course, id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

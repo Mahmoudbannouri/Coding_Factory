@@ -9,6 +9,5 @@ export class CourseResource {
   description!: string;
   uploadDate!: Date;
   course!: Course;
-  link_document: any;
 
 }

@@ -40,9 +40,10 @@ public class CourseResourceService implements ICourseResourceService {
 
     @Override
     public List<CourseResource> getResourcesByCourseId(int courseId) {
-        Course course = courseResourceRepository.findById(courseId)
-                .orElseThrow(() -> new ResourceNotFoundException("Course not found")).getCourse();
+        Course course = new Course();
+        course.setId(courseId);
         return courseResourceRepository.findByCourse(course);
     }
+
 
 }

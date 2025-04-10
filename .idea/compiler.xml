@@ -7,9 +7,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Gestion-PFE" />
         <module name="EEureka" />
         <module name="ApiGetway" />
-        <module name="Gestion-PFE" />
+
+        <module name="reviews" />
       </profile>
       <profile name="Annotation profile for esponline" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -28,6 +30,7 @@
       <module name="EEureka" options="-parameters" />
       <module name="Gestion-PFE" options="-parameters" />
       <module name="esponline" options="-parameters" />
+      <module name="reviews" options="-parameters" />
     </option>
   </component>
 </project>

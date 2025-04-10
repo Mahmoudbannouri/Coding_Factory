@@ -5,16 +5,28 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import tn.esprit.gestionpfe.Enum.PfeLevel;
+import tn.esprit.gestionpfe.Enum.PfeStatus;
+import tn.esprit.gestionpfe.entity.Feedback;
+import tn.esprit.gestionpfe.entity.Pfe;
+import tn.esprit.gestionpfe.repository.FeedbackRepository;
+import tn.esprit.gestionpfe.repository.PfeRepository;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
+
 @EnableDiscoveryClient
 @SpringBootApplication
 public class GestionPfeApplication {
 
     private final PfeRepository pfeRepository;
+    private final FeedbackRepository feedbackRepository;
 
-    public GestionPfeApplication(PfeRepository pfeRepository) {
+
+    public GestionPfeApplication(PfeRepository pfeRepository, FeedbackRepository feedbackRepository) {
         this.pfeRepository = pfeRepository;
+        this.feedbackRepository = feedbackRepository;
     }
 
     public static void main(String[] args) {
@@ -22,23 +34,6 @@ public class GestionPfeApplication {
     }
 
 
-    @Bean
-    ApplicationRunner init() {
-        return (args) -> {
-            // Vérifier si des données existent déjà
-            if (pfeRepository.count() == 0) {
-                // Initialisation des données dans la base de données
-                pfeRepository.save(new Pfe(null, "Projet A", "Description du projet A", new Date(), new Date(), PfeLevel.MASTER, PfeStatus.EN_COURS, 1L, 2L, 3L));
-                pfeRepository.save(new Pfe(null, "Projet B", "Description du projet B", new Date(), new Date(), PfeLevel.INGENIEUR, PfeStatus.VALIDE, 2L, 3L, 4L));
-                pfeRepository.save(new Pfe(null, "Projet C", "Description du projet C", new Date(), new Date(), PfeLevel.LICENCE, PfeStatus.REFUSE, 3L, 4L, 5L));
-
-                // Affichage des données initialisées
-                pfeRepository.findAll().forEach(pfe -> System.out.println(pfe));
-            } else {
-                System.out.println("Les données existent déjà !");
-            }
-        };
-    }
 }
 
 

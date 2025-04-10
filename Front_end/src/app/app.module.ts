@@ -1,10 +1,9 @@
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import { CourseComponent} from './courses/course.component';
-
+import { CourseComponent } from './courses/course.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
 import { AgmCoreModule } from "@agm/core";
@@ -14,14 +13,14 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { StoreModule } from "@ngrx/store";
 import { DragulaService } from "ng2-dragula";
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorService } from './interceptors/http.interceptor';
 import {
   PerfectScrollbarModule,
   PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface
 } from 'ngx-perfect-scrollbar';
 import { ModalModule } from '@coreui/angular';
-
 import { AppRoutingModule } from "./app-routing.module";
 import { SharedModule } from "./shared/shared.module";
 import * as fromApp from './store/app.reducer';
@@ -30,12 +29,9 @@ import { ContentLayoutComponent } from "./layouts/content/content-layout.compone
 import { FullLayoutComponent } from "./layouts/full/full-layout.component";
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { CourseModule } from './courses/course.module'; // Import CourseModule
-import { EventModule } from './event/event.module';
 import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
-
-import { FormsModule } from "@angular/forms";
 
 var firebaseConfig = {
   apiKey: "AIzaSyC9XfnIpwNoSv7cyAsoccFQ5EYPd7lZXrk", //YOUR_API_KEY
@@ -48,7 +44,6 @@ var firebaseConfig = {
   measurementId: "G-ZVSYZRJ211" //YOUR_MEASUREMENT_ID
 };
 
-
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false
@@ -59,7 +54,11 @@ export function createTranslateLoader(http: HttpClient) {
 }
 
 @NgModule({
-  declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent],
+  declarations: [
+    AppComponent,
+    FullLayoutComponent,
+    ContentLayoutComponent,
+  ],
   imports: [
     BrowserAnimationsModule,
     StoreModule.forRoot(fromApp.appReducer),
@@ -71,8 +70,7 @@ export function createTranslateLoader(http: HttpClient) {
     AngularFireAuthModule,
     ToastrModule.forRoot(),
     NgbModule,
-    FormsModule,
-  
+    NgSelectModule,
     NgxSpinnerModule,
     TranslateModule.forRoot({
       loader: {
@@ -87,6 +85,11 @@ export function createTranslateLoader(http: HttpClient) {
     PerfectScrollbarModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true,
+    },
     AuthService,
     AuthGuard,
     DragulaService,

@@ -2,7 +2,13 @@ package tn.esprit.esponline.DAO.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+
+
 import java.sql.Date;
 import java.util.List;
 import java.util.Set;
@@ -21,20 +27,33 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotNull(message = "Title is required")
+    @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
     private String title;
+
+    @Size(min = 1, max = 20, message = "level must be between 1 and 100 characters")
+    @NotNull(message = "Level is required")
+    private String level;
+
+    @NotNull(message = "Description is required")
+    @Size(min = 1, max = 500, message = "Description must be between 1 and 500 characters")
     private String description;
-    private int rate;
-    private java.sql.Date startDate;
-    private java.sql.Date endDate;
+
+    private double rate; // Average rating of the course
+
+
+    @NotNull(message = "image is required")
     private String image;  // Assuming it's a URL to the image or path.
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Category is required")
     private CategoryEnum categoryCourse;
 
 
     @ManyToOne
     @JoinColumn(name = "trainer_id")
     private User trainer;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -49,12 +68,10 @@ public class Course {
     )
     private Set<User> students;
 
-    public Course(String title, String description, Date startDate, Date endDate) {
+    public Course(String title, String description,String level) {
         this.title = title;
         this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.rate = 0; // Default value
+        this.level=level;
         this.image = ""; // Default value
     }
 
@@ -80,17 +97,8 @@ public class Course {
         return description;
     }
 
-    public int getRate() {
-        return rate;
-    }
 
-    public Date getStartDate() {
-        return startDate;
-    }
 
-    public Date getEndDate() {
-        return endDate;
-    }
 
     public CategoryEnum getCategoryCourse() {
         return categoryCourse;
@@ -114,6 +122,22 @@ public class Course {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public double getRate() {
+        return rate;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     // Add a constructor with relevant parameters

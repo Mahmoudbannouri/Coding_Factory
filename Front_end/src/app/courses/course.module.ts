@@ -10,7 +10,16 @@ import { CourseRoutingModule } from "./course-routing.module";
 import { PipeModule } from 'app/shared/pipes/pipe.module';
 
 import { CourseComponent } from "./course.component";
-
+import { AddCourseResourceComponent } from './add-course-resource/add-course-resource.component';
+import { ShowCourseResourceComponent } from './show-course-resource/show-course-resource.component';
+import { AddCourseModalComponent } from './add-course-modal/add-course-modal.component';
+import { EditCourseModalComponent } from './edit-course-modal/edit-course-modal.component';
+import { EnrollStudentsModalComponent } from './enroll-students-modal/enroll-students-modal.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ShowStudentsModalComponent } from './show-students-modal/show-students-modal.component';
+import { ReviewModalComponent } from './review-modal/review-modal.component';
+import { AIImprovementsModalComponent } from './aiimprovements-modal/aiimprovements-modal.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     imports: [
@@ -18,12 +27,22 @@ import { CourseComponent } from "./course.component";
         CourseRoutingModule,
         NgbModule,
         QuillModule.forRoot(),
+        FontAwesomeModule,
         FormsModule,
         PerfectScrollbarModule,
-        PipeModule
+        PipeModule,
+        NgSelectModule
     ],
     declarations: [
-        CourseComponent
+        CourseComponent,
+        AddCourseResourceComponent,
+        ShowCourseResourceComponent,
+        AddCourseModalComponent,
+        EditCourseModalComponent,
+        EnrollStudentsModalComponent,
+        ShowStudentsModalComponent,
+        ReviewModalComponent,
+        AIImprovementsModalComponent
     ]
 })
 export class CourseModule { }
