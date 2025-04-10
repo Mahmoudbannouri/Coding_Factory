@@ -22,7 +22,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/event")
-@CrossOrigin(origins = "http://localhost:4200")
 public class EventRestController {
 
     @Autowired
@@ -88,7 +87,7 @@ public class EventRestController {
         List<Event> events = eventService.getAllEvents();
         return ResponseEntity.ok(events);
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @GetMapping("/getImage/{imageUrl}")
     public ResponseEntity<Resource> getImages(@PathVariable String imageUrl) {
 

@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,8 +62,8 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "Gestion__Events",
-    "last_opened_file_path": "C:/Users/kedid/OneDrive/Bureau/EventPush/Coding_Factory_Backend",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/kedid/OneDrive/Bureau/EventPush/Coding_Factory_Backend/authservice/pom.xml",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -95,6 +100,13 @@
     <configuration name="ApiGetwayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="ApiGetway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="tn.esprit.apigetway.ApiGetwayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthserviceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="authservice" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.Microservice.authservice.AuthserviceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -156,7 +168,7 @@
       <workItem from="1740927845339" duration="80000" />
       <workItem from="1741077826727" duration="47968000" />
       <workItem from="1741171959894" duration="8790000" />
-      <workItem from="1744299373303" duration="111000" />
+      <workItem from="1744299373303" duration="1855000" />
     </task>
     <servers />
   </component>

@@ -221,7 +221,7 @@ public class EventServiceImpl implements IEventService{
         }
         return event;
     }
-    @CrossOrigin(origins = "http://localhost:4200")
+
     @Override
     public Event enrollToEvent(int eventID, int userID, String accessToken) {
         Event eventToAttend= eventRepo.findById(eventID)
