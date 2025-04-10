@@ -20,8 +20,8 @@ public class ApiGetwayApplication {
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 // Route for gestion-pfe service
-                .route("gestion-pfe", r -> r.path("/pfe/**")
-                        .uri("lb://GESTION-PFE"))  // Ensure this matches the Eureka service name
+                .route("gestion_pfe", r -> r.path("/pfe/**")
+                        .uri("lb://Gestion_Pfe"))  // Ensure this matches the Eureka service name
                 // Route for gestion-course service
                 .route("gestion-course", r -> r.path("/gestion-course/**")
                         .uri("lb://gestion-course"))  // Ensure this matches the Eureka service name
