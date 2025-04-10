@@ -320,7 +320,52 @@ searchCourses(): void {
       this.cdr.detectChanges();
     }
   }
-
+  downloadPdf(courseId: number): void {
+    this.courseService.downloadCoursePdf(courseId).subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `course_${courseId}_summary.pdf`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+        Swal.fire('Success', 'PDF downloaded successfully!', 'success');
+      },
+      error: (error) => {
+        console.error('Error downloading PDF:', error);
+        Swal.fire('Error', 'Failed to download PDF', 'error');
+      }
+    });
+  }
+  
+  
+  downloadResourcesZip(courseId: number): void {
+    Swal.fire({
+      title: 'Preparing Download',
+      text: 'Please wait while we prepare your resources...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  
+    this.courseService.downloadCourseResourcesZip(courseId).subscribe({
+      next: (blob) => {
+        Swal.close();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `course_${courseId}_resources.zip`;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: (error) => {
+        Swal.fire('Error', 'Failed to download resources', 'error');
+        console.error('Error downloading ZIP:', error);
+      }
+    });
+  }
+  
   openAIImprovementsModal(course: Course): void {
     console.log('Opening AI Improvements Modal for Course ID:', course.id);
     this.selectedCourse = course;

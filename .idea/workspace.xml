@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="" />
+    <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/PdfGenerationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ZipService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard1/dashboard1.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard1/dashboard1.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard1/dashboard1.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard1/dashboard1.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/guards/no-auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/guards/no-auth.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseResourceRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseResourceRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ICourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ICourseService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,33 +63,33 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "20",
-    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.general",
-    "ts.external.directory.path": "C:\\Users\\banno\\OneDrive\\Bureau\\new crm project\\Coding_Factory_Backend\\Front_end\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/Gestion-reviews&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\banno\\OneDrive\\Bureau\\new crm project\\Coding_Factory_Backend\\Front_end\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
@@ -179,6 +197,8 @@
       <workItem from="1743938638464" duration="5264000" />
       <workItem from="1743967532687" duration="181000" />
       <workItem from="1744043133476" duration="643000" />
+      <workItem from="1744273068398" duration="7351000" />
+      <workItem from="1744284793645" duration="6680000" />
     </task>
     <servers />
   </component>

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import tn.esprit.esponline.DAO.entities.CategoryEnum;
 import tn.esprit.esponline.DAO.entities.Course;
 import java.util.List;
+import java.util.Optional;
 
 public interface ICourseService {
     List<Course> getAllCourses();
@@ -23,5 +24,5 @@ public interface ICourseService {
 
     void removeStudentFromCourse(int courseId, int studentId);
 
-    Course findById(Long courseId);
+    Optional<Course> findById(Long courseId);
 }

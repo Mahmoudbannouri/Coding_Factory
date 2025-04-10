@@ -12,6 +12,7 @@ import tn.esprit.esponline.DAO.repositories.CourseRepository;
 import tn.esprit.esponline.config.JwtService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService implements ICourseService {
@@ -46,7 +47,7 @@ public class CourseService implements ICourseService {
         }
     }
     @Override
-    public Course findById(Long courseId) {
+    public Optional<Course> findById(Long courseId) {
         return courseRepository.findById(courseId);
     }
     @Override

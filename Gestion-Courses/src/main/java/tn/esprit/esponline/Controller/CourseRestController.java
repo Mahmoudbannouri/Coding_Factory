@@ -2,6 +2,9 @@ package tn.esprit.esponline.Controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,8 @@ import tn.esprit.esponline.DAO.entities.Course;
 import tn.esprit.esponline.Feign.AuthServiceClient;
 import tn.esprit.esponline.Services.CourseService;
 import tn.esprit.esponline.Services.IFileStorageService;
+import tn.esprit.esponline.Services.PdfGenerationService;
+import tn.esprit.esponline.Services.ZipService;
 import tn.esprit.esponline.config.JwtService;
 
 import java.io.IOException;
@@ -28,24 +33,48 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/courses")
 public class CourseRestController {
+    private static final Logger log = LoggerFactory.getLogger(CourseRestController.class);
 
     private final CourseService courseService;
     private final JwtService jwtService;
     private final IFileStorageService fileStorageService;
-
-
-    // Add this to your CourseRestController
+    private final ZipService zipService;
     private final AuthServiceClient authServiceClient;
+
+    private final PdfGenerationService pdfGenerationService;
+
     @Autowired
     public CourseRestController(CourseService courseService,
                                 JwtService jwtService,
-                                IFileStorageService fileStorageService, AuthServiceClient authServiceClient) {
+                                IFileStorageService fileStorageService,
+                                ZipService zipService,
+                                AuthServiceClient authServiceClient,
+                                PdfGenerationService pdfGenerationService) {
         this.courseService = courseService;
         this.jwtService = jwtService;
         this.fileStorageService = fileStorageService;
+        this.zipService = zipService;
         this.authServiceClient = authServiceClient;
+        this.pdfGenerationService = pdfGenerationService;
     }
-
+    @GetMapping(value = "/{id}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> generateCoursePdf(@PathVariable int id) {
+        try {
+            byte[] pdfBytes = pdfGenerationService.generateCoursePdf(id);
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=course_" + id + ".pdf")
+                    .body(pdfBytes);
+        } catch (IOException e) {
+            log.error("Failed to generate PDF for course {}", id, e);
+            return ResponseEntity.internalServerError().build();
+        } catch (IllegalArgumentException e) {
+            log.warn("Course not found: {}", id);
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error("Unexpected error generating PDF for course {}", id, e);
+            return ResponseEntity.internalServerError().build();
+        }
+    }
     @Operation(summary = "Retrieve all courses")
     @GetMapping
     public List<Course> getAllCourses() {
@@ -57,12 +86,13 @@ public class CourseRestController {
     public Course getCourseById(@PathVariable int id) {
         return courseService.getCourseById(id);
     }
+
     @PostMapping
     public ResponseEntity<Course> createCourse(
             @Valid @RequestBody Course course) {
-
         return ResponseEntity.ok(courseService.addCourse(course, course.getTrainerId()));
     }
+
     @Operation(summary = "Update course")
     @PutMapping("/{id}")
     public ResponseEntity<Course> updateCourse(
@@ -97,6 +127,20 @@ public class CourseRestController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
+    @GetMapping(value = "/{id}/zip", produces = "application/zip")
+    public ResponseEntity<byte[]> downloadCourseResourcesZip(@PathVariable int id) {
+        try {
+            byte[] zipBytes = zipService.createCourseResourcesZip(id);
+            return ResponseEntity.ok()
+                    .header("Content-Disposition", "attachment; filename=course_resources_" + id + ".zip")
+                    .body(zipBytes);
+        } catch (IOException e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+
     @GetMapping("/students")
     public ResponseEntity<List<Integer>> getAllStudentIds(
             @RequestHeader("Authorization") String authHeader) {
@@ -157,7 +201,7 @@ public class CourseRestController {
             return ResponseEntity.internalServerError().build();
         }
     }
-    // Handle students endpoint
+
     @GetMapping("/{courseId}/students")
     public ResponseEntity<Set<Integer>> getEnrolledStudents(
             @PathVariable int courseId,
@@ -192,6 +236,7 @@ public class CourseRestController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
     @GetMapping("/students/details")
     public ResponseEntity<List<Map<String, Object>>> getAllStudentsWithDetails(
             @RequestHeader("Authorization") String authHeader) {
@@ -207,6 +252,7 @@ public class CourseRestController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
     @Operation(summary = "Get courses for current user")
     @GetMapping("/my-courses")
     public ResponseEntity<List<Course>> getMyCourses(
@@ -229,6 +275,7 @@ public class CourseRestController {
 
         return ResponseEntity.ok(courses);
     }
+
     @Operation(summary = "Search my courses")
     @GetMapping("/my-courses/search")
     public ResponseEntity<Page<Course>> searchMyCourses(
@@ -259,6 +306,7 @@ public class CourseRestController {
 
         return ResponseEntity.ok(courses);
     }
+
     @Operation(summary = "Search courses")
     @GetMapping("/search")
     public ResponseEntity<Page<Course>> searchCourses(
@@ -278,6 +326,7 @@ public class CourseRestController {
 
         return ResponseEntity.ok(courseService.searchCourses(searchQuery, categoryEnum, page, size));
     }
+
     @PutMapping("/{id}/update-rate")
     public ResponseEntity<Void> updateCourseRate(@PathVariable int id, @RequestBody double rate) {
         Course course = courseService.getCourseById(id);
@@ -307,6 +356,7 @@ public class CourseRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
     @Operation(summary = "Delete file")
     @DeleteMapping("/delete-file")
     public ResponseEntity<String> deleteFile(@RequestParam String fileUrl) {
