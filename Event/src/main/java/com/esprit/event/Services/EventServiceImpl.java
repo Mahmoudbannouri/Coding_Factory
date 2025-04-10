@@ -6,6 +6,7 @@ import com.esprit.event.DAO.repository.ICentreRepository;
 import com.esprit.event.DAO.repository.UserRepository;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.*;
@@ -16,6 +17,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -24,10 +26,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Base64;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements IEventService{
@@ -42,7 +51,8 @@ public class EventServiceImpl implements IEventService{
     private ICentreRepository centreRepo;
     @Autowired
     private JavaMailSender mailSender;
-
+    @Autowired
+    private GoogleCalendarService googleCalendarService;
     private final Path uploadDir = Paths.get("/uploads");
     @Override
     public ResponseEntity<Resource> getEventImage(String imageUrl) {
@@ -174,10 +184,32 @@ public class EventServiceImpl implements IEventService{
             eventRepo.deleteById(id);
         }
     }
+    public List<Event> sortEventsByDate(List<Event> events) {
+        LocalDateTime now = LocalDateTime.now();
 
+        // Sort the events based on proximity to current date
+        return events.stream()
+                .sorted((a, b) -> {
+                    // Get the difference in milliseconds for event A and event B
+                    long diffA = ChronoUnit.MILLIS.between(now, a.getEventDate());
+                    long diffB = ChronoUnit.MILLIS.between(now, b.getEventDate());
+
+                    // Sorting logic: future first, closest events first, then past events most recent
+                    if (diffA >= 0 && diffB >= 0) {
+                        return Long.compare(diffA, diffB); // Future events: closest first
+                    } else if (diffA < 0 && diffB < 0) {
+                        return Long.compare(Math.abs(diffB), Math.abs(diffA)); // Past events: most recent first
+                    } else {
+                        return diffA >= 0 ? -1 : 1; // Future before past
+                    }
+                })
+                .collect(Collectors.toList());
+    }
     @Override
     public List<Event> getAllEvents() {
-        return eventRepo.findAll();
+
+        List<Event> events = eventRepo.findAll();
+        return sortEventsByDate(events);
     }
 
     @Override
@@ -189,9 +221,9 @@ public class EventServiceImpl implements IEventService{
         }
         return event;
     }
-
+    @CrossOrigin(origins = "http://localhost:4200")
     @Override
-    public Event enrollToEvent(int eventID, int userID) {
+    public Event enrollToEvent(int eventID, int userID, String accessToken) {
         Event eventToAttend= eventRepo.findById(eventID)
                 .orElseThrow(() -> new EntityNotFoundException("Event not found"));
         User user = userRepo.findById(userID)
@@ -201,6 +233,7 @@ public class EventServiceImpl implements IEventService{
         }
         else{
         eventToAttend.getParticipants().add(user);
+        googleCalendarService.createGoogleCalendarEvent(eventToAttend,accessToken);
         String subject = "Welcome to the " + eventToAttend.getEventName() + "!";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -216,6 +249,7 @@ public class EventServiceImpl implements IEventService{
                 + "<p><strong>Event Time:</strong> " + eventTime + "</p>"
                 + "<p>Thank you for enrolling!</p>";
         sendMail(user.getEmail(),subject,body);
+
         return eventRepo.save(eventToAttend);}
     }
 
@@ -259,6 +293,101 @@ public class EventServiceImpl implements IEventService{
 
         } catch (Exception e) {
             System.err.println("Error sending email: " + e.getMessage());
+        }
+    }
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDateTime now = LocalDateTime.now();
+    public List<Event> getFilteredEvents(
+            String search,
+            String category,
+            String startDate,
+            String endDate,
+            String timePeriod) {
+
+        List<Event> allEvents = eventRepo.findAll();
+        LocalDate now = LocalDate.now();
+
+        return allEvents.stream()
+                .filter(event -> matchesSearch(event, search))
+                .filter(event -> matchesCategory(event, category))
+                .filter(event -> matchesDateRange(event, startDate, endDate))
+                .filter(event -> matchesTimePeriod(event, timePeriod, now.atStartOfDay()))
+                .collect(Collectors.toList());
+    }
+
+
+    private boolean matchesSearch(Event event, String searchQuery) {
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            return true;
+        }
+        String query = searchQuery.toLowerCase();
+        return event.getEventName().toLowerCase().contains(query) ||
+                event.getEventDate().toString().toLowerCase().contains(query);
+    }
+
+    private boolean matchesCategory(Event event, String category) {
+        if (category == null || category.isEmpty()) {
+            return true;
+        }
+
+        try {
+            // Try to match the enum value if provided
+            Category categoryEnum = Category.valueOf(category.toUpperCase());
+            return event.getEventCategory() == categoryEnum;
+        } catch (IllegalArgumentException e) {
+            // If category string doesn't match enum exactly, do partial match
+            return event.getEventCategory().toString().toLowerCase().contains(category.toLowerCase());
+        }
+    }
+
+    private boolean matchesDateRange(Event event, String startDate, String endDate) {
+        if ((startDate == null || startDate.isEmpty()) &&
+                (endDate == null || endDate.isEmpty())) {
+            return true;
+        }
+
+        LocalDateTime eventDateTime = event.getEventDate();
+        LocalDate eventDate = eventDateTime.toLocalDate();
+
+        boolean afterStartDate = true;
+        if (startDate != null && !startDate.isEmpty()) {
+            LocalDate rangeStart = LocalDate.parse(startDate, formatter);
+            // Convert to LocalDateTime with start of day for comparison
+            LocalDateTime rangeStartDateTime = rangeStart.atStartOfDay();
+            afterStartDate = !eventDateTime.isBefore(rangeStartDateTime);
+        }
+
+        boolean beforeEndDate = true;
+        if (endDate != null && !endDate.isEmpty()) {
+            LocalDate rangeEnd = LocalDate.parse(endDate, formatter);
+            // Convert to LocalDateTime with end of day for comparison
+            LocalDateTime rangeEndDateTime = rangeEnd.atTime(LocalTime.MAX);
+            beforeEndDate = !eventDateTime.isAfter(rangeEndDateTime);
+        }
+
+        return afterStartDate && beforeEndDate;
+    }
+
+    private boolean matchesTimePeriod(Event event, String timePeriod, LocalDateTime now) {
+        if (timePeriod == null || timePeriod.isEmpty()) {
+            return true;
+        }
+
+        LocalDateTime eventDateTime = event.getEventDate();
+        LocalDate eventDate = eventDateTime.toLocalDate();
+        LocalDate today = now.toLocalDate();
+
+        switch (timePeriod.toLowerCase()) {
+            case "thisweek":
+                LocalDate endOfWeek = today.plusDays(7 - today.getDayOfWeek().getValue());
+                return !eventDate.isBefore(today) && !eventDate.isAfter(endOfWeek);
+            case "thismonth":
+                LocalDate endOfMonth = today.withDayOfMonth(today.lengthOfMonth());
+                return !eventDate.isBefore(today) && !eventDate.isAfter(endOfMonth);
+            case "upcoming":
+                return !eventDateTime.isBefore(now);
+            default:
+                return true;
         }
     }
 }

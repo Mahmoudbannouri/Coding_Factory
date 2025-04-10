@@ -8,12 +8,14 @@ import com.esprit.event.Services.GeminiAiService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -104,10 +106,10 @@ public class EventRestController {
     }
 
     // Enroll User to Event
-    @PostMapping("/enroll/{eventId}/{userId}")
-    public ResponseEntity<Map<String, String>> enrollToEvent(@PathVariable int eventId, @PathVariable int userId) {
+    @PostMapping("/enroll/{eventId}/{userId}/{accessToken}")
+    public ResponseEntity<Map<String, String>> enrollToEvent(@PathVariable int eventId, @PathVariable int userId,@PathVariable String accessToken) {
         try {
-            eventService.enrollToEvent(eventId, userId);  // Perform the enrollment logic
+            eventService.enrollToEvent(eventId, userId,accessToken);  // Perform the enrollment logic
             Map<String, String> response = new HashMap<>();
             response.put("status", "success");
             response.put("message", "User enrolled successfully!");
@@ -138,5 +140,17 @@ public class EventRestController {
     public ResponseEntity<List<Centre>> getAllCenters() {
         List<Centre> centers = eventService.getCenters();
         return ResponseEntity.ok(centers);
+    }
+    @GetMapping("/filtredEvents")
+    public  List<Event> getFilteredEvents(
+            @RequestParam(required = false) String search,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate,
+            @RequestParam(required = false) String timePeriod) {
+        List<Event> events = eventService.getFilteredEvents(search, category, startDate, endDate, timePeriod);
+
+        // Sort the filtered events by date
+        return eventService.sortEventsByDate(events);
     }
 }
