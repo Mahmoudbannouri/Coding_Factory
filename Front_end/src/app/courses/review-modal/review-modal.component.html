@@ -1,20 +1,20 @@
+<!-- In review-modal.component.html -->
 <div class="modal" [class.show]="showModal">
   <div class="modal-content">
-    <h3>Add a Review for {{ selectedCourse?.title }}</h3>
-    <form (ngSubmit)="submitReview()">
-      <div class="form-group">
-        <label for="studentId">Student ID</label>
-        <input
-          type="number"
-          id="studentId"
-          [(ngModel)]="review.studentId"
-          name="studentId"
-          required
-        />
-      </div>
+    <h3>
+      {{ hasReviewed ? 'Your Review for ' : 'Add a Review for ' }}
+      {{ selectedCourse?.title }}
+    </h3>
+
+    <div *ngIf="hasReviewed" class="already-reviewed">
+      <p>You've already reviewed this course.</p>
+      <button type="button" class="btn-cancel" (click)="closeModal()">Close</button>
+    </div>
+
+    <form *ngIf="!hasReviewed" (ngSubmit)="submitReview()">
+      <!-- Existing form content -->
       <div class="form-group">
         <label>Rating</label>
-        <!-- Star Rating Picker -->
         <div class="star-rating-picker">
           <span
             *ngFor="let star of [1, 2, 3, 4, 5]"

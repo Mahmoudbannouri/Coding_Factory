@@ -28,7 +28,6 @@ import { AppComponent } from "./app.component";
 import { ContentLayoutComponent } from "./layouts/content/content-layout.component";
 import { FullLayoutComponent } from "./layouts/full/full-layout.component";
 import { CommonModule } from '@angular/common'; // Import CommonModule
-import { CourseModule } from './courses/course.module'; // Import CourseModule
 import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';

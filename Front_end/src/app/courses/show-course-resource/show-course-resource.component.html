@@ -21,9 +21,12 @@
         </button>
 
         <!-- Delete Button (Same Size) -->
-        <button (click)="deleteResource(resource.id)" class="resource-btn delete-btn">
-          🗑️ Delete
-        </button>
+        <!-- Delete Button (Only for trainers) -->
+  <button *ngIf="isTrainer" 
+  (click)="deleteResource(resource.id)" 
+  class="resource-btn delete-btn">
+🗑️ Delete
+</button>
       </div>
 
       <div *ngIf="expandedResource?.id === resource.id" class="resource-details">

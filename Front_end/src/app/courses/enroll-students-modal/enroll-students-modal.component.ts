@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { User } from '../../models/User';
 import { Course } from '../../models/courses';
 import { CourseService } from '../../services/course.service';
 import Swal from 'sweetalert2';
@@ -15,10 +14,9 @@ export class EnrollStudentsModalComponent implements OnInit {
   @Output() showModalChange = new EventEmitter<boolean>();
   @Output() studentsEnrolled = new EventEmitter<void>();
 
-  students: User[] = [];
-  filteredStudents: User[] = [];
-  selectedStudentId: string | null = null;
-  searchQuery: string = '';
+  students: any[] = [];
+  filteredStudents: any[] = [];
+  selectedStudent: any = null;
   enrolledStudents: Set<number> = new Set();
 
   constructor(private courseService: CourseService) {}
@@ -31,86 +29,75 @@ export class EnrollStudentsModalComponent implements OnInit {
   }
 
   fetchStudents(): void {
-    // Fetch the list of students from the backend
-    this.courseService.getAllStudents().subscribe(
-      (data) => {
-        this.students = data;
-        this.filteredStudents = data; // Initialize filteredStudents with all students
-        console.log('Fetched students:', this.students); // Log fetched students
+    this.courseService.getAllStudentsWithDetails().subscribe(
+      (students) => {
+        this.students = students;
+        this.filterStudents();
       },
       (error) => {
         console.error('Error fetching students:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Failed to fetch students.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
+        Swal.fire('Error', 'Failed to fetch students', 'error');
       }
     );
   }
-
+  
   fetchEnrolledStudents(): void {
-    // Fetch the list of enrolled students for the selected course
-    this.courseService.getEnrolledStudents(this.selectedCourse!.id).subscribe(
-      (data) => {
-        this.enrolledStudents = new Set(data.map(student => student.id));
+    if (!this.selectedCourse) return;
+    
+    this.courseService.getEnrolledStudentsWithDetails(this.selectedCourse.id).subscribe(
+      (students) => {
+        this.enrolledStudents = new Set(students.map(s => s.id));
         this.filterStudents();
       },
       (error) => {
         console.error('Error fetching enrolled students:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Failed to fetch enrolled students.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
+        Swal.fire('Error', 'Failed to fetch enrolled students', 'error');
       }
     );
   }
-
+  
   filterStudents(): void {
     this.filteredStudents = this.students.filter(student =>
-      !this.enrolledStudents.has(student.id) &&
-      student.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      !this.enrolledStudents.has(student.id)
     );
-  }
-
-  onStudentSelectChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedStudentId = selectElement.value;
+    
+    if (this.selectedStudent && !this.filteredStudents.some(s => s.id === this.selectedStudent?.id)) {
+      this.selectedStudent = null;
+    }
   }
 
   enrollSelectedStudent(): void {
-    if (this.selectedCourse && this.selectedStudentId) {
-      this.courseService.enrollStudentInCourse(this.selectedCourse.id, +this.selectedStudentId).subscribe(
-        () => {
+    if (this.selectedCourse && this.selectedStudent) {
+      this.courseService.enrollStudentInCourse(
+        this.selectedCourse.id, 
+        this.selectedStudent.id
+      ).subscribe({
+        next: () => {
+          this.enrolledStudents.add(this.selectedStudent.id);
+          this.filterStudents();
           this.studentsEnrolled.emit();
-          this.closeModal();
+          
           Swal.fire({
-            title: 'Success!',
-            text: 'Student enrolled successfully!',
-            icon: 'success',
-            confirmButtonText: 'OK'
+            title: 'Success',
+            text: 'Student enrolled successfully',
+            icon: 'success'
+          }).then(() => {
+            this.closeModal(); // Close modal after Swal is closed
           });
         },
-        (error) => {
+        error: (error) => {
           console.error('Error enrolling student:', error);
-          Swal.fire({
-            title: 'Error',
-            text: 'Failed to enroll student already exists.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
+          let errorMsg = 'Failed to enroll student';
+          if (error.error?.message) {
+            errorMsg = error.error.message;
+          } else if (error.status === 500) {
+            errorMsg = 'Server error occurred during enrollment';
+          }
+          Swal.fire('Error', errorMsg, 'error');
         }
-      );
-    } else {
-      Swal.fire({
-        title: 'Error',
-        text: 'Please select a valid course and student.',
-        icon: 'error',
-        confirmButtonText: 'OK'
       });
+    } else {
+      Swal.fire('Error', 'Please select a valid course and student', 'error');
     }
   }
 

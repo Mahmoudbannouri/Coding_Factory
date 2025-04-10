@@ -441,20 +441,56 @@ button[type="submit"]:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  gap: 1rem;
+  margin: 2rem 0;
 }
 
 .pagination-controls button {
-  padding: 10px 20px;
-  font-size: 16px;
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+}
+/* In your component's CSS */
+.add-review-button.reviewed {
+  background-color: #28a745;
+  cursor: not-allowed;
 }
 
+.add-review-button.reviewed:hover {
+  background-color: #28a745;
+}
+.btn-info {
+  background-color: #17a2b8;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 4px;
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: #138496;
+  }
+
+  i {
+    margin-right: 5px;
+  }
+}
+
+.round {
+  border-radius: 20px;
+}
+.add-review-button:disabled {
+  opacity: 1; /* Keep it fully visible but not clickable */
+}
 .pagination-controls button:disabled {
-  background-color: #ccc;
+  background-color: #cccccc;
   cursor: not-allowed;
 }
 
@@ -466,7 +502,57 @@ button[type="submit"]:hover {
   margin: 0 20px;
   font-size: 16px;
 }
+/* Add Course Button */
+.add-course-button {
+  background-color: #3f51b5; /* Professional blue color */
+  color: white;
+  border: none;
+  border-radius: 50%; /* Makes it perfectly round */
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  margin-left: 10px;
+}
 
+.add-course-button:hover {
+  background-color: #303f9f; /* Darker shade on hover */
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.add-course-button:active {
+  transform: scale(0.95);
+}
+
+/* Update search container to properly align items */
+.search-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Make sure clear button and add button stay together */
+.clear-button {
+  margin-right: 0; /* Remove any right margin */
+}
+
+.search-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+/* Rest of your existing styles */
 /* Floating Plus Button */
 .floating-plus {
   position: fixed;
