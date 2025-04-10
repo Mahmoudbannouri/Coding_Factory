@@ -10,7 +10,6 @@
         <module name="Gestion-PFE" />
         <module name="EEureka" />
         <module name="ApiGetway" />
-
         <module name="reviews" />
       </profile>
       <profile name="Annotation profile for esponline" enabled="true">
@@ -22,12 +21,23 @@
         </processorPath>
         <module name="esponline" />
       </profile>
+      <profile name="Annotation profile for Event" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processor name="lombok.launch.AnnotationProcessorHider$AnnotationProcessor" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
+        </processorPath>
+        <module name="Event" />
+      </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGetway" options="-parameters" />
       <module name="EEureka" options="-parameters" />
+      <module name="Event" options="-parameters" />
       <module name="Gestion-PFE" options="-parameters" />
       <module name="esponline" options="-parameters" />
       <module name="reviews" options="-parameters" />
