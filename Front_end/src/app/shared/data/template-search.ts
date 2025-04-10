@@ -6,7 +6,6 @@
         {"url":"/inbox", "name":"Email", "icon":"ft-mail"},
         {"url":"/chat", "name":"Chat", "icon":"ft-message-square"},
         {"url":"/taskboard", "name":"Task Board", "icon":"ft-file-text"},
-        {"url":"/courses", "name":"Courses", "icon":"ft-book-open"},
         {"url":"/calendar", "name":"Calendar", "icon":"ft-calendar"},
         {"url":"/uikit/grids", "name":"Grid", "icon":"ft-grid"},
         {"url":"/uikit/typography", "name":"Typography", "icon":"ft-type"},

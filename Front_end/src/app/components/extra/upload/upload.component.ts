@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { FileUploader } from 'ng2-file-upload';
-
-const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
+import { Component, ChangeDetectionStrategy, Input, OnInit } from '@angular/core';
+import { FileUploader, FileItem } from 'ng2-file-upload';
+import { PfeService } from '../../../services/pfe.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-upload',
@@ -9,21 +9,122 @@ const URL = 'https://evening-anchorage-3159.herokuapp.com/api/';
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./upload.component.scss']
 })
-export class UploadComponent {
-
-  uploader: FileUploader = new FileUploader({
-    url: URL,
-    isHTML5: true
-  });
+export class UploadComponent implements OnInit {
+  @Input() pfeId: number;
+  documents$: Observable<string[]>;
+  
+  uploader: FileUploader;
   hasBaseDropZoneOver = false;
   hasAnotherDropZoneOver = false;
 
-  // Angular2 File Upload
+  constructor(private pfeService: PfeService) {}
+
+  ngOnInit(): void {
+    this.initializeUploader();
+    this.loadDocuments();
+  }
+
+  initializeUploader(): void {
+    this.uploader = new FileUploader({
+      url: `${this.pfeService.apiUrl}/${this.pfeId}/documents`,
+      isHTML5: true,
+      autoUpload: false,
+      removeAfterUpload: true,
+      headers: [{ name: 'Accept', value: 'application/json' }]
+    });
+
+    this.uploader.onAfterAddingFile = (file) => {
+      file.withCredentials = false;
+    };
+  }
+
+  loadDocuments(): void {
+    this.documents$ = this.pfeService.getDocuments(this.pfeId);
+  }
+
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
   }
 
-  fileOverAnother(e: any): void {
-    this.hasAnotherDropZoneOver = e;
+  downloadItem(item: FileItem): void {
+    const url = URL.createObjectURL(item._file);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = item._file.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  downloadAll(): void {
+    this.uploader.queue.forEach(item => {
+      this.downloadItem(item);
+    });
+  }
+
+  downloadDocument(docId: number): void {
+    this.pfeService.downloadDocument(docId).subscribe(
+      (blob: Blob) => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `document-${docId}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      },
+      error => {
+        console.error('Erreur de téléchargement:', error);
+        alert('Impossible de télécharger le document');
+      }
+    );
+  }
+
+  addDocument(documentUrl: string): void {
+    if (!documentUrl) return;
+    
+    this.pfeService.addDocument(this.pfeId, documentUrl).subscribe(
+      () => this.loadDocuments(),
+      error => {
+        console.error('Erreur lors de l\'ajout du document:', error);
+        alert('Erreur lors de l\'ajout du document');
+      }
+    );
+  }
+
+  removeDocument(documentName: string): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce document ?')) {
+      this.pfeService.removeDocument(this.pfeId, documentName).subscribe(
+        () => this.loadDocuments(),
+        error => {
+          console.error('Erreur lors de la suppression:', error);
+          alert('Erreur lors de la suppression du document');
+        }
+      );
+    }
+  }
+
+  uploadFile(fileItem: FileItem): void {
+    const formData = new FormData();
+    formData.append('file', fileItem._file, fileItem._file.name);
+
+    this.pfeService.uploadDocument(formData).subscribe(
+      () => {
+        this.loadDocuments();
+        fileItem.remove();
+      },
+      error => {
+        console.error('Erreur lors de l\'upload:', error);
+        alert('Erreur lors de l\'envoi du fichier');
+      }
+    );
+  }
+
+  uploadAll(): void {
+    this.uploader.queue.forEach(item => {
+      this.uploadFile(item);
+    });
   }
 }

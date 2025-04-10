@@ -15,10 +15,6 @@ export const Full_ROUTES: Routes = [
     path: 'charts',
     loadChildren: () => import('../../charts/charts.module').then(m => m.ChartsNg2Module)
   },
-  {
-    path: 'courses',
-    loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
-  },
    {
     path: 'forms',
     loadChildren: () => import('../../forms/forms.module').then(m => m.FormModule)
@@ -60,8 +56,8 @@ export const Full_ROUTES: Routes = [
     loadChildren: () => import('../../chat-ngrx/chat-ngrx.module').then(m => m.ChatNGRXModule)
   },
   {
-    path: 'courses',
-    loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
+    path: 'inbox',
+    loadChildren: () => import('../../inbox/inbox.module').then(m => m.InboxModule)
   },
   {
     path: 'taskboard',

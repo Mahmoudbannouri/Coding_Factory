@@ -50,14 +50,12 @@ nav.navbar.header-navbar {
           text-align: left;
           font-weight: 400;
         }
-        .logo-img {
-          width: 130px;
+        .logo-img{
+          width: 30px;
           display: inline-block;
-          max-height: 140px;
+          max-height: 30px;
           margin-right: 15px;
         }
-        
-        
       }
     }
   }
@@ -280,21 +278,28 @@ nav.navbar.header-navbar {
 }
 
 @media (max-width: 991.98px) {
-  .navbar .navbar-brand-center .navbar-header {
-    width: auto !important;
-    .logo {
-      .logo-img {
-        width: 150px; /* Ensure this matches the desired size */
-        margin-right: 15px;
-      }
-      .logo-text .text {
-        display: none;
+  .header-navbar .navbar-container ul.navbar-nav{
+    .dropdown-language{
+      margin-top: 0.4rem;
+    }
+    .dropdown-notification{
+      margin-top: 1.2rem !important;
+    }
+  }
+  .navbar {
+    .navbar-brand-center{
+      .navbar-header {
+        width: 30px !important;
+        .logo {
+          .logo-img{ margin-right: 0;}
+          .logo-text .text{
+            display: none;
+          }
+        }
       }
     }
   }
 }
-
-
 @include media-breakpoint-down(sm) {
   .header-navbar .navbar-container ul.navbar-nav{
     .dropdown-language{

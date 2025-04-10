@@ -30,6 +30,7 @@
     <!-- FOOTER -->
     <app-footer></app-footer>
     <!-- Scroll to top button -->
+    <button class="btn btn-primary scroll-top" type="button" *ngIf="isScrollTopVisible" (click)="scrollToTop()"><i class="ft-arrow-up"></i></button>
   </div>
 
   <!-- *NOTIFICATION-SIDEBAR* starts -->
@@ -42,6 +43,7 @@
 
   <div class="buy-now">
     <!-- Buy now button -->
+    <a href="https://1.envato.market/apex_admin" target="_blank" class="btn btn-danger">Buy Now</a>
   </div>
   <div class="sidenav-overlay" (click)="onOutsideClick($event);"
     [ngClass]="{'d-none': displayOverlayMenu && hideSidebar && !overlayContent , 'd-block': displayOverlayMenu && !hideSidebar && overlayContent && innerWidth < 1200}"></div>

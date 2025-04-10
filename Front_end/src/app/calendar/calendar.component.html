@@ -3,8 +3,6 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="content-header">Calendar</div>
-      <p class="content-sub-header">This is the most advanced example having various features. This
-        example lists all the events on the calendar with Add new event functionality.</p>
     </div>
   </div>
   <ng-template #modalContent let-close="close">
@@ -67,6 +65,14 @@
   <div class="card">
     <div class="card-content">
       <div class="card-body">
+        <!-- Dans votre template -->
+<div *ngIf="isLoading" class="text-center my-3">
+  <i class="fa fa-spinner fa-spin"></i> Chargement des réunions...
+</div>
+
+<div *ngIf="!isLoading && selectedPfeId && events.length === 0" class="alert alert-info">
+  Aucune réunion planifiée pour ce projet.
+</div>
         <div class="d-sm-flex justify-content-between align-items-center mb-3">
           <div class="text-center text-sm-left mb-2 mb-sm-0">
             <div class="btn-group d-none d-lg-block">
@@ -130,7 +136,19 @@
             </button>
           </div>
         </div>
-
+        <div class="row mb-3">
+          <div class="col-md-4">
+            <label>Select PFE Project:</label>
+            <select class="form-control" (change)="onPfeSelect($event.target.value)"  [value]="selectedPfeId" *ngIf="pfes.length > 0">
+              <option *ngFor="let pfe of pfes" [value]="pfe.id" [selected]="pfe.id === selectedPfeId">
+                {{ pfe.projectTitle }}
+              </option>
+            </select>
+            <div *ngIf="selectedPfe" class="mt-2">
+              <strong>Projet sélectionné:</strong> {{ selectedPfe.projectTitle }}
+            </div>
+          </div>
+        </div>
         <div [ngSwitch]="view">
           <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [refresh]="refresh"
             [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
@@ -146,3 +164,10 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+

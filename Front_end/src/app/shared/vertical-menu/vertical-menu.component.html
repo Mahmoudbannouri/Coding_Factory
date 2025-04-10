@@ -3,8 +3,9 @@
   <div class="logo clearfix">
     <a [routerLink]="['/']" class="logo-text float-left">
       <div class="logo-img">
-        <img src="assets/logoo final.png" alt="Coding Factory logo" class="logo-image" style="width: 150px; height: auto;"/>
+        <img [src]="logoUrl" alt="Apex logo"/>
       </div>
+      <span class="text align-middle">APEX</span>
     </a>
     <a class="nav-toggle d-none d-lg-none d-xl-block" id="sidebarToggle" href="javascript:;"
       (click)="toggleSidebar()">
@@ -18,11 +19,10 @@
     </a>
   </div>
 </div>
-
 <!-- Sidebar Header Ends -->
 
 <!-- Sidebar Content starts -->
-<div class="sidebar-content main-menu-content" [perfectScrollbar] [disabled]="!perfectScrollbarEnable">
+<div class="sidebar-content main-menu-content" [perfectScrollbar]  [disabled]="!perfectScrollbarEnable">
   <div class="nav-container">
     <ul class="navigation" appSidebarDropdown>
       <!-- First level menu -->

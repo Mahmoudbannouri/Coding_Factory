@@ -9,6 +9,8 @@ import { CalendarRoutingModule } from "./calendar-routing.module";
 
 import { CalendarsComponent } from "./calendar.component";
 import { DateTimePickerComponent } from './date-time-picker.component';
+import { HttpClientModule } from '@angular/common/http';
+import { PfeService } from 'app/services/pfe.service';
 
 @NgModule({
     imports: [
@@ -21,11 +23,14 @@ import { DateTimePickerComponent } from './date-time-picker.component';
         NgbModalModule,
         NgbDatepickerModule,
         NgbTimepickerModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule,
     ],
     declarations: [
         CalendarsComponent,
         DateTimePickerComponent
-    ]
+    ],
+    providers: [PfeService],
+    exports: [CalendarsComponent]
 })
 export class CalendarsModule { }

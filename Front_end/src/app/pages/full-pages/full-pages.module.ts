@@ -22,10 +22,12 @@ import { SearchComponent } from "./search/search.component";
 import { FaqComponent } from "./faq/faq.component";
 import { AccountSettingsComponent } from "./account-settings/account-settings.component";
 import { UsersListComponent } from "./users/users-list/users-list.component";
-import { UsersViewComponent } from "./users/users-view/users-view.component";
 import { UsersEditComponent } from "./users/users-edit/users-edit.component";
-
+import { UsersViewComponent } from "./users/users-view/users-view.component";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { Document } from "app/models/document";
+import { Meeting } from "app/models/meetingDates";
+import { Jury } from "app/models/juryNames";
 @NgModule({
   imports: [
     CommonModule,
@@ -55,6 +57,9 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
     UsersListComponent,
     UsersViewComponent,
     UsersEditComponent,
+    Document,
+    Meeting,
+    Jury,
   ],
 })
 export class FullPagesModule {}

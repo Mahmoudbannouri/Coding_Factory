@@ -7,41 +7,46 @@
         <form>
           <div class="row border rounded py-2 mb-2 mx-n2">
             <div class="col-12 col-sm-6 col-lg-3">
-              <label for="users-list-verified">Verified</label>
+              <label for="users-list-verified">Statut</label>
               <fieldset class="form-group">
-                <select id="users-list-verified" class="form-control">
+                <select id="users-list-verified" class="form-control" (change)="onFilterChange($event, 'status')">
                   <option value="">Any</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
+                  <option value="EN_COURS">En cours</option>
+                  <option value="TERMINE">Terminé</option>
+                  <option value="VALIDE">Validé</option>
+                  <option value="REFUSE">Refusé</option>
                 </select>
               </fieldset>
             </div>
 
             <div class="col-12 col-sm-6 col-lg-3">
-              <label for="users-list-role">Role</label>
+              <label for="users-list-role">Niveau</label>
               <fieldset class="form-group">
-                <select id="users-list-role" class="form-control">
+                <select id="users-list-role" class="form-control" (change)="onFilterChange($event, 'level')">
                   <option value="">Any</option>
-                  <option value="User">User</option>
-                  <option value="Staff">Staff</option>
+                  <option value="LICENCE">Licence</option>
+                  <option value="MASTER">Master</option>
+                  <option value="INGENIEUR">Ingénieur</option>
                 </select>
               </fieldset>
             </div>
 
             <div class="col-12 col-sm-6 col-lg-3">
-              <label for="users-list-status">Status</label>
+              <label for="users-list-status">Catégorie</label>
               <fieldset class="form-group">
-                <select id="users-list-status" class="form-control">
+                <select id="users-list-status" class="form-control" (change)="onFilterChange($event, 'category')">
                   <option value="">Any</option>
-                  <option value="Active">Active</option>
-                  <option value="Close">Close</option>
-                  <option value="Banned">Banned</option>
+                  <option value="WEB_DEVELOPMENT">Web Development</option>
+                  <option value="DATA_SCIENCE">Data Science</option>
+                  <option value="SECURITY">Security</option>
+                  <option value="AI">AI</option>
+                  <option value="CLOUD">Cloud</option>
                 </select>
               </fieldset>
             </div>
 
             <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-              <button type="reset" class="btn btn-primary btn-block users-list-clear glow mb-0">
+              <button type="reset" class="btn btn-primary btn-block users-list-clear glow mb-0" (click)="clearFilters()">
                 Clear
               </button>
             </div>
@@ -71,41 +76,39 @@
                   type="text" (keyup)="filterUpdate($event)" />
               </label>
             </fieldset>
-            <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
-              [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
-              [columns]="columns">
-              <ngx-datatable-column name="ID" prop="ID" [width]="50"></ngx-datatable-column>
-              <ngx-datatable-column name="Username" prop="Username" [width]="150">
-                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
-                  <div class="d-flex align-items-center">
-                    <img class="rounded-circle mr-1" src="assets/img/portrait/small/{{
-                        row.avatar
-                      }}" height="32" width="32" alt="datatable-avatar" />
 
-                    <div class="cell-line-height">
-                      <a class="line-height-1 mb-0" routerLink="/pages/users-view">{{ name }}</a>
-                    </div>
-                  </div>
-                </ng-template>
+
+            <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
+              [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="filteredRows" [scrollbarH]="true"
+              [columns]="columns">
+              <ngx-datatable-column name="ID" prop="id" [width]="50"></ngx-datatable-column>
+              <ngx-datatable-column name="Project Title" prop="projectTitle" [width]="200">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <a [routerLink]="['/pages/users-view', row.id]">{{ value }}</a>                </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150"></ngx-datatable-column>
-              <ngx-datatable-column name="Last Activity" prop="Last Activity" [width]="120"></ngx-datatable-column>
-              <ngx-datatable-column name="Verified" prop="Verified" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="Role" prop="Role" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="Status" prop="Status" [width]="70">
-                <ng-template let-status="value" ngx-datatable-cell-template>
+              <ngx-datatable-column name="Student ID" prop="studentId" [width]="100"></ngx-datatable-column>
+              <ngx-datatable-column name="Trainer ID" prop="trainerId" [width]="100"></ngx-datatable-column>
+              <ngx-datatable-column name="Start Date" prop="startDate" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="End Date" prop="endDate" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="Status" prop="status" [width]="100">
+                <ng-template let-value="value" ngx-datatable-cell-template>
                   <div class="badge" [ngClass]="{
-                      'bg-light-success': status == 'Active',
-                      'bg-light-danger': status == 'Banned',
-                      'bg-light-warning': status == 'Close'
+                      'bg-light-success': value == 'EN_COURS',
+                      'bg-light-warning': value == 'TERMINE',
+                      'bg-light-info': value == 'VALIDE',
+                      'bg-light-danger': value == 'REFUSE'
                     }">
-                    {{ status }}
+                    {{ value }}
                   </div>
                 </ng-template>
               </ngx-datatable-column>
+              <ngx-datatable-column name="Level" prop="level" [width]="100"></ngx-datatable-column>
+              <ngx-datatable-column name="Category" prop="category" [width]="120"></ngx-datatable-column>
               <ngx-datatable-column name="Actions" [width]="50">
-                <ng-template ngx-datatable-cell-template>
-                  <a routerLink="/pages/users-edit"><i class="ft-edit text-primary cursor-pointer"></i></a>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <a [routerLink]="['/pages/users-edit', row.id]">
+                    <i class="ft-edit text-primary cursor-pointer"></i>
+                  </a>
                 </ng-template>
               </ngx-datatable-column>
             </ngx-datatable>

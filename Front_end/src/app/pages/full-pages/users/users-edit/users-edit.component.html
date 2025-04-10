@@ -1,6 +1,5 @@
 <section class="users-edit">
-  <div class="row">
-    <div class="col-12">
+  <div class="col-12">
       <div class="card">
         <div class="card-content">
           <div class="card-body">
@@ -9,7 +8,7 @@
               <li [ngbNavItem]="1">
                 <a ngbNavLink class="nav-link d-flex align-items-center">
                   <i class="ft-user mr-1"></i>
-                  <span class="d-none d-sm-block">Account</span>
+                  <span class="d-none d-sm-block">Edit Project</span>
                 </a>
                 <ng-template ngbNavContent>
                   <!-- Account content starts -->
@@ -29,28 +28,42 @@
                     <!-- Media object ends -->
 
                     <!-- Account form starts -->
-                    <form novalidate>
+                    <form novalidate (ngSubmit)="onSubmit()">
                       <div class="row">
                         <div class="col-12 col-md-6">
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-username">Username</label>
-                              <input type="text" id="users-edit-username" class="form-control" placeholder="Username"
-                                value="dean3004" required aria-invalid="false">
+                              <label for="users-edit-username">Project Title</label>
+                              <input type="text" id="users-edit-username" class="form-control" placeholder="Project Title"
+                                [(ngModel)]="pfe.projectTitle" name="projectTitle" required>
                             </div>
                           </div>
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-name">Name</label>
-                              <input type="text" id="users-edit-name" class="form-control" placeholder="Name"
-                                value="Dean Stanley" required aria-invalid="false">
+                              <label for="users-edit-name">Project Description</label>
+                              <textarea id="users-edit-Description" class="form-control" placeholder="Description"
+                                [(ngModel)]="pfe.description" name="description" required></textarea>
                             </div>
                           </div>
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-email">E-mail</label>
-                              <input type="email" id="users-edit-email" class="form-control" placeholder="Email"
-                                value="deanstanley@gmail.com" required aria-invalid="false">
+                              <label for="users-edit-name">Student ID</label>
+                              <input type="number" id="users-edit-Student" class="form-control" placeholder="Student ID"
+                                [(ngModel)]="pfe.studentId" name="studentId" required>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-name">Trainer ID</label>
+                              <input type="number" id="users-edit-Company" class="form-control" placeholder="Trainer ID"
+                                [(ngModel)]="pfe.trainerId" name="trainerId">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-name">Entreprise ID</label>
+                              <input type="number" id="users-edit-Supervisor" class="form-control" placeholder="Supervisor ID"
+                                [(ngModel)]="pfe.entrepriseId" name="entrepriseId">
                             </div>
                           </div>
                         </div>
@@ -58,136 +71,45 @@
                         <div class="col-12 col-md-6">
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-role">Role</label>
-                              <select id="users-edit-role" class="form-control" required>
-                                <option value="">Select Role</option>
-                                <option value="1">User</option>
-                                <option value="2">Staff</option>
-                              </select>
-                            </div>
-                          </div>
-                          <div class="form-group">
-                            <div class="controls">
-                              <label for="users-edit-status">Status</label>
-                              <select id="users-edit-status" class="form-control" required>
+                              <label for="users-edit-role">Status</label>
+                              <select id="users-edit-Status" class="form-control" [(ngModel)]="pfe.status" name="status" required>
                                 <option value="">Select Status</option>
-                                <option value="1">Active</option>
-                                <option value="2">Banned</option>
-                                <option value="3">Close</option>
+                                <option value="EN_COURS">EN_COURS</option>
+                                <option value="TERMINE">TERMINE</option>
+                                <option value="VALIDE">VALIDE</option>
+                                <option value="REFUSE">REFUSE</option>
                               </select>
                             </div>
                           </div>
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-company">Company</label>
-                              <input type="text" id="users-edit-company" class="form-control"
-                                placeholder="Company Name">
+                              <label for="users-edit-status">Level</label>
+                              <select id="users-edit-Level" class="form-control" [(ngModel)]="pfe.level" name="level" required>
+                                <option value="">Select Level</option>
+                                <option value="LICENCE">LICENCE</option>
+                                <option value="MASTER">MASTER</option>
+                                <option value="INGENIEUR">INGENIEUR</option>
+                              </select>
                             </div>
                           </div>
-                        </div>
-
-                        <div class="col-12 users-module">
-                          <div class="table-responsive">
-                            <table class="table mb-0 mt-3">
-                              <thead>
-                                <tr>
-                                  <th>Module Permission</th>
-                                  <th>Read</th>
-                                  <th>Write</th>
-                                  <th>Create</th>
-                                  <th>Delete</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Users</td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox1" checked>
-                                      <label for="users-checkbox1"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox2">
-                                      <label for="users-checkbox2"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox3">
-                                      <label for="users-checkbox3"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox4" checked>
-                                      <label for="users-checkbox4"></label>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Articles</td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox5">
-                                      <label for="users-checkbox5"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox6" checked>
-                                      <label for="users-checkbox6"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox7">
-                                      <label for="users-checkbox7"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox8" checked>
-                                      <label for="users-checkbox8"></label>
-                                    </div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Staff</td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox9" checked>
-                                      <label for="users-checkbox9"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox10" checked>
-                                      <label for="users-checkbox10"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox11">
-                                      <label for="users-checkbox11"></label>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <div class="checkbox">
-                                      <input type="checkbox" id="users-checkbox12">
-                                      <label for="users-checkbox12"></label>
-                                    </div>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-status">Category</label>
+                              <select id="users-edit-Category" class="form-control" [(ngModel)]="pfe.category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="WEB_DEVELOPMENT">WEB_DEVELOPMENT</option>
+                                <option value="DATA_SCIENCE">DATA_SCIENCE</option>
+                                <option value="SECURITY">SECURITY</option>
+                                <option value="AI">AI</option>
+                                <option value="CLOUD">CLOUD</option>
+                              </select>
+                            </div>
                           </div>
                         </div>
 
                         <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
                           <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Save Changes</button>
-                          <button type="reset" class="btn btn-secondary">Cancel</button>
+                          <button type="reset" class="btn btn-secondary" (click)="onReset()">Cancel</button>
                         </div>
                       </div>
                     </form>
@@ -199,109 +121,140 @@
               <li [ngbNavItem]="2">
                 <a ngbNavLink class="nav-link d-flex align-items-center">
                   <i class="ft-info mr-1"></i>
-                  <span class="d-none d-sm-block">Information</span>
+                  <span class="d-none d-sm-block">Add PFE</span>
                 </a>
                 <ng-template ngbNavContent>
                   <!-- Information content starts -->
                   <div class="mt-2" id="information">
                     <!-- Information form starts -->
-                    <form novalidate>
+                    <form novalidate (ngSubmit)="onSubmit()">
                       <div class="row">
                         <div class="col-12 col-md-6 mb-3 mb-md-0">
-                          <h4 class="mb-3"><i class="ft-link mr-2"></i>Social Links</h4>
+                          <h4 class="mb-3"><i class="ft-link mr-2"></i>PFE Details</h4>
                           <div class="form-group">
-                            <label for="users-edit-twitter">Twitter</label>
+                            <label for="users-edit-twitter">Project Title</label>
                             <input type="text" id="users-edit-twitter" class="form-control"
-                              value="https://www.twitter.com/">
+                              [(ngModel)]="pfe.projectTitle" name="projectTitle" required>
                           </div>
                           <div class="form-group">
-                            <label for="users-edit-facebook">Facebook</label>
-                            <input type="text" id="users-edit-facebook" class="form-control"
-                              value="https://www.facebook.com/">
+                            <label for="users-edit-facebook">Description</label>
+                            <textarea id="users-edit-facebook" class="form-control"
+                              [(ngModel)]="pfe.description" name="description" required></textarea>
+                          </div>
+                         <!-- For Start Date -->
+<!-- Pour la Date de Début -->
+<div class="form-group">
+  <label for="users-edit-google">Start Date</label>
+  <input type="date" id="users-edit-google" class="form-control"
+    [value]="formatDateForInput(pfe.startDate)"
+    (input)="pfe.startDate = parseDateFromInput($event.target.value)"
+    name="startDate" required>
+</div>
+
+<!-- Pour la Date de Fin -->
+<div class="form-group">
+  <label for="users-edit-linkedin">End Date</label>
+  <input type="date" id="users-edit-linkedin" class="form-control"
+    [value]="formatDateForInput(pfe.endDate)"
+    (input)="pfe.endDate = parseDateFromInput($event.target.value)"
+    name="endDate" required>
+</div>
+                          <div class="form-group">
+                            <label for="users-edit-instagram">Student ID</label>
+                            <input type="number" id="users-edit-instagram" class="form-control"
+                              [(ngModel)]="pfe.studentId" name="studentId" required>
                           </div>
                           <div class="form-group">
-                            <label for="users-edit-google">Google+</label>
-                            <input type="text" id="users-edit-google" class="form-control">
+                            <label for="users-edit-instagram">Trainer ID</label>
+                            <input type="number" id="users-edit-instagram" class="form-control"
+                              [(ngModel)]="pfe.trainerId" name="trainerId">
                           </div>
                           <div class="form-group">
-                            <label for="users-edit-linkedin">LinkedIn</label>
-                            <input type="text" id="users-edit-linkedin" class="form-control">
-                          </div>
-                          <div class="form-group">
-                            <label for="users-edit-instagram">Instagram</label>
-                            <input type="text" id="users-edit-instagram" class="form-control"
-                              value="https://www.instagram.com/">
+                            <label for="users-edit-instagram">Entreprise ID</label>
+                            <input type="number" id="users-edit-instagram" class="form-control"
+                              [(ngModel)]="pfe.entrepriseId" name="entrepriseId">
                           </div>
                         </div>
 
                         <div class="col-12 col-md-6 mb-2 mb-md-0">
-                          <h4 class="mb-3"><i class="ft-user mr-2"></i>Personal Info</h4>
-                          <div class="form-group">
+                          <h4 class="mb-3"><i class="ft-user mr-2"></i>PFE Settings</h4>
+                          <!--div class="form-group">
                             <div class="controls position-relative">
-                              <label for="users-edit-bday">Birth date</label>
-                              <input type="text" id="users-edit-bday" class="form-control birthdate-picker" required
-                                placeholder="Birth date">
+                              <label for="users-edit-bday">Documents</label>
+                              <input type="file" id="users-edit-bday" class="form-control" multiple
+                                (change)="onFileChange($event)" name="documents">
                             </div>
                           </div>
                           <div class="form-group">
+                            <div class="controls position-relative">
+                              <label for="users-edit-bday">Jury Names</label>
+                              <input type="text" id="users-edit-bday" class="form-control"
+                                [(ngModel)]="pfe.juryNames" name="juryNames" required>
+                            </div>
+                          </div-->
+                          <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-country">Country</label>
-                              <select id="users-edit-country" class="form-control" required>
-                                <option value="">Select Country</option>
-                                <option value="USA">USA</option>
-                                <option value="UK">UK</option>
-                                <option value="India">India</option>
+                              <label for="users-edit-country">Level</label>
+                              <select id="users-edit-country" class="form-control" [(ngModel)]="pfe.level" name="level" required>
+                                <option value="">Select Level</option>
+                                <option value="LICENCE">LICENCE</option>
+                                <option value="MASTER">MASTER</option>
+                                <option value="INGENIEUR">INGENIEUR</option>
                               </select>
                             </div>
                           </div>
                           <div class="form-group">
-                            <label for="users-edit-languages">Languages</label>
-                            <ng-select [multiple]="true" [(ngModel)]="selectedLanguages" [ngModelOptions]="{standalone: true}">
-                              <ng-option *ngFor="let language of languages" [value]="language.value">{{language.name}}
-                              </ng-option>
-                            </ng-select>
-                          </div>
-                          <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-phone">Phone</label>
-                              <input type="text" id="users-edit-phone" class="form-control" placeholder="Phone Number"
-                                required value="(+656) 254 2568">
+                              <label for="users-edit-country">Status</label>
+                              <select id="users-edit-country" class="form-control" [(ngModel)]="pfe.status" name="status" required>
+                                <option value="">Select Status</option>
+                                <option value="EN_COURS">EN_COURS</option>
+                                <option value="TERMINE">TERMINE</option>
+                                <option value="VALIDE">VALIDE</option>
+                                <option value="REFUSE">REFUSE</option>
+                              </select>
                             </div>
                           </div>
                           <div class="form-group">
                             <div class="controls">
-                              <label for="users-edit-address">Address</label>
-                              <input type="text" id="users-edit-address" class="form-control" placeholder="Address"
-                                required>
+                              <label for="users-edit-country">Category</label>
+                              <select id="users-edit-country" class="form-control" [(ngModel)]="pfe.category" name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="WEB_DEVELOPMENT">WEB_DEVELOPMENT</option>
+                                <option value="DATA_SCIENCE">DATA_SCIENCE</option>
+                                <option value="SECURITY">SECURITY</option>
+                                <option value="AI">AI</option>
+                                <option value="CLOUD">CLOUD</option>
+                              </select>
                             </div>
                           </div>
                         </div>
 
                         <div class="col-12">
                           <div class="form-group">
-                            <label for="users-edit-website">Website</label>
+                            <label for="users-edit-website">Meeting Link</label>
                             <input type="text" id="users-edit-website" class="form-control"
-                              placeholder="Website Address">
+                              [(ngModel)]="pfe.meetingLink" name="meetingLink">
                           </div>
+                          <!-- For Meeting Date -->
+<!-- Pour la Date de Réunion -->
+<div class="form-group">
+  <label for="users-edit-website">Meeting Date</label>
+  <input type="date" id="users-edit-website" class="form-control"
+    [value]="formatDateForInput(pfe.meetingDate)"
+    (input)="pfe.meetingDate = parseDateFromInput($event.target.value)"
+    name="meetingDate">
+</div>
                           <div class="form-group">
-                            <label for="users-edit-music">Favourite Music</label>
-                            <ng-select [multiple]="true" [(ngModel)]="selectedMusic" [ngModelOptions]="{standalone: true}">
-                              <ng-option *ngFor="let m of music" [value]="m.value">{{m.name}}
-                              </ng-option>
-                            </ng-select>
-                          </div>
-                          <div class="form-group">
-                            <label for="users-edit-movies">Favourite Movies</label>
-                            <ng-select [multiple]="true" [(ngModel)]="selectedMovies" [ngModelOptions]="{standalone: true}">
-                              <ng-option *ngFor="let movie of movies" [value]="movie.value">{{movie.name}}
-                              </ng-option>
-                            </ng-select>
+                            <label for="users-edit-website">Meeting Notes</label>
+                            <textarea id="users-edit-website" class="form-control"
+                              [(ngModel)]="pfe.meetingNotes" name="meetingNotes"></textarea>
                           </div>
                         </div>
 
                         <div class="col-12 d-flex justify-content-end flex-sm-row flex-column mt-3 mt-sm-0">
-                          <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Save Changes</button>
-                          <button type="reset" class="btn btn-secondary">Cancel</button>
+                          <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Save</button>
+                          <button type="reset" class="btn btn-secondary" (click)="onReset()">Cancel</button>
                         </div>
                       </div>
                     </form>
@@ -318,5 +271,4 @@
         </div>
       </div>
     </div>
-  </div>
 </section>

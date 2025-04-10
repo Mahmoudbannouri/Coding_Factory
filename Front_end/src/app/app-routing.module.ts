@@ -8,8 +8,19 @@ import { Full_ROUTES } from "./shared/routes/full-layout.routes";
 import { CONTENT_ROUTES } from "./shared/routes/content-layout.routes";
 
 import { AuthGuard } from './shared/auth/auth-guard.service';
+import { UsersViewComponent } from './pages/full-pages/users/users-view/users-view.component';
+import { UsersEditComponent } from './pages/full-pages/users/users-edit/users-edit.component';
 
 const appRoutes: Routes = [
+  { 
+    path: 'pages/users-view/:id', 
+    component: UsersViewComponent 
+  },
+  { 
+    path: 'pages/users-edit/:id', 
+    component: UsersEditComponent 
+  },
+  
   {
     path: '',
     redirectTo: 'pages/login',
