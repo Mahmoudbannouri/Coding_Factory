@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Quill Editor</div>
+    <p class="content-sub-header mb-1">Quill is a free, open source WYSIWYG editor built for the modern web. With its
+      modular architecture and expressive API, it is completely customizable to fit any need.</p>
+  </div>
+</div>
+<section id="quill-editor">
+  <div class="row">
+    <!-- Default Quill Editor starts -->
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Default editor</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="mx-auto">
+                <div id="full-wrapper">
+                  <div id="full-container">
+                    <quill-editor (onEditorCreated)="setFocus($event)"></quill-editor>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Default Quill Editor Ends -->
+
+    <!-- Reactive forms Quill Editor starts -->
+    <div class="col-12">
+      <div class="card text-left">
+        <div class="card-header">
+          <h4 class="card-title">Reactive Forms and patch value</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="form">
+            <div class="mb-2">
+              <button type="button" class="btn mr-1 btn-primary" (click)="hide=!(!!hide)">hide / show</button>
+              <button type="button" class="btn btn-primary" (click)="patchValue()">patchValue</button>
+            </div>
+            <quill-editor #editor [style.display]="hide ? 'none' : 'block'" formControlName="editor"></quill-editor>
+            <p class="mt-2">
+              Output : {{form.controls.editor.value}}
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Reactive forms Quill Editor ends -->
+
+    <!-- Quill Editor without toolbar starts -->
+    <div class="col-12">
+      <div class="card text-left">
+        <div class="card-header">
+          <h4 class="card-title">Editor without toolbar + required and ngModule</h4>
+        </div>
+        <div class="card-body">
+          <div class="mb-2">
+            <button (click)="toggleReadOnly()" class="btn btn-primary">Toggle ReadOnly</button>
+          </div>
+          <quill-editor [(ngModel)]="title" [maxLength]="5" [minLength]="3" [required]="true" [readOnly]="isReadOnly"
+            [modules]="{toolbar: false}" (onContentChanged)="logChange($event);"
+            (onSelectionChanged)="logSelection($event);"></quill-editor>
+          <p class="mt-2">
+            isReadOnly : {{isReadOnly}} <br> Title : {{title}}
+          </p>
+        </div>
+      </div>
+    </div>
+    <!-- Quill Editor without toolbar ends -->
+  </div>
+</section>

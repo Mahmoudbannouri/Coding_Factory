@@ -1,0 +1,711 @@
+/* Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f7f7f7;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Search Container */
+  .search-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+  
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    }
+  }
+  
+  
+  .category-dropdown,
+.time-period-dropdown {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  }
+}
+.date-input {
+  padding: 10px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: white;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+  }
+}
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #495057;
+}
+.btn-secondary {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background-color: #6c757d;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #5a6268;
+  }
+
+  &:active {
+    background-color: #545b62;
+  }
+}
+  
+  .btn-secondary:hover {
+    background-color: #e0e0e0;
+  }
+  /* Modal Styles */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top of everything */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scrolling if needed */
+    background-color: rgba(0, 0, 0, 0.7); /* Darker backdrop for contrast */
+    backdrop-filter: blur(5px); /* Blur effect for the background */
+  }
+  
+  .modal.show {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease-in-out;
+  }
+  .modal.hide {
+    animation: fadeOut 0.3s ease-in-out;
+  }
+  .modal-content {
+    background: linear-gradient(145deg, #ffffff, #f0f0f0); /* Gradient background */
+    padding: 25px;
+    border-radius: 15px; /* Rounded corners */
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Max width for larger screens */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Soft shadow */
+    position: relative;
+    transform: scale(0.9); /* Slightly smaller for animation */
+    animation: scaleUp 0.3s ease-in-out forwards;
+  }
+  .modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 900px;
+    width: 90%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: modalIn 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }
+  
+  @keyframes scaleUp {
+    from {
+      transform: scale(0.9);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  @keyframes modalIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  /* Add Course Form */
+  .modal-content form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .modal-content input,
+  .modal-content select,
+  .modal-content textarea {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .modal-content input:focus,
+  .modal-content select:focus,
+  .modal-content textarea:focus {
+    border-color: #007bff;
+  }
+  
+  button[type="submit"] {
+    padding: 12px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Course Cards */
+  .course-cards-container {
+    display: flex; /* Use flexbox for layout */
+  flex-wrap: wrap; /* Allow wrapping to the next line */
+  gap: 20px; /* Space between cards */
+  justify-content: space-between; /* Distribute space evenly */
+  }
+  
+  .course-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    flex: 1 1 calc(50% - 20px); /* Two cards per row with gap */
+    max-width: calc(50% - 20px); /* Ensure two cards fit in one line */
+    box-sizing: border-box; /* Include padding and border in the width */
+  }
+  
+  .course-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .card-header {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;}
+  .image-container {
+    flex: 1; /* Take up 1 part of the space */
+    max-width: 150px; /* Smaller image width */
+    display: flex;
+    align-items: center; /* Center the image vertically */
+    justify-content: center; /* Center the image horizontally */
+    padding: 10px; /* Add some padding */
+  }
+  
+  .event-image {
+    max-width: 100%; /* Ensure the image fits within the container */
+  height: auto;
+  border-radius: 8px; /* Rounded corners for the image */
+  }
+  
+  .info-container {
+    flex: 2; /* Take up 2 parts of the space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out the content */
+  }
+  .card-content img {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 15px;
+    flex: 1;
+  }
+  
+  .card-footer {
+    display: flex;
+  gap: 10px; /* Space between buttons */
+  flex-wrap: wrap; /* Allow buttons to wrap to the next line if needed */
+  }
+  
+  /* Floating Plus Button */
+  .floating-plus {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .floating-plus:hover {
+    background-color: #0056b3;
+  }
+  
+  .floating-plus:active {
+    transform: scale(0.95);
+  }
+  
+  /* Rating Stars */
+  .card-body p span {
+    font-size: 24px;
+    color: #ffd700;
+    animation: starAnimation 0.5s ease-in-out;
+  }
+  
+  @keyframes starAnimation {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  /* Category Tags */
+  .category-tag {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #007bff;
+    transition: background-color 0.3s ease;
+  }
+  
+  .category-tag:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Resource Accordion Styling */
+  .resource-accordion {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .resource-header {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .resource-header:hover {
+    color: #007bff;
+  }
+  
+  .toggle-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .toggle-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .resource-body {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resource-body:hover {
+    background-color: #e9e9e9;
+  }
+  
+  /* Video and Document Styling */
+  .video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+  
+  button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #218838;
+  }
+  
+  /* Adding some spacing between resources */
+  .resource-accordion:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  
+  /* Wider Dropdown Button */
+  .wide-dropdown {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+  }
+  
+  /* Separate Items in Modal */
+  .modal-content label,
+  .modal-content input,
+  .modal-content textarea,
+  .modal-content select {
+    margin-bottom: 15px;
+  }
+  
+  .modal-content button {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .resource-card {
+    padding: 10px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resource-card:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .resource-details {
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .resource-details:hover {
+    background-color: #e9e9e9;
+  }
+  
+  /* Make dropdown text black */
+  select {
+    color: black;
+  }
+  
+  /* If your category dropdown has a class 'category-dropdown' */
+  .category-dropdown {
+    color: black;
+  }
+  
+  /* Handle long descriptions */
+  .resource-details p {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* See More Link */
+  .see-more, .see-less {
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: color 0.3s ease;
+  }
+  
+  .see-more:hover, .see-less:hover {
+    color: #0056b3;
+  }
+  
+  /* Card Footer Buttons */
+  .card-footer button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .card-footer button .icon {
+    margin-right: 6px;
+    font-size: 16px;
+  }
+  
+  /* Primary Button */
+  .btn-primary {
+    background-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Secondary Button */
+  .btn-secondary {
+    background-color: #6c757d;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #565e64;
+  }
+  
+  /* Danger Button */
+  .btn-danger {
+    background-color: #dc3545;
+  }
+  
+  .btn-danger:hover {
+    background-color: #b21f2d;
+  }
+  
+  .btn-close {
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Clearfix for Grid Layout */
+  .clearfix {
+    width: 100%;
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .course-cards-container {
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+  
+    .course-card {
+      max-width: 100%;
+    }
+  
+    .modal-content {
+      width: 95%;
+    }
+  }
+  /* Popup notification styling */
+.popup-notification {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #28a745; /* Green color for success */
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  font-size: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out, transform 0.5s ease-in-out;
+  z-index: 1000; /* Ensure it appears above other content */
+}
+
+/* When popup is visible */
+.popup-notification.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1.05); /* Slight scale effect on popup */
+}
+
+/* Additional fade-out effect */
+.popup-notification.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, -50%) scale(0.95); /* Slight shrink effect on fade-out */
+}
+
+/* Pagination Container */
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+/* Pagination Buttons */
+.pagination-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pagination-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Pagination Information */
+.pagination-info {
+  font-size: 16px;
+  color: #333;
+}
+/* Style for the disabled button */
+.btn-primary:disabled {
+  background-color: #cccccc; /* Gray background */
+  color: #666666; /* Dark gray text */
+  cursor: not-allowed; /* Show "not allowed" cursor */
+  border: 1px solid #999999; /* Gray border */
+}
+
+/* Style for error messages */
+.error-message {
+  color: red; /* Red text for error messages */
+  font-size: 0.875em; /* Smaller font size */
+  margin-top: 4px; /* Spacing above the error message */
+}
+
+
+@media (max-width: 768px) {
+  .search-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .search-input,
+  .category-dropdown,
+  .time-period-dropdown,
+  .date-input,
+  .btn-secondary {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  @media (max-width: 768px) {
+    .course-card {
+      flex: 1 1 calc(50% - 16px);
+    }
+  
+    .card-content {
+      flex-direction: column;
+    }
+  
+    .image-container {
+      max-width: 100%;
+      margin-right: 0;
+      margin-bottom: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .course-card {
+      flex: 1 1 100%;
+    }
+  }
+}

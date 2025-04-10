@@ -1,0 +1,176 @@
+<div class="course-container">
+  <!-- Search Input and Filters -->
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..." class="search-input" (ngModelChange)="filterCourses()">
+    <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="filterCourses()">
+      <option value="">All Categories</option>
+      <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
+    </select>
+  </div>
+
+  <!-- No Courses Available -->
+  <div *ngIf="filteredCourses.length === 0">
+    <p>No courses available.</p>
+  </div>
+
+  <!-- Add New Course Modal -->
+  <div *ngIf="showModal" class="modal" [ngClass]="{ 'show': showModal }">
+    <div class="modal-content">
+      <center>
+        <h1>Add New Course</h1>
+      </center>
+      <form (ngSubmit)="addCourse()">
+        <!-- Course Title -->
+        <label for="title">Title</label>
+        <input id="title" [(ngModel)]="newCourse.title" name="title" required />
+
+        <!-- Course Description -->
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="newCourse.description" name="description" required></textarea>
+
+        <!-- Category Selection -->
+        <label for="category">Category</label>
+        <select id="category" [(ngModel)]="newCourse.categoryCourse" name="category" required>
+          <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
+        </select>
+
+        <!-- Course Start Date -->
+        <label for="startDate">Start Date</label>
+        <input id="startDate" type="date" [(ngModel)]="newCourse.startDate" name="startDate" required />
+
+        <!-- Course End Date -->
+        <label for="endDate">End Date</label>
+        <input id="endDate" type="date" [(ngModel)]="newCourse.endDate" name="endDate" required />
+
+        <!-- Image URL -->
+        <label for="image">Course Image URL</label>
+        <input id="image" type="url" [(ngModel)]="newCourse.image" name="image" required pattern="https?://.+" />
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-primary">Add Course</button>
+      </form>
+
+      <button (click)="closeAddCourseModal()" class="btn-close">Close</button>
+    </div>
+  </div>
+
+  <!-- All Courses Section -->
+  <div *ngIf="filteredCourses.length > 0">
+    <h3>All Courses</h3>
+    <div class="course-cards-container">
+      <div *ngFor="let course of filteredCourses; let i = index" class="course-card">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">{{ course.title }}</h4>
+            <p><strong>Created by:</strong> {{ course.trainer?.name }}</p>
+          </div>
+          <div class="card-content">
+            <a [href]="course.link" target="_blank">
+              <img class="img-fluid" [src]="course.image || 'fallback-image-url.jpg'" alt="{{ course.title }}" class="course-image">
+            </a>
+            <div class="card-body">
+              <p><strong>Description:</strong> {{ course.description }}</p>
+              <p><strong>Category:</strong>
+                <span *ngIf="course.categoryCourse">
+                  <span *ngFor="let category of course.categoryCourse.split(', ')">
+                    <span class="category-tag">{{ category }}</span>
+                  </span>
+                </span>
+              </p>
+              <p><strong>Reviews:</strong>
+                <span *ngFor="let star of [].constructor(course.rate)">★</span>
+                <span *ngFor="let star of [].constructor(5 - course.rate)">☆</span>
+              </p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button (click)="openResourcesModal(course)" class="btn-primary">
+              <span class="icon">📦</span> Show Resources
+            </button>
+            <button (click)="openAddResourceModal(course)" class="btn-secondary">
+              <span class="icon">➕</span> Add Resource
+            </button>
+            <button (click)="deleteCourse(course.id)" class="btn-danger">
+              <span class="icon">🗑️</span> Delete
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Add a clearfix to ensure proper layout -->
+      <div *ngIf="(i + 1) % 2 === 0" class="clearfix"></div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Resources -->
+  <div *ngIf="showAddResourceModal" class="modal" [ngClass]="{ 'show': showAddResourceModal }">
+    <div class="modal-content">
+      <h3>Add Resource to {{ selectedCourse?.title }}</h3>
+
+      <form (ngSubmit)="addResourceToCourse()">
+        <!-- Hidden Course ID -->
+        <input type="hidden" [(ngModel)]="newResource.course" name="courseId" [value]="selectedCourse?.id" />
+
+        <!-- Resource Title -->
+        <label for="resourceTitle">Title</label>
+        <input id="resourceTitle" [(ngModel)]="newResource.title" name="title" required />
+
+        <!-- Resource Type -->
+        <label for="resourceType">Resource Type</label>
+        <input id="resourceType" [(ngModel)]="newResource.resourceType" name="resourceType" required />
+
+        <!-- Resource Video Link -->
+        <label for="videoLink">Video Link</label>
+        <input id="videoLink" type="url" [(ngModel)]="newResource.link_video" name="link_video" />
+
+        <!-- Resource Document Link -->
+        <label for="docLink">Document Link</label>
+        <input id="docLink" type="url" [(ngModel)]="newResource.link_document" name="link_document" />
+
+        <!-- Resource Description -->
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="newResource.description" name="description" required></textarea>
+
+        <!-- Submit Button -->
+        <button type="submit">Add Resource</button>
+      </form>
+
+      <button (click)="closeAddResourceModal()" class="btn-close">Close</button>
+    </div>
+  </div>
+
+  <!-- Show Resources Modal -->
+  <div *ngIf="showResourcesModal" class="modal" [ngClass]="{ 'show': showResourcesModal }">
+    <div class="modal-content">
+      <h3>Resources for {{ selectedCourse?.title }}</h3>
+      <div *ngFor="let resource of selectedCourse?.resources">
+        <div class="resource-card">
+          <button (click)="toggleResourceDetails(resource)" class="resource-title">
+            {{ resource.title }}
+            <span *ngIf="expandedResource?.id === resource.id">▼</span>
+            <span *ngIf="expandedResource?.id !== resource.id">▶</span>
+          </button>
+
+          <div *ngIf="expandedResource?.id === resource.id" class="resource-details">
+            <p><strong>Type:</strong> {{ resource.resourceType }}</p>
+            <p><strong>Description:</strong> {{ resource.description }}</p>
+            <div *ngIf="resource.link_video">
+              <h4>Video</h4>
+              <div class="video-container">
+                <iframe [src]="sanitizeYouTubeUrl(resource.link_video)" frameborder="0" allowfullscreen></iframe>
+              </div>
+            </div>
+            <div *ngIf="resource.link_document">
+              <h4>Document</h4>
+              <iframe [src]="resource.link_document" width="100%" height="400px" frameborder="0"></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button (click)="closeResourcesModal()" class="btn-close">Close</button>
+    </div>
+  </div>
+
+  <!-- Floating Plus Button -->
+  <button class="floating-plus" (click)="openAddCourseModal()">+</button>
+</div>

@@ -1,0 +1,147 @@
+<div class="row">
+  <div class="col-12">
+    <h4 class="content-header">Input Tags</h4>
+  </div>
+</div>
+
+<!-- Tagging start -->
+<section class="tagging-tags">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="row">
+            <div class="col-xl-6 col-12">
+              <div class="card-body">
+                <fieldset>
+                  <label>Simple Input with two items</label>
+                  <div class="form-group">
+                    <tag-input [(ngModel)]="items" (onSelect)="onSelect($event)" [modelAsStrings]="true">
+                    </tag-input>
+                    <p class="text-muted small my-1">By default close char is <code>x</code>.
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Simple Input with not removable items</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="items1" [removable]="false"></tag-input>
+                    <p class="text-muted small my-1"> you can make tag non-removable by removing <code>x</code> using
+                      <code>[removable]="false"</code> </p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Editable items</label>
+                  <div class="form-group">
+                    <tag-input [(ngModel)]="items2" [editable]="true" (onTagEdited)="onTagEdited($event)">
+                    </tag-input>
+                    <p class="text-muted small my-1">you can create editable tag by using
+                      <code>[editable]="true"</code> property</p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Special Tag</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="['@item$']" [errorMessages]="errorMessages" [validators]="validators">
+                    </tag-input>
+                    <p class="text-muted small my-1">An input which requires all tags to start with <code> '@'</code>
+                      and end with <code>'$'</code></p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Transform tag</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="['@item']" [onAdding]="transform">
+                    </tag-input>
+                    <p class="text-muted small my-1">An input which will transform the value of all added tags
+                      prepending <code>'@'</code> to the tag using <code>[onAdding]="transform"</code> </p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Tags accepting only items from an autocomplete</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="['@item']" [onlyFromAutocomplete]="true">
+                      <tag-input-dropdown [showDropdownIfEmpty]="true" [focusFirstElement]="true" [displayBy]="'value'"
+                        [identifyBy]="'id'" [autocompleteItems]="autocompleteItemsAsObjects">
+                        <ng-template let-item="item" let-index="index">
+                          ({{ index }}) {{ item.id }}: {{ item.value }}
+                        </ng-template>
+                      </tag-input-dropdown>
+                    </tag-input>
+                    <p class="text-muted small my-1">You can customize this component to allow only Tags accepting
+                      only items from an autocomplete</p>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+            <div class="col-xl-6 col-12">
+              <div class="card-body">
+                <fieldset>
+                  <label>Autocomplete items using onAdding</label>
+                  <div class="form-group">
+                    <tag-input [(ngModel)]="items4" [onlyFromAutocomplete]="true" [onAdding]="asyncOnAdding">
+                      <tag-input-dropdown [autocompleteItems]="autocompleteItemsAsObjects" [displayBy]="'value'"
+                        [identifyBy]="'id'">
+                      </tag-input-dropdown>
+                    </tag-input>
+                    <p class="text-muted small my-1">You can autocomplete items using
+                      <code>[onAdding]="asyncOnAdding"</code><strong> eg. 'item1'</strong></p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>keyboard</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="['@item']" [inputClass]="'myinput'" [inputId]="'myinputId'"
+                      [separatorKeyCodes]="[32, 188]">
+                    </tag-input>
+                    <p class="text-muted small my-1">An input which allows adding items by pressing the key
+                      <code>"space"</code> of your keyboard</p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Tags with Bootstrap theme</label>
+                  <div class="form-group">
+                    <tag-input [theme]="'bootstrap'" [ngModel]="['@item']" name="items">
+                    </tag-input>
+                    <p class="text-muted small my-1">You can apply bootstrap theme to your tag using
+                      <code>[theme]="'bootstrap'"</code> </p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Max tag limit</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="['Javascript', 'Typescript']" [maxItems]="3" [ripple]="false"
+                      placeholder="Insert a new item">
+                    </tag-input>
+                    <p class="text-muted small my-1">Input tag that allows specific number of tags using
+                      <code>[maxItems]</code> </p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Drag and drop</label>
+                  <div class="form-group">
+                    <tag-input [(ngModel)]="dragAndDropExample" [modelAsStrings]="true" [dragZone]="'zone1'"
+                      [editable]="true">
+                    </tag-input>
+                    <p class="text-muted small my-1">You can use this advanced feature with <code>[dragZone]</code>
+                    </p>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <label>Confirm adding and removing tags with Observables</label>
+                  <div class="form-group">
+                    <tag-input [ngModel]="['item1']" [dragZone]="'zone1'" [modelAsStrings]="true"
+                      [onRemoving]="onRemoving" [onAdding]="onAdding">
+                    </tag-input>
+                    <p class="text-muted small my-1">You can implement this special feature with
+                      <code>[onRemoving]</code> and <code>[onAdding]</code> </p>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Tagging end -->

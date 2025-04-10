@@ -1,0 +1,67 @@
+<!-- Knowledge base question Content start -->
+<section class="kb-question position-relative">
+  <div class="kb-overlay" [ngClass]="{show: isShowQues}" (click)="isShowQues = false;"></div>
+  <div class="row">
+    <!-- left side menubar section -->
+    <div class="col-md-3 mt-md-2">
+      <div class="kb-sidebar" [ngClass]="{show: isShowQues}">
+        <i class="ft-x font-medium-5 d-md-none kb-close-icon cursor-pointer" (click)="isShowQues = false;"></i>
+        <h6 class="mb-3">Related Questions</h6>
+        <ul class="list-unstyled">
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Laravel Starter Kit?</a></li>
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Firebase & Authentication?</a></li>
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Clean & Modern Design?</a></li>
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">No jQuery Dependency?</a></li>
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Code Splitting?</a></li>
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Continuous Updates?</a></li>
+          <li class="mb-1"><a href="javascript:void(0)" class="kb-categories-text kb-effect">Do you charge for upgrade?</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- right side section -->
+    <div class="col-md-9">
+      <button class="btn btn-primary mb-1 kb-menu d-md-none" (click)="isShowQues = true;">
+        <i class="ft-menu mr-1"></i>
+        <span>Related Questions</span>
+      </button>
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="mb-2">
+              <h3 class="kb-title">UX Design Portfolio: Best Practices</h3>
+              <p class="text-muted font-small-3">Last updated on May 05, 2020</p>
+            </div>
+            <p>So you know you need a portfolio to land a UI/UX gig. If you are just starting out or it’s been a while, that can be overwhelming. Even if you have a portfolio, you may be wondering if it is doing all it can for you. As experienced digital product designers, we have some thoughts on the topic of design portfolios; how to make one and how to get the most out of it.</p>
+            <ngb-carousel class="mb-2">
+              <ng-template ngbSlide>
+                <img src="assets/img/banner/banner-1.jpg" class="d-block w-100" alt="First slide">
+              </ng-template>
+              <ng-template ngbSlide>
+                <img src="assets/img/banner/banner-2.jpg" class="d-block w-100" alt="Second slide">
+              </ng-template>
+              <ng-template ngbSlide>
+                <img src="assets/img/banner/banner-4.jpg" class="d-block w-100" alt="Third slide">
+              </ng-template>
+            </ngb-carousel>
+            <h4>Inspiration</h4>
+            <p>So where to start? How many projects do you need? What’s the best way to organize? There are lots of great resources available to you if you need help getting started or need some inspiration.</p>
+            <h6 class="mb-1">Topics:</h6>
+            <ul>
+              <li>What challenges did you encounter?</li>
+              <li>What did you do differently?</li>
+              <li>What did you try that didn’t work?</li>
+              <li>What did you learn?</li>
+              <li>What did you accomplish?</li>
+            </ul>
+            <p>On our site, we like to include the results of our projects. Hiring managers love concrete numbers that prove the value of your work, particularly in a creative area that can be hard to quantify. We state the metric, show our solution, and then show the result.</p>
+            <div class="d-flex justify-content-between">
+              <button class="btn bg-light-primary">Previous</button>
+              <button class="btn bg-light-primary">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Knowledge base question Content ends -->

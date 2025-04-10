@@ -1,0 +1,176 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "defaultProject": "matngular",
+  "projects": {
+    "matngular": {
+      "root": "",
+      "sourceRoot": "src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "allowedCommonJsDependencies": [
+              "dragula",
+              "firebase/app",
+              "@mattlewis92/dom-autoscroller",
+              "angular-calendar/date-adapters/date-fns",
+              "prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard",
+              "nouislider",
+              "ngx-quill",
+              "lodash",
+              "css-element-queries",
+              "chart.js",
+              "quill",
+              "hopscotch",
+              "moment",
+              "sweetalert2",
+              "screenfull",
+              "clipboard",
+              "prismjs"
+            ],
+            "outputPath": "dist",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "tsConfig": "src/tsconfig.app.json",
+            "polyfills": "src/polyfills.ts",
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
+            ],
+            "styles": [
+              "node_modules/sweetalert2/dist/sweetalert2.min.css",
+              "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
+              "node_modules/prismjs/plugins/toolbar/prism-toolbar.css",
+              "src/assets/css/wizard.css",
+              "src/assets/css/quill.snow.css",
+              "src/assets/css/quill.bubble.css",
+              "src/assets/css/hopscotch.css",
+              "src/assets/css/animate.min.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/nouislider/distribute/nouislider.min.css",
+              "node_modules/angular-calendar/scss/angular-calendar.scss",
+              "node_modules/dragula/dist/dragula.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@swimlane/ngx-datatable/index.css",
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+              "src/assets/css/demo.css",
+              "src/assets/sass/core.scss",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "src/assets/vendor/pace/pace.min.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "matngular:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "matngular:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "matngular:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "karmaConfig": "./karma.conf.js",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "src/tsconfig.spec.json",
+            "scripts": [
+              "src/assets/vendor/pace/pace.min.js",
+              "node_modules/apexcharts/dist/apexcharts.min.js"
+            ],
+            "styles": [
+              "node_modules/sweetalert2/dist/sweetalert2.min.css",
+              "src/assets/css/wizard.css",
+              "src/assets/css/quill.snow.css",
+              "src/assets/css/quill.bubble.css",
+              "src/assets/css/hopscotch.css",
+              "node_modules/nouislider/distribute/nouislider.min.css",
+              "node_modules/angular-calendar/scss/angular-calendar.scss",
+              "node_modules/dragula/dist/dragula.css",
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/@swimlane/ngx-datatable/index.css",
+              "node_modules/@swimlane/ngx-datatable/assets/icons.css",
+              "src/assets/css/demo.css",
+              "src/styles.css"
+            ],
+            "assets": [
+              "src/assets",
+              "src/favicon.ico"
+            ]
+          }
+        }
+      }
+    },
+    "matngular-e2e": {
+      "root": "",
+      "sourceRoot": "",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "./protractor.conf.js",
+            "devServerTarget": "matngular:serve"
+          }
+        }
+      }
+    }
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "prefix": "app",
+      "style": "scss"
+    },
+    "@schematics/angular:directive": {
+      "prefix": "app"
+    }
+  },
+  "cli": {
+    "analytics": "9e472cbb-4d61-46ce-9a7c-5eae6a406034"
+  }
+}
