@@ -1,0 +1,216 @@
+@import "assets/sass/core/variables/gradient-variables.scss";
+
+:host ::ng-deep .ct-grid {
+  stroke-dasharray : 0;
+  stroke : rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .ct-label {
+  font-size : 0.9rem;
+}
+
+:host ::ng-deep .WidgetlineChart .ct-point {
+  stroke-width : 0;
+}
+
+:host ::ng-deep .WidgetlineChartShadow {
+  -webkit-filter : drop-shadow(0px 15px 6px rgba(47, 139, 230, 0.6));
+          filter : drop-shadow(0px 15px 6px rgba(47, 139, 230, 0.6));
+}
+
+:host ::ng-deep .WidgetlineChart .ct-line {
+  stroke : #2F8BE6;
+  stroke-width: 4px;
+}
+
+:host ::ng-deep .WidgetlineChart1 .ct-point {
+  stroke-width : 0;
+}
+
+:host ::ng-deep .WidgetlineChart1Shadow {
+  -webkit-filter : drop-shadow(0px 15px 6px rgba(247, 126, 23, 0.6));
+          filter : drop-shadow(0px 15px 6px rgba(247, 126, 23, 0.6));
+}
+
+:host ::ng-deep .WidgetlineChart1 .ct-line {
+  stroke : #F77E17;
+  stroke-width: 4px;
+}
+
+:host ::ng-deep .WidgetlineChart2 .ct-point {
+  stroke-width : 0;
+}
+
+:host ::ng-deep .WidgetlineChart2Shadow {
+  -webkit-filter : drop-shadow(0px 15px 6px rgba(151, 90, 255, 0.6));
+          filter : drop-shadow(0px 15px 6px rgba(151, 90, 255, 0.6));
+}
+
+:host ::ng-deep .WidgetlineChart2 .ct-line {
+  stroke : #975AFF;
+  stroke-width: 4px;
+}
+
+:host ::ng-deep .WidgetlineChart3 .ct-point {
+  stroke-width : 0;
+}
+
+:host ::ng-deep .WidgetlineChart3Shadow {
+  -webkit-filter : drop-shadow(0px 15px 6px rgba(64, 192, 87, 0.6));
+          filter : drop-shadow(0px 15px 6px rgba(64, 192, 87, 0.6));
+}
+
+:host ::ng-deep .WidgetlineChart3 .ct-line {
+  stroke : #40C057;
+  stroke-width: 4px;
+}
+
+:host ::ng-deep .lineChart1 .apexcharts-tooltip {
+  color : #342E49 !important;
+}
+
+:host ::ng-deep .lineChart1Shadow {
+  -webkit-filter : drop-shadow(0px 15px 5px rgba(0, 0, 0, 0.1));
+          filter : drop-shadow(0px 15px 5px rgba(0, 0, 0, 0.1));
+  /* Same syntax as box-shadow, except for the spread property */
+}
+
+:host ::ng-deep .donut1 .ct-label {
+  font-size : 4rem;
+  fill : #F77E17;
+}
+
+:host ::ng-deep .donut1 .ct-outstanding .ct-slice-donut {
+  stroke : #F5F5F5;
+}
+
+:host ::ng-deep .donut1 .ct-done .ct-slice-donut {
+  stroke : #FCC173;
+}
+
+:host ::ng-deep .donut2 .ct-label {
+  font-size : 4rem;
+  fill : #2F8BE6;
+}
+
+:host ::ng-deep .donut2 .ct-outstanding .ct-slice-donut {
+  stroke : #F5F5F5;
+}
+
+:host ::ng-deep .donut2 .ct-done .ct-slice-donut {
+  stroke : #81C8F7;
+}
+
+:host ::ng-deep .donut3 .ct-label {
+  font-size : 4rem;
+  fill : #F55252;
+}
+
+:host ::ng-deep .donut3 .ct-outstanding .ct-slice-donut {
+  stroke : #F5F5F5;
+}
+
+:host ::ng-deep .donut3 .ct-done .ct-slice-donut {
+  stroke : #FCA897;
+}
+
+:host ::ng-deep .weather-pic {
+  object-fit : cover;
+}
+
+:host ::ng-deep .lineChart2 .ct-point-circle {
+  stroke-width : 2px;
+  fill : #FFFFFF;
+}
+
+:host ::ng-deep .lineChart2 .ct-line {
+  stroke-width : 1px;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-a .ct-line {
+  stroke : #60AFF0;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-a .ct-point-circle {
+  stroke : #2F8BE6;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-b .ct-line {
+  stroke : #6CD975;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-b .ct-point-circle {
+  stroke : #40C057;
+}
+
+:host ::ng-deep .lineChart2Shadow {
+  -webkit-filter : drop-shadow(0px 16px 6px rgba(0, 0, 0, 0.15));
+          filter : drop-shadow(0px 16px 6px rgba(0, 0, 0, 0.15));
+  /* Same syntax as box-shadow, except for the spread property */
+}
+
+:host ::ng-deep .WidgetlineChartEarning .ct-point {
+  stroke-width : 0;
+}
+
+:host ::ng-deep .WidgetlineChartEarning .ct-line {
+  stroke : url($dashboard2-gradient-path +  #widgradient1) !important;
+  stroke-width: 4px;
+}
+
+:host ::ng-deep .WidgetlineChartEarning .ct-grid {
+  stroke : transparent !important;
+}
+
+:host ::ng-deep .WidgetlineChartEarningShadow {
+  -webkit-filter : drop-shadow(0px 20px 6px rgba(0, 0, 0, 0.2));
+          filter : drop-shadow(0px 20px 6px rgba(0, 0, 0, 0.2));
+  /* Same syntax as box-shadow, except for the spread property */
+}
+
+:host ::ng-deep .dash2-user img {
+  width : 6.5rem;
+  background-color : transparent;
+  border : 2px solid #975AFF;
+  padding : 0.4rem;
+}
+
+:host ::ng-deep .dash2-progress {
+  height : 1rem;
+  background-color : #F7F7F8;
+}
+:host ::ng-deep .dash2-progress .progress-bar {
+  border-radius : 0;
+}
+:host ::ng-deep .dash2-progress .progress-bar:last-child {
+  border-top-right-radius : inherit;
+  border-bottom-right-radius : inherit;
+}
+
+:host ::ng-deep .lineAreaChart .ct-line {
+  stroke-width : 1px;
+}
+
+:host ::ng-deep .lineAreaChart .ct-point-circle {
+  stroke-width : 2px;
+  fill : #FFFFFF;
+}
+
+:host ::ng-deep .lineAreaChart .ct-series-a .ct-area {
+  // fill : #B583FF;
+  fill: url($dashboard2-gradient-path +  #gradient) !important;
+
+}
+
+:host ::ng-deep .lineAreaChart .ct-series-a .ct-point-circle, .lineAreaChart .ct-series-a .ct-line {
+  stroke : #975AFF;
+}
+
+:host ::ng-deep .lineAreaChart .ct-series-b .ct-area {
+  fill : #F9877C;
+  fill-opacity : 0.1;
+}
+
+:host ::ng-deep .lineAreaChart .ct-series-b .ct-point-circle {
+  stroke : #F55252;
+}

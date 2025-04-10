@@ -1,0 +1,205 @@
+<!-- Taskboard Starts -->
+<section id="taskboard" class="app-taskboard">
+  <div class="row">
+    <div class="col-12">
+      <div class="my-3">
+        <button type="button" class="btn btn-primary mr-2" (click)="addTask()">
+          <span class="d-flex align-items-center">
+            <i class="ft-plus mr-1"></i>
+            <span>Create</span>
+          </span>
+        </button>
+        <button type="button" class="btn bg-light-primary">
+          <span class="d-flex align-items-center">
+            <i class="ft-filter mr-1"></i>
+            <span>Filter</span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-3 col-sm-6 col-12">
+      <h5 class="mt-2 mb-0">
+        <span class="d-flex align-items-center">
+          <i class="ft-cast mr-2"></i>
+          <span>Marketing</span>
+        </span>
+      </h5>
+      <div class='dragdrop-container' [dragula]='"task-group"' id="Marketing" [dragulaModel]='marketingTasks'>
+
+        <div class="card mb-3" *ngFor='let task of marketingTasks' [attr.task-id]="task.taskId">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="badge bg-light-{{task.badgeClass}}">{{task.taskTitle}}</span>
+              <div>
+                <i class="ft-edit mr-1 primary cursor-pointer" (click)="editTask(task);"></i>
+                <i class="ft-trash-2 danger cursor-pointer" (click)="deleteTask(task.taskId);"></i>
+              </div>
+            </div>
+            <p *ngIf="task.messageType === 'text'">{{task.taskMessage}}</p>
+            <div *ngIf="task.messageType === 'image'"
+              class="d-flex justify-content-center overflow-hidden rounded my-3">
+              <img [src]="task.taskMessage" alt="ToDo Pic" height="350">
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex font-small-2">
+                <div class="mr-2" *ngIf="task.createdOn != ''"><i class="ft-clock mr-1"></i>{{task.createdOn}}</div>
+                <div class="mr-2" *ngIf="task.messageCount != ''"><i
+                    class="ft-message-square mr-1"></i>{{task.messageCount}}</div>
+                <div *ngIf="task.linkCount != ''"><i class="ft-link mr-1"></i>{{task.linkCount}}</div>
+              </div>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="task.isUserImg">
+                <li *ngFor="let img of task.assignedTo">
+                  <img class="rounded-circle" [src]="img" alt="Avatar" height="24" width="24">
+                </li>
+              </ul>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="!task.isUserImg">
+                <li *ngFor="let badge of task.assignedTo">
+                  <span class="badge badge-pill badge-round bg-light-{{badge.class}} font-small-1">{{badge.name}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12">
+      <h5 class="mt-2 mb-0">
+        <span class="d-flex align-items-center">
+          <i class="ft-codepen mr-2"></i>
+          <span>UI Designing</span>
+        </span>
+      </h5>
+      <div class='dragdrop-container' [dragula]='"task-group"' id="UI-Designing" [dragulaModel]='uiDesigningTasks'>
+        <div class="card mb-3" *ngFor='let task of uiDesigningTasks' [attr.task-id]="task.taskId">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="badge bg-light-{{task.badgeClass}}">{{task.taskTitle}}</span>
+              <div>
+                <i class="ft-edit mr-1 primary cursor-pointer" (click)="editTask(task);"></i>
+                <i class="ft-trash-2 danger cursor-pointer" (click)="deleteTask(task.taskId);"></i>
+              </div>
+            </div>
+            <p *ngIf="task.messageType === 'text'">{{task.taskMessage}}</p>
+            <div *ngIf="task.messageType === 'image'"
+              class="d-flex justify-content-center overflow-hidden rounded my-3">
+              <img [src]="task.taskMessage" alt="ToDo Pic" height="350">
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex font-small-2">
+                <div class="mr-2" *ngIf="task.createdOn != ''"><i class="ft-clock mr-1"></i>{{task.createdOn}}</div>
+                <div class="mr-2" *ngIf="task.messageCount != ''"><i
+                    class="ft-message-square mr-1"></i>{{task.messageCount}}</div>
+                <div *ngIf="task.linkCount != ''"><i class="ft-link mr-1"></i>{{task.linkCount}}</div>
+              </div>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="task.isUserImg">
+                <li *ngFor="let img of task.assignedTo">
+                  <img class="rounded-circle" [src]="img" alt="Avatar" height="24" width="24">
+                </li>
+              </ul>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="!task.isUserImg">
+                <li *ngFor="let badge of task.assignedTo">
+                  <span class="badge badge-pill badge-round bg-light-{{badge.class}} font-small-1">{{badge.name}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12">
+      <h5 class="mt-2 mb-0">
+        <span class="d-flex align-items-center">
+          <i class="ft-trending-up mr-2"></i>
+          <span>Developing</span>
+        </span>
+      </h5>
+      <div class='dragdrop-container' [dragula]='"task-group"' id="Developing" [dragulaModel]='developingTasks'>
+        <div class="card mb-3" *ngFor='let task of developingTasks' [attr.task-id]="task.taskId">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="badge bg-light-{{task.badgeClass}}">{{task.taskTitle}}</span>
+              <div>
+                <i class="ft-edit mr-1 primary cursor-pointer" (click)="editTask(task);"></i>
+                <i class="ft-trash-2 danger cursor-pointer" (click)="deleteTask(task.taskId);"></i>
+              </div>
+            </div>
+            <p *ngIf="task.messageType === 'text'">{{task.taskMessage}}</p>
+            <div *ngIf="task.messageType === 'image'"
+              class="d-flex justify-content-center overflow-hidden rounded my-3">
+              <img [src]="task.taskMessage" alt="ToDo Pic" height="350">
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex font-small-2">
+                <div class="mr-2" *ngIf="task.createdOn != ''"><i class="ft-clock mr-1"></i>{{task.createdOn}}</div>
+                <div class="mr-2" *ngIf="task.messageCount != ''"><i
+                    class="ft-message-square mr-1"></i>{{task.messageCount}}</div>
+                <div *ngIf="task.linkCount != ''"><i class="ft-link mr-1"></i>{{task.linkCount}}</div>
+              </div>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="task.isUserImg">
+                <li *ngFor="let img of task.assignedTo">
+                  <img class="rounded-circle" [src]="img" alt="Avatar" height="24" width="24">
+                </li>
+              </ul>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="!task.isUserImg">
+                <li *ngFor="let badge of task.assignedTo">
+                  <span class="badge badge-pill badge-round bg-light-{{badge.class}} font-small-1">{{badge.name}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-3 col-sm-6 col-12">
+      <h5 class="mt-2 mb-0">
+        <span class="d-flex align-items-center">
+          <i class="ft-briefcase mr-2"></i>
+          <span>Management</span>
+        </span>
+      </h5>
+      <div class='dragdrop-container' [dragula]='"task-group"' id="Management" [dragulaModel]='managementTasks'>
+        <div class="card mb-3" *ngFor='let task of managementTasks' [attr.task-id]="task.taskId">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="badge bg-light-{{task.badgeClass}}">{{task.taskTitle}}</span>
+              <div>
+                <i class="ft-edit mr-1 primary cursor-pointer" (click)="editTask(task);"></i>
+                <i class="ft-trash-2 danger cursor-pointer" (click)="deleteTask(task.taskId);"></i>
+              </div>
+            </div>
+            <p *ngIf="task.messageType === 'text'">{{task.taskMessage}}</p>
+            <div *ngIf="task.messageType === 'image'"
+              class="d-flex justify-content-center overflow-hidden rounded my-3">
+              <img [src]="task.taskMessage" alt="ToDo Pic" height="350">
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex font-small-2">
+                <div class="mr-2" *ngIf="task.createdOn != ''"><i class="ft-clock mr-1"></i>{{task.createdOn}}</div>
+                <div class="mr-2" *ngIf="task.messageCount != ''"><i
+                    class="ft-message-square mr-1"></i>{{task.messageCount}}</div>
+                <div *ngIf="task.linkCount != ''"><i class="ft-link mr-1"></i>{{task.linkCount}}</div>
+              </div>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="task.isUserImg">
+                <li *ngFor="let img of task.assignedTo">
+                  <img class="rounded-circle" [src]="img" alt="Avatar" height="24" width="24">
+                </li>
+              </ul>
+              <ul class="list-unstyled users-list m-0 d-flex align-items-center" *ngIf="!task.isUserImg">
+                <li *ngFor="let badge of task.assignedTo">
+                  <span class="badge badge-pill badge-round bg-light-{{badge.class}} font-small-1">{{badge.name}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Taskboard Ends -->

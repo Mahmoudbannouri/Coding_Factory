@@ -1,0 +1,83 @@
+<!-- Add Course Modal -->
+<div *ngIf="showModal" class="modal-overlay">
+    <div class="modal-content">
+      <h2>Add New Course</h2>
+  
+      <form (ngSubmit)="addCourse()">
+        <!-- Course Title -->
+        <div class="form-group">
+          <label for="title">Title:</label>
+          <input
+            id="title"
+            [(ngModel)]="newCourse.title"
+            name="title"
+            placeholder="Enter course title"
+            (input)="validateForm()"
+            required
+          />
+          <div *ngIf="titleError" class="error-message">{{ titleError }}</div>
+        </div>
+  
+        <!-- Course Description -->
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea
+            id="description"
+            [(ngModel)]="newCourse.description"
+            name="description"
+            placeholder="Enter course description"
+            (input)="validateForm()"
+            required
+          ></textarea>
+          <div *ngIf="descriptionError" class="error-message">{{ descriptionError }}</div>
+        </div>
+  
+        <!-- Category Selection -->
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <select
+            id="category"
+            [(ngModel)]="newCourse.categoryCourse"
+            name="category"
+            (change)="validateForm()"
+            required
+          >
+            <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
+          </select>
+          <div *ngIf="categoryError" class="error-message">{{ categoryError }}</div>
+        </div>
+  
+        <!-- Course Level -->
+        <div class="form-group">
+          <label for="level">Level:</label>
+          <select
+            id="level"
+            [(ngModel)]="newCourse.level"
+            name="level"
+            (change)="validateForm()"
+            required
+          >
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+          </select>
+          <div *ngIf="levelError" class="error-message">{{ levelError }}</div>
+        </div>
+  
+        <!-- Image Upload -->
+        <div class="form-group">
+          <label>Upload Image:</label>
+          <input type="file" (change)="onImageSelected($event)" accept="image/*" />
+          <div *ngIf="imageUploading" class="loading-spinner">Loading...</div>
+          <p *ngIf="newCourse.image && !imageUploading" class="success-text">Image uploaded successfully!</p>
+          <div *ngIf="imageError" class="error-message">{{ imageError }}</div>
+        </div>
+  
+        <!-- Modal Actions -->
+        <div class="modal-actions">
+          <button (click)="closeModal()" class="cancel-btn">Cancel</button>
+          <button type="submit" class="submit-btn" [disabled]="!isFormValid()">Add Course</button>
+        </div>
+      </form>
+    </div>
+  </div>

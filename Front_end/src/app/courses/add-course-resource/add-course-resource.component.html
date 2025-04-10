@@ -1,0 +1,44 @@
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <h2>Add Course Resource</h2>
+
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input type="text" id="title" [(ngModel)]="newResource.title" (input)="validateTitle()" placeholder="Enter resource title" />
+      <div *ngIf="titleError" class="error-message">Title must be less than 20 characters.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" [(ngModel)]="newResource.description" (input)="validateDescription()" placeholder="Enter resource description"></textarea>
+      <div *ngIf="descriptionError" class="error-message">Description must be less than 100 characters.</div>
+    </div>
+
+    <div class="form-group">
+      <label for="resourceType">Resource Type:</label>
+      <input type="text" id="resourceType" [(ngModel)]="newResource.resourceType" (input)="validateResourceType()" placeholder="Enter resource type" />
+      <div *ngIf="resourceTypeError" class="error-message">Resource Type must be less than 20 characters.</div>
+    </div>
+
+    <div class="form-group">
+      <label>Upload Document:</label>
+      <input type="file" (change)="onDocumentSelected($event)" />
+      <div *ngIf="documentUploading" class="loading-spinner">Loading...</div>
+      <p *ngIf="newResource.link_doccument && !documentUploading" class="success-text">Document uploaded successfully!</p>
+    </div>
+
+    <div class="form-group">
+      <label>Upload Video:</label>
+      <input type="file" (change)="onVideoSelected($event)" />
+      <div *ngIf="videoUploading" class="loading-spinner">Loading...</div>
+      <p *ngIf="newResource.link_video && !videoUploading" class="success-text">Video uploaded successfully!</p>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="closeModal()" class="cancel-btn">Cancel</button>
+      <button (click)="addResourceToCourse()" [disabled]="isAddButtonDisabled" class="submit-btn">
+        Add Resource
+      </button>
+    </div>
+  </div>
+</div>

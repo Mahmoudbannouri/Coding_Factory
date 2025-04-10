@@ -1,0 +1,36 @@
+<div class="modal" [class.show]="showModal">
+  <div class="modal-content">
+    <h3>AI Recommendations for {{ selectedCourse?.title }}</h3>
+    <div class="recommendations">
+      <!-- Loading state -->
+      <div *ngIf="loading" class="loading-state">
+        <p>Loading recommendations...</p>
+        <div class="spinner"></div>
+      </div>
+
+      <!-- Error state -->
+      <div *ngIf="error" class="error-state">
+        <p>{{ error }}</p>
+        <button (click)="fetchRecommendations()" class="btn-retry">Retry</button>
+      </div>
+
+      <!-- Recommendations -->
+      <div *ngIf="recommendations && !loading" class="recommendation-content">
+        <div *ngFor="let recommendation of formatRecommendations(recommendations)" class="recommendation-item">
+          <h4>{{ recommendation.title }}</h4>
+          <div class="recommendation-text" [innerHTML]="formatText(recommendation.text)"></div>
+          <button (click)="removeRecommendation(recommendation)" class="btn-remove">Done</button>
+        </div>
+      </div>
+
+      <!-- No recommendations -->
+      <div *ngIf="!recommendations && !loading && !error" class="no-recommendations">
+        <p>No recommendations available for this course.</p>
+     
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button (click)="closeModal()" class="btn-close">Close</button>
+    </div>
+  </div>
+</div>

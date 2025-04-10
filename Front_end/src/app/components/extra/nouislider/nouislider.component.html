@@ -1,0 +1,326 @@
+<!--NoUI Slider Starts-->
+<section id="slider-values">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">NoUI Slider</div>
+    </div>
+  </div>
+
+  <div class="row match-height">
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <h6>Single Value</h6>
+            <div class="form-group">
+              <nouislider [min]="someMin" [max]="someMax" [step]="0.05" [(ngModel)]="someValue" [disabled]="disabled">
+              </nouislider>
+              <p>The single value can be set using the <code>step</code> option.</p>
+            </div>
+            <h6>Single value (in &lt;form&gt;)</h6>
+            <div class="form-group">
+              <form [formGroup]="form1">
+                <nouislider [min]="0" [max]="20" [step]="0.5" [formControl]="form1.controls.single"></nouislider>
+              </form>
+              <p>The single value from element can be set using the <code>formControl</code> option.</p>
+            </div>
+            <h6>Range</h6>
+            <div class="form-group">
+              <nouislider [connect]="true" [min]="0" [max]="15" [step]="1" [(ngModel)]="someRange"></nouislider>
+              <p class="m-0">The  <code>range</code> mode uses the slider range to determine where the pips should be.
+              </p>
+            </div>
+            <h6>Tooltips</h6>
+            <div class="form-group">
+              <nouislider [min]="0" [max]="10" [step]="0.05" [(ngModel)]="someRange3" [tooltips]="[ false, true ]"
+                ></nouislider>
+              <p>noUiSlider offers some powerful mechanisms that allow to display tooltip using <code>[tooltips]</code> option.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+
+            <h6>Range with config</h6>
+            <div class="form-group">
+              <nouislider class="mb-4" [config]="someRange2config" [limit]="10" [(ngModel)]="someRange2"></nouislider>
+            </div>
+            <h6 class="pt-3">Keyboard support</h6>
+            <div class="form-group">
+              <nouislider class="mb-4" [config]="someKeyboardConfig" [(ngModel)]="someKeyboard"></nouislider>
+            </div>
+            <h6 class="pt-3">With Custom Key Handler</h6>
+            <div class="form-group">
+              <nouislider class="mb-4" [config]="someKeyboardConfig2" [(ngModel)]="someKeyboard2"></nouislider>
+            </div>
+            <h6 class="pt-3">With custom formatting</h6>
+            <div class="form-group">
+              <nouislider [config]="someTimeConfig" [(ngModel)]="someTime"></nouislider>
+              <p>You can configure the slider with the custom formating option as per your requirement.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Slider Colors - Handles section start -->
+<section id="slider-colors-handles">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">Slider Colors - Handles</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <h6>Default / Primary Color Slider</h6>
+              <div class="form-group">
+                <nouislider [connect]="true" [min]="20" [max]="80" [step]="1" [(ngModel)]="someRangeprimaryH">
+                </nouislider>
+              </div>
+            </fieldset>
+            <fieldset>
+              <h6>Success Color Slider</h6>
+              <div class="form-group">
+                <nouislider class="circle-filled noUi-success my-1" [connect]="true" [min]="20" [max]="80" [step]="1"
+                  [(ngModel)]="someRangeSuccessH"></nouislider>
+              </div>
+            </fieldset>
+            <fieldset>
+              <h6>Info Color Slider</h6>
+              <div class="form-group">
+                <nouislider class="square noUi-info my-1" [connect]="true" [min]="20" [max]="80" [step]="1"
+                  [(ngModel)]="someRangeInfoH"></nouislider>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <h6>Warning Color Slider</h6>
+              <div class="form-group">
+                <nouislider class="noUi-warning my-1" [connect]="true" [min]="20" [max]="80" [step]="1"
+                  [(ngModel)]="someRangeWarningH"></nouislider>
+              </div>
+            </fieldset>
+            <fieldset>
+              <h6>Danger Color Slider</h6>
+              <div class="form-group">
+                <nouislider class="circle-filled noUi-danger my-1" [connect]="true" [min]="20" [max]="80" [step]="1"
+                  [(ngModel)]="someRangeDangerH"></nouislider>
+              </div>
+            </fieldset>
+            <fieldset>
+              <h6>Secondary Color Slider</h6>
+              <div class="form-group">
+                <nouislider class="square noUi-secondary my-1" [connect]="true" [min]="20" [max]="80" [step]="1"
+                  [(ngModel)]="someRangeSecondaryH"></nouislider>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- // Slider Colors - Handles section end -->
+
+
+<!-- Vertical Sliders section start -->
+<section id="vsliders">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">Vertical Sliders</div>
+      <p>The orientation setting can be used to set the slider to <code>vertical</code>. Vertical sliders don't assume a
+        default <code>height</code>, so you'll need
+        to set one.</p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Default Vertical Slider</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group text-center">
+                <nouislider class="mr-1 d-inline" [config]="verticalconfig" [min]="0" [max]="100" [step]="1"
+                  [(ngModel)]="valueDefaultVS"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-info" [config]="verticalconfig" [min]="0" [max]="100"
+                  [step]="1" [(ngModel)]="valueInfoVS"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-success" [config]="verticalconfig" [min]="0" [max]="100"
+                  [step]="1" [(ngModel)]="valueSuccessVS"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-warning" [config]="verticalconfig" [min]="0" [max]="100"
+                  [step]="1" [(ngModel)]="valueWarningVS"></nouislider>
+                <nouislider class="d-inline ml-2 noUi-danger" [config]="verticalconfig" [min]="0" [max]="100" [step]="1"
+                  [(ngModel)]="valueDangerVS"></nouislider>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Range</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group text-center">
+                <nouislider class="mr-1 d-inline" [config]="verticalconfig" [connect]="true" [min]="0" [max]="100"
+                  [step]="1" [(ngModel)]="RangeprimaryV"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-info" [config]="verticalconfig" [connect]="true" [min]="0"
+                  [max]="100" [step]="1" [(ngModel)]="RangeSuccessV"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-success" [config]="verticalconfig" [connect]="true" [min]="0"
+                  [max]="100" [step]="1" [(ngModel)]="RangeInfoV"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-warning" [config]="verticalconfig" [connect]="true" [min]="0"
+                  [max]="100" [step]="1" [(ngModel)]="RangeWarningV"></nouislider>
+                <nouislider class="d-inline ml-2 noUi-danger" [config]="verticalconfig" [connect]="true" [min]="0"
+                  [max]="100" [step]="1" [(ngModel)]="RangeDangerV"></nouislider>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Tooltips</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group text-center">
+                <nouislider class="d-inline mr-4 noUi-danger" [config]="verticalconfig" [min]="0" [max]="100" [step]="1"
+                  [(ngModel)]="RangeTooltipV" [tooltips]="[ false, true ]"></nouislider>
+                <nouislider class="mr-4 ml-4 d-inline noUi-info" [config]="verticalconfig" [min]="0" [max]="100"
+                  [step]="1" [(ngModel)]="RangeTooltipV1" [tooltips]="[ false, true ]"></nouislider>
+                <nouislider class="ml-4 d-inline noUi-success" [config]="verticalconfig" [min]="0" [max]="100"
+                  [step]="1" [(ngModel)]="RangeTooltipV2" [tooltips]="[ false, true ]"></nouislider>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Vertical Sliders section end -->
+
+
+<!-- Vertical Slider Colors - Handles section start -->
+<section id="vslider-colors-handles">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">Vertical Slider Colors - Handles</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Default Handle</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group text-center">
+                <nouislider class="mr-1 d-inline" [config]="verticalHandleConfig" [connect]="true" [min]="20" [max]="80"
+                  [step]="1" [(ngModel)]="RangeprimaryHandleV"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-info" [config]="verticalHandleConfig" [connect]="true" [min]="20"
+                  [max]="80" [step]="1" [(ngModel)]="RangeSuccessHandleV"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-success" [config]="verticalHandleConfig" [connect]="true"
+                  [min]="20" [max]="80" [step]="1" [(ngModel)]="RangeInfoHandleV"></nouislider>
+                <nouislider class="d-inline mr-1 ml-2 noUi-warning" [config]="verticalHandleConfig" [connect]="true"
+                  [min]="20" [max]="80" [step]="1" [(ngModel)]="RangeWarningHandleV"></nouislider>
+                <nouislider class="d-inline ml-2 noUi-danger" [config]="verticalHandleConfig" [connect]="true" [min]="20"
+                  [max]="80" [step]="1" [(ngModel)]="RangeDangerHandleV"></nouislider>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Circle Filled Handle</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group text-center">
+                <nouislider class="circle-filled mr-1 d-inline" [config]="verticalFilledHandleConfig" [connect]="true" [min]="20" [max]="80"
+                [step]="1" [(ngModel)]="RangeprimaryFilledHandleV"></nouislider>
+              <nouislider class="circle-filled d-inline mr-1 ml-2 noUi-info" [config]="verticalFilledHandleConfig" [connect]="true" [min]="20"
+                [max]="80" [step]="1" [(ngModel)]="RangeSuccessFilledHandleV"></nouislider>
+              <nouislider class="circle-filled d-inline mr-1 ml-2 noUi-success" [config]="verticalFilledHandleConfig" [connect]="true"
+                [min]="20" [max]="80" [step]="1" [(ngModel)]="RangeInfoFilledHandleV"></nouislider>
+              <nouislider class="circle-filled d-inline mr-1 ml-2 noUi-warning" [config]="verticalFilledHandleConfig" [connect]="true"
+                [min]="20" [max]="80" [step]="1" [(ngModel)]="RangeWarningFilledHandleV"></nouislider>
+              <nouislider class="circle-filled d-inline ml-2 noUi-danger" [config]="verticalFilledHandleConfig" [connect]="true" [min]="20"
+                [max]="80" [step]="1" [(ngModel)]="RangeDangerFilledHandleV"></nouislider>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Square Handle</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <fieldset>
+              <div class="form-group text-center">
+                <nouislider class="square mr-1 d-inline" [config]="verticalSquareHandleConfig" [connect]="true" [min]="20" [max]="80"
+                [step]="1" [(ngModel)]="RangeprimarySquareHandleV"></nouislider>
+              <nouislider class="square d-inline mr-1 ml-2 noUi-info" [config]="verticalSquareHandleConfig" [connect]="true" [min]="20"
+                [max]="80" [step]="1" [(ngModel)]="RangeSuccessSquareHandleV"></nouislider>
+              <nouislider class="square d-inline mr-1 ml-2 noUi-success" [config]="verticalSquareHandleConfig" [connect]="true"
+                [min]="20" [max]="80" [step]="1" [(ngModel)]="RangeInfoSquareHandleV"></nouislider>
+              <nouislider class="square d-inline mr-1 ml-2 noUi-warning" [config]="verticalSquareHandleConfig" [connect]="true"
+                [min]="20" [max]="80" [step]="1" [(ngModel)]="RangeWarningSquareHandleV"></nouislider>
+              <nouislider class="square d-inline ml-2 noUi-danger" [config]="verticalSquareHandleConfig" [connect]="true" [min]="20"
+                [max]="80" [step]="1" [(ngModel)]="RangeDangerSquareHandleV"></nouislider>
+
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Vertical Slider Colors - Handles section end -->
+
+
+<!-- // Slider values section end -->

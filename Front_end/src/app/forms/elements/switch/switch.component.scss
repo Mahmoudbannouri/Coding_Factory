@@ -1,0 +1,53 @@
+:host  ::ng-deep .switchery-primary {
+  .switch {
+    background: #fff;
+    &.checked {
+      background: #975AFF;
+    }
+  }
+}
+
+:host  ::ng-deep .switchery-info {
+  .switch {
+    background: #fff;
+    &.checked {
+      background: #2F8BE6;
+    }
+  }
+}
+
+:host ::ng-deep .switchery-success {
+  .switch {
+    background: #fff;
+    &.checked {
+      background: #40C057;
+    }
+  }
+}
+
+:host ::ng-deep .switchery-warning {
+  .switch {
+    background: #fff;
+    &.checked {
+      background: #F77E17;
+    }
+  }
+}
+
+:host ::ng-deep .switchery-danger {
+  .switch {
+    background: #fff;
+    &.checked {
+      background: #F55252;
+    }
+  }
+}
+
+:host ::ng-deep .switchery-secondary {
+  .switch {
+    background: #fff;
+    &.checked {
+      background: #616D89;
+    }
+  }
+}

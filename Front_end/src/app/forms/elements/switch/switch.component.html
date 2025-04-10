@@ -1,0 +1,243 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Switch</div>
+  </div>
+</div>
+
+<!-- Basic Switch starts -->
+<section id="basic-switch">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Basic</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="custom-switch custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="custom-switch-1" checked>
+              <label class="custom-control-label mr-1" for="custom-switch-1">
+                <span>Active</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="custom-switch-2">
+              <label class="custom-control-label mr-1" for="custom-switch-2">
+                <span>Inactive</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="custom-switch-3" checked disabled>
+              <label class="custom-control-label mr-1" for="custom-switch-3">
+                <span>Active - disabled</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="custom-switch-4" disabled>
+              <label class="custom-control-label mr-1" for="custom-switch-4">
+                <span>Inactive - disabled</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Basic Switch ends -->
+
+<!-- Colored Switch starts -->
+<section id="colored-switch">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Colored</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="custom-switch custom-switch-primary custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="color-switch-1" checked>
+              <label class="custom-control-label mr-1" for="color-switch-1">
+                <span>Primary</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-switch-secondary custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="color-switch-2" checked>
+              <label class="custom-control-label mr-1" for="color-switch-2">
+                <span>Secondary</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-switch-success custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="color-switch-3" checked>
+              <label class="custom-control-label mr-1" for="color-switch-3">
+                <span>Success</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-switch-danger custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="color-switch-4" checked>
+              <label class="custom-control-label mr-1" for="color-switch-4">
+                <span>Danger</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-switch-warning custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="color-switch-5" checked>
+              <label class="custom-control-label mr-1" for="color-switch-5">
+                <span>Warning</span>
+              </label>
+            </div>
+            <div class="custom-switch custom-switch-info custom-control-inline mb-1 mb-xl-0">
+              <input type="checkbox" class="custom-control-input" id="color-switch-6" checked>
+              <label class="custom-control-label mr-1" for="color-switch-6">
+                <span>Info</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Colored Switch ends -->
+
+<div class="row">
+  <div class="col-12">
+    <h4 class="content-header">Switchery</h4>
+  </div>
+</div>
+<!-- Basic Switch starts -->
+<section id="basic-switch">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Basic</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="form-group custom-control-inline mb-1 mb-xl-0">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Active</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0">
+              <ui-switch class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Inactive</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0">
+              <ui-switch checked class="switchery" [disabled]="true"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Active - disabled</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0">
+              <ui-switch class="switchery" [disabled]="true"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Inactive - disabled</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Basic Switch ends -->
+
+<!-- Colored Switch starts -->
+<section id="colored-switch">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Colored</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div class="form-group custom-control-inline mb-1 mb-xl-0 switchery-primary">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Primary</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0 switchery-secondary">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Secondary</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0 switchery-info">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Info</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0 switchery-success">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Success</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0 switchery-warning">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Warning</label>
+            </div>
+            <div class="form-group custom-control-inline mb-1 mb-xl-0 switchery-danger">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="pt-1 pl-1">Danger</label>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Colored Switch ends -->
+
+
+
+
+<section id="switchery-toggle">
+  <!-- Styles -->
+  <div class="row match-height">
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Styles</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Add <code>size="[Large | Small]"</code> for different sizes and <code>.switchery-colorName</code> for
+              different colors.</p>
+            <div class="form-group switchery-primary d-flex align-items-center">
+              <ui-switch checked class="switchery" size="large"></ui-switch>
+              <label for="switchery" class="ml-2">Large</label>
+            </div>
+            <div class="form-group switchery-info d-flex align-items-center">
+              <ui-switch checked class="switchery"></ui-switch>
+              <label for="switchery" class="ml-2">Default</label>
+            </div>
+            <div class="form-group switchery-success d-flex align-items-center">
+              <ui-switch checked class="switchery" size="small"></ui-switch>
+              <label for="switchery" class="ml-2">Small</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Labels on Both Sides -->
+    <div class="col-md-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Reverse</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Add <code>reverse</code> to reverse the switch position.</p>
+            <div class="form-group switchery-primary d-flex align-items-center">
+              <ui-switch reverse class="switchery"></ui-switch>
+              <label for="switchery" class="ml-2">Primary</label>
+            </div>
+            <div class="form-group switchery-info d-flex align-items-center">
+              <ui-switch reverse class="switchery"></ui-switch>
+              <label for="switchery" class="ml-2">Info</label>
+            </div>
+            <div class="form-group switchery-success d-flex align-items-center">
+              <ui-switch reverse class="switchery"></ui-switch>
+              <label for="switchery" class="ml-2">Success</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+<!-- In review-modal.component.html -->
+<div class="modal" [class.show]="showModal">
+  <div class="modal-content">
+    <h3>
+      {{ hasReviewed ? 'Your Review for ' : 'Add a Review for ' }}
+      {{ selectedCourse?.title }}
+    </h3>
+
+    <div *ngIf="hasReviewed" class="already-reviewed">
+      <p>You've already reviewed this course.</p>
+      <button type="button" class="btn-cancel" (click)="closeModal()">Close</button>
+    </div>
+
+    <form *ngIf="!hasReviewed" (ngSubmit)="submitReview()">
+      <!-- Existing form content -->
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="star-rating-picker">
+          <span
+            *ngFor="let star of [1, 2, 3, 4, 5]"
+            class="star"
+            [ngClass]="{ 'filled': star <= review.rating }"
+            (click)="setRating(star)"
+          >
+            <i *ngIf="star <= review.rating" class="bi bi-star-fill"></i>
+            <i *ngIf="star > review.rating" class="bi bi-star"></i>
+          </span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea
+          id="comment"
+          [(ngModel)]="review.comment"
+          name="comment"
+          rows="3"
+        ></textarea>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" [disabled]="loading">
+          <span *ngIf="!loading">Submit</span>
+          <span *ngIf="loading">Submitting...</span>
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="loading">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

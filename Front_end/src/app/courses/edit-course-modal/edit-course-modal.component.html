@@ -1,0 +1,50 @@
+<!-- Edit Course Modal -->
+<div class="modal" [ngClass]="{ 'show': showModal }" tabindex="-1" role="dialog" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>Edit Course</h3>
+    <form (ngSubmit)="updateCourse()">
+      <!-- Course Title -->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" [(ngModel)]="course.title" name="title" required />
+      </div>
+
+      <!-- Course Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="course.description" name="description" required></textarea>
+      </div>
+
+      <!-- Category Selection -->
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" [(ngModel)]="course.categoryCourse" name="category" required>
+          <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
+        </select>
+      </div>
+
+      <!-- Course Level (Text Input) -->
+      <div class="form-group">
+        <label for="level">Level</label>
+        <select id="level" [(ngModel)]="course.level" name="level" required>
+          <option value="beginner">Beginner</option>
+          <option value="intermediate">Intermediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+
+      <!-- Image URL -->
+      <div class="form-group">
+        <label for="image">Course Image URL</label>
+        <input type="file" (change)="onImageSelected($event)" />
+        <p *ngIf="course.image" class="success-text">Image uploaded successfully!</p>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="modal-actions">
+        <button type="submit" class="submit-btn">Update Course</button>
+        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

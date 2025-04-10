@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-12">
+    <div class="content-header">Select</div>
+  </div>
+</div>
+
+<!-- ng-select start -->
+<section>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-12 mb-2">
+                <a href="https://ng-select.github.io/ng-select#/data-sources" target="_blank">For more information </a>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Basic Example</h6>
+                <p><code>Classic</code> example of basic ng-select control.</p>
+                <div class="form-group">
+                  <ng-select [items]="cities" bindLabel="name" placeholder="Select city" [(ngModel)]="selectedCity">
+                  </ng-select>
+                  <p class="text-italic font-small-2 mt-1">
+                    Selected city: {{selectedCity | json}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Multiselect with custom bindings</h6>
+                <p>Use <code>[multiple]="true"</code> to Select multiple elements</p>
+                <div class="form-group">
+                  <ng-select [items]="cities2" bindLabel="name" bindValue="id" [multiple]="true" [closeOnSelect]="false"
+                    placeholder="Select cities" [(ngModel)]="selectedCityIds">
+                  </ng-select>
+                  <p class="text-italic font-small-2 mt-1">
+                    Selected cities: {{selectedCityIds}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Custom tags</h6>
+                <p>By providing custom function to <code>[addTag]</code> you can modify result of new tag.</p>
+                <div class="form-group">
+                  <div>
+                    <ng-select [items]="users" bindLabel="name" bindValue="id" [addTag]="addCustomUser"
+                      [multiple]="true" placeholder="Select user or add custom tag" [(ngModel)]="selectedUserIds">
+                    </ng-select>
+                    <p class="text-italic font-small-2 mt-1">
+                      Selected user: {{selectedUserIds}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Custom templates</h6>
+                <p>Custom selected item label, header and footer using <code>ng-label-tmp</code>,
+                  <code>ng-header-tmp</code> and <code>ng-footer-tmp</code> </p>
+                <div class="form-group">
+                  <ng-select [items]="cities3" bindLabel="name" bindValue="name" placeholder="Select city"
+                    [(ngModel)]="selectedCityName">
+                    <ng-template ng-header-tmp>
+                      Custom header
+                    </ng-template>
+                    <ng-template ng-label-tmp let-item="item">
+                      <img height="15" width="15" [src]="item.avatar" />
+                      <b>{{item.name}}</b> is cool
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item" let-index="index">
+                      <img height="15" width="15" [src]="item.avatar" />
+                      <b>{{item.name}}</b>
+                    </ng-template>
+                    <ng-template ng-footer-tmp>
+                      Custom footer
+                    </ng-template>
+                  </ng-select>
+                  <p class="text-italic font-small-2 mt-1">
+                    Selected city: {{selectedCityName}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Virtual scroll</h6>
+                <p>Use <code>[virtualScroll]="true"</code> to use this feature.</p>
+                <div class="form-group">
+                  <ng-select [items]="cities4" [virtualScroll]="true" bindLabel="name" bindValue="id"
+                    placeholder="Select city" [(ngModel)]="selectedCityId">
+                  </ng-select>
+                  <p class="text-italic font-small-2 mt-1">
+                    Selected city ID: {{selectedCityId}}
+                  </p>
+                </div>
+              </div>
+              <div class="col-md-6 col-12">
+                <h6>Grouping</h6>
+                <p>Group by item key using key name as a string to <code>groupBy</code> input</p>
+                <div class="form-group">
+                  <ng-select [items]="accounts" bindLabel="name" bindValue="name" groupBy="country" [(ngModel)]="selectedAccount">
+                  </ng-select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ng-select end -->

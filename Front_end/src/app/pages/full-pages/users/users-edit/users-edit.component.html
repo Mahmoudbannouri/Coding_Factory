@@ -1,0 +1,322 @@
+<section class="users-edit">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- Nav-tabs -->
+            <ul ngbNav #nav="ngbNav" [activeId]="1" class="nav-tabs justify-content-left">
+              <li [ngbNavItem]="1">
+                <a ngbNavLink class="nav-link d-flex align-items-center">
+                  <i class="ft-user mr-1"></i>
+                  <span class="d-none d-sm-block">Account</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <!-- Account content starts -->
+                  <div class="mt-2" id="account">
+                    <!-- Media object starts -->
+                    <div class="media">
+                      <img src="assets/img/portrait/small/avatar-s-2.png" alt="user edit avatar"
+                        class="users-avatar-shadow avatar mr-3 rounded-circle" height="64" width="64">
+                      <div class="media-body">
+                        <h4>Avatar</h4>
+                        <div class="d-flex flex-sm-row flex-column justify-content-start px-0 mb-sm-2">
+                          <button class="btn btn-sm btn-primary mb-1 mb-sm-0">Change</button>
+                          <button class="btn btn-sm bg-light-secondary ml-sm-2">Reset</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Media object ends -->
+
+                    <!-- Account form starts -->
+                    <form novalidate>
+                      <div class="row">
+                        <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-username">Username</label>
+                              <input type="text" id="users-edit-username" class="form-control" placeholder="Username"
+                                value="dean3004" required aria-invalid="false">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-name">Name</label>
+                              <input type="text" id="users-edit-name" class="form-control" placeholder="Name"
+                                value="Dean Stanley" required aria-invalid="false">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-email">E-mail</label>
+                              <input type="email" id="users-edit-email" class="form-control" placeholder="Email"
+                                value="deanstanley@gmail.com" required aria-invalid="false">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-role">Role</label>
+                              <select id="users-edit-role" class="form-control" required>
+                                <option value="">Select Role</option>
+                                <option value="1">User</option>
+                                <option value="2">Staff</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-status">Status</label>
+                              <select id="users-edit-status" class="form-control" required>
+                                <option value="">Select Status</option>
+                                <option value="1">Active</option>
+                                <option value="2">Banned</option>
+                                <option value="3">Close</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-company">Company</label>
+                              <input type="text" id="users-edit-company" class="form-control"
+                                placeholder="Company Name">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-12 users-module">
+                          <div class="table-responsive">
+                            <table class="table mb-0 mt-3">
+                              <thead>
+                                <tr>
+                                  <th>Module Permission</th>
+                                  <th>Read</th>
+                                  <th>Write</th>
+                                  <th>Create</th>
+                                  <th>Delete</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Users</td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox1" checked>
+                                      <label for="users-checkbox1"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox2">
+                                      <label for="users-checkbox2"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox3">
+                                      <label for="users-checkbox3"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox4" checked>
+                                      <label for="users-checkbox4"></label>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Articles</td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox5">
+                                      <label for="users-checkbox5"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox6" checked>
+                                      <label for="users-checkbox6"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox7">
+                                      <label for="users-checkbox7"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox8" checked>
+                                      <label for="users-checkbox8"></label>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>Staff</td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox9" checked>
+                                      <label for="users-checkbox9"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox10" checked>
+                                      <label for="users-checkbox10"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox11">
+                                      <label for="users-checkbox11"></label>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="checkbox">
+                                      <input type="checkbox" id="users-checkbox12">
+                                      <label for="users-checkbox12"></label>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+
+                        <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-3 mt-sm-2">
+                          <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Save Changes</button>
+                          <button type="reset" class="btn btn-secondary">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- Account form ends -->
+                  </div>
+                  <!-- Account content ends -->
+                </ng-template>
+              </li>
+              <li [ngbNavItem]="2">
+                <a ngbNavLink class="nav-link d-flex align-items-center">
+                  <i class="ft-info mr-1"></i>
+                  <span class="d-none d-sm-block">Information</span>
+                </a>
+                <ng-template ngbNavContent>
+                  <!-- Information content starts -->
+                  <div class="mt-2" id="information">
+                    <!-- Information form starts -->
+                    <form novalidate>
+                      <div class="row">
+                        <div class="col-12 col-md-6 mb-3 mb-md-0">
+                          <h4 class="mb-3"><i class="ft-link mr-2"></i>Social Links</h4>
+                          <div class="form-group">
+                            <label for="users-edit-twitter">Twitter</label>
+                            <input type="text" id="users-edit-twitter" class="form-control"
+                              value="https://www.twitter.com/">
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-facebook">Facebook</label>
+                            <input type="text" id="users-edit-facebook" class="form-control"
+                              value="https://www.facebook.com/">
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-google">Google+</label>
+                            <input type="text" id="users-edit-google" class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-linkedin">LinkedIn</label>
+                            <input type="text" id="users-edit-linkedin" class="form-control">
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-instagram">Instagram</label>
+                            <input type="text" id="users-edit-instagram" class="form-control"
+                              value="https://www.instagram.com/">
+                          </div>
+                        </div>
+
+                        <div class="col-12 col-md-6 mb-2 mb-md-0">
+                          <h4 class="mb-3"><i class="ft-user mr-2"></i>Personal Info</h4>
+                          <div class="form-group">
+                            <div class="controls position-relative">
+                              <label for="users-edit-bday">Birth date</label>
+                              <input type="text" id="users-edit-bday" class="form-control birthdate-picker" required
+                                placeholder="Birth date">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-country">Country</label>
+                              <select id="users-edit-country" class="form-control" required>
+                                <option value="">Select Country</option>
+                                <option value="USA">USA</option>
+                                <option value="UK">UK</option>
+                                <option value="India">India</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-languages">Languages</label>
+                            <ng-select [multiple]="true" [(ngModel)]="selectedLanguages" [ngModelOptions]="{standalone: true}">
+                              <ng-option *ngFor="let language of languages" [value]="language.value">{{language.name}}
+                              </ng-option>
+                            </ng-select>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-phone">Phone</label>
+                              <input type="text" id="users-edit-phone" class="form-control" placeholder="Phone Number"
+                                required value="(+656) 254 2568">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="controls">
+                              <label for="users-edit-address">Address</label>
+                              <input type="text" id="users-edit-address" class="form-control" placeholder="Address"
+                                required>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <div class="form-group">
+                            <label for="users-edit-website">Website</label>
+                            <input type="text" id="users-edit-website" class="form-control"
+                              placeholder="Website Address">
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-music">Favourite Music</label>
+                            <ng-select [multiple]="true" [(ngModel)]="selectedMusic" [ngModelOptions]="{standalone: true}">
+                              <ng-option *ngFor="let m of music" [value]="m.value">{{m.name}}
+                              </ng-option>
+                            </ng-select>
+                          </div>
+                          <div class="form-group">
+                            <label for="users-edit-movies">Favourite Movies</label>
+                            <ng-select [multiple]="true" [(ngModel)]="selectedMovies" [ngModelOptions]="{standalone: true}">
+                              <ng-option *ngFor="let movie of movies" [value]="movie.value">{{movie.name}}
+                              </ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end flex-sm-row flex-column mt-3 mt-sm-0">
+                          <button type="submit" class="btn btn-primary mb-2 mb-sm-0 mr-sm-2">Save Changes</button>
+                          <button type="reset" class="btn btn-secondary">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                    <!-- Information form ends -->
+                  </div>
+                  <!-- Information content ends -->
+                </ng-template>
+              </li>
+            </ul>
+            <div class="tab-content">
+              <div [ngbNavOutlet]="nav"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
