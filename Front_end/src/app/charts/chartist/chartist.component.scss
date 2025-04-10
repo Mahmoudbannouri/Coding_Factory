@@ -1,0 +1,159 @@
+@import "../../../assets/sass/core/variables/gradient-variables.scss";
+
+:host ::ng-deep .ct-area {
+    stroke: none;
+    fill-opacity: 0.1;
+}
+
+:host ::ng-deep .ct-grid{
+    stroke-dasharray: 0px;
+    stroke: rgba(0, 0, 0, 0.1);
+}
+
+:host ::ng-deep .ct-label{
+    font-size: 0.9rem;
+}
+
+// Line with Area Chart 1 CSS Starts
+
+:host ::ng-deep .lineArea1 .ct-series-a .ct-area {
+    fill-opacity: 0.3;
+    fill: #975AFF;
+}
+
+:host ::ng-deep .lineArea1 .ct-series-b .ct-area {
+    fill: #975AFF;
+    fill-opacity: 0.6;
+}
+:host ::ng-deep .lineArea1 .ct-line{
+    stroke-width: 0px;
+}
+:host ::ng-deep .lineArea1 .ct-point {
+    stroke-width: 0px;
+}
+
+// Line with Area Chart 1 CSS Ends
+
+// Line with Area Chart 2 CSS Starts
+:host ::ng-deep .lineArea2 .ct-series-a .ct-area {
+    fill-opacity: 0.2;
+    fill: url($chartist-gradient-path + #gradient1) !important;
+}
+
+:host ::ng-deep .lineArea2 .ct-series-b .ct-area {
+    fill: url($chartist-gradient-path + #gradient2) !important;
+    fill-opacity: 0.2;
+}
+
+:host ::ng-deep .lineArea2 .ct-point-circle {
+    stroke-width: 2px;
+    fill: #FFFFFF;
+}
+
+:host ::ng-deep .lineArea2 .ct-series-b .ct-point-circle {
+    stroke: #F77E17;
+}
+
+:host ::ng-deep .lineArea2 .ct-series-a .ct-line {
+  stroke: #2F8BE6;
+}
+
+:host ::ng-deep .lineArea2 .ct-series-a .ct-point-circle {
+    stroke: #2F8BE6;
+}
+
+:host ::ng-deep .lineArea2 .ct-line {
+    fill: none;
+    stroke-width: 1px;
+}
+
+// Line with Area Chart 2 CSS Ends
+
+// Line with Area Chart 3 CSS Starts
+
+:host ::ng-deep .lineArea3 .ct-series-a .ct-area {
+    fill-opacity: 0.2;
+    fill: url($chartist-gradient-path + #gradient) !important;
+}
+
+:host ::ng-deep .lineArea3 .ct-series-b .ct-area {
+    fill: #F77E17;
+    fill-opacity: 0.1;
+}
+
+:host ::ng-deep .lineArea3 .ct-point-circle {
+    stroke-width: 2px;
+    fill: white;
+}
+
+:host ::ng-deep .lineArea3 .ct-series-b .ct-point-circle {
+    stroke: #F77E17;
+}
+
+:host ::ng-deep .lineArea3 .ct-series-a .ct-point-circle {
+    stroke: #2F8BE6;
+}
+
+:host ::ng-deep .lineArea3 .ct-series-a .ct-line {
+  stroke: #2F8BE6;
+}
+
+:host ::ng-deep .lineArea3 .ct-line {
+    fill: none;
+    stroke-width: 1px;
+}
+
+// Line with Area Chart 3 CSS Ends
+
+// line Chart 1 CSS Starts
+
+:host ::ng-deep .lineChart1 .ct-line {
+    fill: none;
+    stroke-width: 3px;
+}
+
+:host ::ng-deep .lineChart1 .ct-point {
+    stroke-width: 0px;
+}
+
+:host ::ng-deep .lineChart1Shadow {
+    -webkit-filter: drop-shadow( 0px 20px 6px rgba(0,0,0,0.3) );
+            filter: drop-shadow( 0px 20px 6px rgba(0,0,0,0.3) ); /* Same syntax as box-shadow, except
+                                                       for the spread property */
+}
+
+//  line Chart 1 CSS Ends
+
+
+// line Chart 2 CSS Starts
+
+:host ::ng-deep .lineChart2 .ct-point-circle {
+    stroke-width: 2px;
+    fill: white;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-b .ct-point-circle {
+    stroke: #F77E17;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-a .ct-point-circle {
+    stroke: #2F8BE6;
+}
+
+:host ::ng-deep .lineChart2 .ct-series-a .ct-line {
+  stroke: #2F8BE6;
+}
+
+
+:host ::ng-deep .lineChart2 .ct-line {
+    fill: none;
+    stroke-width: 1px;
+}
+
+:host ::ng-deep .shadow {
+    -webkit-filter: drop-shadow( 0px 25px 8px rgba(0,0,0,0.3) );
+            filter: drop-shadow( 0px 25px 8px rgba(0,0,0,0.3) ); /* Same syntax as box-shadow, except
+                                                       for the spread property */
+}
+
+// line Chart 2 CSS Ends

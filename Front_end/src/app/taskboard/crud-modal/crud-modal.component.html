@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title"> {{ id != 0 ? 'Update Task' : 'Create Task'}} </h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    x
+  </button>
+</div>
+<form [formGroup]="myForm" (ngSubmit)="submitForm()">
+  <div class="modal-body taskboard-modal">
+    <div class="container">
+      <fieldset class="form-group position-relative has-icon-left">
+        <div class="form-control-position">
+          <i class="ft-edit-2"></i>
+        </div>
+        <input type="text" [formControl]="myForm.controls['title']" formControlName="title" class="form-control"
+          id="todoTitle" placeholder="Title" (keydown.enter)="$event.preventDefault()" required #todoTitle>
+        <div class="form-control-position control-position-right">
+          <i class="ft-edit-2"></i>
+        </div>
+      </fieldset>
+      <fieldset class="form-group position-relative has-icon-left">
+        <div class="form-control-position">
+          <i class="ft-message-square"></i>
+        </div>
+        <textarea [formControl]="myForm.controls['message']" formControlName="message" class="form-control"
+          id="todoMessage" placeholder="Message" (keydown.enter)="$event.preventDefault()" required #todoMessage>
+        <div class="form-control-position control-position-right">
+          <i class="ft-message-square"></i>
+        </div>
+      </textarea>
+      </fieldset>
+      <fieldset class="form-group position-relative has-icon-left">
+        <div class="form-control-position">
+          <i class="ft-grid"></i>
+        </div>
+        <select [formControl]="myForm.controls['type']" formControlName="type" class="form-control" >
+          <option>Marketing</option>
+          <option>UI-Designing</option>
+          <option>Developing</option>
+          <option>Management</option>
+        </select>
+        <div class="form-control-position control-position-right">
+          <i class="ft-grid"></i>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+  <div class="modal-footer taskboard-modal-footer">
+    <button class="btn btn-primary btn-save">
+      {{ id != 0 ? 'Update' : 'Create'}}
+    </button>
+  </div>
+</form>

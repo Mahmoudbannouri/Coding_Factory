@@ -1,0 +1,116 @@
+<div class="chat-application overflow-hidden">
+  <div #contentOverlay class="app-content-overlay" [ngClass]="{show: isContentOverlay}" (click)="onContentOverlay()">
+  </div>
+  <div [perfectScrollbar] #chatSidebar class="chat-sidebar d-md-block">
+    <span class="sidebar-close-icon d-md-none" (click)="isContentOverlay = false">
+      <i class="ft-x"></i>
+    </span>
+    <div class="chat-sidebar-content">
+      <div class="chat-fixed-search py-2 px-3 my-1">
+        <form action="javascript:;">
+          <div class="position-relative has-icon-left">
+            <input class="form-control" placeholder="Search users" id="timesheetinput1" name="employeename" type="text"
+              [(ngModel)]="searchQuery">
+            <div class="form-control-position">
+              <i class="ft-user"></i>
+            </div>
+          </div>
+        </form>
+      </div>
+      <hr class="m-0">
+      <div id="users-list" class="list-group">
+        <div class="users-list-padding position-relative">
+
+          <a class="list-group-item " [ngClass]="{'selected-chat': user.isActiveChat}"
+            *ngFor="let user of usersChat | search:'name':searchQuery" (click)="viewChat(user)">
+            <div class="media chat-list-text py-1" [ngClass]="{'align-items-center': !user.isActiveChat}">
+              <span class="avatar avatar-md mr-2">
+                <img [src]="user.avatar" alt="Avatar">
+                <span class="avatar-status-{{user.status}}"></span>
+                <i></i>
+              </span>
+              <div class="media-body">
+                <h6 class="list-group-item-heading mb-1">{{user.name}}
+                  <span class="chat-list-text font-small-2 float-right chat-time">{{user.lastChatTime}}</span>
+                </h6>
+                <p class="list-group-item-text chat-user-list-text m-0">
+                  <i class="ft-check primary font-small-2 mr-1"></i><span>{{user.lastChatMessage}}</span>
+                  <span class="float-right primary">
+                    <i class="font-medium-1 icon-pin" *ngIf="user.isPinnedUser"></i>
+                    <i class="font-medium-1 icon-volume-off mr-1" *ngIf="user.isMuted"></i>
+                    <span class="badge badge-pill bg-light-primary badge-round"
+                      *ngIf="user.unreadMessageCount != '' ">{{user.unreadMessageCount}}</span>
+                  </span>
+                </p>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-name p-2">
+    <div class="media p-1 align-items-center">
+      <span class="chat-app-sidebar-toggle ft-menu font-medium-4 mr-3 d-block d-md-none"
+        (click)="onSidebarToggle()"></span>
+      <div class="media-body">
+        <img [src]="activeChatUserImg" width="37" class="avatar mr-1" alt="avatar">
+        <span>{{ activeChatUser }}</span>
+      </div>
+      <div class="position-relative float-right">
+        <div ngbDropdown display="dynamic" [placement]="placement" class="d-inline-block">
+          <i class="ft-more-vertical- mt-1 dropdown-toggle" id="chatOptions" ngbDropdownToggle></i>
+          <div ngbDropdownMenu aria-labelledby="chatOptions">
+            <a href="javascript:;" class="dropdown-item">View Profile</a>
+            <a href="javascript:;" class="dropdown-item">Mute Notification</a>
+            <a href="javascript:;" class="dropdown-item">Clear Chat</a>
+            <a href="javascript:;" class="dropdown-item">Add Shortcut</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="chat-app-window position-relative" [perfectScrollbar] #scrollMe [scrollTop]="scrollMe.scrollHeight">
+    <div class="chats">
+      <div class="chat" [ngClass]="{'chat-left': chat.isReceived}" *ngFor="let chat of chats">
+        <div class="chat-avatar">
+          <a class="avatar avatar-md" data-toggle="tooltip" data-placement="[activeChatUserImg]" title=""
+            data-original-title="">
+            <img [src]="chat.isReceived ? activeChatUserImg : loggedInUserImg" alt="avatar">
+          </a>
+        </div>
+        <div class="chat-body">
+          <div class="chat-content" *ngFor="let message of chat.messages">
+            <p *ngIf="chat.messageType === 'text'">{{ message }}</p>
+          </div>
+        </div>
+        <p class="time" *ngIf="chat.time !='' "> <span class="badge badge-secondary mb-1">{{chat.time}}</span></p>
+
+        <div class="chat" *ngIf="messages.length > 0">
+          <div class="chat-avatar">
+            <a class="avatar" data-toggle="tooltip" data-placement="right" title="" data-original-title="">
+              <img src="assets/img/portrait/small/avatar-s-1.png" alt="avatar">
+            </a>
+          </div>
+          <div class="chat-body">
+            <div class="chat-content" *ngFor="let message of messages">
+              <p>{{ message }}</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="chat-app-form px-3 py-2">
+    <div class="d-flex align-items-center">
+      <input type="text" name="iconLeft4" class="form-control chat-message-send mr-2" id="iconLeft4"
+        placeholder="Type your message here" (keydown.enter)="onAddMessage();$event.preventDefault()"
+        [(ngModel)]="newMessage" #it="ngModel">
+      <button type="button" class="btn btn-primary d-lg-flex align-items-center" (click)="onAddMessage()">
+        <i class="ft-send"></i>
+        <span class="d-none d-lg-block ml-1">Send</span>
+      </button>
+    </div>
+  </section>
+</div>

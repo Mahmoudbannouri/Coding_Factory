@@ -1,0 +1,11 @@
+quill-editor {
+    display: block;
+  }
+.ng-invalid {
+    border: 1px dashed red;
+  }
+@media (max-width: 576px) {
+  :host ::ng-deep .ql-container{
+    height: 130px !important;
+  }
+}

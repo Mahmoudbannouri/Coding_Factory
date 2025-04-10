@@ -1,0 +1,26 @@
+<!--Lock Screen Starts-->
+<section id="lock-screen">
+  <div class="row auth-height full-height-vh m-0">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+      <div class="card overflow-hidden">
+        <div class="card-content">
+          <div class="card-body auth-img">
+            <div class="row m-0">
+              <div class="col-lg-6 d-lg-flex justify-content-center align-items-center d-none text-center auth-img-bg p-3">
+                <img src="assets/img/gallery/lock.png" alt="" class="img-fluid" height="230" width="280">
+              </div>
+              <div class="col-lg-6 col-md-12 py-3 px-4">
+                <h4 class="card-title mb-3">Your Session is Locked</h4>
+                <input type="email" class="form-control mb-2" placeholder="Email">
+                <input type="password" class="form-control mb-2" placeholder="Password">
+                <a href="javascript:;">Are You Not John Doe ?</a>
+                <a [routerLink]="['/dashboard/dashboard1']" class="btn btn-block btn-primary mt-2">Unlock</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Lock Screen Ends-->
