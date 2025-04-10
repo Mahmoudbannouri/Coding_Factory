@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface ReviewService {
     Review addReview(Review review);
+
+    // In ReviewServiceImpl.java
+    boolean hasStudentReviewed(Long studentId, Long courseId);
+
     List<Review> getReviewsByCourseId(Long courseId);
     double getAverageRatingByCourseId(Long courseId);
 

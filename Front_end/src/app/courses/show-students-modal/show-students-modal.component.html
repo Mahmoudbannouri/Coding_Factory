@@ -1,0 +1,17 @@
+<div class="modal" [ngClass]="{'show': showModal}">
+  <div class="modal-content">
+    <h2>Enrolled Students</h2>
+    <div *ngIf="students?.length > 0; else noStudents">
+      <ul>
+        <li *ngFor="let student of students">
+          {{ student.firstName }} {{ student.lastName }} ({{ student.email }})
+          <button class="btn-danger" (click)="unenrollStudent(student.id)">Remove</button>
+        </li>
+      </ul>
+    </div>
+    <ng-template #noStudents>
+      <p>No students enrolled yet.</p>
+    </ng-template>
+    <button class="btn-close" (click)="closeModal()">Close</button>
+  </div>
+</div>
