@@ -22,14 +22,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
@@ -233,7 +231,11 @@ public class EventServiceImpl implements IEventService{
         }
         else{
         eventToAttend.getParticipants().add(user);
-        googleCalendarService.createGoogleCalendarEvent(eventToAttend,accessToken);
+        if(accessToken!=null && !accessToken.isEmpty())
+        {
+            googleCalendarService.createGoogleCalendarEvent(eventToAttend,accessToken);
+        }
+
         String subject = "Welcome to the " + eventToAttend.getEventName() + "!";
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
@@ -390,4 +392,38 @@ public class EventServiceImpl implements IEventService{
                 return true;
         }
     }
+    @Override
+    public byte[] generateICSFile(int eventID) {
+        Event event=eventRepo.findById(eventID).orElseThrow(null);
+        StringBuilder sb = new StringBuilder();
+
+        LocalDateTime localDateTime = event.getEventDate();
+        ZonedDateTime zonedStart = localDateTime.atZone(ZoneId.of("Africa/Tunis"));
+        ZonedDateTime zonedEnd = zonedStart.plusHours(2);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss'Z'").withZone(ZoneOffset.UTC);
+
+        String dtStart = formatter.format(zonedStart.toInstant());
+        String dtEnd = formatter.format(zonedEnd.toInstant());
+        String uid = UUID.randomUUID().toString();
+
+        sb.append("BEGIN:VCALENDAR\n")
+                .append("VERSION:2.0\n")
+                .append("PRODID:-//YourApp//EventManager//EN\n")
+                .append("CALSCALE:GREGORIAN\n")
+                .append("METHOD:PUBLISH\n")
+                .append("BEGIN:VEVENT\n")
+                .append("UID:").append(uid).append("\n")
+                .append("SUMMARY:").append(event.getEventName()).append("\n")
+                .append("DESCRIPTION:").append(event.getEventDescription()).append("\n")
+                .append("LOCATION:").append(event.getCentre().getCentreName()).append("\n")
+                .append("DTSTART:").append(dtStart).append("\n")
+                .append("DTEND:").append(dtEnd).append("\n")
+                .append("DTSTAMP:").append(formatter.format(Instant.now())).append("\n")
+                .append("END:VEVENT\n")
+                .append("END:VCALENDAR");
+
+        return sb.toString().getBytes(StandardCharsets.UTF_8);
+    }
+
 }

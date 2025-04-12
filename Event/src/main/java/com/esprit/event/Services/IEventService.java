@@ -30,4 +30,5 @@ public interface IEventService {
                                          String timePeriod);
 
     public List<Event> sortEventsByDate(List<Event> events);
+    public byte[] generateICSFile(int eventID);
 }

@@ -86,5 +86,9 @@ getFilteredEvents(filters: any): Observable<any[]> {
   }
   return this.http.get<any[]>(this.apiUrl+"/filtredEvents", { params });
 }
-
+downloadIcs(eventId: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/download-ics/${eventId}`, {
+    responseType: 'blob'
+  });
+}
 }

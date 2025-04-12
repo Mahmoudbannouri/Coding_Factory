@@ -348,11 +348,27 @@ closeAddEventModal(): void {
   }
  // Enroll to an event
 enrollToEvent(eventId: number, accessToken: string): void {
-  
+  Swal.fire({
+    title: 'Enrolling...',
+    text: 'Sending confirmation email. Please wait.',
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
   this.eventService.enrollToEvent(eventId,accessToken).subscribe({
-    next: () => {
+    next: (response) => {
       console.log(`User enrolled successfully in event ${eventId}`);
+      // ✅ Backend responded successfully — close loading and show success
+      Swal.fire({
+        icon: 'success',
+        title: 'Enrolled Successfully!',
+        text:  'You will receive an email shortly.',
+        showConfirmButton: false,
+        timer: 3000
+      });
       //this.loadGoogleClientAndCreateEvent(eventId);
+      
       this.cdr.detectChanges();
       // Refresh the participants list for the event
       this.getParticipants(eventId);
@@ -395,90 +411,37 @@ loadGoogleClient(eventId: number): void {
   // Request the access token
   client.requestAccessToken();
 }
-
-  private loadGoogleClientAndCreateEvent(eventId: number) {
-    const client = google.accounts.oauth2.initTokenClient({
-      client_id: this.clientId,
-      scope: this.scope,
-      callback: (response) => {
-        if (response && response.access_token) {
-          console.log('OAuth token received:', response);
-  
-          // Initialize the Google API client
-          gapi.load('client', () => {
-            gapi.client.init({
-              apiKey: this.apiKey,
-              discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
-            }).then(() => {
-              // Set the access token
-              gapi.client.setToken({ access_token: response.access_token });
-  
-              // Create the event
-              this.createEventInGoogleCalendar(eventId);
-              this.ngZone.run(() => {
-                console.log("Inside ngZone");
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Success!',
-                  text: 'you Enrolled into the event!',
-                  timer: 2000,
-                  showConfirmButton: false
-                });
-              });
-            });
-          });
-        }
-      },
-    });
-  
-    // Request the access token
-    client.requestAccessToken();
-  }
-  
-  
-  private createEventInGoogleCalendar(eventId: number) {
-    const accessToken = gapi.client.getToken()?.access_token;
-  
-    if (!accessToken) {
-      console.error("No valid access token. User may need to authenticate.");
-      return;
+downloadIcsFile(eventId: number): void {
+  this.eventService.downloadIcs(eventId).subscribe(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'event.ics';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  });
+}
+chooseCalendarOption(eventId: number): void {
+  Swal.fire({
+    title: 'Choose Calendar Option',
+    text: 'How do you want to save this event?',
+    icon: 'question',
+    showCancelButton: true,
+    confirmButtonText: 'Use Google Calendar',
+    cancelButtonText: 'Download .ics File',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // 🟢 User chose Google
+      this.loadGoogleClient(eventId);
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      // 📥 User chose .ics
+      this.downloadIcsFile(eventId); // optional if you want download feature
+      this.enrollToEvent(eventId, null); // send null token
     }
-  
-    // Fetch event details from backend
-    this.eventService.getEventById(eventId).subscribe({
-      next: (eventDetails) => {
-        const event = {
-          summary: eventDetails.eventName,
-          location: eventDetails.centre.centreName,
-          description: eventDetails.eventDescription,
-          start: {
-            dateTime: eventDetails.eventDate, // Ensure ISO 8601 format
-            timeZone: 'Africa/Tunis',
-          },
-          end: {
-            dateTime: eventDetails.eventDate, // Add end time if available
-            timeZone: 'Africa/Tunis',
-          },
-        };
-  
-        // Insert event into Google Calendar
-        gapi.client.calendar.events.insert({
-          calendarId: 'primary',
-          resource: event,
-        }).then(
-          (response) => {
-            console.log('Event created in Google Calendar:', response);
-          },
-          (error) => {
-            console.error('Error creating event in Google Calendar:', error);
-          }
-        );
-      },
-      error: (error) => {
-        console.error('Error fetching event details:', error);
-      },
-    });
-  }
+  });
+}
   getParticipants(eventId: number): void {
     this.eventService.getParticipants(eventId).subscribe(
       (data: User[]) => {

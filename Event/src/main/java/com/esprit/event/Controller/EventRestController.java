@@ -152,4 +152,8 @@ public class EventRestController {
         // Sort the filtered events by date
         return eventService.sortEventsByDate(events);
     }
+    @GetMapping("/download-ics/{eventId}")
+    public byte[] downloadICS(@PathVariable int eventId) {
+        return eventService.generateICSFile(eventId);
+    }
 }
