@@ -25,9 +25,8 @@ public class Event {
     @ManyToOne
     private Centre centre;
 
-    @ManyToMany
-    private List<User> participants;
+    @ElementCollection
+    private List<Integer> participants;
 
-    @ManyToOne
-    private User eventCreator;
+    private Integer eventCreator;
 }

@@ -10,8 +10,9 @@ export class Event {
   eventCategory: CategoryEnum;
   imageUrl:  string;
   centre: Centre;
-  participants: User[];
-  eventCreator: User;
+  participants: number[];
+  eventCreator: number;
   eventDateOnly?: string;
   eventTimeOnly?: string;
+  eventCreatorName?: string;
 }

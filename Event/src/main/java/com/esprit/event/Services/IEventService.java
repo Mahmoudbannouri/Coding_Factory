@@ -18,7 +18,7 @@ public interface IEventService {
     public List<Event> getAllEvents();
     public Event getEvent(int id);
     public Event enrollToEvent(int eventID,int userID, String accessToken);
-    public List<User> getParticipants(int eventID);
+    public List<Integer> getParticipants(int eventID);
     public Event derollFromEvent(int eventID,int userID);
     public List<Centre> getCenters();
     public void sendMail(String toSend,String subject,String Body);
@@ -31,4 +31,5 @@ public interface IEventService {
 
     public List<Event> sortEventsByDate(List<Event> events);
     public byte[] generateICSFile(int eventID);
+
 }

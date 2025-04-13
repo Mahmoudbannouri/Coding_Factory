@@ -9,6 +9,7 @@ import { User } from 'app/models/User';
 import Swal from 'sweetalert2';
 import { NgZone } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { StorageService } from 'app/shared/auth/storage.service';
 declare var gapi: any;
 declare const google: any;
 
@@ -52,9 +53,21 @@ export class EventComponent implements OnInit {
   selectedFile: File | null = null;
   selectedImage: File | null = null;
   imageUrlMap: Map<number, SafeUrl> = new Map();
-  constructor(private eventService: EventService,private datePipe: DatePipe,private cdr: ChangeDetectorRef,private ngZone: NgZone,private sanitizer: DomSanitizer) { }
+  currentUser: any;
+  userRole: string = '';
+  isLoggedIn: boolean = false;
+  constructor(private storageService: StorageService,private eventService: EventService,private datePipe: DatePipe,private cdr: ChangeDetectorRef,private ngZone: NgZone,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+      // Check if the user is logged in
+    this.isLoggedIn = this.storageService.isLoggedIn();
+    
+    if (this.isLoggedIn) {
+      // Get the logged-in user
+      this.currentUser = this.storageService.getUser();
+      // Get the user's role
+      this.userRole = StorageService.getUserRole();
+    }
     
     this.getAllEvents();
     this.getCenters();
@@ -62,33 +75,69 @@ export class EventComponent implements OnInit {
     this.minDate = today.toISOString().split('T')[0];
     
   }
- 
- 
+  getUserId():number{
+    return StorageService.getUserId();
+  }
+  // Method to check if the user is an admin
+  isAdmin(): boolean {
+    return StorageService.isAdminLoggedIn();
+  }
+
+  // Method to check if the user is a student
+  isStudent(): boolean {
+    return StorageService.isStudentLoggedIn();
+  }
+
+  // Method to check if the user is a trainer
+  isTrainer(): boolean {
+    return StorageService.isTrainerLoggedIn();
+  }
+  isPartner():boolean{
+    return StorageService.isPartnerLoggedIn();
+
+  }
   getAllEvents(): void {
     this.eventService.getAllEvents().subscribe(
       (data: Event[]) => {
-        // Events are now pre-sorted from backend
         this.events = data.map(event => ({
           ...event,
-          timestamp: new Date(event.eventDate).getTime(), // Keep if needed for other functions
-          isExpanded: false
+          timestamp: new Date(event.eventDate).getTime(),
+          isExpanded: false,
+          
         }));
-
-        console.log("Final Sorted Events:", this.events.map(e => ({
-          name: e.eventName,
-          date: e.eventDateOnly,
-          time: e.eventTimeOnly
-        })));
-
+  
+        // Fetch eventCreator name for each event
+        this.events.forEach(event => {
+          if (event.eventCreator) {
+            console.log(event.eventCreator);
+            this.eventService.getUserCreator(event.eventCreator).subscribe(
+              user => {
+                
+                event.eventCreatorName = user.name; // ✅ assign name here
+                console.log(event.eventCreatorName);
+                this.cdr.detectChanges(); // Trigger change detection if needed
+              },
+              error => {
+                console.error(`Error fetching user with ID ${event.eventCreator}`, error);
+                event.eventCreatorName = 'Unknown';
+              }
+            );
+          } else {
+            event.eventCreatorName = 'Unknown';
+          }
+        });
+  
         this.calculatePagination(); 
         this.filterEvents();
         this.cdr.detectChanges();
+        console.log(this.events);
       },
       (error) => {
         console.error('Error fetching Events:', error);
       }
     );
-}
+  }
+  
   
   calculatePagination(): void {
     this.totalPaginationPages = Math.ceil(this.events.length / this.eventsPerPage);
@@ -180,22 +229,23 @@ export class EventComponent implements OnInit {
     this.newEvent.eventDate = this.combineDateTime();
     
     
-    this.ngZone.run(() => {
-      console.log("Inside ngZone");
-      Swal.fire({
-        icon: 'success',
-        title: 'Success!',
-        text: 'Event added successfully!',
-        timer: 2000,
-        showConfirmButton: false
-      });
-    });
-    this.eventService.addEvent(this.newEvent).subscribe(
+    
+    this.eventService.addEvent(this.newEvent,this.currentUser.id).subscribe(
       (event) => {
         this.events.push(event);
         this.newEvent = new Event();
       this.selectedFile = null; // Clear the selected file
       this.selectedImage = null; // Clear the selected image
+      this.ngZone.run(() => {
+        console.log("Inside ngZone");
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Event added successfully!',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      });
         this.getAllEvents();
         this.filterEvents();
         this.closeAddEventModal(); // Reset modal fields
@@ -385,7 +435,7 @@ deroll(event: Event): void {
     
       // Remove the current user from the participants list
       event.participants = event.participants.filter(
-        participant => participant.id !== this.currentUserId
+        participant => participant !== this.currentUser.idUser
       );
       this.cdr.detectChanges();
       this.getAllEvents();
@@ -448,7 +498,7 @@ chooseCalendarOption(eventId: number): void {
         // Find the event and update its participants array
         const event = this.events.find(e => e.idEvent === eventId);
         if (event) {
-          event.participants = data;
+          event.participants = data.map(participant => participant.id);
         }
         console.log('Participants:', data);
       },
@@ -459,7 +509,7 @@ chooseCalendarOption(eventId: number): void {
   }
   
   isUserEnrolled(event: Event): boolean {
-    return event.participants.some(participant => participant.id === this.currentUserId);
+    return event.participants.some(participant => participant === this.currentUser.idUser);
   }
 
   isEventDateValid(eventDate: string | Date): boolean {

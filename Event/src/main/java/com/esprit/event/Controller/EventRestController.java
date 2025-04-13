@@ -126,8 +126,8 @@ public class EventRestController {
         }
     }
     @GetMapping("/{eventID}/participants")
-    public ResponseEntity<List<User>> getParticipants(@PathVariable int eventID) {
-        List<User> participants = eventService.getParticipants(eventID);
+    public ResponseEntity<List<Integer>> getParticipants(@PathVariable int eventID) {
+        List<Integer> participants = eventService.getParticipants(eventID);
         return ResponseEntity.ok(participants);
     }
     @DeleteMapping("/deroll/{eventID}/{userID}")

@@ -165,10 +165,12 @@
   
    <!-- All Courses Section -->
 <!-- All Courses Section -->
-<div *ngIf="filteredEvents.length > 0">
+<div *ngIf="events.length > 0">
   <h3>All Events</h3>
+  
   <div class="course-cards-container">
-    <div *ngFor="let event of filteredEvents; let i = index" class="course-card">
+    <div *ngFor="let event of events; let i = index" class="course-card">
+      
       <div class="card">
         <div class="card-content">
           <!-- Image on the left -->
@@ -180,7 +182,7 @@
           <div class="info-container">
             <div class="card-header">
               <h4 class="card-title">{{ event.eventName }}</h4>
-              <p><strong>Created by: </strong> {{ event.eventCreator?.name }}</p>
+              <p><strong>Created by: </strong> {{ event.eventCreatorName }}</p>
               <p><strong>Category: </strong> {{ event.eventCategory }}</p>
               <p><strong>Date: </strong> {{ event.eventDate | date: 'yyyy-MM-dd' }}</p>
               <p><strong>Time: </strong> {{ event.eventDate | date: 'HH:mm:ss' }}</p>

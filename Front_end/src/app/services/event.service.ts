@@ -26,9 +26,9 @@ export class EventService {
     return this.http.get<Event>(this.apiUrl+"/"+id);
   }
   //dont forget to add the id of the user after teh session is implemented
-  addEvent(event:Event):Observable<Event>
+  addEvent(event:Event,userID:number):Observable<Event>
   {
-    return this.http.post<Event>(this.apiUrl+"/add/1",event);
+    return this.http.post<Event>(this.apiUrl+"/add/"+userID,event);
   }
   deleteEvent(id:number):Observable<void>
   {
@@ -90,5 +90,9 @@ downloadIcs(eventId: number): Observable<Blob> {
   return this.http.get(`${this.apiUrl}/download-ics/${eventId}`, {
     responseType: 'blob'
   });
+}
+
+getUserCreator(id: number): Observable<User> {
+  return this.http.get<User>(`http://localhost:8090/api/v1/auth/user/${id}`);
 }
 }
