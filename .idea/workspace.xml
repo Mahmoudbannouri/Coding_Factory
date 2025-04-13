@@ -5,27 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/OpenFeign/UserClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/OpenFeign/UserDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Event/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/EventApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/EventApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/RoleNameEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/repository/UserRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/Event.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/AuthserviceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/AuthserviceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +176,7 @@
       <workItem from="1741077826727" duration="47968000" />
       <workItem from="1741171959894" duration="8790000" />
       <workItem from="1744299373303" duration="5019000" />
-      <workItem from="1744469558346" duration="18350000" />
+      <workItem from="1744469558346" duration="23312000" />
     </task>
     <servers />
   </component>

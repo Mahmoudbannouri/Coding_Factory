@@ -56,7 +56,7 @@ export class EventComponent implements OnInit {
   currentUser: any;
   userRole: string = '';
   isLoggedIn: boolean = false;
-  constructor(private storageService: StorageService,private eventService: EventService,private datePipe: DatePipe,private cdr: ChangeDetectorRef,private ngZone: NgZone,private sanitizer: DomSanitizer) { }
+  constructor(private zone: NgZone ,private storageService: StorageService,private eventService: EventService,private datePipe: DatePipe,private cdr: ChangeDetectorRef,private ngZone: NgZone,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
       // Check if the user is logged in
@@ -75,9 +75,7 @@ export class EventComponent implements OnInit {
     this.minDate = today.toISOString().split('T')[0];
     
   }
-  getUserId():number{
-    return StorageService.getUserId();
-  }
+  
   // Method to check if the user is an admin
   isAdmin(): boolean {
     return StorageService.isAdminLoggedIn();
@@ -96,37 +94,91 @@ export class EventComponent implements OnInit {
     return StorageService.isPartnerLoggedIn();
 
   }
+  // Add these methods to your component
+  isCurrentUserCreator(event: any): boolean {
+    if (!this.currentUser || !event) return false;
+    
+    // Check if eventCreator is an object with id
+    if (event.eventCreator && typeof event.eventCreator === 'object') {
+      return event.eventCreator.id === this.currentUser.id;
+    }
+    // Check if eventCreator is the ID itself
+    else if (event.eventCreator && typeof event.eventCreator === 'number') {
+      return event.eventCreator === this.currentUser.id;
+    }
+    // Check if eventCreatorId exists
+    else if (event.eventCreatorId) {
+      return event.eventCreatorId === this.currentUser.id;
+    }
+    
+    return false;
+  }
+  
+  // Method to check edit permissions
+  canEditEvent(event: any): boolean {
+    if (!event) return false;
+    
+    // Admins can edit any event
+    if (this.isAdmin()) return true;
+    
+    // Trainers and Partners can only edit their own events
+    if (this.isTrainer() || this.isPartner()) {
+      return this.isCurrentUserCreator(event);
+    }
+    
+    return false;
+  }
+
+canDeleteEvent(event: any): boolean {
+  return this.isAdmin() || (this.isTrainer() && this.isCurrentUserCreator(event)) || 
+         (this.isPartner() && this.isCurrentUserCreator(event));
+}
+
+canAddEvent(): boolean {
+  return this.isAdmin() || this.isTrainer() || this.isPartner();
+}
+
+canEnroll(event: any): boolean {
+  // Users can enroll if they're not the creator and the event is valid
+  return !this.isCurrentUserCreator(event) && this.isEventDateValid(event.eventDate);
+}
   getAllEvents(): void {
     this.eventService.getAllEvents().subscribe(
       (data: Event[]) => {
+        // Map over the events and create the new event array
         this.events = data.map(event => ({
           ...event,
           timestamp: new Date(event.eventDate).getTime(),
           isExpanded: false,
-          
         }));
-  
+
         // Fetch eventCreator name for each event
         this.events.forEach(event => {
           if (event.eventCreator) {
             console.log(event.eventCreator);
             this.eventService.getUserCreator(event.eventCreator).subscribe(
               user => {
-                
-                event.eventCreatorName = user.name; // ✅ assign name here
+                // Run inside NgZone to ensure change detection
+                this.zone.run(() => {
+                  event.eventCreatorName = user.name;  // ✅ Assign name here
+                  this.cdr.detectChanges(); // Trigger change detection if needed
+                });
                 console.log(event.eventCreatorName);
-                this.cdr.detectChanges(); // Trigger change detection if needed
               },
               error => {
                 console.error(`Error fetching user with ID ${event.eventCreator}`, error);
-                event.eventCreatorName = 'Unknown';
+                this.zone.run(() => {
+                  event.eventCreatorName = 'Unknown';
+                  this.cdr.detectChanges();
+                });
               }
             );
           } else {
             event.eventCreatorName = 'Unknown';
           }
         });
-  
+
+        // After updating eventCreatorName, run change detection for the whole list
         this.calculatePagination(); 
         this.filterEvents();
         this.cdr.detectChanges();
@@ -406,7 +458,7 @@ enrollToEvent(eventId: number, accessToken: string): void {
       Swal.showLoading();
     }
   });
-  this.eventService.enrollToEvent(eventId,accessToken).subscribe({
+  this.eventService.enrollToEvent(eventId,accessToken,this.currentUser.id).subscribe({
     next: (response) => {
       console.log(`User enrolled successfully in event ${eventId}`);
       // ✅ Backend responded successfully — close loading and show success
@@ -429,7 +481,7 @@ enrollToEvent(eventId: number, accessToken: string): void {
   });
 }
 deroll(event: Event): void {
-  this.eventService.deroll(event.idEvent).subscribe({
+  this.eventService.deroll(event.idEvent,this.currentUser.id).subscribe({
     next: () => {
       console.log(`User derolled successfully from event ${event.idEvent}`);
     

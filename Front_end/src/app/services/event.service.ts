@@ -40,12 +40,12 @@ export class EventService {
     return this.http.put<Event>(this.apiUrl+"/update/"+id,event);
   }
   //dont forget to add the id of the user after teh session is implemented
-  enrollToEvent(eventID:Number,accessToken:string):Observable<Event>
+  enrollToEvent(eventID:Number,accessToken:string,userID:number):Observable<Event>
   {
-    return this.http.post<Event>(this.apiUrl+"/enroll/"+eventID+"/1/"+accessToken,null);
+    return this.http.post<Event>(this.apiUrl+"/enroll/"+eventID+"/"+userID+"/"+accessToken,null);
   }
-  deroll(eventId: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/deroll/${eventId}/1`);
+  deroll(eventId: number,userID:number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/deroll/${eventId}/${userID}`);
   }
   getParticipants(eventID:number):Observable<User[]>
   {

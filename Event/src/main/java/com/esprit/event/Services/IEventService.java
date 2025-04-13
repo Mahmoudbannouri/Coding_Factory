@@ -2,13 +2,10 @@ package com.esprit.event.Services;
 
 import com.esprit.event.DAO.entities.Centre;
 import com.esprit.event.DAO.entities.Event;
-import com.esprit.event.DAO.entities.User;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface IEventService {

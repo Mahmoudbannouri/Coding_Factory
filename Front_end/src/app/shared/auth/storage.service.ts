@@ -105,7 +105,9 @@ export class StorageService {
 
   // Check if partner is logged in
   public static isPartnerLoggedIn(): boolean {
-    return this.getUserRole() === 'PARTNER';
+    const role = this.getUserRole();
+
+    return role === 'PARTNER' || role === '[PARTNER]';
   }
 
   // Check if trainer is logged in
