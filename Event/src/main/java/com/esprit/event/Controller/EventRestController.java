@@ -131,11 +131,7 @@ public class EventRestController {
         Event updatedEvent = eventService.derollFromEvent(eventID, userID);
         return ResponseEntity.ok(updatedEvent);
     }
-    @GetMapping("/centers")
-    public ResponseEntity<List<Centre>> getAllCenters() {
-        List<Centre> centers = eventService.getCenters();
-        return ResponseEntity.ok(centers);
-    }
+
     @GetMapping("/filtredEvents")
     public  List<Event> getFilteredEvents(
             @RequestParam(required = false) String search,

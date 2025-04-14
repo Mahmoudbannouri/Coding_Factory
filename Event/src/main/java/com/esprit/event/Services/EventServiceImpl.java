@@ -3,6 +3,8 @@ package com.esprit.event.Services;
 import com.esprit.event.DAO.entities.*;
 import com.esprit.event.DAO.repository.EventRepository;
 import com.esprit.event.DAO.repository.ICentreRepository;
+import com.esprit.event.OpenFeign.CenterClient;
+import com.esprit.event.OpenFeign.CenterDTO;
 import com.esprit.event.OpenFeign.UserClient;
 import com.esprit.event.OpenFeign.UserDTO;
 import jakarta.mail.internet.MimeMessage;
@@ -157,9 +159,8 @@ public class EventServiceImpl implements IEventService{
             }
 
             // Fetch and set the Centre entity
-            Centre centre = centreRepo.findById(updatedEvent.getCentre().getCentreID())
-                    .orElseThrow(() -> new EntityNotFoundException("Centre with ID " + updatedEvent.getCentre().getCentreID() + " not found"));
-            existingEvent.setCentre(centre);
+
+            existingEvent.setCentre(updatedEvent.getCentre());
 
             // Set the eventCreator directly with the user ID
             existingEvent.setEventCreator(updatedEvent.getEventCreator());
@@ -264,14 +265,11 @@ public class EventServiceImpl implements IEventService{
         if (!eventToDeroll.getParticipants().contains(userID)) {
             throw new IllegalStateException("User is not enrolled in this event.");
         }
-        eventToDeroll.getParticipants().remove(userID);
+        eventToDeroll.getParticipants().remove((Integer) userID);
         return eventRepo.save(eventToDeroll);
     }
 
-    @Override
-    public List<Centre> getCenters() {
-        return centreRepo.findAll();
-    }
+
 
     @Override
     public void sendMail(String toSend, String subject, String body) {
@@ -403,6 +401,19 @@ public class EventServiceImpl implements IEventService{
         if (event.getEventCreator() == null) return false;
         return event.getEventCreator().equals(creatorId);
     }
+    @Autowired
+    private CenterClient centerClient;
+
+    // Assuming event is an Event object you are working with
+    public String getEventLocation(Event event) {
+        // Fetch the Center by ID using OpenFeign
+        CenterDTO center = centerClient.getCenterById(event.getCentre());
+
+        // Access the centre name
+        String location = "LOCATION: " + (center != null ? center.getNameCenter() : "Unknown");
+
+        return location;
+    }
     @Override
     public byte[] generateICSFile(int eventID) {
         Event event=eventRepo.findById(eventID).orElseThrow(null);
@@ -427,7 +438,7 @@ public class EventServiceImpl implements IEventService{
                 .append("UID:").append(uid).append("\n")
                 .append("SUMMARY:").append(event.getEventName()).append("\n")
                 .append("DESCRIPTION:").append(event.getEventDescription()).append("\n")
-                .append("LOCATION:").append(event.getCentre().getCentreName()).append("\n")
+                .append("LOCATION:").append(getEventLocation(event)).append("\n")
                 .append("DTSTART:").append(dtStart).append("\n")
                 .append("DTEND:").append(dtEnd).append("\n")
                 .append("DTSTAMP:").append(formatter.format(Instant.now())).append("\n")

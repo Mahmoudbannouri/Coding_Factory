@@ -12,6 +12,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { StorageService } from 'app/shared/auth/storage.service';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+
 declare var gapi: any;
 declare const google: any;
 
@@ -76,6 +77,7 @@ filterType: string = 'all';
     
     this.getAllEvents();
     this.getCenters();
+    console.log("test",this.centers);
     const today = new Date();
     this.minDate = today.toISOString().split('T')[0];
     
@@ -332,11 +334,11 @@ filterEvents(): void {
   }
   addEvent(): void {
     const formData = new FormData();
-    this.newEvent.centre = {
+   /* this.newEvent.centre = {
       centreID: this.newEvent.centre.centreID,
       centreName: this.newEvent.centre.centreName,
       centreDescription: this.newEvent.centre.centreDescription
-    };
+    };*/
     
     this.newEvent.eventDate = this.combineDateTime();
     
@@ -396,8 +398,9 @@ closeAddEventModal(): void {
         this.newEvent.eventDateOnly = this.datePipe.transform(event.eventDate, 'yyyy-MM-dd');  // Format date
         this.newEvent.eventTimeOnly = this.datePipe.transform(event.eventDate, 'HH:mm');  // Format time
         this.newEvent.imageUrl = event.imageUrl;
-        if (event.centre && event.centre.centreID) {
-          this.newEvent.centre = this.centers.find(centre => centre.centreID === event.centre.centreID);
+        if (event.centre && event.centre) {
+          const foundCentre = this.centers.find(centre => centre.idCenter === event.centre);
+          this.newEvent.centre = foundCentre ? foundCentre.idCenter : null;
         } else {
           this.newEvent.centre = event.centre; // If already an object, just use it directly
         }
@@ -445,7 +448,9 @@ closeAddEventModal(): void {
   getCenters(): void {
     this.eventService.getAllCenters().subscribe(
       (data: Centre[]) => {
-        this.centers = data;
+        this.centers = data,
+        console.log('Centers:', this.centers);
+        
       },
       (error) => {
         console.error('Error fetching Centers:', error);

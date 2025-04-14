@@ -140,9 +140,9 @@
       
         <!-- Event Center -->
         <label for="centre">Center</label>
-        <select id="centre" [(ngModel)]="newEvent.centre" name="centre" required #centre="ngModel">
-          <option *ngFor="let centre of centers" [ngValue]="centre">
-            {{ centre.centreName }}
+        <select  id="centre"  [(ngModel)]="newEvent.centre" name="centre" required #centre="ngModel">
+          <option *ngFor="let centre of centers" [ngValue]="centre.idCenter">
+            {{ centre.nameCenter }}
           </option>
         </select>
         <div *ngIf="centre.invalid && (centre.dirty || centre.touched)" class="error-message">

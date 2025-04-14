@@ -17,7 +17,7 @@ public interface IEventService {
     public Event enrollToEvent(int eventID,int userID, String accessToken);
     public List<Integer> getParticipants(int eventID);
     public Event derollFromEvent(int eventID,int userID);
-    public List<Centre> getCenters();
+
     public void sendMail(String toSend,String subject,String Body);
     public ResponseEntity<Resource> getEventImage(String imageUrl);
     public List<Event> getFilteredEvents(String searchQuery,

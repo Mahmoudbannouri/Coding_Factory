@@ -9,7 +9,7 @@ export class Event {
   eventDate: string; // Use string because Angular handles date conversion
   eventCategory: CategoryEnum;
   imageUrl:  string;
-  centre: Centre;
+  centre: number;
   participants: number[];
   eventCreator: number;
   eventDateOnly?: string;

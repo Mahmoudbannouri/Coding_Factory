@@ -1,6 +1,6 @@
 export class Centre {
-    centreID!: number;
-    centreName!: string;
-    centreDescription!: string;
+  idCenter!: number;
+  nameCenter!: string;
+  descriptionCenter!: string;
   }
   

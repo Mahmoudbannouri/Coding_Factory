@@ -23,8 +23,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private Category eventCategory;
     private String imageUrl;
-    @ManyToOne
-    private Centre centre;
+    private int centre;
 
     // Proper mapping for participant IDs
     @ElementCollection
