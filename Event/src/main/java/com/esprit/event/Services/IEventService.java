@@ -24,7 +24,9 @@ public interface IEventService {
                                          String category,
                                          String startDate,
                                          String endDate,
-                                         String timePeriod);
+                                         String timePeriod,
+                                         Integer enrolledUserId,
+                                         Integer createdBy);
 
     public List<Event> sortEventsByDate(List<Event> events);
     public byte[] generateICSFile(int eventID);

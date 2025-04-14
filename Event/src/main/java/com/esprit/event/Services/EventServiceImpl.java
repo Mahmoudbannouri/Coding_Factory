@@ -38,7 +38,7 @@ public class EventServiceImpl implements IEventService{
 
     @Autowired
     private EventRepository eventRepo;
-    
+
     @Autowired
     private ICentreRepository centreRepo;
     @Autowired
@@ -298,7 +298,9 @@ public class EventServiceImpl implements IEventService{
             String category,
             String startDate,
             String endDate,
-            String timePeriod) {
+            String timePeriod,
+            Integer enrolledUserId,
+            Integer createdBy) {
 
         List<Event> allEvents = eventRepo.findAll();
         LocalDate now = LocalDate.now();
@@ -308,6 +310,8 @@ public class EventServiceImpl implements IEventService{
                 .filter(event -> matchesCategory(event, category))
                 .filter(event -> matchesDateRange(event, startDate, endDate))
                 .filter(event -> matchesTimePeriod(event, timePeriod, now.atStartOfDay()))
+                .filter(event -> matchesEnrolledUser(event, enrolledUserId))
+                .filter(event -> matchesCreator(event, createdBy))
                 .collect(Collectors.toList());
     }
 
@@ -385,6 +389,19 @@ public class EventServiceImpl implements IEventService{
             default:
                 return true;
         }
+    }
+    private boolean matchesEnrolledUser(Event event, Integer enrolledUserId) {
+        if (enrolledUserId == null) {
+            return true;
+        }
+
+        return event.getParticipants().stream()
+                .anyMatch(user -> user.equals(enrolledUserId));
+    }
+    private boolean matchesCreator(Event event, Integer creatorId) {
+        if (creatorId == null) return true;
+        if (event.getEventCreator() == null) return false;
+        return event.getEventCreator().equals(creatorId);
     }
     @Override
     public byte[] generateICSFile(int eventID) {

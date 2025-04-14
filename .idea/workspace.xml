@@ -7,17 +7,11 @@
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Role.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/RoleNameEnum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/repository/UserRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

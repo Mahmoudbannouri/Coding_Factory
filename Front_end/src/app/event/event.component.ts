@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
 import { NgZone } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { StorageService } from 'app/shared/auth/storage.service';
+import { forkJoin, Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 declare var gapi: any;
 declare const google: any;
 
@@ -56,6 +58,9 @@ export class EventComponent implements OnInit {
   currentUser: any;
   userRole: string = '';
   isLoggedIn: boolean = false;
+  enrolledFilter: any;
+  createdBy:any;
+filterType: string = 'all';
   constructor(private zone: NgZone ,private storageService: StorageService,private eventService: EventService,private datePipe: DatePipe,private cdr: ChangeDetectorRef,private ngZone: NgZone,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
@@ -92,28 +97,29 @@ export class EventComponent implements OnInit {
   }
   isPartner():boolean{
     return StorageService.isPartnerLoggedIn();
-
   }
   // Add these methods to your component
-  isCurrentUserCreator(event: any): boolean {
-    if (!this.currentUser || !event) return false;
-    
-    // Check if eventCreator is an object with id
-    if (event.eventCreator && typeof event.eventCreator === 'object') {
-      return event.eventCreator.id === this.currentUser.id;
+    isCurrentUserCreator(event: any): boolean {
+      if (!this.currentUser || !event) return false;
+      
+      // Check if eventCreator is an object with id
+      if (event.eventCreator && typeof event.eventCreator === 'object') {
+        return event.eventCreator.id === this.currentUser.id;
+      }
+      // Check if eventCreator is the ID itself
+      else if (event.eventCreator && typeof event.eventCreator === 'number') {
+        return event.eventCreator === this.currentUser.id;
+      }
+      // Check if eventCreatorId exists
+      else if (event.eventCreatorId) {
+        return event.eventCreatorId === this.currentUser.id;
+      }
+      
+      return false;
     }
-    // Check if eventCreator is the ID itself
-    else if (event.eventCreator && typeof event.eventCreator === 'number') {
-      return event.eventCreator === this.currentUser.id;
+    isCreator(): boolean {
+      return this.isAdmin()||this.isTrainer()||this.isPartner();
     }
-    // Check if eventCreatorId exists
-    else if (event.eventCreatorId) {
-      return event.eventCreatorId === this.currentUser.id;
-    }
-    
-    return false;
-  }
-  
   // Method to check edit permissions
   canEditEvent(event: any): boolean {
     if (!event) return false;
@@ -142,53 +148,62 @@ canEnroll(event: any): boolean {
   // Users can enroll if they're not the creator and the event is valid
   return !this.isCurrentUserCreator(event) && this.isEventDateValid(event.eventDate);
 }
-  getAllEvents(): void {
-    this.eventService.getAllEvents().subscribe(
-      (data: Event[]) => {
-        // Map over the events and create the new event array
-        this.events = data.map(event => ({
-          ...event,
-          timestamp: new Date(event.eventDate).getTime(),
-          isExpanded: false,
-        }));
+ // Method to fetch creator's name based on event creator's ID
+ getEventCreatorName(creatorId: number): Observable<string> {
+  return this.eventService.getUserCreator(creatorId).pipe(
+    map((user: User) => {
+    
+      return user.name;
+    }),
+    catchError(() => {
+      console.error(`Error fetching user with ID ${creatorId}`);
+      return of('Unknown');
+    })
+  );
+}
+getAllEvents(): void {
+  this.eventService.getAllEvents().subscribe(
+    (data: Event[]) => {
+      this.events = data.map(event => ({
+        ...event,
+        timestamp: new Date(event.eventDate).getTime(),
+        isExpanded: false,
+        eventCreatorName: null,
+      }));
 
-        // Fetch eventCreator name for each event
+      // 🔁 Build an array of observables to fetch names
+      const nameObservables = this.events.map(event => {
+        if (event.eventCreator) {
+          return this.getEventCreatorName(event.eventCreator).pipe(
+            map(name => ({ id: event.eventCreator, name })),
+            catchError(() => of({ id: event.eventCreator, name: 'Unknown' }))
+          );
+        } else {
+          return of({ id: null, name: 'Unknown' });
+        }
+      });
+
+      // 🧠 Wait until all names are fetched
+      forkJoin(nameObservables).subscribe(results => {
+        // Assign the correct names back to the events
         this.events.forEach(event => {
-          if (event.eventCreator) {
-            console.log(event.eventCreator);
-            this.eventService.getUserCreator(event.eventCreator).subscribe(
-              user => {
-                // Run inside NgZone to ensure change detection
-                this.zone.run(() => {
-                  event.eventCreatorName = user.name;  // ✅ Assign name here
-                  this.cdr.detectChanges(); // Trigger change detection if needed
-                });
-                console.log(event.eventCreatorName);
-              },
-              error => {
-                console.error(`Error fetching user with ID ${event.eventCreator}`, error);
-                this.zone.run(() => {
-                  event.eventCreatorName = 'Unknown';
-                  this.cdr.detectChanges();
-                });
-              }
-            );
-          } else {
-            event.eventCreatorName = 'Unknown';
+          const match = results.find(res => res.id === event.eventCreator);
+          if (match) {
+            event.eventCreatorName = match.name;
           }
         });
-
-        // After updating eventCreatorName, run change detection for the whole list
-        this.calculatePagination(); 
+        console.log('Events after name mapping:', this.events); 
+        this.calculatePagination();
         this.filterEvents();
-        this.cdr.detectChanges();
-        console.log(this.events);
-      },
-      (error) => {
-        console.error('Error fetching Events:', error);
-      }
-    );
-  }
+        this.cdr.detectChanges(); // 💡 Now safe to re-render
+      });
+    },
+    error => {
+      console.error('Error fetching Events:', error);
+    }
+  );
+}
+
   
   
   calculatePagination(): void {
@@ -201,36 +216,81 @@ canEnroll(event: any): boolean {
       this.filterEvents(); // Update the filtered events for the new page
     }
   }
-  filterEvents(): void {
-    // Prepare query parameters
-    const params = {
-      searchQuery: this.searchQuery,
-      selectedCategory: this.selectedCategory, // This should hold the selected category value
-      startDate: this.startDate,
-      endDate: this.endDate,
-      selectedTimePeriod: this.selectedTimePeriod,
-    };
-  
-    // Make an HTTP call to your backend filter function
-    this.eventService.getFilteredEvents(params).subscribe((events: any[]) => {
-      this.events = events;
-      console.log(this.selectedCategory);
-      // Recalculate total pages
+ // Store creator names in a map
+// Store creator names in a map
+private creatorNameMap: Map<number, string> = new Map();
+
+filterEvents(): void {
+  let enrolledUserId: number | null = null;
+  let createdBy: number | null = null;
+
+  if (this.filterType === 'enrolled') {
+    enrolledUserId = this.currentUser.id;
+  } else if (this.filterType === 'my') {
+    createdBy = this.currentUser.id;
+  }
+
+  // Prepare query parameters
+  const params = {
+    searchQuery: this.searchQuery,
+    selectedCategory: this.selectedCategory,
+    startDate: this.startDate,
+    endDate: this.endDate,
+    selectedTimePeriod: this.selectedTimePeriod,
+    enrolledUserId,
+    createdBy,
+  };
+
+  // Make an HTTP call to your backend filter function
+  this.eventService.getFilteredEvents(params).subscribe((events: any[]) => {
+    // Collect creator IDs from all events
+    const creatorIds = new Set<number>();
+    events.forEach(event => {
+      if (event.eventCreator) {
+        creatorIds.add(event.eventCreator);
+      }
+    });
+
+    // Fetch names for all creators that are not already in the map
+    const creatorRequests = Array.from(creatorIds).map(creatorId => {
+      if (!this.creatorNameMap.has(creatorId)) {
+        return this.getEventCreatorName(creatorId).toPromise().then(name => {
+          this.creatorNameMap.set(creatorId, name);
+        });
+      }
+      return Promise.resolve();
+    });
+
+    // Once all names are fetched, map the events
+    Promise.all(creatorRequests).then(() => {
+      this.events = events.map(event => {
+        return {
+          ...event,
+          timestamp: new Date(event.eventDate).getTime(),
+          isExpanded: false, // Adjust based on your needs
+          eventCreatorName: this.creatorNameMap.get(event.eventCreator) ?? 'Unknown', // Use 'Unknown' if name is not available
+        };
+      });
+
+      // Recalculate pagination
       this.totalPaginationPages = Math.ceil(this.events.length / this.eventsPerPage);
-  
+
       // Adjust current page if needed
       if (this.currentPage >= this.totalPaginationPages) {
         this.currentPage = this.totalPaginationPages > 0 ? this.totalPaginationPages - 1 : 0;
       }
-  
+
       // Slice for current page
       const startIndex = this.currentPage * this.eventsPerPage;
       const endIndex = startIndex + this.eventsPerPage;
       this.filteredEvents = this.events.slice(startIndex, endIndex);
+
+      // Trigger change detection
       this.cdr.detectChanges();
     });
-  }
-  
+  });
+}
+
   
   clearDateRangeFilter(): void {
     this.startDate = null;
@@ -561,7 +621,7 @@ chooseCalendarOption(eventId: number): void {
   }
   
   isUserEnrolled(event: Event): boolean {
-    return event.participants.some(participant => participant === this.currentUser.idUser);
+    return event.participants.some(participant => participant === this.currentUser.id);
   }
 
   isEventDateValid(eventDate: string | Date): boolean {

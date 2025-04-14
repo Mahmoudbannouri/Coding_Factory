@@ -142,8 +142,11 @@ public class EventRestController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
-            @RequestParam(required = false) String timePeriod) {
-        List<Event> events = eventService.getFilteredEvents(search, category, startDate, endDate, timePeriod);
+            @RequestParam(required = false) String timePeriod,
+            @RequestParam(required = false) Integer enrolledUserId,
+            @RequestParam(required = false) Integer createdBy)
+    {
+        List<Event> events = eventService.getFilteredEvents(search, category, startDate, endDate, timePeriod,enrolledUserId,createdBy);
 
         // Sort the filtered events by date
         return eventService.sortEventsByDate(events);

@@ -15,4 +15,5 @@ export class Event {
   eventDateOnly?: string;
   eventTimeOnly?: string;
   eventCreatorName?: string;
+  isExpanded: boolean;
 }

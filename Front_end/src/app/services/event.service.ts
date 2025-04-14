@@ -84,6 +84,13 @@ getFilteredEvents(filters: any): Observable<any[]> {
   if (filters.selectedTimePeriod) {
     params = params.set('timePeriod', filters.selectedTimePeriod);
   }
+  if (filters.enrolledUserId) {
+    params = params.set('enrolledUserId', filters.enrolledUserId);
+  }
+  if (filters.createdBy) {
+    params = params.set('createdBy', filters.createdBy);
+  }
+  
   return this.http.get<any[]>(this.apiUrl+"/filtredEvents", { params });
 }
 downloadIcs(eventId: number): Observable<Blob> {
