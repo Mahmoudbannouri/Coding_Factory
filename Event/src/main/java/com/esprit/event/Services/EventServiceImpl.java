@@ -2,7 +2,6 @@ package com.esprit.event.Services;
 
 import com.esprit.event.DAO.entities.*;
 import com.esprit.event.DAO.repository.EventRepository;
-import com.esprit.event.DAO.repository.ICentreRepository;
 import com.esprit.event.OpenFeign.CenterClient;
 import com.esprit.event.OpenFeign.CenterDTO;
 import com.esprit.event.OpenFeign.UserClient;
@@ -41,8 +40,7 @@ public class EventServiceImpl implements IEventService{
     @Autowired
     private EventRepository eventRepo;
 
-    @Autowired
-    private ICentreRepository centreRepo;
+
     @Autowired
     private JavaMailSender mailSender;
     @Autowired

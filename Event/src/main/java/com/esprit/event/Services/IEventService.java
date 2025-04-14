@@ -1,6 +1,5 @@
 package com.esprit.event.Services;
 
-import com.esprit.event.DAO.entities.Centre;
 import com.esprit.event.DAO.entities.Event;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;

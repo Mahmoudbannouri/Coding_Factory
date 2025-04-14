@@ -1,6 +1,5 @@
 package com.esprit.event.Controller;
 
-import com.esprit.event.DAO.entities.Centre;
 import com.esprit.event.DAO.entities.Event;
 import com.esprit.event.Services.IEventService;
 import com.esprit.event.Services.GeminiAiService;

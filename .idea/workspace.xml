@@ -5,85 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/OpenFeign/CenterClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/OpenFeign/CenterDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/.gitattributes" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/hs_err_pid8492.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/replay_pid8492.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/AssessmentController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/CenterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/EmailTestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/EntrepriseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/PartnershipController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/ProposalController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/ScrapingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/ZoomController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/AcceptanceStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Assessment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Center.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Entreprise.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Partnership.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/PartnershipScheduledTasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/PartnershipStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Proposal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/ProposalScheduledTasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/PartnershipManagementApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Repositories/AssessmentRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Repositories/CenterRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Repositories/EntrepriseRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Repositories/PartnershipRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Repositories/ProposalRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Repositories/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/AssessmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/CenterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/EmailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/EntrepriseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/IAssessmentService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/ICenterService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/IEntrepriseService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/IPartnershipService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/IProposalService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/PartnershipService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/ProposalService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/ScrapingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/ZoomMeetingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/ZoomOAuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/configurations/AppConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/configurations/SecurityConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/configurations/ZoomConfigurations.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/java/com/partnershipmanagement/dto/MeetingRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Partnership-Managment/src/test/java/com/partnershipmanagement/PartnershipManagementApplicationTests.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/79cd40c5-688a-4e72-8ce6-71e19a3d1d34.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/d1fed787-be88-44d6-bafd-9412a3ae5ee6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Centre.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/repository/ICentreRepository.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/GeminiAiService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/GeminiAiService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/GoogleCalendarService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/GoogleCalendarService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/Centre.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/Centre.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/Event.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -274,7 +201,7 @@
       <workItem from="1744299373303" duration="5019000" />
       <workItem from="1744469558346" duration="23312000" />
       <workItem from="1744628524990" duration="15000" />
-      <workItem from="1744629997207" duration="11214000" />
+      <workItem from="1744629997207" duration="12234000" />
     </task>
     <servers />
   </component>
