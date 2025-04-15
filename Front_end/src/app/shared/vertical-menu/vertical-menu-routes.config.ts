@@ -10,7 +10,9 @@ export const ROUTES: RouteInfo[] = [
     ]
   },
   { path: '/courses', title: 'Courses', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
-
+  { path: '/courses/enroll-courses', title: 'Courses Enroll', icon: 'ft-book', class: 'student', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+  {path: '/exams', title: 'Exams', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
+  {path: '/ExmanQuiz', title: 'ExmanQuiz', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []},
   { path: '/events', title: 'Events', icon: 'ft-calendar', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
 
 

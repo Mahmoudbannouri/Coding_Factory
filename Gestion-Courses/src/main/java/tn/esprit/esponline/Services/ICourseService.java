@@ -8,6 +8,7 @@ import java.util.Optional;
 
 public interface ICourseService {
     List<Course> getAllCourses();
+    List<Course> getCourseByStudent(int studentId);
     Course addCourse(Course course, Integer trainerId);
     Course updateCourse(Course course, int courseId);
     void deleteCourse(int courseId);

@@ -139,6 +139,12 @@
                     *ngIf="course.resources?.length > 0">
               <i class="fas fa-file-archive"></i> Download Resources
             </button>
+            <div *ngIf="isStudentLoggedIn" class="card-footer border-top ">
+              <button type="button"   [disabled]="checkStudentEnroll(course)"
+              (click)="openModal(confirmModal,course)" class="btn btn-primary btn-lg w-100">
+                Enroll Now
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -152,6 +158,27 @@
   <span>Page {{ page.number + 1 }} of {{ page.totalPages }}</span>
   <button (click)="nextPage()" [disabled]="page.number >= page.totalPages - 1">Next</button>
 </div>
+<ng-template #confirmModal let-modal>
+  <div class="custom-modal-content">
+    <div class="custom-modal-header">
+      <h5 class="modal-title">
+        <i class="bi bi-question-circle-fill me-2"></i>
+        Confirmation d'inscription
+      </h5>
+      <button type="button" class="close-btn" (click)="modal.dismiss()" aria-label="Fermer">&times;</button>
+    </div>
+
+    <div class="custom-modal-body">
+      <p>Êtes-vous sûr(e) de vouloir vous inscrire à ce cours ?</p>
+    </div>
+
+    <div class="custom-modal-footer">
+      <button class="btn-cancel" (click)="modal.dismiss()">Annuler</button>
+      <button class="btn-confirm" (click)="confirmEnrollment(modal)">S'inscrire</button>
+    </div>
+  </div>
+</ng-template>
+
 
 <!-- Add Course Resource Modal -->
 <app-add-course-resource

@@ -2,12 +2,22 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
+<<<<<<< HEAD
 
   "defaultProject": "matngular",
 
   
 
 
+=======
+  "angularCompilerOptions": {
+  "allowedCommonJsDependencies": [
+    "ws",
+    "chartist"
+  ]
+}
+,
+>>>>>>> a08b13057c75fd635353133cd44847ba04033dff
   "projects": {
     "matngular": {
       "root": "",
@@ -18,9 +28,12 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "allowedCommonJsDependencies": [
+<<<<<<< HEAD
 
               "ws",
 
+=======
+>>>>>>> a08b13057c75fd635353133cd44847ba04033dff
               "dragula",
               "firebase/app",
               "@mattlewis92/dom-autoscroller",
@@ -61,9 +74,12 @@
               "node_modules/nouislider/distribute/nouislider.min.css",
               "node_modules/angular-calendar/scss/angular-calendar.scss",
               "node_modules/dragula/dist/dragula.css",
+<<<<<<< HEAD
 
               "node_modules/bootstrap-icons/font/bootstrap-icons.css",
 
+=======
+>>>>>>> a08b13057c75fd635353133cd44847ba04033dff
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/@swimlane/ngx-datatable/index.css",
               "node_modules/@swimlane/ngx-datatable/assets/icons.css",

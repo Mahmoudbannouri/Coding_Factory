@@ -30,11 +30,8 @@
 
     "@fortawesome/angular-fontawesome": "^1.0.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
-    "@fortawesome/fontawesome-svg-core": "^6.7.2",
-    "@fortawesome/free-regular-svg-icons": "^6.7.2",
-    "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@ng-bootstrap/ng-bootstrap": "8.0.0",
-    "@ng-select/ng-select": "^5.0.9",
+    "@ng-select/ng-select": "5.0.9",
     "@ngrx/store": "10.1.0",
     "@ngx-translate/core": "13.0.0",
     "@ngx-translate/http-loader": "6.0.0",
@@ -106,7 +103,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "14.2.1",
+    "@angular-devkit/build-angular": "^14.2.1",
     "@angular/cli": "14.2.1",
     "@angular/compiler-cli": "14.2.0",
     "@angular/language-service": "14.2.0",

@@ -1,0 +1,83 @@
+<div class="student-dashboard">
+    <header class="dashboard-header">
+      <div class="header-content">
+        <h1>My Courses</h1>
+        <p class="subtitle">Manage and track your enrolled courses</p>
+      </div>
+    </header>
+  
+    <div class="tabs">
+      <div class="tabs-header">
+        <button class="tab-btn" [class.active]="activeTab === 'all'" (click)="setActiveTab('all')">
+          All Courses
+        </button>
+       
+      
+      </div>
+      
+      <div class="tab-content">
+        <div *ngIf="enrolledCourses.length === 0" class="empty-state">
+          <p>No courses found in this category.</p>
+        </div>
+        
+        <div class="courses-grid">
+          <div class="course-card" *ngFor="let course of enrolledCourses">
+            <div class="course-image">
+              <img [src]="getFile(course.image)" [alt]="course.title">
+             
+            </div>
+            <div class="course-header">
+              <h3 class="course-title">{{ course.title }}</h3>
+              <p class="course-instructor">{{ course.description }}</p>
+            </div>
+            <div class="course-content">
+            
+              
+             
+            </div>
+            <div class="course-footer">
+              <a [routerLink]="['/courses', course.id]" class="btn-outline">
+               
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="statistics">
+      <h2>Course Statistics</h2>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3>Total Courses</h3>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value">{{enrolledCourses.length}}</div>
+            <i class="fas fa-book"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3>In Progress</h3>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value"></div>
+            <i class="fas fa-clock"></i>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-header">
+            <h3>Completed</h3>
+          </div>
+          <div class="stat-content">
+            <div class="stat-value"></div>
+            <i class="fas fa-award"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
