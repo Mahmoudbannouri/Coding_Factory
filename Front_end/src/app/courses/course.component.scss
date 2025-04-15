@@ -519,6 +519,81 @@ button[type="submit"]:hover {
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   margin-left: 10px;
 }
+.btn-download-resources {
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-download-resources i {
+  font-size: 16px;
+}
+
+.btn-download-resources:hover {
+  background: linear-gradient(to right, #3b3fbc, #7a7ee0);
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-download-resources:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.fancy-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+.fancy-btn i {
+  font-size: 16px;
+}
+
+.btn-pdf-download {
+  background-color: #d9534f;
+  color: white;
+}
+
+.btn-pdf-download:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+.btn-resources-download {
+  background-color: #0275d8;
+  color: white;
+}
+
+.btn-resources-download:hover {
+  background-color: #025aa5;
+  transform: scale(1.05);
+}
+
+.fancy-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
+}
 
 .add-course-button:hover {
   background-color: #303f9f; /* Darker shade on hover */

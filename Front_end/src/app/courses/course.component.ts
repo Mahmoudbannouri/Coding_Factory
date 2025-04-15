@@ -137,15 +137,25 @@ private handleCoursesResponse(courses: Course[] | Page<Course>): void {
   const courseList = Array.isArray(courses) ? courses : courses.content;
   const studentId = StorageService.getUserId();
   
-  if (this.isStudentLoggedIn && studentId) {
-    courseList.forEach(course => {
+  // Load resources for each course
+  courseList.forEach(course => {
+    // Load reviews for students
+    if (this.isStudentLoggedIn && studentId) {
       this.reviewService.hasStudentReviewed(studentId, course.id)
         .subscribe(hasReviewed => {
           course.hasReviewed = hasReviewed;
-          this.cdr.detectChanges();
         });
-    });
-  }
+    }
+    
+    // Load resources for all courses
+    this.courseResourceService.getResourcesForCourse(course.id).subscribe(
+      resources => {
+        course.resources = resources;
+        this.cdr.detectChanges(); // Trigger UI update
+      },
+      error => console.error('Error loading resources', error)
+    );
+  });
 
   this.page = {
     content: courseList,
@@ -340,31 +350,36 @@ searchCourses(): void {
   
   
   downloadResourcesZip(courseId: number): void {
+    const course = this.page.content.find(c => c.id === courseId);
+    const filename = course ? 
+        `${course.title.replace(/[^a-zA-Z0-9]/g, '_')}_Content.zip` : 
+        `course_${courseId}_resources.zip`;
+
     Swal.fire({
-      title: 'Preparing Download',
-      text: 'Please wait while we prepare your resources...',
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
+        title: 'Preparing Download',
+        text: 'Please wait while we prepare your resources...',
+        allowOutsideClick: false,
+        didOpen: () => {
+            Swal.showLoading();
+        }
     });
-  
+
     this.courseService.downloadCourseResourcesZip(courseId).subscribe({
-      next: (blob) => {
-        Swal.close();
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `course_${courseId}_resources.zip`;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      },
-      error: (error) => {
-        Swal.fire('Error', 'Failed to download resources', 'error');
-        console.error('Error downloading ZIP:', error);
-      }
+        next: (blob) => {
+            Swal.close();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        },
+        error: (error) => {
+            Swal.fire('Error', 'Failed to download resources', 'error');
+            console.error('Error downloading ZIP:', error);
+        }
     });
-  }
+}
   
   openAIImprovementsModal(course: Course): void {
     console.log('Opening AI Improvements Modal for Course ID:', course.id);

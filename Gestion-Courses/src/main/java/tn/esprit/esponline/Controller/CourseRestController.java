@@ -131,9 +131,12 @@ public class CourseRestController {
     @GetMapping(value = "/{id}/zip", produces = "application/zip")
     public ResponseEntity<byte[]> downloadCourseResourcesZip(@PathVariable int id) {
         try {
-            byte[] zipBytes = zipService.createCourseResourcesZip(id);
+            Course course = courseService.getCourseById(id);
+            String filename = course.getTitle().replaceAll("[^a-zA-Z0-9.-]", "_") + " Content.zip";
+
+            byte[] zipBytes = zipService.createCourseResourcesZip(id, filename);
             return ResponseEntity.ok()
-                    .header("Content-Disposition", "attachment; filename=course_resources_" + id + ".zip")
+                    .header("Content-Disposition", "attachment; filename=\"" + filename + "\"")
                     .body(zipBytes);
         } catch (IOException e) {
             return ResponseEntity.internalServerError().build();

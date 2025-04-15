@@ -13,7 +13,7 @@
       <button class="clear-button" (click)="clearFilters()">Clear</button>
       <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
         (click)="openAddCourseModal()"
-        class="add-course-button">
+        class="floating-plus btn-floating">
         +
       </button>
     </div>
@@ -130,15 +130,19 @@
             </button>
 
             <!-- Add these buttons inside your card-footer div -->
-            <button (click)="downloadPdf(course.id)" class="btn-info round">
-              <i class="fas fa-file-pdf"></i> Module File
+            <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round">
+              <i class="fas fa-file-pdf"></i>
+              <span>Module file</span>
             </button>
 
             <button (click)="downloadResourcesZip(course.id)"
-                    class="btn-info round"
-                    *ngIf="course.resources?.length > 0">
-              <i class="fas fa-file-archive"></i> Download Resources
-            </button>
+  class="btn-download-resources round"
+  [disabled]="!course.resources || course.resources.length === 0">
+  <i class="fas fa-file-archive"></i>
+  {{ (course.resources?.length > 0) ? 'Download Resources (' + course.resources.length + ')' : 'No Resources' }}
+</button>
+
+            
           </div>
         </div>
       </div>
