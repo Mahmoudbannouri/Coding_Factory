@@ -1,0 +1,26 @@
+<div class="modal" [ngClass]="{ 'show': showModal }" tabindex="-1" role="dialog" *ngIf="showModal">
+  <div class="modal-content">
+    <h3>Edit Exam</h3>
+    <form (ngSubmit)="updateExam()">
+      <!-- Exam Title -->
+      <label for="title">Title</label>
+      <input id="title" [(ngModel)]="exam.title" name="title" required />
+
+      <!-- Exam Chrono -->
+      <label for="chrono">Chrono</label>
+      <input id="chrono" [(ngModel)]="exam.chrono" name="chrono" required />
+
+      <!-- Exam Description -->
+      <label for="description">Description</label>
+      <textarea id="description" [(ngModel)]="exam.description" name="description" required></textarea>
+
+      <!-- Question Count -->
+      <label for="questionCount">Question Count</label>
+      <input id="questionCount" type="number" [(ngModel)]="exam.questionCount" name="questionCount" required />
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-primary" (click)="updateExam()">Update Exam</button>
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    </form>
+  </div>
+</div>

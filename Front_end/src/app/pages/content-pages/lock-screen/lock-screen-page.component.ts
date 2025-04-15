@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from "@angular/forms";
+import { StorageService } from 'app/shared/auth/storage.service';
 
 @Component({
     selector: 'app-lock-screen-page',
@@ -9,7 +10,7 @@ import { NgForm } from "@angular/forms";
 
 export class LockScreenPageComponent {
     @ViewChild('f') lockScreenForm: NgForm;
-
+   
     onSubmit() {
         this.lockScreenForm.reset();
     }

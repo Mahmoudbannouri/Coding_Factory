@@ -1,0 +1,78 @@
+<div class="exam-container">
+  <!-- Search Input and Filters -->
+  <div class="search-container">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..." class="search-input" (ngModelChange)="filterExams()">
+    <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="filterExams()">
+      <option value="">All Categories</option>
+      <!-- <option *ngFor="let category of categoryEnum | keyvalue" [value]="category.value">
+        {{ category.value }}
+      </option> -->
+    </select>
+  </div>
+
+  <!-- No exams Available -->
+  <div *ngIf="filteredExams.length === 0">
+    <p>No exams available.</p>
+  </div>
+
+  <!-- Add New exam Modal -->
+  <app-add-exam-modal
+    [showModal]="showModal"
+    (showModalChange)="showModal = $event"
+    (examAdded)="onExamAdded($event)">
+  </app-add-exam-modal>
+
+  <!-- Edit exam Modal -->
+  <app-edit-exam-modal
+    [showModal]="showEditModal"
+    [examId]="selectedExam?.id"
+    (showModalChange)="showEditModal = $event"
+    (examUpdated)="onExamUpdated($event)">
+  </app-edit-exam-modal>
+
+  <!-- Add Quiz Modal -->
+  <app-add-quiz-modal
+  [showEditQuizModal]="showEditQuizModal"
+  [chrono]="selectedExam?.chrono"
+  [examId]="selectedExam?.id"
+  (showModalChange)="showEditQuizModal = $event"
+  (quizAdded)="openAddQuiz($event)">
+</app-add-quiz-modal>
+
+  <!-- All exams Section -->
+  <div *ngIf="filteredExams.length > 0">
+    <h3>All exams</h3>
+    <div class="exam-cards-container">
+      <div *ngFor="let exam of filteredExams; let i = index" class="exam-card">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">{{ exam.title }}</h4>
+            <p><strong>Chrono:</strong> {{ exam.chrono }}</p>
+          </div>
+          <div class="card-content">
+            <div class="card-body">
+              <p><strong>Description:</strong> {{ exam.description }}</p>
+              <p><strong>Question Count:</strong> {{ exam.questionCount }}</p>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button (click)="AddQuiz(exam.id)" class="btn-secondary round">
+              <span class="icon">➕</span>Create the Quiz
+            </button>
+            <button (click)="deleteExam(exam.id)" class="btn-danger round">
+              <span class="icon">🗑️</span> Delete
+            </button>
+            <button (click)="openEditModal(exam)" class="btn-warning round">
+              <span class="icon">✏️</span> Edit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Plus Button -->
+  <button class="floating-plus" (click)="openAddExamModal()">+</button>
+</div>
+
+<!-- No script tag needed here -->

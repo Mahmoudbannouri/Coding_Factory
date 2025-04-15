@@ -1,0 +1,101 @@
+.options-container {
+    margin: 20px 0;
+    
+    .option {
+      margin-bottom: 12px;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: #f5f5f5;
+        cursor: pointer;
+      }
+      
+      &.selected {
+        background-color: #e3f2fd;
+        border-color: #42a5f5;
+      }
+      
+      input[type="radio"] {
+        margin-right: 10px;
+      }
+      
+      .option-text {
+        cursor: pointer;
+        font-size: 16px;
+      }
+    }
+  }
+  
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+    
+    .pagination-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #ddd;
+      background: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      &.active {
+        background-color: #42a5f5;
+        color: white;
+        border-color: #42a5f5;
+      }
+      
+      // Add this class to the button element
+      &.answered {
+        background-color: #81c784;
+        color: white;
+        border-color: #81c784;
+      }
+    }
+  }
+  
+  .navigation-controls {
+    display: flex;
+    gap: 10px;
+    
+    .navigation-btn {
+      padding: 8px 16px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+    
+    .btn-primary {
+      background-color: #42a5f5;
+      color: white;
+      border-color: #42a5f5;
+      padding: 8px 20px;
+      border-radius: 4px;
+      
+      &:hover {
+        background-color: #2196f3;
+      }
+    }
+  }.btn {
+    margin: 10px;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+  }
+  
