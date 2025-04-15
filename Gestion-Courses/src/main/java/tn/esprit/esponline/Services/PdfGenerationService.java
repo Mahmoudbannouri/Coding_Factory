@@ -38,14 +38,7 @@
             Document document = new Document(pdfDoc);
 
             // Add the logo from the cloud server URL and make it bigger
-            String logoUrl = "https://wbptqnvcpiorvwjotqwx.supabase.co/storage/v1/object/public/course-images//Design_sans_titre__1_-removebg-preview_enhanced.png";
-            ImageData logoData = ImageDataFactory.create(logoUrl);
-            Image logo = new Image(logoData);
-            logo.setWidth(250)  // Adjusted width for a larger logo
-                    .setHeight(125)  // Adjust the height proportionally (or you can set to null to auto-adjust based on width)
-                    .setFixedPosition(30, 750); // Adjust position
 
-            document.add(logo);
 
             // Add title
             Paragraph title = new Paragraph(course.getTitle())

@@ -4,40 +4,31 @@ const courseServiceClient = require('./courseServiceClient');
 
 class ReviewService {
     async addReview(reviewData) {
-        const { Review, Recommendation } = getModels();
+        const { Review } = getModels();
 
-        try {
-            console.log('Creating review with data:', reviewData);
-
-            // Create the review first
-            const review = await Review.create(reviewData);
-
-            // Try to update course rate (but don't fail if it doesn't work)
-            try {
-                await this.updateCourseRate(review.courseId);
-            } catch (error) {
-                console.error('Non-critical error updating course rate:', error.message);
-                // Continue anyway since the review was created successfully
+        // Check if review already exists
+        const existing = await Review.findOne({
+            where: {
+                studentId: reviewData.studentId,
+                courseId: reviewData.courseId
             }
+        });
 
-            // Handle recommendations if comment exists
-            if (reviewData.comment && reviewData.comment.trim() !== '') {
-                const { suggestion } = await geminiAIService.analyzeSentiment(reviewData.comment);
-                if (suggestion) {
-                    await Recommendation.create({
-                        recommendation: suggestion,
-                        reviewId: review.id
-                    });
-                }
-            }
-
-            return review;
-        } catch (error) {
-            console.error('Error in addReview:', error);
-            throw error;
+        if (existing) {
+            throw new Error('You have already reviewed this course');
         }
+
+        // Create new review
+        return await Review.create(reviewData);
     }
 
+    async hasStudentReviewed(studentId, courseId) {
+        const { Review } = getModels();
+        const count = await Review.count({
+            where: { studentId, courseId }
+        });
+        return count > 0;
+    }
     async updateCourseRate(courseId) {
         try {
             const averageRating = await this.getAverageRatingByCourseId(courseId);
@@ -112,7 +103,16 @@ class ReviewService {
 
         return recommendations || 'No recommendations available for this course.';
     }
-
+    async hasStudentReviewed(studentId, courseId) {
+        const { Review } = getModels();
+        const count = await Review.count({
+            where: {
+                studentId,
+                courseId
+            }
+        });
+        return count > 0;
+    }
     async getAverageRatingByCourseId(courseId) {
         const { Review } = getModels();
 

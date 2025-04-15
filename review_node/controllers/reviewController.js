@@ -5,10 +5,23 @@ exports.addReview = async (req, res) => {
         const review = await reviewService.addReview(req.body);
         res.status(201).json(review);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        if (error.message === 'You have already reviewed this course') {
+            res.status(409).json({ error: error.message });
+        } else {
+            res.status(500).json({ error: error.message });
+        }
     }
 };
 
+exports.hasStudentReviewed = async (req, res) => {
+    try {
+        const { studentId, courseId } = req.params;
+        const hasReviewed = await reviewService.hasStudentReviewed(studentId, courseId);
+        res.json({ hasReviewed });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 exports.getReviewsByCourseId = async (req, res) => {
     try {
         const reviews = await reviewService.getReviewsByCourseId(req.params.courseId);

@@ -112,6 +112,7 @@ uploadFile(file: File): Observable<string> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
+
   // Update a course
   updateCourse(id: number, course: Course): Observable<Course> {
     return this.http.put<Course>(`${this.apiUrl}/${id}`, course);
@@ -127,13 +128,15 @@ uploadFile(file: File): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/${courseId}/trainer-name`);
   }
 
-  
   getEnrolledStudentsWithDetails(courseId: number): Observable<any[]> {
     return this.http.get<any[]>(
-      `${this.apiUrl}/${courseId}/students/details`,
-      { headers: this.getAuthHeaders() }
+        `${this.apiUrl}/${courseId}/students/details`,
+        {
+            headers: this.getAuthHeaders(),
+            withCredentials: true
+        }
     );
-  }
+}
   // Enroll a student in a course
   enrollStudentInCourse(courseId: number, studentId: number): Observable<Course> {
     return this.http.post<Course>(

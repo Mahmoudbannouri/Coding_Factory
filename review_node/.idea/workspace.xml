@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5161cbd0-55ff-4c56-bdea-d69ff131abac" name="Changes" comment="" />
+    <list default="true" id="5161cbd0-55ff-4c56-bdea-d69ff131abac" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Front_end/src/app/services/course.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../Front_end/src/app/services/course.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Services/PdfGenerationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Gestion-Courses/src/main/java/tn/esprit/esponline/Services/PdfGenerationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/reviewController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/reviewController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Review.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Review.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/reviewRoutes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/reviewRoutes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/reviewService.js" beforeDir="false" afterPath="$PROJECT_DIR$/services/reviewService.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -31,24 +40,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "javascript.nodejs.core.library.configured.version": "16.20.2",
-    "javascript.nodejs.core.library.typings.version": "16.18.126",
-    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/CodingFactoryMicroServices/Front_end",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_interpreter_path": "node",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Gestion__courses&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;16.20.2&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;16.18.126&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/CodingFactoryMicroServices/Front_end&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_interpreter_path&quot;: &quot;node&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.5\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\review_node\services" />
@@ -72,6 +81,12 @@
       <workItem from="1743591261390" duration="24726000" />
       <workItem from="1743863414381" duration="2562000" />
       <workItem from="1744041260711" duration="334000" />
+      <workItem from="1744297958907" duration="3229000" />
+      <workItem from="1744303657999" duration="1295000" />
+      <workItem from="1744309604018" duration="631000" />
+      <workItem from="1744321175400" duration="678000" />
+      <workItem from="1744379425232" duration="1194000" />
+      <workItem from="1744530101920" duration="4802000" />
     </task>
     <servers />
   </component>
