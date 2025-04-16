@@ -514,37 +514,57 @@ closeAddEventModal(): void {
     );
   }
  // Enroll to an event
-enrollToEvent(eventId: number, accessToken: string): void {
+ enrollToEvent(eventId: number, accessToken: string): void {
   Swal.fire({
-    title: 'Enrolling...',
+    title: 'Enrolling…',
     text: 'Sending confirmation email. Please wait.',
     allowOutsideClick: false,
-    didOpen: () => {
-      Swal.showLoading();
-    }
+    didOpen: () => Swal.showLoading()
   });
-  this.eventService.enrollToEvent(eventId,accessToken,this.currentUser.id).subscribe({
-    next: (response) => {
-      console.log(`User enrolled successfully in event ${eventId}`);
-      // ✅ Backend responded successfully — close loading and show success
-      Swal.fire({
-        icon: 'success',
-        title: 'Enrolled Successfully!',
-        text:  'You will receive an email shortly.',
-        showConfirmButton: false,
-        timer: 3000
-      });
-      //this.loadGoogleClientAndCreateEvent(eventId);
-      
-      this.cdr.detectChanges();
-      // Refresh the participants list for the event
-      this.getParticipants(eventId);
-    },
-    error: (error) => {
-      console.error(`Error enrolling to event ${eventId}:`, error);
-    }
-  });
+
+  this.eventService
+    .enrollToEvent(eventId, accessToken, this.currentUser.id)
+    .subscribe({
+      next: () => {
+        // ─── ① PATCH YOUR IN‑MEMORY MODELS ───
+        // find it in the full list
+        const full = this.events.find(e => e.idEvent === eventId);
+        if (full) {
+          full.participants = [...(full.participants || []), this.currentUser.id];
+        }
+
+        // find it in the paged slice
+        const paged = this.filteredEvents.find(e => e.idEvent === eventId);
+        if (paged) {
+          paged.participants = [...(paged.participants || []), this.currentUser.id];
+        }
+
+        // ─── ② TRIGGER ANGULAR TO RE‑RENDER ───
+        // if you’re on the default CD strategy this is enough:
+        this.cdr.detectChanges();
+        // if you use OnPush, you may need this instead:
+        // this.cdr.markForCheck();
+
+        // ─── ③ SHOW SUCCESS TOAST ───
+        Swal.fire({
+          icon: 'success',
+          title: 'Enrolled!',
+          text:  'You’ll get an email shortly.',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      },
+      error: err => {
+        console.error('Enroll failed', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Enrollment Failed',
+          text:  err.message || 'Please try again later.'
+        });
+      }
+    });
 }
+
 deroll(event: Event): void {
   this.eventService.deroll(event.idEvent,this.currentUser.id).subscribe({
     next: () => {

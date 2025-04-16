@@ -6,11 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Centre.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/repository/ICentreRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/IEventService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/config/WebConfig.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +60,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Gestion__Events",
-    "last_opened_file_path": "C:/Users/kedid/OneDrive/Bureau/EventPush/Coding_Factory_Backend/Partnership-Managment/pom.xml",
+    "last_opened_file_path": "C:/Users/kedid/OneDrive/Bureau/EventPush/Coding_Factory_Backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -201,7 +198,9 @@
       <workItem from="1744299373303" duration="5019000" />
       <workItem from="1744469558346" duration="23312000" />
       <workItem from="1744628524990" duration="15000" />
-      <workItem from="1744629997207" duration="12234000" />
+      <workItem from="1744629997207" duration="15938000" />
+      <workItem from="1744659442612" duration="16000" />
+      <workItem from="1744823793998" duration="1562000" />
     </task>
     <servers />
   </component>
