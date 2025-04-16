@@ -1,0 +1,89 @@
+<section id="file-upload">
+  <div class="row text-left">
+    <div class="col-sm-12">
+      <div class="content-header">Gestion des documents</div>
+    </div>
+  </div>
+  <div class="card text-left">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+      
+      <div class="row">
+        <div class="col-lg-3">
+          <h4>Sélectionner des fichiers</h4>
+          <div>Multiple</div>
+          <label class="custom-file mb-3">
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple>
+            <span class="custom-file-control"></span>
+          </label>
+
+          <div>Ajouter une URL de document</div>
+          <div class="input-group mb-3">
+  <input type="text" class="form-control" #documentUrl placeholder="URL du document" required>
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button" 
+            (click)="addDocument(documentUrl); documentUrl.value=''"
+            [disabled]="!documentUrl.value">
+      Ajouter
+    </button>
+  </div>
+</div>
+        </div>
+
+        <div class="col-lg-9">
+          <h4>File d'attente de téléchargement</h4>
+          <p>Nombre de fichiers : {{ uploader?.queue?.length }}</p>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th width="50%">Nom</th>
+                  <th>Taille</th>
+                  <th>Progression</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                  <td><strong>{{ item?.file?.name }}</strong></td>
+                  <td nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                  <td>
+                    <div class="progress" style="margin-bottom: 0;">
+                      <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                    </div>
+                  </td>
+                  <td nowrap>
+                    <button type="button" class="btn btn-primary btn-sm mr-1" 
+                            (click)="downloadItem(item)">
+                      <i class="fa fa-download"></i> Télécharger
+                    </button>
+                    <button type="button" class="btn btn-danger btn-sm" (click)="item.remove()">
+                      <i class="fa fa-trash"></i> Supprimer
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div>
+            <p>Progression globale :
+              <ngb-progressbar type="primary" [value]="uploader.progress"></ngb-progressbar>
+            </p>
+            <button type="button" class="btn btn-success mr-1 mb-1 mb-sm-0" (click)="downloadAll()"
+              [disabled]="!uploader.queue.length">
+              <i class="fa fa-download"></i> Tout télécharger
+            </button>
+            
+            <button type="button" class="btn btn-danger mb-1 mb-sm-0" (click)="uploader.clearQueue()"
+              [disabled]="!uploader.queue.length">
+              <i class="fa fa-trash"></i> Tout supprimer
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

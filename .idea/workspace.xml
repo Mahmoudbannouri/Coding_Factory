@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Feign/AuthServiceClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Feign/FeignConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/config/CourseServiceSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/config/JwtAuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/config/JwtService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/StudentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/add-course-modal/add-course-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/course.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/enroll-students-modal/enroll-students-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/enroll-students-modal/enroll-students-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/enroll-students-modal/enroll-students-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/enroll-students-modal/enroll-students-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/courses/review-modal/review-modal.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/courses.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/courses.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/auth.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/shared.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/shared.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/CourseRestController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Controller/UserRestController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Course.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/RoleNameEnum.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/entities/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/CourseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/CourseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/RoleRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/DAO/repositories/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/EsponlineApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/EsponlineApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/CourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/CourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ICourseService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ICourseService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/IUserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/ResourceNotFoundException.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Services/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/config/SecurityConfiguration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthenticationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/review_node/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/review_node/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/Front_end/matngular/package.json" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2tAltLO8bE7qeF7aJlHuhar0Bjc" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Gestion__courses&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;20&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/ApiGetway&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\banno\\OneDrive\\Bureau\\new crm project\\Coding_Factory_Backend\\Front_end\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-WS-241.18034.50" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="" />
+      <created>1739802974091</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739802974091</updated>
+      <workItem from="1739802975073" duration="68000" />
+      <workItem from="1740333738932" duration="632000" />
+      <workItem from="1740408567767" duration="627000" />
+      <workItem from="1740433659003" duration="58000" />
+      <workItem from="1740485108452" duration="5050000" />
+      <workItem from="1740504944486" duration="681000" />
+      <workItem from="1740561847995" duration="10762000" />
+      <workItem from="1740916794200" duration="4414000" />
+      <workItem from="1740925765076" duration="1858000" />
+      <workItem from="1740927845339" duration="80000" />
+      <workItem from="1741077826727" duration="47968000" />
+      <workItem from="1741171959894" duration="8790000" />
+      <workItem from="1741207580920" duration="1916000" />
+      <workItem from="1741243655744" duration="2164000" />
+      <workItem from="1741285929498" duration="4352000" />
+      <workItem from="1743588457734" duration="1595000" />
+      <workItem from="1743590931603" duration="325000" />
+      <workItem from="1743863347790" duration="8538000" />
+      <workItem from="1743937119281" duration="315000" />
+      <workItem from="1743938638464" duration="5264000" />
+      <workItem from="1743967532687" duration="181000" />
+      <workItem from="1744043133476" duration="643000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

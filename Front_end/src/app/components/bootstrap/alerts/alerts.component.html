@@ -1,0 +1,264 @@
+<!-- Default and Dismissible Alerts start -->
+<section id="basic-alerts">
+  <div class="row">
+    <div class="col-12">
+      <div class="content-header">Alerts</div>
+    </div>
+  </div>
+  <div class="row match-height">
+    <!-- default alerts starts -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Default Alerts</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Alert is a component to provide contextual feedback messages for user. It supports several alert types
+              and can be dismissed.</p>
+            <h6>Primary Alert</h6>
+            <ngb-alert type="primary" class="mb-2" [dismissible]="false">
+              Good Morning! Start your day with some alerts.
+            </ngb-alert>
+            <h6>Secondary Alert</h6>
+            <ngb-alert type="secondary" class="mb-2" [dismissible]="false">
+              Hello! This is secondary alert - check it out.
+            </ngb-alert>
+            <h6>Success Alert</h6>
+            <ngb-alert type="success" class="mb-2" [dismissible]="false">
+              Well done! You successfully read this important alert
+              message.
+            </ngb-alert>
+            <h6>Danger Alert</h6>
+            <ngb-alert type="danger" class="mb-2" [dismissible]="false">
+              Oh snap! Change a few things up and submit again.
+            </ngb-alert>
+            <h6>Info Alert</h6>
+            <ngb-alert type="info" class="mb-2" [dismissible]="false">
+              Heads up! This alert needs your attention, but it's not
+              super important.
+            </ngb-alert>
+            <h6>Warning Alert</h6>
+            <ngb-alert type="warning" class="mb-2" [dismissible]="false">
+              Warning! Better check yourself, you're not looking too
+              good.
+            </ngb-alert>
+            <h6>Light Alert</h6>
+            <ngb-alert type="light" class="mb-2" [dismissible]="false">
+              Hello! This is light alert - check it out.
+            </ngb-alert>
+            <h6>Dark Alert</h6>
+            <ngb-alert type="dark" class="mb-0" [dismissible]="false">
+              Hello! This is dark alert - check it out.
+            </ngb-alert>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- default alerts ends -->
+    <!-- dismissible alerts -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Dismissible Alerts
+            <button type="button" class="btn btn-primary pull-right" (click)="reset()">Reset</button>
+          </h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <div *ngFor="let alert of alerts" class="mb-2">
+              <h6>{{alert.title}}</h6>
+              <ngb-alert [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- dismissible alerts ends -->
+  </div>
+</section>
+<!-- Default and Dismissible Alerts ends -->
+
+<!-- Alerts with Link and icons start -->
+<section id="alert-border-0" class="mb-2">
+  <div class="row match-height">
+    <!-- Alerts with links starts -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Alerts with Links</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <h6>Primary Alert</h6>
+            <ngb-alert type="light-primary" class="bg-light-primary mb-2" [dismissible]="false">
+              <span class="mb-0">Good Morning! Start</span>
+              <a href="javascript:;" class="font-weight-bold text-primary"> your day</a> with some alerts.
+            </ngb-alert>
+            <h6>Secondary Alert</h6>
+            <ngb-alert type="light-secondary" class="bg-light-secondary mb-2" [dismissible]="false">
+              <span class="mb-0">Hello! This is</span>
+              <a href="javascript:;" class="font-weight-bold text-secondary"> secondary alert</a> - check it out.
+            </ngb-alert>
+            <h6>Success Alert</h6>
+            <ngb-alert type="light-success" class="bg-light-success mb-2" [dismissible]="false">
+              <span class="mb-0">Well done! You successfully read this</span>
+              <a href="javascript:;" class="font-weight-bold text-success"> important</a> alert
+              message.
+            </ngb-alert>
+            <h6>Danger Alert</h6>
+            <ngb-alert type="light-danger" class="bg-light-danger mb-2" [dismissible]="false">
+              <span class="mb-0">Oh snap! Change a</span>
+              <a href="javascript:;" class="font-weight-bold text-danger"> few things up</a> and submit again.
+            </ngb-alert>
+            <h6>Info Alert</h6>
+            <ngb-alert type="light-info" class="bg-light-info mb-2" [dismissible]="false">
+              <span class="mb-0">Heads up! This alert needs</span>
+              <a href="javascript:;" class="font-weight-bold text-info"> your attention</a>, but it's not
+              super important.
+            </ngb-alert>
+            <h6>Warning Alert</h6>
+            <ngb-alert type="light-warning" class="bg-light-warning mb-2" [dismissible]="false">
+              <span class="mb-0">Warning! Better check yourself, you're not</span>
+              <a href="javascript:;" class="font-weight-bold text-warning"> looking too good</a>
+            </ngb-alert>
+            <h6>Light Alert</h6>
+            <ngb-alert type="light" class="mb-2" [dismissible]="false">
+              <span class="mb-0">Hello! This is</span>
+              <a href="javascript:;" class="font-weight-bold dark"> light alert</a> - check it out.
+            </ngb-alert>
+            <h6>Dark Alert</h6>
+            <ngb-alert type="dark" class="mb-2" [dismissible]="false">
+              <span class="mb-0">Hello! This is</span>
+              <a href="javascript:;" class="alert-link"> dark alert</a> - check it out.
+            </ngb-alert>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Alerts with links ends -->
+    <!-- Alerts with icons starts -->
+    <div class="col-xl-6 col-lg-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Alerts with icons</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <!-- Icons on left -->
+            <h6>Primary Alert</h6>
+            <ngb-alert type="primary" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-left">
+                <i class="ft-heart mr-2"></i>
+                <span>Good Morning! Start your day with some alerts.</span>
+              </div>
+            </ngb-alert>
+            <h6>Secondary Alert</h6>
+            <ngb-alert type="secondary" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-left">
+                <i class="ft-camera mr-2"></i>
+                <span>Hello! This is secondary alert - check it out.</span>
+              </div>
+            </ngb-alert>
+            <h6>Success Alert</h6>
+            <ngb-alert type="success" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-left">
+                <i class="ft-thumbs-up mr-2"></i>
+                <span>Well done! You successfully read this important alert message.</span>
+              </div>
+            </ngb-alert>
+            <h6>Danger Alert</h6>
+            <ngb-alert type="danger" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-left">
+                <i class="ft-thumbs-down mr-2"></i>
+                <span>Oh snap! Change a few things up and submit again.</span>
+              </div>
+            </ngb-alert>
+            <h6>Info Alert</h6>
+            <ngb-alert type="info" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-right">
+                <span>Heads up! This alert needs your attention, but it's not super important.</span>
+                <i class="ft-info"></i>
+              </div>
+            </ngb-alert>
+            <h6>Warning Alert</h6>
+            <ngb-alert type="warning" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-right">
+                <span>Warning! Better check yourself, you're not looking too good.</span>
+                <i class="ft-alert-triangle"></i>
+              </div>
+            </ngb-alert>
+            <h6>Light Alert</h6>
+            <ngb-alert type="light" class="mb-2" [dismissible]="false">
+              <div class="alert-icon-right">
+                <span>Hello! This is light alert - check it out.</span>
+                <i class="ft-star"></i>
+              </div>
+            </ngb-alert>
+            <h6>Dark Alert</h6>
+            <ngb-alert type="dark" class="mb-0" [dismissible]="false">
+              <div class="alert-icon-right">
+                <span>Hello! This is dark alert - check it out.</span>
+                <i class="ft-book-open"></i>
+              </div>
+            </ngb-alert>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Alerts with icons ends -->
+  </div>
+</section>
+<!-- Alerts with Link and icons end -->
+
+<!-- Alerts with Additional Content start -->
+<section id="additional-content-alerts">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Alerts with Additional Content</h4>
+        </div>
+        <div class="card-content">
+          <div class="card-body">
+            <p>Alerts can also contain additional HTML elements like headings and paragraphs.</p>
+            <div class="row">
+              <div class="col-xl-6 col-lg-12">
+                <h6>Default Primary Alert</h6>
+                <ngb-alert type="primary" class="mb-2" [dismissible]="false">
+                  <h4 class="alert-heading mb-2">Good Morning!</h4>
+                  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
+                    bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+                  </p>
+                </ngb-alert>
+                <!-- <div class="alert alert-primary alert-dismissible mb-2" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true"><i class="ft-x font-medium-2 text-bold-700"></i></span>
+                  </button>
+                  <h4 class="alert-heading mb-2">Good Morning!</h4>
+                  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
+                    bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+                  </p>
+                </div> -->
+              </div>
+              <div class="col-xl-6 col-lg-12">
+                <h6>Light Primary Alert</h6>
+                <ngb-alert type="light-primary" class="bg-light-primary mb-2" [dismissible]="false">
+                  <h4 class="alert-heading mb-2">Good Morning!</h4>
+                  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a
+                    bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.
+                  </p>
+                </ngb-alert>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Alerts with Additional Content end -->

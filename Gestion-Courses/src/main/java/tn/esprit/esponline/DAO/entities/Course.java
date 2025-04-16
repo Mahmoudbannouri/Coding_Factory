@@ -2,24 +2,12 @@ package tn.esprit.esponline.DAO.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import lombok.*;
-
-
-import java.sql.Date;
-import java.util.List;
-import java.util.Set;
+import jakarta.validation.constraints.*;
+import lombok.Data;
+import java.util.*;
 
 @Entity
-
 @Data
-
-@ToString
-@Getter
-@Setter
 @Table(name = "courses")
 public class Course {
 
@@ -27,105 +15,76 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotNull(message = "Title is required")
-    @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
+    @NotNull @Size(min = 1, max = 100)
     private String title;
 
-    @NotNull(message = "Description is required")
-    @Size(min = 1, max = 500, message = "Description must be between 1 and 500 characters")
+    @NotNull @Size(min = 1, max = 20)
+    private String level;
+
+    @NotNull @Size(min = 1, max = 500)
     private String description;
 
-    @NotNull(message = "Rate is required")
-    @Min(value = 0, message = "Rate must be at least 0")
-    @Max(value = 5, message = "Rate must be at most 5")
-    private int rate;
+    private double rate;
 
-    private java.sql.Date startDate;
-    private java.sql.Date endDate;
-
-    @NotNull(message = "image is required")
-    private String image;  // Assuming it's a URL to the image or path.
+    @NotNull
+    private String image;
 
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "Category is required")
+    @NotNull
     private CategoryEnum categoryCourse;
 
+    @Column(name = "trainer_id")
+    private Integer trainerId;
 
-    @ManyToOne
-    @JoinColumn(name = "trainer_id")
-    private User trainer;
-
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "course_students",
+            joinColumns = @JoinColumn(name = "course_id"),
+            foreignKey = @ForeignKey(name = "fk_course_students_course"))
+    @Column(name = "student_id")
+    private Set<Integer> studentIds = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CourseResource> resources;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-            name = "students_courses",
-            joinColumns = @JoinColumn(name = "id_course"),
-            inverseJoinColumns = @JoinColumn(name = "id_student")
-    )
-    private Set<User> students;
-
-    public Course(String title, String description, Date startDate, Date endDate) {
-        this.title = title;
-        this.description = description;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.rate = 0; // Default value
-        this.image = ""; // Default value
-    }
-
-    public Course() {
-
-    }
-
-
-    // Optionally: you can also add a setter if needed
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
     public String getDescription() {
         return description;
     }
 
-    public int getRate() {
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getRate() {
         return rate;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public CategoryEnum getCategoryCourse() {
-        return categoryCourse;
-    }
-
-    public User getTrainer() {
-        return trainer;
-    }
-
-    public List<CourseResource> getResources() {
-        return resources;
-    }
-
-    public Set<User> getStudents() {
-        return students;
+    public void setRate(double rate) {
+        this.rate = rate;
     }
 
     public String getImage() {
@@ -136,6 +95,35 @@ public class Course {
         this.image = image;
     }
 
-    // Add a constructor with relevant parameters
+    public CategoryEnum getCategoryCourse() {
+        return categoryCourse;
+    }
 
+    public void setCategoryCourse(CategoryEnum categoryCourse) {
+        this.categoryCourse = categoryCourse;
+    }
+
+    public Integer getTrainerId() {
+        return trainerId;
+    }
+
+    public void setTrainerId(Integer trainerId) {
+        this.trainerId = trainerId;
+    }
+
+    public Set<Integer> getStudentIds() {
+        return studentIds;
+    }
+
+    public void setStudentIds(Set<Integer> studentIds) {
+        this.studentIds = studentIds;
+    }
+
+    public List<CourseResource> getResources() {
+        return resources;
+    }
+
+    public void setResources(List<CourseResource> resources) {
+        this.resources = resources;
+    }
 }

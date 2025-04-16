@@ -1,0 +1,127 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Sign Up</h2>
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" formControlName="name" class="form-control" placeholder="Enter your name" />
+              <div *ngIf="registerFormSubmitted && registerForm.controls.name.invalid" class="text-danger small">
+                Name is required.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Email</label>
+              <input type="email" formControlName="email" class="form-control" placeholder="Enter your email" />
+              <div *ngIf="registerFormSubmitted && registerForm.controls.email.invalid" class="text-danger small">
+                Valid email is required.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Phone Number</label>
+              <input type="text" formControlName="phoneNumber" class="form-control" placeholder="Enter your phone number" />
+  <div *ngIf="registerFormSubmitted && registerForm.controls.phoneNumber.invalid" class="text-danger small">
+    <span *ngIf="registerForm.controls.phoneNumber.errors?.required">Phone number is required.</span>
+    <span *ngIf="registerForm.controls.phoneNumber.errors?.pattern">Only numbers are allowed.</span>
+  </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <input type="text" formControlName="address" class="form-control" placeholder="Enter your address" />
+              <div *ngIf="registerFormSubmitted && registerForm.controls.address.invalid" class="text-danger small">
+                Address is required.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" formControlName="dateOfBirth" class="form-control" />
+              <div *ngIf="registerFormSubmitted && registerForm.controls.dateOfBirth.invalid" class="text-danger small">
+                Date of birth is required.
+              </div>
+            </div>
+
+            <div class="mb-3 position-relative">
+              <label class="form-label">Password</label>
+              <div class="input-group">
+                <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control" placeholder="Enter password" />
+                <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('password')">
+                  <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </button>
+              </div>
+              <div *ngIf="registerFormSubmitted && registerForm.controls.password.invalid" class="text-danger small">
+                Password must be at least 6 characters.
+              </div>
+            </div>
+
+            <div class="mb-3 position-relative">
+              <label class="form-label">Confirm Password</label>
+              <div class="input-group">
+                <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" class="form-control" placeholder="Confirm password" />
+                <button type="button" class="btn btn-outline-secondary" (click)="togglePasswordVisibility('confirmPassword')">
+                  <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+                </button>
+              </div>
+              <div *ngIf="registerFormSubmitted && registerForm.controls.confirmPassword.errors?.mustMatch" class="text-danger small">
+                Passwords must match.
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label class="form-label">Select Role</label>
+              <div class="d-flex justify-content-between">
+                <div
+                  class="role-card p-3 text-center"
+                  [ngClass]="{ 'selected': registerForm.value.role === 'STUDENT' }"
+                  (click)="selectRole('STUDENT')"
+                >
+                  <i class="bi bi-person-lines-fill role-icon"></i>
+                  <p class="mb-0">Student</p>
+                </div>
+            
+                <div
+                  class="role-card p-3 text-center"
+                  [ngClass]="{ 'selected': registerForm.value.role === 'PARTNER' }"
+                  (click)="selectRole('PARTNER')"
+                >
+                  <i class="bi bi-briefcase role-icon"></i>
+                  <p class="mb-0">Partner</p>
+                </div>
+            
+                <div
+                  class="role-card p-3 text-center"
+                  [ngClass]="{ 'selected': registerForm.value.role === 'TRAINER' }"
+                  (click)="selectRole('TRAINER')"
+                >
+                  <i class="bi bi-mortarboard role-icon"></i>
+                  <p class="mb-0">Trainer</p>
+                </div>
+              </div>
+              <input type="hidden" formControlName="role" />
+              <div *ngIf="registerFormSubmitted && registerForm.controls.role.invalid" class="text-danger small">
+                Role is required.
+              </div>
+            </div>
+            
+
+            <div class="form-check mb-3">
+              <input type="checkbox" formControlName="acceptTerms" class="form-check-input" id="termsCheck" />
+              <label class="form-check-label" for="termsCheck">Accept Terms & Conditions</label>
+              <div *ngIf="registerFormSubmitted && registerForm.controls.acceptTerms.invalid" class="text-danger small">
+                You must accept the terms.
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
