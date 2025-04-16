@@ -9,6 +9,8 @@ This project is a **Course Management System** developed as part of the coursewo
 - Upload course resources (documents, videos, images) to **Supabase** cloud storage.
 - Advanced search, filtering, and pagination.
 - AI-powered review suggestions using **Gemini AI**.
+- Pdf Genration Module file
+- Zip compress download courses content
 
 ### Event Management
 - Manage educational events.
