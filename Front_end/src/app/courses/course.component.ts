@@ -27,6 +27,7 @@ export class CourseComponent implements OnInit {
   recommendedCourses: Course[] = [];
   popularCourses: Course[] = [];
   showRecommendations = false;
+  rating?: number;  // Changed from rate to rating
   page: Page<Course> = {
     content: [],
     totalElements: 0,

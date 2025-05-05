@@ -708,7 +708,107 @@ button[type="submit"]:hover {
     font-size: 0.85rem;
   }
 }
+/* Level badge styles */
+.level-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 
+  /* Different colors for different levels */
+  &.beginner {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #90caf9;
+  }
+
+  &.intermediate {
+    background-color: #e8f5e9;
+    color: #388e3c;
+    border: 1px solid #a5d6a7;
+  }
+
+  &.advanced {
+    background-color: #ffebee;
+    color: #d32f2f;
+    border: 1px solid #ef9a9a;
+  }
+
+  &.expert {
+    background-color: #f3e5f5;
+    color: #8e24aa;
+    border: 1px solid #ce93d8;
+  }
+}
+/* Recommendation card specific styles */
+.rcard {
+  .level-badge {
+    margin-left: 8px;
+    font-size: 0.65rem;
+    padding: 3px 6px;
+  }
+
+  .rcard-meta {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .rcard-rating {
+    display: flex;
+    align-items: center;
+
+    .stars {
+      margin-right: 4px;
+
+      i {
+        font-size: 0.8rem;
+        color: #ffc107;
+      }
+    }
+
+    .rating-value {
+      font-size: 0.8rem;
+      color: #666;
+    }
+  }
+}
+
+/* Main course card specific styles */
+.course-card {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .level-badge {
+      margin-left: 8px;
+    }
+  }
+
+  .badge {
+    background-color: #e0e0e0;
+    color: #424242;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+  }
+}
+/* Description styling */
+.course-description {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 
 /* Button Colors */

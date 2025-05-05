@@ -45,21 +45,25 @@ export class RecommendationService {
 
     return this.http.get<any>(`${this.recommendationApiUrl}/recommend/${userId}`).pipe(
       map(response => {
-        // Handle both the new and old response formats
+        let courses = [];
         if (Array.isArray(response)) {
-          return response as Course[];
+          courses = response;
         } else if (response.recommendations) {
-          return response.recommendations as Course[];
+          courses = response.recommendations;
         }
-        return [];
+
+        // Map rating to rate
+        return courses.map(course => ({
+          ...course,
+          rate: course.rating  // Map the rating field to rate
+        }));
       }),
       catchError(error => {
         console.error('Error fetching recommendations:', error);
-        return of([]); // Return empty array instead of throwing error
+        return of([]);
       })
     );
   }
-
   getPopularCourses(): Observable<Course[]> {
     return this.http.get<any>(`${this.recommendationApiUrl}/popular`).pipe(
       map(response => {

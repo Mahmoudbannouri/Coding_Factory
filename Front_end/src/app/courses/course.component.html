@@ -1,6 +1,6 @@
 <div class="course-container">
   <div class="recommendation-section">
-    <div class="recommendation-header" (click)="toggleRecommendations()">
+    <div class="recommendation-header" *ngIf="isStudentLoggedIn" (click)="toggleRecommendations()">
       <h3>
         <i class="bi bi-stars"></i>
         Recommended For You
@@ -10,7 +10,7 @@
     </div>
 
     <div *ngIf="showRecommendations" class="recommendation-container">
-      <div *ngIf="recommendedCourses.length > 0; else noRecommendations">
+      <div *ngIf="recommendedCourses.length > 0;">
         <div class="recommendation-scroller" #recommendationScroller>
           <div class="recommendation-cards">
             <div *ngFor="let course of recommendedCourses" class="recommendation-card">
@@ -22,6 +22,10 @@
                 <div class="rcard-content">
                   <div class="rcard-category">{{ getCategoryDisplayName(course.categoryCourse) }}</div>
                   <h4 class="rcard-title">{{ course.title }}</h4>
+
+                  <!-- Added description -->
+                  <p class="course-description">{{ course.description }}</p>
+
                   <div class="rcard-meta">
                     <div class="rcard-rating">
                       <div class="stars">
@@ -30,21 +34,20 @@
                       </div>
                       <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
                     </div>
-                    <div class="rcard-level">{{ course.level }}</div>
+                    <!-- Updated level badge -->
+                    <div class="level-badge" [class]="course.level.toLowerCase()">
+                      {{ course.level }}
+                    </div>
                   </div>
-
                 </div>
               </div>
             </div>
-          </div>
         </div>
         <div class="scroll-controls" *ngIf="recommendedCourses.length > 1">
           <button (click)="scrollRecommendations(-1)" class="scroll-btn">
             <i class="bi bi-chevron-left"></i>
           </button>
-          <button (click)="scrollRecommendations(1)" class="scroll-btn">
-            <i class="bi bi-chevron-right"></i>
-          </button>
+
         </div>
       </div>
       <ng-template #noRecommendations>

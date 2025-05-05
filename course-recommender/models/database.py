@@ -24,22 +24,21 @@ class Database:
         """Get all courses with properly formatted category_course"""
         try:
             query = text("""
-            SELECT 
-                id, 
-                title, 
-                level, 
-                rate as rating, 
-                description, 
+            SELECT
+                id,
+                title,
+                level,
+                rate as rating,
+                description,
                 category_course,
                 image
             FROM courses
             """)
             df = pd.read_sql(query, self.engine)
-            
-            if len(df) == 0:
+
+            if df.empty:
                 logger.warning("No courses found in database")
-                return df
-            
+
             # Ensure consistent formatting with Java enum
             df['category_course'] = df['category_course'].str.upper().str.replace(' ', '_')
             logger.info(f"Loaded {len(df)} courses from database")
@@ -47,31 +46,31 @@ class Database:
         except Exception as e:
             logger.error(f"Failed to get courses: {str(e)}")
             raise
+
     def get_student_enrollments(self, student_id):
         """Get enrolled courses with properly formatted category_course"""
         try:
             query = text("""
-            SELECT 
-                c.id, 
-                c.title, 
-                c.level, 
-                c.rate as rating, 
-                c.description, 
-                c.category_course
+            SELECT
+                c.id,
+                c.title,
+                c.level,
+                c.rate as rating,
+                c.description,
+                c.category_course,
+                c.image
             FROM courses c
             WHERE c.id IN (
                 SELECT course_id FROM course_students WHERE student_id = :student_id
             )
             """)
             df = pd.read_sql(query, self.engine, params={'student_id': student_id})
-            
-            if len(df) == 0:
+
+            if df.empty:
                 logger.warning(f"No enrollments found for student {student_id}")
-                return df
-            
-            # Ensure consistent formatting with Java enum
+
+            # Ensure consistent formatting
             df['category_course'] = df['category_course'].str.upper().str.replace(' ', '_')
-            logger.info(f"Loaded {len(df)} enrollments for student {student_id}")
             return df
         except Exception as e:
             logger.error(f"Failed to get enrollments: {str(e)}")
