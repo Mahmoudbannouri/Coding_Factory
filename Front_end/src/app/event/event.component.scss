@@ -328,7 +328,35 @@ label {
   .floating-plus:active {
     transform: scale(0.95);
   }
+  .floating-recommend {
+    position: fixed;
+    right: 20px;
+    bottom: 100px; /* adjust to be above .floating-plus */
+    background-color: #007bff; /* initial color (different from .floating-plus) */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
   
+  .floating-recommend:hover {
+    background-color: #0056b3; /* darker shade on hover */
+  }
+  
+  .floating-recommend:active {
+    transform: scale(0.95);
+  }
+  .floating-recommend:active {
+    transform: scale(0.95);
+  }
   /* Rating Stars */
   .card-body p span {
     font-size: 24px;

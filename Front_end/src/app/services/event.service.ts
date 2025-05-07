@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Centre } from 'app/models/Centre';
 import { Event } from 'app/models/Event';
@@ -111,5 +111,11 @@ getUserCreator(id: number): Observable<User> {
   // Get a center by ID
   getCenterById(id: number): Observable<Centre> {
     return this.http.get<any>(`http://localhost:8090/Partnership/api/centers/getCenterById/${id}`);
+  }
+
+  getRecommendedEvents(features: Record<string, string>): Observable<Event[]> {
+    return this.http.post<Event[]>(`${this.apiUrl}/recommend`, features, {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    });
   }
 }

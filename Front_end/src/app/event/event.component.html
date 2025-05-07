@@ -73,7 +73,133 @@
   <div *ngIf="events.length === 0">
     <p>No Events available.</p>
   </div>
-  
+  <!-- Recommendation Modal -->
+  <div class="modal" [ngClass]="{ 'show': showRecommendModal, 'hide': !showRecommendModal }">
+    <div class="modal-content">
+      <h1>Event Recommendation</h1>
+      <form #recommendForm="ngForm">
+        <!-- Developer Community -->
+        <label for="developerCommunity">Are you associated with any developer Community?</label>
+        <div>
+          <input type="radio" id="developerCommunityYes" [(ngModel)]="recommendationData.developerCommunity" name="developerCommunity" value="Yes" required #developerCommunity="ngModel" />
+          <label for="developerCommunityYes">Yes</label>
+          <input type="radio" id="developerCommunityNo" [(ngModel)]="recommendationData.developerCommunity" name="developerCommunity" value="No" />
+          <label for="developerCommunityNo">No</label>
+        </div>
+        <div *ngIf="developerCommunity.invalid && (developerCommunity.dirty || developerCommunity.touched)" class="error-message">
+          <div *ngIf="developerCommunity.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Hackathons Participation -->
+        <label for="hackathons">Participating in Hackathons and other competitions?</label>
+        <div>
+          <input type="radio" id="hackathonsYes" [(ngModel)]="recommendationData.hackathons" name="hackathons" value="Yes" required #hackathons="ngModel" />
+          <label for="hackathonsYes">Yes</label>
+          <input type="radio" id="hackathonsNo" [(ngModel)]="recommendationData.hackathons" name="hackathons" value="No" />
+          <label for="hackathonsNo">No</label>
+        </div>
+        <div *ngIf="hackathons.invalid && (hackathons.dirty || hackathons.touched)" class="error-message">
+          <div *ngIf="hackathons.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Programming Languages -->
+        <label for="programmingLanguages">How many programming languages do you know?</label>
+        <select id="programmingLanguages" [(ngModel)]="recommendationData.programmingLanguages" name="programmingLanguages" required #programmingLanguages="ngModel">
+          <option value="1">1</option>
+          <option value="2-3">2-3</option>
+          <option value="4-5">4-5</option>
+          <option value="More than 5">More than 5</option>
+        </select>
+        <div *ngIf="programmingLanguages.invalid && (programmingLanguages.dirty || programmingLanguages.touched)" class="error-message">
+          <div *ngIf="programmingLanguages.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Volunteer Groups -->
+        <label for="volunteerGroups">Involved in additional volunteer groups? (e.g., NCC, NSS)</label>
+        <div>
+          <input type="radio" id="volunteerGroupsYes" [(ngModel)]="recommendationData.volunteerGroups" name="volunteerGroups" value="Yes" required #volunteerGroups="ngModel" />
+          <label for="volunteerGroupsYes">Yes</label>
+          <input type="radio" id="volunteerGroupsNo" [(ngModel)]="recommendationData.volunteerGroups" name="volunteerGroups" value="No" />
+          <label for="volunteerGroupsNo">No</label>
+        </div>
+        <div *ngIf="volunteerGroups.invalid && (volunteerGroups.dirty || volunteerGroups.touched)" class="error-message">
+          <div *ngIf="volunteerGroups.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Active in Developer Communities -->
+        <label for="activeDeveloperCommunities">Active in developer Communities</label>
+        <div>
+          <input type="radio" id="activeDeveloperCommunitiesYes" [(ngModel)]="recommendationData.activeDeveloperCommunities" name="activeDeveloperCommunities" value="Yes" required #activeDeveloperCommunities="ngModel" />
+          <label for="activeDeveloperCommunitiesYes">Yes</label>
+          <input type="radio" id="activeDeveloperCommunitiesNo" [(ngModel)]="recommendationData.activeDeveloperCommunities" name="activeDeveloperCommunities" value="No" />
+          <label for="activeDeveloperCommunitiesNo">No</label>
+        </div>
+        <div *ngIf="activeDeveloperCommunities.invalid && (activeDeveloperCommunities.dirty || activeDeveloperCommunities.touched)" class="error-message">
+          <div *ngIf="activeDeveloperCommunities.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Achievement Count -->
+        <label for="achievementCount">Number of achievements</label>
+        <input type="number" id="achievementCount" [(ngModel)]="recommendationData.achievementCount" name="achievementCount" min="0" required #achievementCount="ngModel" />
+        <div *ngIf="achievementCount.invalid && (achievementCount.dirty || achievementCount.touched)" class="error-message">
+          <div *ngIf="achievementCount.errors?.['required']">This field is required.</div>
+          <div *ngIf="achievementCount.errors?.['min']">Value cannot be negative.</div>
+        </div>
+        <!-- Pitched an Idea -->
+        <label for="pitchedIdea">Have you ever pitched any idea?</label>
+        <div>
+          <input type="radio" id="pitchedIdeaYes" [(ngModel)]="recommendationData.pitchedIdea" name="pitchedIdea" value="Yes" required #pitchedIdea="ngModel" />
+          <label for="pitchedIdeaYes">Yes</label>
+          <input type="radio" id="pitchedIdeaNo" [(ngModel)]="recommendationData.pitchedIdea" name="pitchedIdea" value="No" />
+          <label for="pitchedIdeaNo">No</label>
+        </div>
+        <div *ngIf="pitchedIdea.invalid && (pitchedIdea.dirty || pitchedIdea.touched)" class="error-message">
+          <div *ngIf="pitchedIdea.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Software Projects -->
+        <label for="softwareProjects">Have you made any Software based projects?</label>
+        <div>
+          <input type="radio" id="softwareProjectsYes" [(ngModel)]="recommendationData.softwareProjects" name="softwareProjects" value="Yes" required #softwareProjects="ngModel" />
+          <label for="softwareProjectsYes">Yes</label>
+          <input type="radio" id="softwareProjectsNo" [(ngModel)]="recommendationData.softwareProjects" name="softwareProjects" value="No" />
+          <label for="softwareProjectsNo">No</label>
+        </div>
+        <div *ngIf="softwareProjects.invalid && (softwareProjects.dirty || softwareProjects.touched)" class="error-message">
+          <div *ngIf="softwareProjects.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- GitHub Exposure -->
+        <label for="githubExposure">Exposure to GitHub?</label>
+        <div>
+          <input type="radio" id="githubExposureYes" [(ngModel)]="recommendationData.githubExposure" name="githubExposure" value="Yes" required #githubExposure="ngModel" />
+          <label for="githubExposureYes">Yes</label>
+          <input type="radio" id="githubExposureNo" [(ngModel)]="recommendationData.githubExposure" name="githubExposure" value="No" />
+          <label for="githubExposureNo">No</label>
+        </div>
+        <div *ngIf="githubExposure.invalid && (githubExposure.dirty || githubExposure.touched)" class="error-message">
+          <div *ngIf="githubExposure.errors?.['required']">This field is required.</div>
+        </div>
+        <!-- Total Projects -->
+        <label for="totalProjects">Total number of projects</label>
+        <input type="number" id="totalProjects" [(ngModel)]="recommendationData.totalProjects" name="totalProjects" min="0" required #totalProjects="ngModel" />
+        <div *ngIf="totalProjects.invalid && (totalProjects.dirty || totalProjects.touched)" class="error-message">
+          <div *ngIf="totalProjects.errors?.['required']">This field is required.</div>
+          <div *ngIf="totalProjects.errors?.['min']">Value cannot be negative.</div>
+        </div>
+        <!-- Tech Involvement -->
+        <label for="techInvolvement">Tech involvement level (1-5)</label>
+        <input type="number" id="techInvolvement" [(ngModel)]="recommendationData.techInvolvement" name="techInvolvement" min="1" max="5" required #techInvolvement="ngModel" />
+        <div *ngIf="techInvolvement.invalid && (techInvolvement.dirty || techInvolvement.touched)" class="error-message">
+          <div *ngIf="techInvolvement.errors?.['required']">This field is required.</div>
+          <div *ngIf="techInvolvement.errors?.['min'] || techInvolvement.errors?.['max']">Value must be between 1 and 5.</div>
+        </div>
+        <!-- Community/Hackathon Participation -->
+        <label for="communityHackathon">Community or hackathon participation count</label>
+        <input type="number" id="communityHackathon" [(ngModel)]="recommendationData.communityHackathon" name="communityHackathon" min="0" required #communityHackathon="ngModel" />
+        <div *ngIf="communityHackathon.invalid && (communityHackathon.dirty || communityHackathon.touched)" class="error-message">
+          <div *ngIf="communityHackathon.errors?.['required']">This field is required.</div>
+          <div *ngIf="communityHackathon.errors?.['min']">Value cannot be negative.</div>
+        </div>
+        <!-- Buttons -->
+        <button type="button" (click)="getRecommendedEvents()" [disabled]="recommendForm.invalid" class="btn-primary">Predict</button>
+        <button type="button" (click)="closeRecommendModal()" class="btn-close">Close</button>
+      </form>
+    </div>
+  </div>
   <!-- Add/Edit Modal -->
   <div class="modal" [ngClass]="{ 'show': showModal && canAddEvent(), 'hide': !showModal || !canAddEvent() }">
     <div class="modal-content">
@@ -276,4 +402,6 @@
   
   <!-- Floating Plus Button -->
   <button *ngIf="canAddEvent()" class="floating-plus" (click)="openAddEventModal()">+</button>
+  <!-- Floating Recommend Button -->
+  <button class="floating-recommend" (click)="openRecommendModal()">💡</button>
 </div>

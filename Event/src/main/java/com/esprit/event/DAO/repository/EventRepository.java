@@ -1,5 +1,6 @@
 package com.esprit.event.DAO.repository;
 
+import com.esprit.event.DAO.entities.Category;
 import com.esprit.event.DAO.entities.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -33,4 +34,7 @@ public interface EventRepository extends JpaRepository<Event,Integer> {
             @Param("endOfMonth") LocalDate endOfMonth,
             @Param("nextMonth") LocalDate nextMonth
     );
+
+        List<Event> findByEventCategory(Category category);
+
 }

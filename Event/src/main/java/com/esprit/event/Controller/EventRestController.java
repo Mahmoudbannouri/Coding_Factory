@@ -3,6 +3,7 @@ package com.esprit.event.Controller;
 import com.esprit.event.DAO.entities.Event;
 import com.esprit.event.Services.IEventService;
 import com.esprit.event.Services.GeminiAiService;
+import com.esprit.event.Services.PredictionService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -23,6 +24,17 @@ public class EventRestController {
     private IEventService eventService;
     @Autowired
     private GeminiAiService geminiAIService;
+    @Autowired
+    private PredictionService predictionService;
+
+
+    @PostMapping("/recommend")
+    public ResponseEntity<List<Event>> getRecommendedEvents(@RequestBody Map<String, String> features) {
+        System.out.println(features);
+        List<Event> events = predictionService.getRecommendedEvents(features);
+        System.out.println(events);
+        return ResponseEntity.ok(events);
+    }
 
     @PostMapping("/generate-description")
     public ResponseEntity<Map<String, String>> generateEventDescription(@RequestBody Event event) throws IOException {

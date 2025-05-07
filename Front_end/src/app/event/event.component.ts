@@ -62,6 +62,39 @@ export class EventComponent implements OnInit {
   enrolledFilter: any;
   createdBy:any;
 filterType: string = 'all';
+
+// Recommendation-related properties
+showRecommendModal: boolean = false;
+recommendationData: {
+  developerCommunity: string;
+  hackathons: string;
+  programmingLanguages: string;
+  volunteerGroups: string;
+  activeDeveloperCommunities: string;
+  achievementCount: number;
+  pitchedIdea: string;
+  softwareProjects: string;
+  githubExposure: string;
+  specificTechnology: string;
+  totalProjects: number;
+  techInvolvement: number;
+  communityHackathon: number;
+} = {
+  developerCommunity: '',
+  hackathons: '',
+  programmingLanguages: '',
+  volunteerGroups: '',
+  activeDeveloperCommunities: '',
+  achievementCount: 0,
+  pitchedIdea: '',
+  softwareProjects: '',
+  githubExposure: '',
+  specificTechnology: '',
+  totalProjects: 0,
+  techInvolvement: 1,
+  communityHackathon: 0
+};
+
   constructor(private zone: NgZone ,private storageService: StorageService,private eventService: EventService,private datePipe: DatePipe,private cdr: ChangeDetectorRef,private ngZone: NgZone,private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
@@ -719,4 +752,131 @@ closeViewMoreModal() {
   this.showViewMoreModal = false;
   this.selectedEvent = null; // Clear the selected event
 }
+
+openRecommendModal(): void {
+  this.showRecommendModal = true;
+  this.recommendationData = {
+    developerCommunity: '',
+    hackathons: '',
+    programmingLanguages: '',
+    volunteerGroups: '',
+    activeDeveloperCommunities: '',
+    achievementCount: 0,
+    pitchedIdea: '',
+    softwareProjects: '',
+    githubExposure: '',
+    specificTechnology: '',
+    totalProjects: 0,
+    techInvolvement: 1,
+    communityHackathon: 0
+  };
+  this.cdr.detectChanges();
+}
+
+closeRecommendModal(): void {
+  this.showRecommendModal = false;
+  this.cdr.detectChanges();
+}
+
+getRecommendedEvents(): void {
+  const features: Record<string, string> = {
+    '5. Are you associated with any developer Community?': this.recommendationData.developerCommunity,
+    '7. Participating in Hackathons and other competitions?': this.recommendationData.hackathons,
+    '1. How many programming languages do you know? ': this.recommendationData.programmingLanguages,
+    '9. Involved in additional volunteer groups?(NCC,NSS, Social Welfare Groups  or any other)': this.recommendationData.volunteerGroups,
+    '6. Active in developer Communities': this.recommendationData.activeDeveloperCommunities,
+    achievement_count: this.recommendationData.achievementCount.toString(),
+    '10. Have you ever pitched any idea?': this.recommendationData.pitchedIdea,
+    '8. Have you made any Software based projects?': this.recommendationData.softwareProjects,
+    '4. Exposure to GitHub ?': this.recommendationData.githubExposure,
+    '2.  Actively involved in Specific technology?': this.recommendationData.specificTechnology || 'None',
+    total_projects: this.recommendationData.totalProjects.toString(),
+    tech_involvement: this.recommendationData.techInvolvement.toString(),
+    community_hackathon: this.recommendationData.communityHackathon.toString()
+  };
+
+  console.log('Sending features to backend:', features);
+
+  this.eventService.getRecommendedEvents(features).subscribe(
+    (events: Event[]) => {
+      console.log('Received recommended events:', events);
+      if (events.length === 0) {
+        this.ngZone.run(() => {
+          Swal.fire({
+            icon: 'info',
+            title: 'No Events Found',
+            text: 'No events match your preferences.',
+            timer: 2000,
+            showConfirmButton: false
+          });
+        });
+        this.events = [];
+        this.filteredEvents = [];
+        this.totalPaginationPages = 1;
+        this.currentPage = 0;
+        this.cdr.detectChanges();
+        this.closeRecommendModal();
+        return;
+      }
+
+      this.events = events.map(event => ({
+        ...event,
+        timestamp: new Date(event.eventDate).getTime(),
+        isExpanded: false,
+        eventCreatorName: null
+      }));
+
+      console.log('Mapped events:', this.events);
+
+      const nameObservables = this.events.map(event => {
+        if (event.eventCreator) {
+          return this.getEventCreatorName(event.eventCreator).pipe(
+            map(name => ({ id: event.eventCreator, name })),
+            catchError(() => of({ id: event.eventCreator, name: 'Unknown' }))
+          );
+        } else {
+          return of({ id: null, name: 'Unknown' });
+        }
+      });
+
+      forkJoin(nameObservables).subscribe(results => {
+        this.events.forEach(event => {
+          const match = results.find(res => res.id === event.eventCreator);
+          if (match) {
+            event.eventCreatorName = match.name;
+          }
+        });
+        console.log('Events with creator names:', this.events);
+        this.totalPaginationPages = Math.ceil(this.events.length / this.eventsPerPage);
+        this.currentPage = 0; // Reset to first page
+        this.filteredEvents = this.events.slice(0, this.eventsPerPage);
+        console.log('Updated filteredEvents:', this.filteredEvents);
+        this.closeRecommendModal();
+        this.ngZone.run(() => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: 'Recommended events loaded successfully!',
+            timer: 2000,
+            showConfirmButton: false
+          });
+        });
+        this.cdr.detectChanges();
+      });
+    },
+    error => {
+      console.error('Error fetching recommended events:', error);
+      this.ngZone.run(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to load recommended events: ' + (error.message || 'Unknown error'),
+          timer: 3000,
+          showConfirmButton: false
+        });
+      });
+    }
+  );
+}
+
 }
