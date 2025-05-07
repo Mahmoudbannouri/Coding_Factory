@@ -25,7 +25,6 @@ export class CourseComponent implements OnInit {
   categoryEnum = CategoryEnum;
   categoryColors: { [key: string]: string } = {};
   recommendedCourses: Course[] = [];
-  popularCourses: Course[] = [];
   showRecommendations = false;
   rating?: number;  // Changed from rate to rating
   page: Page<Course> = {
@@ -67,7 +66,6 @@ export class CourseComponent implements OnInit {
     // Load recommendations if user is logged in
     if (this.storageService.isLoggedIn()) {
       this.loadRecommendations();
-      this.loadPopularCourses();
 
     }
     console.log('User role:', StorageService.getUserRole(), 'Is student:', this.isStudentLoggedIn);
@@ -112,31 +110,14 @@ export class CourseComponent implements OnInit {
       next: (courses) => {
         this.recommendedCourses = courses;
         this.showRecommendations = this.recommendedCourses.length > 0;
-
-        // If no personalized recommendations, load popular courses
-        if (!this.showRecommendations) {
-          this.loadPopularCourses();
-        }
       },
       error: (err) => {
         console.error('Error loading recommendations:', err);
         this.showRecommendations = false;
-        this.loadPopularCourses(); // Fallback to popular courses
       }
     });
   }
 
-  loadPopularCourses(): void {
-    this.recommendationService.getPopularCourses().subscribe({
-      next: (courses) => {
-        this.popularCourses = courses;
-      },
-      error: (err) => {
-        console.error('Error loading popular courses:', err);
-        this.popularCourses = [];
-      }
-    });
-  }
 
   toggleRecommendations(): void {
     this.showRecommendations = !this.showRecommendations;

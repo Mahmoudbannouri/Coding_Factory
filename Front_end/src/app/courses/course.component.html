@@ -25,7 +25,10 @@
 
                   <!-- Added description -->
                   <p class="course-description">{{ course.description }}</p>
-
+                  <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round level-badge">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Module file</span>
+                  </button>
                   <div class="rcard-meta">
                     <div class="rcard-rating">
                       <div class="stars">
@@ -59,6 +62,7 @@
       </ng-template>
     </div>
   </div>
+    <br>
   <div class="search-container">
     <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..."
            class="search-input" (ngModelChange)="onSearchChange()">
@@ -113,7 +117,7 @@
             </a>
             <div class="card-body">
               <p><strong>Description:</strong> {{ course.description }}</p>
-              <p><strong>Level:</strong> {{ course.level }}</p>
+              <p ><strong>Level:</strong> {{ course.level }}</p>
               <p class="badge">{{ getCategoryDisplayName(course.categoryCourse) }}</p>
             </div>
             <div class="rating">

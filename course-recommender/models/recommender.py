@@ -1,16 +1,17 @@
 import joblib
 import pandas as pd
 import numpy as np
-from collections import defaultdict
+import os
 import logging
+from collections import defaultdict
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 from config import Config
-import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
 
 class CourseRecommender:
     def __init__(self):
@@ -41,43 +42,26 @@ class CourseRecommender:
 
             self.course_vectors = self.vectorizer.fit_transform(self.courses_df['text'])
 
-            n_clusters = min(
-                Config.CLUSTERS,
-                max(len(self.courses_df['category_course'].unique()), len(self.courses_df) // 2)
-            )
-
-            self.kmeans = KMeans(
-                n_clusters=n_clusters,
-                random_state=42,
-                n_init='auto'
-            )
-
+            n_clusters = 4
+            self.kmeans = KMeans(n_clusters=n_clusters, n_init='auto')
             self.courses_df['cluster'] = self.kmeans.fit_predict(self.course_vectors)
-            self._build_category_cluster_mapping()
             self.is_trained = True
             self._save_model()
+
             logger.info("Training completed successfully")
+         
+
         except Exception as e:
             logger.error(f"Training failed: {str(e)}")
             raise
-
-    def _build_category_cluster_mapping(self):
-        """Build a mapping from category to cluster"""
-        self.category_to_cluster_map = defaultdict(list)
-        for category in self.courses_df['category_course'].unique():
-            category_courses = self.courses_df[self.courses_df['category_course'] == category]
-            if len(category_courses) > 0:
-                cluster_counts = category_courses['cluster'].value_counts()
-                self.category_to_cluster_map[category] = cluster_counts.index.tolist()[:3]
 
     def _save_model(self):
         """Save the trained model components to disk"""
         model_data = {
             'vectorizer': self.vectorizer,
             'kmeans': self.kmeans,
-            'courses_df': self.courses_df,  # Add this line
-            'course_vectors': self.course_vectors,  # Add this line
-            'category_to_cluster_map': dict(self.category_to_cluster_map),
+            'courses_df': self.courses_df,
+            'course_vectors': self.course_vectors,
             'config': {
                 'n_clusters': self.kmeans.n_clusters,
                 'features': 'title+description+category_course'
@@ -96,87 +80,61 @@ class CourseRecommender:
                 recommender = cls()
                 recommender.vectorizer = model_data['vectorizer']
                 recommender.kmeans = model_data['kmeans']
-                recommender.courses_df = model_data['courses_df']  # Add this line
-                recommender.course_vectors = model_data['course_vectors']  # Add this line
-                recommender.category_to_cluster_map = model_data['category_to_cluster_map']
+                recommender.courses_df = model_data['courses_df']
+                recommender.course_vectors = model_data['course_vectors']
                 recommender.is_trained = True
                 logger.info("Model loaded successfully")
                 return recommender
             except Exception as e:
                 logger.error(f"Failed to load model: {str(e)}")
         return cls()
-
-    def recommend(self, enrolled_courses, n_recommendations=Config.MAX_RECOMMENDATIONS, min_similarity=Config.MIN_SIMILARITY):
-        """Generate course recommendations"""
+    def recommend(self, enrollments):
         if not self.is_trained:
-            raise ValueError("Model not trained")
-    
+            raise ValueError("Model not trained.")
+
+        # Step 1: Extract enrolled courses
+        enrolled_courses = self.courses_df[self.courses_df['id'].isin(enrollments['id'])]
         if enrolled_courses.empty:
-            logger.warning("No enrolled courses provided for recommendation")
+            logger.warning("No enrolled courses found in dataset.")
             return pd.DataFrame()
 
-        # Prepare enrolled courses text
-        enrolled_text = (
-            enrolled_courses['title'].str.lower() + " " +
-            enrolled_courses['description'].fillna('').str.lower() + " " +
-            enrolled_courses['category_course'].fillna('').str.lower()
-        )
+        enrolled_texts = enrolled_courses['text'].tolist()
+        logger.info(f"Enrolled courses text: {enrolled_texts}")
 
-        logger.info(f"Enrolled courses text: {enrolled_text.tolist()}")
+        # Step 2: Vectorize enrolled courses
+        enrolled_vector = self.vectorizer.transform([" ".join(enrolled_texts)])
+        logger.info(f"Enrolled vectors shape: {enrolled_vector.shape}")
 
-        # Vectorize enrolled courses
-        enrolled_vectors = self.vectorizer.transform(enrolled_text)
-        logger.info(f"Enrolled vectors shape: {enrolled_vectors.shape}")
+        # Step 3: Filter candidate courses in the same clusters
+        enrolled_clusters = enrolled_courses['cluster'].unique()
+        filtered_courses_df = self.courses_df[self.courses_df['cluster'].isin(enrolled_clusters)]
+        filtered_vectors = self.course_vectors[filtered_courses_df.index]
 
-        # Calculate similarity scores
-        similarity_scores = cosine_similarity(self.course_vectors, enrolled_vectors)
-        mean_similarity = similarity_scores.mean(axis=1)
+        # Step 4: Compute similarity
+        similarities = cosine_similarity(enrolled_vector, filtered_vectors).flatten()
+        logger.info(f"Similarity scores before filtering: Min={similarities.min():.2f}, Max={similarities.max():.2f}, Mean={similarities.mean():.2f}")
 
-        # Create recommendations dataframe
-        recommendations = self.courses_df.copy()
-        recommendations['similarity'] = mean_similarity
+        # Step 5: Filter based on the MIN_SIMILARITY threshold
+        filtered_recommendations = []
+        enrolled_ids = set(enrollments['id'])
 
-        # Filter out enrolled courses and below threshold
-        recommendations = recommendations[
-            ~recommendations['title'].str.lower().isin(enrolled_courses['title'].str.lower())
-        ]
-        
-        # Log similarity distribution before filtering
-        logger.info(f"Similarity scores before filtering: Min={recommendations['similarity'].min():.2f}, "
-                    f"Max={recommendations['similarity'].max():.2f}, "
-                    f"Mean={recommendations['similarity'].mean():.2f}")
+        for idx in np.argsort(similarities)[::-1]:
+            actual_idx = filtered_courses_df.index[idx]
+            course_id = self.courses_df.loc[actual_idx, 'id']
+            
+            if course_id not in enrolled_ids:
+                similarity_score = similarities[idx]
+                
+                # Apply MIN_SIMILARITY filter to include all courses with similarity >= 0.018
+                if similarity_score >= 0.018:
+                    filtered_recommendations.append((actual_idx, similarity_score))
 
-        # Apply min_similarity threshold
-        recommendations = recommendations[recommendations['similarity'] >= min_similarity]
-        
-        if recommendations.empty:
-            logger.warning(f"No recommendations found with similarity >= {min_similarity}")
-            return pd.DataFrame()
+        logger.info("Filtered recommendations with similarity >= MIN_SIMILARITY:")
+        for idx, score in filtered_recommendations:
+            course_title = self.courses_df.loc[idx, 'title']
+            logger.info(f"{course_title}: {score:.3f}")
 
-        # Log the top candidates with their similarity scores
-        top_candidates = recommendations.nlargest(20, 'similarity')
-        logger.info("Top candidate courses and their similarity scores:")
-        for idx, row in top_candidates.iterrows():
-            logger.info(f"{row['title']}: {row['similarity']:.3f}")
-
-        # Select final recommendations - simple top N by similarity
-        final_recs = recommendations.nlargest(n_recommendations, 'similarity')
-
-        # Alternative approach if you want to ensure diversity:
-        # final_recs = pd.DataFrame()
-        # clusters_used = set()
-        # 
-        # # First pass: get top course from each relevant cluster
-        # for cluster_id in recommendations['cluster'].unique():
-        #     cluster_recs = recommendations[recommendations['cluster'] == cluster_id]
-        #     top_rec = cluster_recs.nlargest(1, 'similarity')
-        #     final_recs = pd.concat([final_recs, top_rec])
-        #     clusters_used.add(cluster_id)
-        # 
-        # # Second pass: fill remaining slots with highest similarity
-        # if len(final_recs) < n_recommendations:
-        #     remaining = n_recommendations - len(final_recs)
-        #     extra_recs = recommendations[~recommendations['cluster'].isin(clusters_used)]
-        #     final_recs = pd.concat([final_recs, extra_recs.nlargest(remaining, 'similarity')])
-
-        return final_recs.head(n_recommendations)
+        # Step 6: Return recommended DataFrame with scores
+        result_df = self.courses_df.loc[[idx for idx, _ in filtered_recommendations]].copy()
+        result_df['similarity_score'] = [score for _, score in filtered_recommendations]
+        return result_df

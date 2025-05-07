@@ -4,7 +4,6 @@ from models.recommender import CourseRecommender
 from config import Config
 import logging
 from flask_cors import CORS
-import os
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -17,10 +16,21 @@ db = Database()
 recommender = CourseRecommender()
 
 # Load model if exists, otherwise needs training
-if os.path.exists(Config.MODEL_PATH):
-    recommender = CourseRecommender.load()
-else:
-    logger.warning("No trained model found. Please train the model first.")
+#if os.path.exists(Config.MODEL_PATH):
+#    recommender = CourseRecommender.load()
+#else:
+#    logger.warning("No trained model found. Please train the model first.")
+
+
+# Always retrain to reflect new courses
+try:
+    courses_df = db.get_courses()  
+    recommender.train(courses_df)      
+    recommender._save_model                 
+    logger.info("Recommender model retrained and saved.")
+except Exception as e:
+    logger.error(f"Failed to train model: {e}")
+
 
 @app.route('/recommend/<int:student_id>', methods=['GET'])
 def recommend(student_id):

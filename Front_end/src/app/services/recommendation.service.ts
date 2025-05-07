@@ -64,21 +64,5 @@ export class RecommendationService {
       })
     );
   }
-  getPopularCourses(): Observable<Course[]> {
-    return this.http.get<any>(`${this.recommendationApiUrl}/popular`).pipe(
-      map(response => {
-        if (Array.isArray(response)) {
-          return response as Course[];
-        } else if (response.recommendations) {
-          return response.recommendations as Course[];
-        }
-        return [];
-      }),
-      catchError(error => {
-        console.error('Error fetching popular courses:', error);
-        return of([]); // Return empty array on error
-      })
-    );
-  }
 
 }
