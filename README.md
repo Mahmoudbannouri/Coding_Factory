@@ -1,7 +1,7 @@
 # Coding Factory - Event Management System
 
 ## Overview
-This project is a **Course Management System** developed as part of the coursework for **CS404 - Software Engineering** at **Esprit School of Engineering**. The system provides a comprehensive platform for managing educational content, including courses, PFE projects, partnerships, events, and evaluations.
+This Events Management System is a feature-rich platform designed to handle event creation, participant registration, and seamless integration with external tools like Google Calendar. The system also incorporates AI-powered description generation using Gemini AI, personalized event recommendations, email notifications, and advanced search, filtering, and pagination capabilities to ensure smooth event discovery and engagement.
 
 ## Features
 ### Event Management
