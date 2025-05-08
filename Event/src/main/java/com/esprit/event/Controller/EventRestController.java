@@ -30,7 +30,7 @@ public class EventRestController {
 
     @PostMapping("/recommend")
     public ResponseEntity<List<Event>> getRecommendedEvents(@RequestBody Map<String, String> features) {
-        System.out.println(features);
+
         List<Event> events = predictionService.getRecommendedEvents(features);
         System.out.println(events);
         return ResponseEntity.ok(events);

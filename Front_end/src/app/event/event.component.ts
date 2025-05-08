@@ -12,6 +12,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { StorageService } from 'app/shared/auth/storage.service';
 import { forkJoin, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { MainCategory } from 'app/models/MainCategory';
 
 declare var gapi: any;
 declare const google: any;
@@ -66,6 +67,7 @@ filterType: string = 'all';
 // Recommendation-related properties
 showRecommendModal: boolean = false;
 recommendationData: {
+  eventDifficulty: string;
   developerCommunity: string;
   hackathons: string;
   programmingLanguages: string;
@@ -80,6 +82,7 @@ recommendationData: {
   techInvolvement: number;
   communityHackathon: number;
 } = {
+  eventDifficulty: '',
   developerCommunity: '',
   hackathons: '',
   programmingLanguages: '',
@@ -437,6 +440,7 @@ closeAddEventModal(): void {
         } else {
           this.newEvent.centre = event.centre; // If already an object, just use it directly
         }
+      
         this.cdr.detectChanges();
         this.showModal = true;
       },
@@ -446,6 +450,7 @@ closeAddEventModal(): void {
     );
   }
   updateEvent(): void {
+    
     if (this.newEvent.idEvent) {
       this.ngZone.run(() => {
         console.log("Inside ngZone");
@@ -463,6 +468,7 @@ closeAddEventModal(): void {
       this.newEvent.eventDate = this.combineDateTime();
       this.eventService.updateEvent(this.newEvent.idEvent, this.newEvent).subscribe(
         (response) => {
+          
           console.log('Event updated:', response);
           this.getAllEvents(); 
           this.filterEvents(); // Refresh event list
@@ -477,6 +483,9 @@ closeAddEventModal(): void {
 
   getCategoryEnumValues(): string[] {
     return Object.keys(CategoryEnum).map(key => CategoryEnum[key as keyof typeof CategoryEnum]);
+  }
+  getMainCategoryValues(): string[] {
+    return Object.keys(MainCategory).map(key => MainCategory[key as keyof typeof MainCategory]);
   }
   getCenters(): void {
     this.eventService.getAllCenters().subscribe(
@@ -756,6 +765,7 @@ closeViewMoreModal() {
 openRecommendModal(): void {
   this.showRecommendModal = true;
   this.recommendationData = {
+    eventDifficulty: '',
     developerCommunity: '',
     hackathons: '',
     programmingLanguages: '',

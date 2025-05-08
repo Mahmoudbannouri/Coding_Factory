@@ -143,7 +143,7 @@ public class EventServiceImpl implements IEventService{
             existingEvent.setEventDescription(updatedEvent.getEventDescription());
             existingEvent.setEventDate(updatedEvent.getEventDate());
             existingEvent.setEventCategory(updatedEvent.getEventCategory());
-
+            existingEvent.setMainCategory(updatedEvent.getMainCategory());
             // Update the image URL if provided
             if (updatedEvent.getImageUrl() != null && !updatedEvent.getImageUrl().isEmpty()) {
                 // Only update the image URL if it's different

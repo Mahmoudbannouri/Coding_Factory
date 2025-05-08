@@ -21,6 +21,8 @@ public class Event {
     private String eventDescription;
     private LocalDateTime eventDate;
     @Enumerated(EnumType.STRING)
+    private MainCategory mainCategory;
+    @Enumerated(EnumType.STRING)
     private Category eventCategory;
     private String imageUrl;
     private int centre;

@@ -9,6 +9,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class PredictionService {
@@ -42,27 +43,42 @@ public class PredictionService {
             if (predictedEvent == null || predictedEvent.equals("No events predicted")) {
                 return Collections.emptyList();
             }
-
+            System.out.println(predictedEvent);
             // Map predicted event to Category enum
-            Category category = mapPredictedEventToCategory(predictedEvent);
+            MainCategory category = mapPredictedEventToCategory(predictedEvent);
+            List<Event> events = eventRepo.findByMainCategory(category);
 
-            // Fetch events from database matching the category
-            return eventRepo.findByEventCategory(category);
-        } catch (Exception e) {
-            throw new RuntimeException("Error predicting events: " + e.getMessage());
+// Filter by specificTechnology if provided
+            String specificTech = features.get("2.  Actively involved in Specific technology?");
+            if (specificTech != null && !specificTech.equalsIgnoreCase("None")) {
+                try {
+                    Category techCategory = Category.valueOf(specificTech.toUpperCase().replace(" ", "_"));
+                    events = events.stream()
+                            .filter(event -> event.getEventCategory() == techCategory)
+                            .collect(Collectors.toList());
+                } catch (IllegalArgumentException e) {
+                    // Log invalid category name
+                    System.out.println("Invalid specific technology category: " + specificTech);
+                    return Collections.emptyList(); // or skip filtering if you prefer
+                }
+            }
+
+            return events;
+        } finally {
+
         }
     }
 
-    private Category mapPredictedEventToCategory(String predictedEvent) {
+    private MainCategory mapPredictedEventToCategory(String predictedEvent) {
         switch (predictedEvent) {
             case "Coding Competition":
-                return Category.SECURITY;
+                return MainCategory.CODING_COMPETITION;
             case "Hackathon":
-                return Category.WEB_DEVELOPMENT;
+                return MainCategory.HACKATHON;
             case "Tech Workshop":
-                return Category.ARTIFICIAL_INTELLIGENCE;
+                return MainCategory.TECH_WORKSHOP;
             case "Entrepreneurship Meetup":
-                return Category.CLOUD;
+                return MainCategory.ENTREPRENEURSHIP_MEETUP;
             default:
                 throw new IllegalArgumentException("Unknown predicted event: " + predictedEvent);
         }
