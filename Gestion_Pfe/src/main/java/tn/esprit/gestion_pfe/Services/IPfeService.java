@@ -1,7 +1,5 @@
 package tn.esprit.gestion_pfe.Services;
 
-import tn.esprit.gestion_pfe.DAO.Enum.MeetingStatus;
-
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
 import tn.esprit.gestion_pfe.DAO.entities.UserDto;
 
@@ -26,18 +24,11 @@ public interface IPfeService {
 
     Pfe removeDocument(long pfeId, String documentName);
 
-    // Add meeting date
     Pfe addMeetingDate(long pfeId, Date meetingDate);
 
     List<Date> getMeetingDates(long pfeId);
 
     Pfe removeMeetingDate(long pfeId, Date meetingDate);
-    Pfe updateMeetingDate(long pfeId, Date oldDate, Date newDate);
-
-
-
-
-
 
     Pfe addJuryMember(long pfeId, String juryMember);
 

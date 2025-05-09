@@ -15,24 +15,16 @@ public class ApiGetwayApplication {
         SpringApplication.run(ApiGetwayApplication.class, args);
     }
 
+    // Dynamique configuration for multiple routes
     @Bean
     public RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 // Route for gestion-pfe service
-
-                .route("gestion-pfe", r -> r.path("/api/pfe/**")
+                .route("gestion_pfe", r -> r.path("/pfe/**")
                         .uri("lb://Gestion_Pfe"))  // Ensure this matches the Eureka service name
                 // Route for gestion-course service
                 .route("gestion-course", r -> r.path("/gestion-course/**")
-
                         .uri("lb://gestion-course"))  // Ensure this matches the Eureka service name
-                // Route for Spring Boot gestion-reviews service
-                .route("gestion-reviews", r -> r.path("/reviews/**")
-                        .uri("lb://reviews-service"))  // Ensure this matches the Eureka service name for Spring Boot reviews service
-                // Route for Node.js reviews service
-                // In your RouteLocator bean
-                .route("reviews-service", r -> r.path("/reviews/**")
-                        .uri("lb://reviews-service"))  // Must match Eureka registration exactly
-                .build();// Only one .build() is needed
+                .build();
     }
 }

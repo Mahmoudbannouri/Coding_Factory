@@ -1,7 +1,7 @@
 package tn.esprit.gestion_pfe.DAO.entities;
 
-
-
+import ch.qos.logback.core.status.StatusManager;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,12 +31,11 @@ public class Pfe {
 
     private String projectTitle;
     private String description;
-
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date endDate;
+<<<<<<< HEAD
 
 
 
@@ -52,16 +51,22 @@ public class Pfe {
 
 
 
+=======
+    private Long studentId;
+    private Long trainerId;
+    private Long entrepriseId;
+>>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
     private String meetingLink;
     private String meetingNotes;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date meetingDate;
 
-
     @Enumerated(EnumType.STRING)
     private PfeLevel level; // Licence, Master, Ingénieur
+
     @Enumerated(EnumType.STRING)
     private PfeStatus status; // En cours, Validé, Refusé
+
     @Enumerated(EnumType.STRING)
     @Column(length = 50)
     private CategoryEnum category;
@@ -76,20 +81,13 @@ public class Pfe {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private List<Date> meetingDates = new ArrayList<>();
 
-
-
     @Builder.Default
     @ElementCollection
     private List<String> juryNames = new ArrayList<>();
 
-
-
-
-
-
-
-
-
+    @OneToMany(mappedBy = "pfe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
+    private List<Feedback> feedbackEntities;// Liste des feedbacks sous forme d'entité
 
     public Long getId() {
         return id;
@@ -227,6 +225,13 @@ public class Pfe {
         this.juryNames = juryNames;
     }
 
+    public List<Feedback> getFeedbackEntities() {
+        return feedbackEntities;
+    }
+
+    public void setFeedbackEntities(List<Feedback> feedbackEntities) {
+        this.feedbackEntities = feedbackEntities;
+    }
 
     public void setStart(LocalDateTime newStart) {
     }

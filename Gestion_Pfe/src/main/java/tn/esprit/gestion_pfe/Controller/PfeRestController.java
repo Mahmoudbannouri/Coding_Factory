@@ -9,17 +9,21 @@ import tn.esprit.gestion_pfe.DAO.entities.Pfe;
 import tn.esprit.gestion_pfe.DAO.entities.UserDto;
 import tn.esprit.gestion_pfe.Services.IPfeService;
 import tn.esprit.gestion_pfe.Services.PfeService;
+<<<<<<< HEAD
 import tn.esprit.gestion_pfe.Client.UserServiceClient;
 import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.util.Date;
+=======
+>>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
 
+import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
 @RestController
-@RequestMapping("/api/pfe")
+@RequestMapping("/pfe")
 public class PfeRestController {
     @Autowired
     public IPfeService pfeService;
@@ -95,7 +99,10 @@ public class PfeRestController {
         return pfeService.removeDocument(pfeId, documentName);
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
     // Gestion des Réunions
 
     @PostMapping("/{pfeId}/meeting")
@@ -109,25 +116,11 @@ public class PfeRestController {
     }
 
     @DeleteMapping("/{pfeId}/meeting")
-    public ResponseEntity<?> removeMeetingDate(
-            @PathVariable Long pfeId,
-            @RequestParam String meetingDate) {  // Changed from @RequestBody to @RequestParam
-
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            Date date = format.parse(meetingDate);
-
-            Pfe updatedPfe = pfeService.removeMeetingDate(pfeId, date);
-            if (updatedPfe != null) {
-                return ResponseEntity.ok(updatedPfe);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (ParseException e) {
-            return ResponseEntity.badRequest().body("Format de date invalide. Utilisez le format yyyy-MM-dd");
-        }
+    public Pfe removeMeetingDate(@PathVariable Long pfeId, @RequestBody Date meetingDate) {
+        return pfeService.removeMeetingDate(pfeId, meetingDate);
     }
 
+<<<<<<< HEAD
     @PutMapping("/{pfeId}/meeting")
     public ResponseEntity<?> updateMeetingDate(
             @PathVariable Long pfeId,
@@ -159,6 +152,8 @@ public class PfeRestController {
 
 
 
+=======
+>>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
     // Gestion du Jury
 
     @PostMapping("/{pfeId}/jury")
