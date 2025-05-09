@@ -1,51 +1,33 @@
 package tn.esprit.gestion_pfe.Services;
-<<<<<<< HEAD
-import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
-import org.apache.catalina.User;
-=======
+
 import aj.org.objectweb.asm.commons.Remapper;
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
+
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-<<<<<<< HEAD
 import tn.esprit.gestion_pfe.Client.UserServiceClientFallback;
 import tn.esprit.gestion_pfe.DAO.Enum.MeetingStatus;
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
 import tn.esprit.gestion_pfe.DAO.entities.UserDto;
-=======
+
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
 import tn.esprit.gestion_pfe.DAO.repositories.FeedbackRepository;
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
 import tn.esprit.gestion_pfe.DAO.repositories.PfeRepository;
 import tn.esprit.gestion_pfe.Client.UserServiceClient;
 
-<<<<<<< HEAD
-import java.awt.print.Pageable;
-import java.time.LocalDateTime;
+
 import java.util.*;
-=======
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
+
 
 @Service
 public class PfeService implements IPfeService {
 
     @Autowired
     private PfeRepository pfeRepository;
-<<<<<<< HEAD
+
     @Autowired
     private UserServiceClient userServiceClient;
 
-=======
-  ;
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
 
     public List<Pfe> getAllPfe() {
         return pfeRepository.findAll();
@@ -101,22 +83,12 @@ public class PfeService implements IPfeService {
         return null;
     }
 
-<<<<<<< HEAD
 
-    public Pfe addMeetingDate(long pfeId, Date meetingDate) {
-        Pfe pfe = pfeRepository.findById(pfeId).orElse(null);
-        if (pfe != null) {
-            if (!pfe.getMeetingDates().contains(meetingDate)) {
-                pfe.getMeetingDates().add(meetingDate);
-                return pfeRepository.save(pfe);
-            }
-=======
     public Pfe addMeetingDate(long pfeId, Date meetingDate) {
         Pfe pfe = pfeRepository.findById(pfeId).orElse(null);
         if (pfe != null) {
             pfe.getMeetingDates().add(meetingDate);
             return pfeRepository.save(pfe);
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
         }
         return null;
     }
@@ -126,11 +98,9 @@ public class PfeService implements IPfeService {
         if (pfe != null) {
             return pfe.getMeetingDates();
         }
-<<<<<<< HEAD
+
         return Collections.emptyList();
-=======
-        return null;
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
+
     }
 
     public Pfe removeMeetingDate(long pfeId, Date meetingDate) {
@@ -142,7 +112,7 @@ public class PfeService implements IPfeService {
         return null;
     }
 
-<<<<<<< HEAD
+
 
     @Transactional
     public Pfe updateMeetingDate(long pfeId, Date oldDate, Date newDate) {
@@ -193,9 +163,7 @@ public class PfeService implements IPfeService {
 
 
     public Pfe removeJuryMember(long pfeId, String juryMemberName) {
-=======
-  public Pfe removeJuryMember(long pfeId, String juryMemberName) {
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
+
         Pfe pfe = pfeRepository.findById(pfeId).orElse(null);
         if (pfe != null) {
             pfe.getJuryNames().remove(juryMemberName);
@@ -312,6 +280,11 @@ public class PfeService implements IPfeService {
             System.err.println("Error fetching partner with id " + id + ": " + e.getMessage());
             return  new UserDto();
         }
+    }
+
+    @Override
+    public Pfe updateMeetingDate(Long pfeId, Date oldDate, Date newDate) {
+        return null;
     }
 }
 

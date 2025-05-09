@@ -48,4 +48,5 @@ public interface IPfeService {
     List<UserDto> getAllPartners();
     UserDto getPartnerById(Integer id);
 
+    Pfe updateMeetingDate(Long pfeId, Date oldDate, Date newDate);
 }

@@ -5,22 +5,19 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.gestion_pfe.Client.UserServiceClient;
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
 import tn.esprit.gestion_pfe.DAO.entities.UserDto;
 import tn.esprit.gestion_pfe.Services.IPfeService;
 import tn.esprit.gestion_pfe.Services.PfeService;
-<<<<<<< HEAD
-import tn.esprit.gestion_pfe.Client.UserServiceClient;
-import java.util.Map;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
-import java.util.Date;
-=======
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/pfe")
@@ -99,10 +96,7 @@ public class PfeRestController {
         return pfeService.removeDocument(pfeId, documentName);
     }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
     // Gestion des Réunions
 
     @PostMapping("/{pfeId}/meeting")
@@ -120,7 +114,7 @@ public class PfeRestController {
         return pfeService.removeMeetingDate(pfeId, meetingDate);
     }
 
-<<<<<<< HEAD
+
     @PutMapping("/{pfeId}/meeting")
     public ResponseEntity<?> updateMeetingDate(
             @PathVariable Long pfeId,
@@ -151,9 +145,6 @@ public class PfeRestController {
 
 
 
-
-=======
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
     // Gestion du Jury
 
     @PostMapping("/{pfeId}/jury")

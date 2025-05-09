@@ -35,7 +35,7 @@ public class Pfe {
     private Date startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")
     private Date endDate;
-<<<<<<< HEAD
+
 
 
 
@@ -51,11 +51,7 @@ public class Pfe {
 
 
 
-=======
-    private Long studentId;
-    private Long trainerId;
-    private Long entrepriseId;
->>>>>>> 6a1dec9bb36c067310b0c20b71fdc96e76e052b6
+
     private String meetingLink;
     private String meetingNotes;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "UTC")

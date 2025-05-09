@@ -1,16 +1,23 @@
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\config_CROS\config.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Controller\FeedbackRestController.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Controller\PfeRestController.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\entities\Feedback.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\entities\Pfe.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\CategoryEnum.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\PfeLevel.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\PfeStatus.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\RoleNameEnum.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\repositories\FeedbackRepository.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\repositories\PfeRepository.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\GestionPfeApplication.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\FeedbackService.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\IFeedbackService.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\IPfeService.java
-C:\Users\Admin\Coding_Factory_Backend-main\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\PfeService.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Client\UserServiceClient.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Client\UserServiceClientFallback.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\config_CROS\config.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Controller\ChatbotRestController.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Controller\FeedbackRestController.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Controller\PfeRestController.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\entities\ChatbotHistory.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\entities\Feedback.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\entities\Pfe.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\entities\UserDto.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\CategoryEnum.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\MeetingStatus.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\PfeLevel.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\PfeStatus.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\Enum\RoleNameEnum.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\repositories\ChatbotHistoryRepository.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\repositories\FeedbackRepository.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\DAO\repositories\PfeRepository.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\GestionPfeApplication.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\FeedbackService.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\IFeedbackService.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\IPfeService.java
+C:\Users\banno\OneDrive\Bureau\new crm project\Coding_Factory_Backend\Gestion_Pfe\src\main\java\tn\esprit\gestion_pfe\Services\PfeService.java
