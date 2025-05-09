@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot - Prédiction Niveau Cours</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styles inchangés, comme dans ton code original */
+        /* ... (même style CSS que tu as fourni) ... */
+    </style>
+</head>
+<body>
+<div class="chat-container">
+    <h2>🤖 Chatbot - Prédire le Niveau du Cours</h2>
+    <div id="chat-box" class="chat-box">
+        <p id="bot-typing" class="bot-msg"><span class="avatar">🤖</span> Bonjour! Je vais t'aider à prédire le niveau du cours. Quel est le titre du cours ?</p>
+    </div>
+    <form id="chat-form" style="display: flex; margin-top: 10px;">
+        <input type="text" id="question" placeholder="Ta réponse..." required />
+        <button type="submit">Envoyer</button>
+    </form>
+    <div id="loading"><p>⏳ Le bot réfléchit...</p></div>
+</div>
+
+<script>
+    const form = document.getElementById('chat-form');
+    const chatBox = document.getElementById('chat-box');
+    const input = document.getElementById('question');
+    const loading = document.getElementById('loading');
+    const questions = [
+        "Quel est le titre du cours ?",
+        "Peux-tu me donner une description du cours ?",
+        "Quelle est la note du cours (entre 0 et 5) ?",
+        "Combien d'avis ce cours a-t-il reçus ?",
+        "Quelle est la durée totale du cours (en heures) ?",
+        "Combien de leçons (lectures) contient le cours ?"
+    ];
+
+    let step = 0;
+    const userData = {};
+
+    function appendMessage(sender, message) {
+        const msg = document.createElement('p');
+        msg.className = sender === 'bot' ? 'bot-msg' : 'user-msg';
+        msg.innerHTML = `<span class="avatar">${sender === 'bot' ? '🤖' : '🧑'}</span> ${message}`;
+        chatBox.appendChild(msg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function askNextQuestion() {
+        setTimeout(() => {
+            appendMessage('bot', questions[step]);
+        }, 500);
+    }
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const value = input.value.trim();
+        if (!value) return;
+        appendMessage('user', value);
+        input.value = '';
+
+        switch (step) {
+            case 0: userData.title = value; break;
+            case 1: userData.description = value; break;
+            case 2: userData.rating = parseFloat(value); break;
+            case 3: userData.reviewcount = parseInt(value); break;
+            case 4: userData.duration = parseFloat(value); break;
+            case 5: userData.lectures = parseInt(value); break;
+        }
+
+        step++;
+
+        if (step < questions.length) {
+            askNextQuestion();
+        } else {
+            loading.style.display = 'block';
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams(userData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                loading.style.display = 'none';
+                if (data.error) {
+                    appendMessage('bot', `❌ Erreur: ${data.error}`);
+                } else {
+                    appendMessage('bot', `📊 Le niveau prédit est : <strong>${data.predicted_level}</strong>`);
+                    appendMessage('bot', `ℹ️ ${data.explanation}`);
+
+                    // Affichage d'une alerte selon le niveau
+                    const level = data.predicted_level.toLowerCase();
+                    if (level.includes("débutant")) {
+                        Swal.fire({
+                            title: 'Parfait pour débuter !',
+                            text: "Ce cours semble bien adapté aux débutants.",
+                            icon: 'info'
+                        });
+                    } else if (level.includes("intermédiaire")) {
+                        Swal.fire({
+                            title: 'Bon niveau !',
+                            text: "Ce cours demande déjà quelques bases.",
+                            icon: 'warning'
+                        });
+                    } else if (level.includes("avancé")) {
+                        Swal.fire({
+                            title: 'Cours avancé détecté',
+                            text: "Ce cours est destiné à des utilisateurs expérimentés.",
+                            icon: 'error'
+                        });
+                    }
+                }
+            })
+            .catch(err => {
+                loading.style.display = 'none';
+                appendMessage('bot', `❌ Une erreur est survenue: ${err.message}`);
+            });
+        }
+    });
+</script>
+</body>
+</html>
+
+
+
+
+from flask import Flask, request, jsonify, render_template
+import joblib
+import pandas as pd
+import numpy as np
+
+# Charger les modèles
+model = joblib.load('svm_udemy_model.pkl')
+label_encoder = joblib.load('label_encoder.pkl')
+tfidf = joblib.load('tfidf.pkl')
+svd = joblib.load('svd.pkl')
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('chatbot.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        data = request.form
+        title = data.get('title', '').strip()
+        description = data.get('description', '').strip()
+
+        if not title or not description:
+            return jsonify({'error': 'Le titre et la description sont obligatoires.'}), 400
+
+        try:
+            rating = float(data.get('rating', 0))
+            reviewcount = float(data.get('reviewcount', 0))
+            duration = float(data.get('duration', 0))
+            lectures = int(data.get('lectures', 0))
+        except ValueError as e:
+            return jsonify({'error': f'Valeur numérique invalide: {str(e)}'}), 400
+
+        combined_text = f"{title} {description}"
+        tfidf_matrix = tfidf.transform([combined_text])
+        tfidf_svd = svd.transform(tfidf_matrix)
+
+        numeric_features = pd.DataFrame([{
+            'rating': rating,
+            'reviewcount': reviewcount,
+            'duration': duration,
+            'lectures': lectures,
+            'rating_to_reviews': rating / (reviewcount + 1),
+            'duration_per_lecture': duration / (lectures + 1)
+        }])
+
+        X = pd.concat([
+            numeric_features,
+            pd.DataFrame(tfidf_svd, columns=[f'tfidf_svd_{i}' for i in range(tfidf_svd.shape[1])])
+        ], axis=1)
+
+        if X.isnull().values.any() or np.isinf(X.values).any():
+            X = X.replace([np.inf, -np.inf], np.nan).fillna(0)
+
+        prediction = model.predict(X)[0]
+        level = label_encoder.inverse_transform([prediction])[0]
+
+        explanation = generate_explanation(rating, reviewcount, duration, lectures, combined_text)
+
+        return jsonify({'predicted_level': level, 'explanation': explanation})
+
+    except Exception as e:
+        app.logger.error(f"Erreur lors de la prédiction: {str(e)}")
+        return jsonify({'error': 'Une erreur est survenue lors de la prédiction.'}), 500
+
+def generate_explanation(rating, reviewcount, duration, lectures, combined_text):
+    explanation = []
+
+    if rating >= 4.5:
+        explanation.append("le cours a une excellente note")
+    elif rating >= 3.5:
+        explanation.append("le cours a une note correcte")
+    else:
+        explanation.append("le cours a une note relativement basse")
+
+    if reviewcount > 1000:
+        explanation.append("et un grand nombre d'avis")
+    elif reviewcount > 100:
+        explanation.append("et un nombre modéré d'avis")
+    else:
+        explanation.append("mais peu d'avis")
+
+    if duration >= 20:
+        explanation.append("avec une longue durée")
+    elif duration >= 5:
+        explanation.append("avec une durée moyenne")
+    else:
+        explanation.append("avec une durée courte")
+
+    if lectures >= 100:
+        explanation.append("et beaucoup de leçons")
+    elif lectures >= 30:
+        explanation.append("et un nombre raisonnable de leçons")
+    else:
+        explanation.append("et peu de leçons")
+
+    if len(combined_text.split()) < 50:
+        explanation.append(". La description est assez succincte.")
+    else:
+        explanation.append(". La description est plutôt détaillée.")
+
+    return "Ce cours semble destiné à ce niveau car " + ", ".join(explanation)
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+

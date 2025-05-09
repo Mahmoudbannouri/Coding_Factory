@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { PortalModule } from '@angular/cdk/portal';
+
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
 
@@ -56,6 +59,8 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [AppComponent, FullLayoutComponent, ContentLayoutComponent],
   imports: [
+    ScrollingModule,
+    PortalModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(fromApp.appReducer),
     AppRoutingModule,
@@ -80,6 +85,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     AuthService,
+    
     AuthGuard,
     DragulaService,
     DatePipe,

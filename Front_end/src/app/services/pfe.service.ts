@@ -15,6 +15,7 @@ import { tap } from 'rxjs/operators';
 export class PfeService {
 
   public apiUrl = 'http://localhost:8081/api/pfe'; 
+  
   constructor(private http: HttpClient) {}
 
   // Récupérer tous les PFE

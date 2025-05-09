@@ -3,11 +3,9 @@ package tn.esprit.gestion_pfe.Services;
 import tn.esprit.gestion_pfe.DAO.Enum.MeetingStatus;
 
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
+import tn.esprit.gestion_pfe.DAO.entities.UserDto;
 
-import java.util.Date;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 public interface IPfeService {
 
@@ -46,4 +44,17 @@ public interface IPfeService {
     List<String> getJuryMembers(long pfeId);
 
     Pfe removeJuryMember(long pfeId, String juryMemberName);
+
+    List<Integer> getAllStudentIds();
+    List<UserDto> getAllStudents();
+    UserDto getStudentById(Integer id);
+
+    List<Integer> getAllTrainerIds();
+    List<UserDto> getAllTrainers();
+    UserDto getTrainerById(Integer id);
+
+    List<Integer> getAllPartnerIds();
+    List<UserDto> getAllPartners();
+    UserDto getPartnerById(Integer id);
+
 }

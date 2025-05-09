@@ -7,6 +7,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ApiGetway" />
+        <module name="EEureka" />
+        <module name="reviews" />
       </profile>
       <profile name="Annotation profile for esponline" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -15,14 +18,11 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="esponline" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ApiGetway" target="17" />
-      <module name="EEureka" target="17" />
-      <module name="esponline" target="17" />
       <module name="Gestion-PFE" target="17" />
-      <module name="reviews" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

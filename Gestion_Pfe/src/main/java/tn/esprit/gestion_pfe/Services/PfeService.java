@@ -1,11 +1,21 @@
 package tn.esprit.gestion_pfe.Services;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import tn.esprit.gestion_pfe.Client.UserServiceClientFallback;
 import tn.esprit.gestion_pfe.DAO.Enum.MeetingStatus;
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
+import tn.esprit.gestion_pfe.DAO.entities.UserDto;
 import tn.esprit.gestion_pfe.DAO.repositories.PfeRepository;
+import tn.esprit.gestion_pfe.Client.UserServiceClient;
 
+import java.awt.print.Pageable;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -13,12 +23,13 @@ public class PfeService implements IPfeService {
 
     @Autowired
     private PfeRepository pfeRepository;
+    @Autowired
+    private UserServiceClient userServiceClient;
 
 
     public List<Pfe> getAllPfe() {
         return pfeRepository.findAll();
     }
-
 
 
     public Optional<Pfe> getPfeById(Long id) {
@@ -54,12 +65,11 @@ public class PfeService implements IPfeService {
     }
 
     @Override
-    public List<String> getDocument(long pfeId){
-        Pfe pfe=new Pfe();
+    public List<String> getDocument(long pfeId) {
+        Pfe pfe = new Pfe();
         pfe.setDocuments(pfe.getDocuments());
         return pfeRepository.findById(pfeId).orElse(null).getDocuments();
     }
-
 
 
     public Pfe removeDocument(long pfeId, String documentName) {
@@ -72,17 +82,14 @@ public class PfeService implements IPfeService {
     }
 
 
-
-
-
-   public Pfe addMeetingDate(long pfeId, Date meetingDate) {
+    public Pfe addMeetingDate(long pfeId, Date meetingDate) {
         Pfe pfe = pfeRepository.findById(pfeId).orElse(null);
-       if (pfe != null) {
-           if (!pfe.getMeetingDates().contains(meetingDate)) {
-               pfe.getMeetingDates().add(meetingDate);
-               return pfeRepository.save(pfe);
-           }
-       }
+        if (pfe != null) {
+            if (!pfe.getMeetingDates().contains(meetingDate)) {
+                pfe.getMeetingDates().add(meetingDate);
+                return pfeRepository.save(pfe);
+            }
+        }
         return null;
     }
 
@@ -91,7 +98,7 @@ public class PfeService implements IPfeService {
         if (pfe != null) {
             return pfe.getMeetingDates();
         }
-        return  Collections.emptyList();
+        return Collections.emptyList();
     }
 
     public Pfe removeMeetingDate(long pfeId, Date meetingDate) {
@@ -104,7 +111,6 @@ public class PfeService implements IPfeService {
         }
         return null;
     }
-
 
 
     @Transactional
@@ -144,7 +150,18 @@ public class PfeService implements IPfeService {
 
 
 
-  public Pfe removeJuryMember(long pfeId, String juryMemberName) {
+
+
+
+
+
+
+
+
+
+
+
+    public Pfe removeJuryMember(long pfeId, String juryMemberName) {
         Pfe pfe = pfeRepository.findById(pfeId).orElse(null);
         if (pfe != null) {
             pfe.getJuryNames().remove(juryMemberName);
@@ -171,12 +188,100 @@ public class PfeService implements IPfeService {
     }
 
 
+    @Override
+    public List<Integer> getAllStudentIds() {
+        try {
+            return userServiceClient.getAllStudentIds();
+        } catch (Exception e) {
+            System.err.println("Error fetching student IDs: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<UserDto> getAllStudents() {
+        try {
+            return userServiceClient.getAllStudents();
+        } catch (Exception e) {
+            System.err.println("Error fetching students: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public UserDto getStudentById(Integer id) {
+        try {
+            return userServiceClient.getStudentById(id);
+        } catch (Exception e) {
+            System.err.println("Error fetching student with id " + id + ": " + e.getMessage());
+            return new UserDto();
+        }
+    }
 
 
+    @Override
+    public List<Integer> getAllTrainerIds() {
+        try {
+            return userServiceClient.getAllTrainerIds();
+        } catch (Exception e) {
+            System.err.println("Error fetching trainer IDs: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<UserDto> getAllTrainers() {
+        try {
+            return userServiceClient.getAllTrainers();
+        } catch (Exception e) {
+            System.err.println("Error fetching trainers: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public UserDto getTrainerById(Integer id) {
+        try {
+            return userServiceClient.getTrainerById(id);
+        } catch (Exception e) {
+            System.err.println("Error fetching trainer with id " + id + ": " + e.getMessage());
+            return  new UserDto();
+        }
+    }
 
 
+    @Override
+    public List<Integer> getAllPartnerIds() {
+        try {
+            return userServiceClient.getAllPartnerIds();
+        } catch (Exception e) {
+            System.err.println("Error fetching partner IDs: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 
+    @Override
+    public List<UserDto> getAllPartners() {
+        try {
+            return userServiceClient.getAllPartners();
+        } catch (Exception e) {
+            System.err.println("Error fetching partners: " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
 
-
-
+    @Override
+    public UserDto getPartnerById(Integer id) {
+        try {
+            return userServiceClient.getPartnerById(id);
+        } catch (Exception e) {
+            System.err.println("Error fetching partner with id " + id + ": " + e.getMessage());
+            return  new UserDto();
+        }
+    }
 }
+
+
+
+
+

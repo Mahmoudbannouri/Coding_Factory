@@ -10,7 +10,7 @@ public class config implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**") // Autoriser tous les endpoints
-                .allowedOrigins("http://localhost:4200") // Autoriser les requêtes depuis Angular
+                .allowedOrigins("http://localhost:4200","http://127.0.0.1:5000") // Autoriser les requêtes depuis Angular
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Méthodes HTTP autorisées
                 .allowedHeaders("*") // Autoriser tous les en-têtes
                 .allowCredentials(true); // Autoriser les cookies et les en-têtes d'authentification

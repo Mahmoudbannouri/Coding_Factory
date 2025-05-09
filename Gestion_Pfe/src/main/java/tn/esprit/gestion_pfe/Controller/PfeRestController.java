@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.gestion_pfe.DAO.entities.Pfe;
+import tn.esprit.gestion_pfe.DAO.entities.UserDto;
 import tn.esprit.gestion_pfe.Services.IPfeService;
 import tn.esprit.gestion_pfe.Services.PfeService;
+import tn.esprit.gestion_pfe.Client.UserServiceClient;
 import java.util.Map;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
@@ -15,11 +17,15 @@ import java.util.Date;
 
 import java.util.List;
 import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/api/pfe")
 public class PfeRestController {
     @Autowired
-    private IPfeService pfeService;
+    public IPfeService pfeService;
+
+    @Autowired
+    public UserServiceClient userServiceClient;
 
 
     @GetMapping("/helloPfe")
@@ -90,11 +96,10 @@ public class PfeRestController {
     }
 
 
-
     // Gestion des Réunions
 
     @PostMapping("/{pfeId}/meeting")
-    public Pfe addMeetingDate(@PathVariable Long pfeId, @RequestBody  Date meetingDate) {
+    public Pfe addMeetingDate(@PathVariable Long pfeId, @RequestBody Date meetingDate) {
         return pfeService.addMeetingDate(pfeId, meetingDate);
     }
 
@@ -141,6 +146,13 @@ public class PfeRestController {
             return ResponseEntity.badRequest().body("Format de date invalide");
         }
     }
+    /*@GetMapping("/pfe/{pfeId}")
+    public List<MeetingResponse> getPfeMeetings(@PathVariable Long pfeId) {
+        return pfeService.getPfeMeetings(pfeId).stream()
+                .map(meetingMapper::toResponse)
+                .collect(Collectors.toList());
+    }*/
+
 
 
 
@@ -165,8 +177,106 @@ public class PfeRestController {
     }
 
 
+    // Endpoints pour les IDs
+    @GetMapping("/students/ids")
+    public ResponseEntity<?> getAllStudentIds() {
+        try {
+            List<Integer> studentIds = pfeService.getAllStudentIds();
+            return ResponseEntity.ok(studentIds);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("User service is unavailable");
+        }
+    }
+
+    @GetMapping("/students")
+    public ResponseEntity<?> getAllStudents() {
+        try {
+            List<UserDto> students = pfeService.getAllStudents();
+            return ResponseEntity.ok(students);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("User service is unavailable");
+        }
+    }
+
+    @GetMapping("/students/{id}")
+    public ResponseEntity<?> getStudentById(@PathVariable Integer id) {
+        try {
+            UserDto student = pfeService.getStudentById(id);
+            return ResponseEntity.ok(student);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Student not found or user service is unavailable");
+        }
+    }
 
 
+    @GetMapping("/trainers/ids")
+    public ResponseEntity<?> getAllTrainerIds() {
+        try {
+            List<Integer> trainerIds = pfeService.getAllTrainerIds();
+            return ResponseEntity.ok(trainerIds);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("User service is unavailable");
+        }
+    }
 
-    
+    @GetMapping("/trainers")
+    public ResponseEntity<?> getAllTrainers() {
+        try {
+            List<UserDto> trainers = pfeService.getAllTrainers();
+            return ResponseEntity.ok(trainers);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("User service is unavailable");
+        }
+    }
+
+    @GetMapping("/trainers/{id}")
+    public ResponseEntity<?> getTrainerById(@PathVariable Integer id) {
+        try {
+            UserDto trainer = pfeService.getTrainerById(id);
+            return ResponseEntity.ok(trainer);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Trainer not found or user service is unavailable");
+        }
+    }
+
+
+    @GetMapping("/partners/ids")
+    public ResponseEntity<?> getAllPartnerIds() {
+        try {
+            List<Integer> partnerIds = pfeService.getAllPartnerIds();
+            return ResponseEntity.ok(partnerIds);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("User service is unavailable");
+        }
+    }
+
+    @GetMapping("/partners")
+    public ResponseEntity<?> getAllPartners() {
+        try {
+            List<UserDto> partners = pfeService.getAllPartners();
+            return ResponseEntity.ok(partners);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("User service is unavailable");
+        }
+    }
+
+    @GetMapping("/partners/{id}")
+    public ResponseEntity<?> getPartnerById(@PathVariable Integer id) {
+        try {
+            UserDto partner = pfeService.getPartnerById(id);
+            return ResponseEntity.ok(partner);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Partner not found or user service is unavailable");
+        }
+    }
 }
+

@@ -3,10 +3,7 @@ package com.Microservice.authservice.controller;
 import com.Microservice.authservice.entities.Role;
 import com.Microservice.authservice.entities.User;
 import com.Microservice.authservice.repository.UserRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +13,6 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/v1/auth/students")
 public class StudentController {
-
     private final UserRepository userRepository;
 
     public StudentController(UserRepository userRepository) {
@@ -25,14 +21,14 @@ public class StudentController {
 
     @GetMapping("/ids")
     public List<Integer> getAllStudentIds() {
-        return getStudentUsers().stream()
+        return userRepository.findAllByRolesContaining(Role.STUDENT).stream()
                 .map(User::getId)
                 .collect(Collectors.toList());
     }
 
     @GetMapping
     public List<Map<String, Object>> getAllStudents() {
-        return getStudentUsers().stream()
+        return userRepository.findAllByRolesContaining(Role.STUDENT).stream()
                 .map(user -> {
                     Map<String, Object> studentMap = new HashMap<>();
                     studentMap.put("id", user.getId());
@@ -54,9 +50,5 @@ public class StudentController {
                     return studentMap;
                 })
                 .orElseThrow(() -> new RuntimeException("Student not found"));
-    }
-
-    private List<User> getStudentUsers() {
-        return userRepository.findAllByRolesContaining(Role.STUDENT);
     }
 }

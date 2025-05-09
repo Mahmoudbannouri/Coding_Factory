@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.Date;
+
+import org.apache.catalina.User;
 import tn.esprit.gestion_pfe.DAO.Enum.CategoryEnum;
 import tn.esprit.gestion_pfe.DAO.Enum.PfeLevel;
 import tn.esprit.gestion_pfe.DAO.Enum.PfeStatus;
@@ -37,9 +39,17 @@ public class Pfe {
     private Date endDate;
 
 
-    private Long studentId;
-    private Long trainerId;
-    private Long entrepriseId;
+
+    private Integer studentId;
+
+    private Integer trainerId;
+
+    private Integer partnerId;
+
+
+
+
+
 
 
     private String meetingLink;
@@ -121,28 +131,28 @@ public class Pfe {
         this.endDate = endDate;
     }
 
-    public Long getStudentId() {
+    public Integer getStudentId() {
         return studentId;
     }
 
-    public void setStudentId(Long studentId) {
+    public void setStudentId(Integer studentId) {
         this.studentId = studentId;
     }
 
-    public Long getTrainerId() {
+    public Integer getTrainerId() {
         return trainerId;
     }
 
-    public void setTrainerId(Long trainerId) {
+    public void setTrainerId(Integer trainerId) {
         this.trainerId = trainerId;
     }
 
-    public Long getEntrepriseId() {
-        return entrepriseId;
+    public Integer getPartnerId() {
+        return partnerId;
     }
 
-    public void setEntrepriseId(Long entrepriseId) {
-        this.entrepriseId = entrepriseId;
+    public void setPartnerId(Integer partnerId) {
+        this.partnerId = partnerId;
     }
 
     public String getMeetingLink() {
@@ -218,18 +228,19 @@ public class Pfe {
     }
 
 
+    public void setStart(LocalDateTime newStart) {
+    }
 
-    //ou bien
-    /* @ManyToOne
-    @JoinColumn(name = "student_id")
-    private User student;  // Étudiant réalisant le PFE
+    public void setEnd(LocalDateTime newEnd) {
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "trainer_id")
-    private User trainer;  // Encadrant du PFE
+    public void setCancelled(boolean b) {
+    }
 
-    @ManyToOne
-    @JoinColumn(name = "company_id")
-    private Company company;  // Entreprise partenaire du PFE */
+    public void setCancellationReason(String reason) {
+    }
+
+    public void setDecisions(String decisions) {
+    }
 }
 

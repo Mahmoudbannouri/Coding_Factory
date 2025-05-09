@@ -1,13 +1,20 @@
 import { Injectable } from '@angular/core';
-
+import { HttpClient } from '@angular/common/http'; // Import ajouté
+import { Observable } from 'rxjs';
 const USER_KEY = 'c_user';
 const TOKEN_KEY = 'c_token';
-
+export interface User {
+  id: number;
+  email: string;
+  roles: string[] | string;
+  // Ajoutez d'autres propriétés si nécessaire
+}
 @Injectable({
   providedIn: 'root',
 })
 export class StorageService {
-  constructor() {}
+  apiUrl: any;
+  constructor(private http:HttpClient) {}
 
   // Save user info
   public saveUser(user: any): void {
@@ -115,7 +122,28 @@ export class StorageService {
   // Handle both "[TRAINER]" and "TRAINER" cases
   return role?.replace(/[\[\]]/g, '') === 'TRAINER';
 }
+public getCurrentUser(): User | null {
+  const user = this.getUser();
+  if (user) {
+    return {
+      id: user.id,
+      email: user.email,
+      roles: Array.isArray(user.roles) ? user.roles : [user.roles]
+    };
+  }
+  return null;
+}
 
+// Méthode pour vérifier les rôles
+public hasRole(role: string): boolean {
+  const user = this.getUser();
+  if (!user || !user.roles) return false;
+  
+  if (Array.isArray(user.roles)) {
+    return user.roles.includes(role);
+  }
+  return user.roles === role;
+}
   // Logout user
   public static logout(): void {
     window.localStorage.removeItem(TOKEN_KEY);
@@ -126,4 +154,22 @@ export class StorageService {
   public logout(): void {
     StorageService.logout();
   }
+
+
+  getAllStudents(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/students`);
+  }
+
+  getAllTrainers(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users?role=TRAINER`); // Adaptez le endpoint
+  }
+
+  getAllPartners(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/users?role=PARTNER`); // Adaptez le endpoint
+  }
+
+  getUserById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/users/${id}`);
+  }
+
 }

@@ -22,9 +22,9 @@ export class Pfe {
     description!: string; // Description du projet
     startDate!: Date; // Date de début
     endDate!: Date; // Date de fin
-    studentId!: number; // ID de l'étudiant
-    trainerId!: number; // ID de l'encadrant
-    entrepriseId!: number; // ID de l'entreprise
+    studentId?: number[]; // Uncomment and add this property
+    trainerId?: number [];
+    partnerId?: number [];
     meetingLink!: string; // Lien pour la réunion
     meetingNotes!: string; // Notes de la réunion
     meetingDate!: Date; // Date de la réunion
@@ -34,10 +34,8 @@ export class Pfe {
    documents!: string[]; // Liste des documents associés
     meetingDates!: Date[]; // Liste des dates des réunions
     juryNames!: string[]; 
-    // Liste des noms des jurys
-
+    
 }
-// Créez une interface pour les données API où les dates sont des strings
 
 
 

@@ -9,6 +9,9 @@ export const AUTH_HEADER = 'Authorization';
 
 @Injectable()
 export class AuthService {
+  getCurrentUser(): any {
+    throw new Error('Method not implemented.');
+  }
   storageService: StorageService;
   
   constructor(private http: HttpClient, private storage: StorageService) {}

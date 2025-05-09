@@ -4,7 +4,7 @@ import { KnowledgeBaseComponent } from './knowledge-base.component';
 import { KnowledgeSearchComponent } from './knowledge-search/knowledge-search.component';
 import { KnowledgeCategoriesComponent } from './knowledge-categories/knowledge-categories.component';
 import { KnowledgeQuestionComponent } from './knowledge-question/knowledge-question.component';
-
+import { KnowledgeHistoryComponent } from './knowledge-history/knowledge-history.component';
 const routes: Routes = [
   {
     path: '', component: KnowledgeBaseComponent, children: [
@@ -21,6 +21,7 @@ const routes: Routes = [
         path: 'questions',
         component: KnowledgeQuestionComponent
       },
+      { path: 'history', component: KnowledgeHistoryComponent },
 
     ]
   },

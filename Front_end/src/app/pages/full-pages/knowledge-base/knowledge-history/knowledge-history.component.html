@@ -1,0 +1,119 @@
+<div class="history-container">
+   <!-- Message de chargement -->
+   <div *ngIf="isLoading" class="loading-message">
+    <mat-spinner diameter="40"></mat-spinner>
+    Chargement en cours...
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+    <button (click)="loadHistory()">Réessayer</button>
+  </div>
+
+  <!-- Contenu principal -->
+  <div *ngIf="!isLoading && !errorMessage">
+    <div class="history-list">
+      <h2>Historique des Conversations</h2>
+      
+      <div *ngIf="history.length === 0" class="empty-message">
+        Aucune conversation enregistrée
+      </div>
+
+      <div *ngIf="history.length > 0">
+        <!-- Votre contenu existant -->
+        <div class="history-list">
+          <h2>Historique des Conversations</h2>
+          
+          <div class="search-bar">
+            <input 
+              [(ngModel)]="searchTerm" 
+              (input)="filterHistory()"
+              placeholder="Rechercher dans les feedbacks..."
+            >
+            <button (click)="filterHistory()">Rechercher</button>
+          </div>
+      
+          <div class="history-items">
+            <div 
+              *ngFor="let item of filteredHistory" 
+              class="history-item" 
+              [class.selected]="selectedHistory?.id === item.id"
+              (click)="selectHistory(item)"
+            >
+              <div class="item-header">
+                <span class="date">{{ formatDate(item.createdAt) }}</span>
+                <span class="level">{{ item.predictedLevel }}</span>
+              </div>
+              <div class="conversation-preview">
+                {{ item.conversation | truncate:100 }}
+              </div>
+              <div *ngIf="item.feedback" class="feedback-preview">
+                <strong>Feedback:</strong> 
+                <span [ngClass]="{
+                  'good-feedback': item.feedback === 'good',
+                  'bad-feedback': item.feedback === 'bad'
+                }">
+                  {{ item.feedback === 'good' ? '👍 Bonne prédiction' : '👎 Mauvaise prédiction' }}
+                </span>
+              </div>
+            </div>
+          </div>
+      
+          <div class="custom-pagination">
+            <div class="page-size-selector">
+              <span>Éléments par page:</span>
+              <select [(ngModel)]="pageSize" (change)="changePageSize(pageSize)">
+                <option *ngFor="let size of pageSizeOptions" [value]="size">{{size}}</option>
+              </select>
+            </div>
+          
+            <div class="page-navigation">
+              <button (click)="goToPage(0)" [disabled]="currentPage === 0">«</button>
+              <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">‹</button>
+              
+              <span *ngIf="totalPages > 1" class="page-info">
+                Page {{ currentPage + 1 }} sur {{ totalPages }}
+              </span>
+              
+              <button (click)="goToPage(currentPage + 1)" [disabled]="currentPage >= totalPages - 1">›</button>
+              <button (click)="goToPage(totalPages - 1)" [disabled]="currentPage >= totalPages - 1">»</button>
+            </div>
+          
+            <div class="total-items">
+              Total: {{ totalItems }} éléments
+            </div>
+          </div>
+        </div>
+      
+        <div *ngIf="selectedHistory" class="history-detail">
+          <h3>Détails de la Conversation</h3>
+          <div class="detail-section">
+            <p><strong>Date:</strong> {{ formatDate(selectedHistory.createdAt) }}</p>
+            <p><strong>Niveau prédit:</strong> {{ selectedHistory.predictedLevel }}</p>
+            <p><strong>Score de popularité:</strong> {{ selectedHistory.popularityScore | percent }}</p>
+          </div>
+        </div>
+      
+          <div class="conversation-section">
+            <h4>Conversation:</h4>
+            <div class="conversation-content">{{ selectedHistory.conversation }}</div>
+          </div>
+          
+          <div class="feedback-section">
+            <h4>Feedback:</h4>
+            <textarea 
+              [(ngModel)]="feedbackText" 
+              placeholder="Ajoutez votre feedback ici..."
+            ></textarea>
+            <button (click)="saveFeedback()">Enregistrer</button>
+          </div>
+          <button (click)="goToChat()" class="back-button">
+            Retour au Chat
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   
