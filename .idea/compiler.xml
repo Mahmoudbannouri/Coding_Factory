@@ -11,17 +11,20 @@
         <module name="EEureka" />
         <module name="reviews" />
       </profile>
-      <profile name="Annotation profile for esponline" enabled="true">
+      <profile name="Annotation profile for Gestion_Pfe" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
+        <module name="Gestion_Pfe" />
         <module name="esponline" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="authservice" target="17" />
+      <module name="Event" target="17" />
       <module name="Gestion-PFE" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -30,6 +33,7 @@
       <module name="ApiGetway" options="-parameters" />
       <module name="EEureka" options="-parameters" />
       <module name="Gestion-PFE" options="-parameters" />
+      <module name="Gestion_Pfe" options="-parameters" />
       <module name="esponline" options="-parameters" />
       <module name="reviews" options="-parameters" />
     </option>
