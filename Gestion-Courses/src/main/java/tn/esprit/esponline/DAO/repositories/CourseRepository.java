@@ -9,6 +9,7 @@ import tn.esprit.esponline.DAO.entities.CategoryEnum;
 import tn.esprit.esponline.DAO.entities.Course;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
@@ -47,5 +48,5 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     List<Course> findByTrainerId(@Param("trainerId") Integer trainerId);
 
     List<Course> findByStudentIdsContaining(Integer studentId);
-    Course findById(Long courseId);
+    Optional<Course> findById(Long id);
 }

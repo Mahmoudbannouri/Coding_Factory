@@ -173,6 +173,20 @@ getAllStudents(): Observable<number[]> {
     })
   );
 }
+downloadCoursePdf(courseId: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/${courseId}/pdf`, {
+    responseType: 'blob',
+    headers: this.getAuthHeaders()
+  });
+}
+
+
+downloadCourseResourcesZip(courseId: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/${courseId}/zip`, {
+    responseType: 'blob',
+    headers: this.getAuthHeaders()
+  });
+}
 
 unenrollStudent(courseId: number, studentId: number): Observable<void> {
   if (!courseId) {

@@ -49,11 +49,12 @@ export class LoginPageComponent {
         console.log('Login successful!');
         this.isLoginFailed = false;
 
-        // Check role and redirect accordingly
-        if (StorageService.isAdminLoggedIn()) {
+        // Check role and redirect to dashboard1 for all roles
+        if (StorageService.hasToken()) {
+          const role = StorageService.getUserRole(); // Get the logged-in user role
+
+          // Redirect all roles to dashboard1
           this.router.navigateByUrl('/dashboard/dashboard1');
-        } else {
-          this.router.navigateByUrl('/dashboard/dashboard2');
         }
       },
       (error) => {

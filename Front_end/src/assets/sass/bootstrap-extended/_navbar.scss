@@ -50,6 +50,7 @@ nav.navbar.header-navbar {
           text-align: left;
           font-weight: 400;
         }
+
         .logo-img {
           width: 130px;
           display: inline-block;
@@ -57,7 +58,7 @@ nav.navbar.header-navbar {
           margin-right: 15px;
         }
         
-        
+
       }
     }
   }
@@ -280,6 +281,7 @@ nav.navbar.header-navbar {
 }
 
 @media (max-width: 991.98px) {
+
   .navbar .navbar-brand-center .navbar-header {
     width: auto !important;
     .logo {
@@ -289,10 +291,12 @@ nav.navbar.header-navbar {
       }
       .logo-text .text {
         display: none;
+
       }
     }
   }
 }
+
 
 
 @include media-breakpoint-down(sm) {

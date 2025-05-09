@@ -1,0 +1,277 @@
+<!-- Popup Notification -->
+
+
+<div class="event-container">
+  
+  <div class="search-container">
+    <!-- Search Input -->
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="Search by Name or Date"
+      class="search-input"
+      (ngModelChange)="filterEvents()"
+    />
+  
+    <!-- Category Dropdown -->
+    <select
+      [(ngModel)]="selectedCategory"
+      class="category-dropdown"
+      (ngModelChange)="filterEvents()"
+    >
+      <option value="">All Categories</option>
+      <option *ngFor="let category of getCategoryEnumValues()" [value]="category">
+        {{ category }}
+      </option>
+    </select>
+  
+    <!-- Time Period Filter -->
+    <select
+      [(ngModel)]="selectedTimePeriod"
+      class="time-period-dropdown"
+      (ngModelChange)="filterEvents()"
+    >
+      <option value="">All Time</option>
+      <option value="thisweek">This Week</option>
+<option value="thismonth">This Month</option>
+<option value="upcoming">Upcoming</option>
+    </select>
+  
+    <!-- Date Range Filter -->
+    <label for="startDate">From:</label>
+    <input
+      id="startDate"
+      type="date"
+      [(ngModel)]="startDate"
+      class="date-input"
+      (change)="filterEvents()"
+    />
+  
+    <label for="endDate">To:</label>
+    <input
+      id="endDate"
+      type="date"
+      [(ngModel)]="endDate"
+      class="date-input"
+      (change)="filterEvents()"
+    />
+  
+    <!-- Clear Date Range Filter Button -->
+    <button (click)="clearDateRangeFilter()" class="btn-secondary">
+      Clear Date Filter
+    </button>
+  </div>
+  
+    <!-- No Courses Available -->
+    <div *ngIf="events.length === 0">
+      <p>No Events available.</p>
+    </div>
+  
+    <!-- Add/Edit Modal -->
+<div class="modal" [ngClass]="{ 'show': showModal, 'hide': !showModal }">
+ 
+
+  <div class="modal-content">
+    
+      <h1>{{ isEditMode ? 'Update Event' : 'Add New Event' }}</h1>
+    
+
+      <form #eventForm="ngForm">
+        <!-- Event Name -->
+        <label for="Name">Name</label>
+        <input id="Name" [(ngModel)]="newEvent.eventName" name="Name" required minlength="8" #name="ngModel" />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+          <div *ngIf="name.errors?.['required']">Event name is required.</div>
+          <div *ngIf="name.errors?.['minlength']">Event name must be at least 8 characters long.</div>
+        </div>
+        
+        <!-- Event Description -->
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="newEvent.eventDescription" name="description" required #description="ngModel"></textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)" class="error-message">
+          <div *ngIf="description.errors?.['required']">Description is required.</div>
+        </div>
+        <button type="button" (click)="generateDescription()" class="btn-secondary">
+          Generate Event Description
+        </button>
+       <!-- Event Image -->
+      <label for="image">Event Image</label>
+      <input
+     
+          id="image"
+          type="file"
+          (change)="onFileSelected($event)"
+          name="image"
+          accept="image/*"
+          [required]="!isEditMode"
+          #imageInput
+        />
+        <div *ngIf="!imageInput.value && imageInput.touched || !isEditMode" class="error-message">
+          Event image is required.
+        </div>
+        <!-- Display current image (if available) -->
+        
+        <!-- Event Category -->
+        <label for="category">Category</label>
+        <select id="category" [(ngModel)]="newEvent.eventCategory" name="category" required #category="ngModel">
+          <option *ngFor="let category of getCategoryEnumValues()" [value]="category">{{ category }}</option>
+        </select>
+        <div *ngIf="category.invalid && (category.dirty || category.touched)" class="error-message">
+          <div *ngIf="category.errors?.['required']">Category is required.</div>
+        </div>
+        
+        <!-- Event Date -->
+        <label for="eventDate">Date</label>
+        <input id="eventDate" type="date" [(ngModel)]="newEvent.eventDateOnly" name="eventDate" required [min]="minDate" #eventDate="ngModel" />
+        <div *ngIf="eventDate.invalid && (eventDate.dirty || eventDate.touched)" class="error-message">
+          <div *ngIf="eventDate.errors?.['required']">Event date is required.</div>
+          <div *ngIf="eventDate.errors?.['min']">Event date cannot be in the past.</div>
+        </div>
+        
+        <!-- Event Time -->
+        <label for="eventTime">Time</label>
+        <input id="eventTime" type="time" [(ngModel)]="newEvent.eventTimeOnly" name="eventTime" required #eventTime="ngModel" />
+        <div *ngIf="eventTime.invalid && (eventTime.dirty || eventTime.touched)" class="error-message">
+          <div *ngIf="eventTime.errors?.['required']">Event time is required.</div>
+        </div>
+      
+        <!-- Event Center -->
+        <label for="centre">Center</label>
+        <select id="centre" [(ngModel)]="newEvent.centre" name="centre" required #centre="ngModel">
+          <option *ngFor="let centre of centers" [ngValue]="centre">
+            {{ centre.centreName }}
+          </option>
+        </select>
+        <div *ngIf="centre.invalid && (centre.dirty || centre.touched)" class="error-message">
+          <div *ngIf="centre.errors?.['required']">Center is required.</div>
+        </div>
+      
+        <!-- Button to generate AI description -->
+        
+      
+        <!-- Dynamic Button -->
+        <button 
+          (click)="isEditMode ? updateEvent() : addEvent()" 
+          class="btn-primary" 
+          [disabled]="eventForm.invalid"
+        >
+          {{ isEditMode ? 'Save Changes' : 'Add Event' }}
+        </button>
+      </form> 
+
+    <button (click)="closeAddEventModal()" class="btn-close">Close</button>
+  </div>
+</div>
+  
+   <!-- All Courses Section -->
+<!-- All Courses Section -->
+<div *ngIf="filteredEvents.length > 0">
+  <h3>All Events</h3>
+  <div class="course-cards-container">
+    <div *ngFor="let event of filteredEvents; let i = index" class="course-card">
+      <div class="card">
+        <div class="card-content">
+          <!-- Image on the left -->
+          <div class="image-container" *ngIf="getSafeImageUrl(event.imageUrl)">
+            <img [src]="getSafeImageUrl(event.imageUrl)" alt="Event Image" class="event-image" />
+          </div>
+
+          <!-- Information and buttons on the right -->
+          <div class="info-container">
+            <div class="card-header">
+              <h4 class="card-title">{{ event.eventName }}</h4>
+              <p><strong>Created by: </strong> {{ event.eventCreator?.name }}</p>
+              <p><strong>Category: </strong> {{ event.eventCategory }}</p>
+              <p><strong>Date: </strong> {{ event.eventDate | date: 'yyyy-MM-dd' }}</p>
+              <p><strong>Time: </strong> {{ event.eventDate | date: 'HH:mm:ss' }}</p>
+            </div>
+
+            <div class="card-footer">
+              <ng-container *ngIf="isEventDateValid(event.eventDate)">
+                
+                <button class="btn-primary" (click)="openEditEventModal(event.idEvent)">
+                  <span class="icon">🔄</span>
+                </button>
+
+                <button
+                  class="btn-secondary"
+                  *ngIf="!isUserEnrolled(event)"
+                  (click)="loadGoogleClient(event.idEvent)"
+                >
+                  <span class="icon">📝</span> 
+                </button>
+
+                <button
+                  class="btn-danger"
+                  *ngIf="isUserEnrolled(event)"
+                  (click)="deroll(event)"
+                >
+                  <span class="icon">❌</span> 
+                </button>
+              </ng-container>
+              <button class="btn-primary" (click)="openViewMoreModal(event)">
+                <span class="icon">👁️</span>
+              </button>
+              <button (click)="deleteEvent(event.idEvent)" class="btn-danger">
+                <span class="icon">🗑️</span> 
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pagination Controls -->
+<div *ngIf="totalPaginationPages > 1" class="pagination-container">
+  <button
+    [disabled]="currentPage === 0"
+    (click)="changePage(currentPage - 1)"
+    class="pagination-btn">
+    Previous
+  </button>
+  
+  <span class="pagination-info">
+    Page {{ currentPage + 1 }} of {{ totalPaginationPages }}
+  </span>
+  
+  <button
+    [disabled]="currentPage === totalPaginationPages - 1"
+    (click)="changePage(currentPage + 1)"
+    class="pagination-btn">
+    Next
+  </button>
+</div>
+    <!-- View More Modal -->
+<div class="modal" [ngClass]="{ 'show': showViewMoreModal, 'hide': !showViewMoreModal }">
+  <div class="modal-content">
+    <!-- Image on the left -->
+    <div *ngIf="selectedEvent?.imageUrl" class="image-container">
+      <img [src]="getSafeImageUrl(selectedEvent.imageUrl)" alt="Event Image" class="event-image" />
+    </div>
+
+    <!-- Information on the right -->
+    <div class="info-container">
+      <h1>{{ selectedEvent?.eventName }}</h1>
+      
+      <p><strong>Created by: </strong> {{ selectedEvent?.eventCreator?.name }}</p>
+      <p><strong>Category: </strong> {{ selectedEvent?.eventCategory }}</p>
+      <p><strong>Description: </strong> {{ selectedEvent?.eventDescription }}</p>
+      <p><strong>Date: </strong> {{ selectedEvent?.eventDate | date: 'yyyy-MM-dd' }}</p>
+      <p><strong>Time: </strong> {{ selectedEvent?.eventDate | date: 'HH:mm:ss' }}</p>
+      
+      <!-- Center Name -->
+   
+    </div>
+
+    <!-- Close Button -->
+    <button (click)="closeViewMoreModal()" class="btn-close">×</button>
+  </div>
+</div>
+    
+  
+    <!-- Floating Plus Button -->
+    <button class="floating-plus" (click)="openAddEventModal()">+</button>
+  </div>
+  

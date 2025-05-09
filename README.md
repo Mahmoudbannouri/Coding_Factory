@@ -1,53 +1,55 @@
-## Course Management System
+# Coding Factory - Course Management System
 
-### Overview
-This project is a Course Management System developed as part of the coursework for CS404 - Software Engineering at Esprit School of Engineering. The system allows for the management of courses and their resources, including videos, documents, and images. It provides a user-friendly interface with advanced features such as pagination, filtering, search, and file uploads to Subabase cloud storage. The backend is built using Spring Boot with a microservice architecture and an SQL database, while the frontend uses Angular.
+## Overview
+This project is a **Course Management System** developed as part of the coursework for **CS404 - Software Engineering** at **Esprit School of Engineering**. The system provides a comprehensive platform for managing educational content, including courses, PFE projects, partnerships, events, and evaluations.
 
-### Features
-#### Course Management:
-- Manage courses and course resources.
-- Organize courses with key details such as course name, description, and related resources.
+## Features
+### Course Management
+- Create, update, and delete courses.
+- Upload course resources (documents, videos, images) to **Supabase** cloud storage.
+- Advanced search, filtering, and pagination.
+- AI-powered review suggestions using **Gemini AI**.
 
-#### Pagination:
-- Efficiently browse through courses and resources with pagination.
+### Event Management
+- Manage educational events.
+- Track participant registration.
 
-#### Search and Filters:
-- Search for courses and resources by keywords.
-- Filter by categories, tags, or other criteria.
+### User Management
+- User registration and role-based access control.
+- Profile updates.
 
-#### File Upload:
-- Upload course resources (e.g., documents, images) to Subabase cloud storage.
-- Support for image and video uploads.
-- Subabase serves as the cloud storage server for saving files and resources.
+### PFE Project Management
+- PFE proposal submissions.
+- Deliverable uploads with instructor feedback.
 
-#### Video Reader:
-- Built-in video player for viewing course-related videos.
+### Evaluation Management
+- Exam and quiz management.
+- Certifications generation.
 
-#### Microservice Architecture:
-- Backend services are divided into microservices for scalability and ease of maintenance.
+### Partnership Management
+- Manage partnerships with companies.
+- Performance tracking and deal assessments.
 
-#### Microservice Review:
-- Each course has a rating system for users to rate the course.
-- Users can leave comments with suggestions or feedback about the course.
+## Tech Stack
 
-#### AI Review Suggestion:
-- Implemented AI-powered suggestions using Gemini AI to generate improvement recommendations for course content.
-- Every review with a comment automatically triggers the AI to generate a suggestion for the professor to enhance the course material.
+### Frontend
+- Angular 16
+- Bootstrap
 
-#### User Experience:
-- Designed with a focus on providing a smooth and intuitive user experience.
+### Backend
+- Spring Boot
+- Spring Security with JWT
+- MySQL
+- JPA (Hibernate)
 
-### Tech Stack
-#### Frontend
-- Angular: For building the user interface with TypeScript.
-- Bootstrap: For responsive design and UI components.
+### Cloud Storage
+- **Supabase**
 
-#### Backend
-- Spring Boot: For building the backend API and managing business logic.
-- JPA (Java Persistence API) with Hibernate: For interacting with the SQL database.
-- MySQL: For storing course and resource data in an SQL database.
-- Subabase: For cloud storage, including file uploads for course resources, serving as the cloud server.
+### AI Review Suggestion
+- **Gemini AI**
 
-#### Microservices
-- Spring Cloud: For microservices communication and service discovery.
+### Microservices
+- Spring Cloud (Service Discovery & API Gateway)
+
+
 
