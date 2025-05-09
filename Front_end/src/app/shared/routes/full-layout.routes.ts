@@ -74,6 +74,16 @@ export const Full_ROUTES: Routes = [
     loadChildren: () => import('../../taskboard/taskboard.module').then(m => m.TaskboardModule)
   },
   {
+    path: 'exams',
+    loadChildren: () =>
+      import('../../modules/exams/exam.module').then((m) => m.ExamModule),
+  },
+  {
+    path: 'ExmanQuiz',
+    loadChildren: () =>
+      import('../../modules/ExmanQuiz/ExmanQuiz.module').then((m) => m.ExmanQuizModule),
+  },
+  {
     path: 'taskboard-ngrx',
     loadChildren: () => import('../../taskboard-ngrx/taskboard-ngrx.module').then(m => m.TaskboardNGRXModule)
   }

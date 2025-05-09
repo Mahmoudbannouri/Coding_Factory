@@ -9,7 +9,8 @@ import { CourseResource } from '../models/CourseResource';
 import { Page } from '../models/page';
 import { StorageService } from 'app/shared/auth/storage.service';
 import { ReviewService } from 'app/services/review';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+declare var bootstrap: any; 
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
@@ -31,6 +32,7 @@ export class CourseComponent implements OnInit {
   enrolledStudents: User[] = []; // or any[] if you have a specific interface for enrolled students
   showModal = false;
   showAddResourceModal = false;
+  showEnrollCourseModal = false;
   showResourcesModal = false;
   showEditModal = false;
   showEnrollModal = false;
@@ -49,7 +51,8 @@ export class CourseComponent implements OnInit {
     private courseResourceService: CourseResourceService, 
     private cdr: ChangeDetectorRef,
     private storageService: StorageService,
-    private reviewService: ReviewService
+    private reviewService: ReviewService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -104,7 +107,7 @@ loadInitialCourses(): void {
   this.loading = true;
   this.cdr.detectChanges();
   
-  const subscription = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+  const subscription = (this.isTrainerLoggedIn )
     ? this.courseService.searchMyCourses(
         this.searchQuery,
         this.selectedCategory,
@@ -165,11 +168,28 @@ private handleCoursesError(err: any): void {
   this.cdr.detectChanges();
   Swal.fire('Error', 'Failed to load courses', 'error');
 }
+confirmEnrollment(modal: any): void {
+  this.courseService.enrollStudentInCourse(this.selectedCourse.id, StorageService.getUserId()).subscribe({
+    next: (response) => {
+      // ✅ Inscription réussie
+      console.log('Inscription réussie :', response);
 
+      modal.close(); // ✅ Fermeture du modal ici
+    },
+    error: (error) => {
+      console.error('Erreur lors de l\'inscription :', error);
+      // Tu peux aussi afficher un toast ou message d’erreur ici si tu veux
+    }
+  });
+}
+checkStudentEnroll(course: any): boolean {
+  const userId = StorageService.getUserId();
+  return course.studentIds?.includes(userId);
+}
 searchCourses(): void {
   this.loading = true;
   
-  const observable = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+  const observable = (this.isTrainerLoggedIn)
     ? this.courseService.searchMyCourses(
         this.searchQuery,
         this.selectedCategory,
@@ -282,7 +302,10 @@ searchCourses(): void {
     this.showResourcesModal = false;
     this.cdr.detectChanges();
   }
-
+  openModal(content: any,course:any) {
+    this.selectedCourse=course
+    this.modalService.open(content);
+  }
   openAddCourseModal(): void {
     console.log('Current user role:', StorageService.getUserRole());
     this.showModal = true;

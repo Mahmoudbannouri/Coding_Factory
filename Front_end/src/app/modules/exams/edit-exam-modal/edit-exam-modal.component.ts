@@ -48,7 +48,8 @@ export class EditexamModalComponent implements OnInit {
     this.showModalChange.emit(this.showModal);
   }
 
-  updateexam(): void {
+  updateExam(): void {
+    console.log("test")
     this.examService.updateExam(this.examId, this.exam).subscribe(
       (updatedexam) => {
         this.examUpdated.emit(updatedexam);

@@ -13,6 +13,7 @@ import tn.esprit.esponline.config.JwtService;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService implements ICourseService {
@@ -85,7 +86,13 @@ public class CourseService implements ICourseService {
         return courseRepository.save(course);
     }
 
-
+    @Override
+    public List<Course> getCourseByStudent(int studentId) {
+        List<Course> courses = courseRepository.findAll();
+        return courses.stream()
+                .filter(course -> course.getStudentIds() != null && course.getStudentIds().contains(studentId))
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Course updateCourse(Course course, int courseId) {

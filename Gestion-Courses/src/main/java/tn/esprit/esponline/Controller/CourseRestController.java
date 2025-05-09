@@ -86,7 +86,11 @@ public class CourseRestController {
     public Course getCourseById(@PathVariable int id) {
         return courseService.getCourseById(id);
     }
-
+    @Operation(summary = "Get course by ID")
+    @GetMapping("student/enroll/{id}")
+    public List<Course> getEnrollCourseByStudentId(@PathVariable int id) {
+        return courseService.getCourseByStudent(id);
+    }
     @PostMapping
     public ResponseEntity<Course> createCourse(
             @Valid @RequestBody Course course) {
