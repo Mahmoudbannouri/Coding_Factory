@@ -88,6 +88,7 @@ class CourseRecommender:
             except Exception as e:
                 logger.error(f"Failed to load model: {str(e)}")
         return cls()
+    
     def recommend(self, enrollments):
         if not self.is_trained:
             raise ValueError("Model not trained.")
@@ -103,7 +104,6 @@ class CourseRecommender:
 
         # Step 2: Vectorize enrolled courses
         enrolled_vector = self.vectorizer.transform([" ".join(enrolled_texts)])
-        logger.info(f"Enrolled vectors shape: {enrolled_vector.shape}")
 
         # Step 3: Filter candidate courses in the same clusters
         enrolled_clusters = enrolled_courses['cluster'].unique()
@@ -112,29 +112,30 @@ class CourseRecommender:
 
         # Step 4: Compute similarity
         similarities = cosine_similarity(enrolled_vector, filtered_vectors).flatten()
-        logger.info(f"Similarity scores before filtering: Min={similarities.min():.2f}, Max={similarities.max():.2f}, Mean={similarities.mean():.2f}")
+        logger.info(
+            f"Similarity scores before filtering: Min={similarities.min():.2f}, "
+            f"Max={similarities.max():.2f}, Mean={similarities.mean():.2f}"
+        )
 
         # Step 5: Filter based on the MIN_SIMILARITY threshold
-        filtered_recommendations = []
         enrolled_ids = set(enrollments['id'])
+        recommended_indices = []
+        similarity_scores = []
 
-        for idx in np.argsort(similarities)[::-1]:
-            actual_idx = filtered_courses_df.index[idx]
-            course_id = self.courses_df.loc[actual_idx, 'id']
-            
-            if course_id not in enrolled_ids:
-                similarity_score = similarities[idx]
-                
-                # Apply MIN_SIMILARITY filter to include all courses with similarity >= 0.018
-                if similarity_score >= 0.018:
-                    filtered_recommendations.append((actual_idx, similarity_score))
+        for similarity_rank in np.argsort(similarities)[::-1]:
+            course_index_in_df = filtered_courses_df.index[similarity_rank]
+            candidate_course_id = self.courses_df.loc[course_index_in_df, 'id']
+            similarity_score = similarities[similarity_rank]
+
+            if candidate_course_id not in enrolled_ids and similarity_score >= 0.03:
+                recommended_indices.append(course_index_in_df)
+                similarity_scores.append(similarity_score)
 
         logger.info("Filtered recommendations with similarity >= MIN_SIMILARITY:")
-        for idx, score in filtered_recommendations:
-            course_title = self.courses_df.loc[idx, 'title']
-            logger.info(f"{course_title}: {score:.3f}")
+        for i, course_index in enumerate(recommended_indices):
+            course_title = self.courses_df.loc[course_index, 'title']
+            logger.info(f"{course_title}: {similarity_scores[i]:.3f}")
 
-        # Step 6: Return recommended DataFrame with scores
-        result_df = self.courses_df.loc[[idx for idx, _ in filtered_recommendations]].copy()
-        result_df['similarity_score'] = [score for _, score in filtered_recommendations]
+        # Step 6: Return recommended DataFrame 
+        result_df = self.courses_df.loc[recommended_indices].copy()
         return result_df

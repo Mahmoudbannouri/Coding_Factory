@@ -1,9 +1,12 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from models.database import Database
 from models.recommender import CourseRecommender
 from config import Config
 import logging
 from flask_cors import CORS
+import threading
+import time
+from plots import generate_clustering_plots
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -13,23 +16,18 @@ CORS(app)
 
 # Initialize components
 db = Database()
-recommender = CourseRecommender()
+recommender = CourseRecommender.load()
 
-# Load model if exists, otherwise needs training
-#if os.path.exists(Config.MODEL_PATH):
-#    recommender = CourseRecommender.load()
-#else:
-#    logger.warning("No trained model found. Please train the model first.")
-
-
+def periodic_retraining(interval=10):
+    while True:
+        try:
+            courses_df = db.get_courses()
+            recommender.train(courses_df)
+            logger.info("Model retrained in background.")
+        except Exception as e:
+            logger.error(f"Background training error: {e}")
+        time.sleep(interval)  # Wait before next retraining
 # Always retrain to reflect new courses
-try:
-    courses_df = db.get_courses()  
-    recommender.train(courses_df)      
-    recommender._save_model                 
-    logger.info("Recommender model retrained and saved.")
-except Exception as e:
-    logger.error(f"Failed to train model: {e}")
 
 
 @app.route('/recommend/<int:student_id>', methods=['GET'])
@@ -59,5 +57,16 @@ def recommend(student_id):
         logger.error(f"Recommendation error: {str(e)}")
         return jsonify({"error": str(e)}), 500
 
+@app.route('/train_model')
+def train_model():
+    recommender = CourseRecommender()
+    df = db.get_courses()
+    recommender.train(df)
+
+    plot_data = generate_clustering_plots(recommender.course_vectors, max_clusters=10)
+
+    return render_template('train_results.html', plot_data=plot_data)
+
 if __name__ == '__main__':
+    threading.Thread(target=periodic_retraining, daemon=True).start()
     app.run(host='0.0.0.0', port=5000)
