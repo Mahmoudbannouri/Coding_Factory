@@ -185,3 +185,65 @@
   stroke : #2F8BE6;
   stroke-width : 32px !important;
 }
+@import "assets/sass/core/variables/gradient-variables.scss";
+
+/* Add these new styles */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+.table-responsive {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table {
+  margin-bottom: 0;
+  
+  thead {
+    background-color: #f8f9fa;
+    
+    th {
+      border-top: none;
+      font-weight: 600;
+      color: #495057;
+      padding: 1rem;
+    }
+  }
+  
+  tbody {
+    tr {
+      transition: all 0.2s ease;
+      
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+        transform: translateX(5px);
+      }
+      
+      td {
+        padding: 1rem;
+        vertical-align: middle;
+        border-top: 1px solid #f1f1f1;
+      }
+    }
+  }
+}
+
+.badge {
+  padding: 0.5em 0.8em;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+/* Keep all your existing ng-deep styles */
+:host ::ng-deep {
+  /* ... all your existing ng-deep styles ... */
+}

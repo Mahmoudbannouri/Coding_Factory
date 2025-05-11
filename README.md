@@ -11,6 +11,7 @@ This project is a **Course Management System** developed as part of the coursewo
 - AI-powered review suggestions using **Gemini AI**.
 - Pdf Genration Module file
 - Zip compress download courses content
+- Ai machine learning recomndation system based on enrolled courses
 
 ### Event Management
 - Manage educational events.

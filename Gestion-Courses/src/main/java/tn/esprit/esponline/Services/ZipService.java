@@ -21,7 +21,7 @@ public class ZipService {
 
     private String supabaseUrl = "https://wbptqnvcpiorvwjotqwx.supabase.co";
 
-    public byte[] createCourseResourcesZip(int courseId) throws IOException {
+    public byte[] createCourseResourcesZip(int courseId, String zipFileName) throws IOException {
         Course course = courseService.getCourseById(courseId);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 

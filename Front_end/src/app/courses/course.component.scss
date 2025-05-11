@@ -421,56 +421,487 @@ button[type="submit"]:hover {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+/* Recommendation Section - Updated Styles */
+.recommendation-container {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1200px; /* Limit width and center */
+}
 
-.card-footer button .icon {
-  margin-right: 4px;
+.recommendation-header-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.recommendation-header-controls h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3436;
+  margin: 0;
+}
+
+/* Scroller Container */
+.recommendation-scroller {
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center cards horizontally */
+}
+
+.recommendation-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.recommendation-track {
+  display: flex;
+  gap: 1rem;
+  padding: 0 1rem; /* Add padding on sides */
+  justify-content: center; /* Center cards */
+  flex-wrap: nowrap;
+}
+
+/* Smaller Recommendation Card */
+.recommendation-card {
+  flex: 0 0 220px; /* Smaller fixed width */
+  margin: 0 5px; /* Small margin between cards */
+}
+
+.rcard {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f1f1f1;
+}
+
+/* Smaller image container */
+.rcard-image-container {
+  position: relative;
+  height: 120px; /* Reduced height */
+  overflow: hidden;
+}
+
+/* Smaller content padding */
+.rcard-content {
+  padding: 0.75rem;
+  flex: 1;
+}
+
+.rcard-title {
+  font-size: 0.95rem; /* Smaller title */
+  margin: 0 0 8px;
+}
+
+.rcard-description {
+  font-size: 0.8rem; /* Smaller description */
+  line-height: 1.4;
+}
+
+.rcard-footer {
+  padding: 0 0.75rem 0.75rem;
+}
+
+/* Rating adjustments */
+.rcard-rating i {
+  font-size: 12px; /* Smaller stars */
+}
+
+.rating-value {
+  font-size: 11px;
+}
+
+/* Badge adjustments */
+.rcard-badge {
+  font-size: 10px;
+  padding: 3px 8px;
+}
+
+/* Button adjustments */
+.rcard-button {
+  padding: 8px;
+  font-size: 12px;
+}
+
+/* Recommendation Section */
+.recommendation-section {
+  margin: 2rem 0;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.recommendation-header {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.recommendation-header:hover {
+  background: linear-gradient(135deg, #5d3ac2 0%, #70c4bc 100%);
+}
+
+.recommendation-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.recommendation-header .badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+}
+
+/* Recommendation Container */
+.recommendation-container {
+  padding: 1.5rem;
+}
+
+/* Scroller */
+.recommendation-scroller {
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start; /* Align items to the start */
+}
+
+.recommendation-scroller::-webkit-scrollbar {
+  display: none;
+}
+
+.recommendation-cards {
+  display: flex;
+  gap: 1rem;
+  width: max-content; /* Ensure it expands to fit content */
+  padding: 0 1rem; /* Add padding on sides */
+}
+
+/* Compact Recommendation Card */
+.recommendation-card {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.rcard {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  height: 100%;
+  border: 1px solid #eee;
+}
+
+.rcard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.rcard-image-container {
+  position: relative;
+  height: 120px;
+  overflow: hidden;
+}
+
+.rcard-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.rcard:hover .rcard-image {
+  transform: scale(1.05);
+}
+
+.rcard-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background: #ff4757;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.rcard-content {
+  padding: 1rem;
+}
+
+.rcard-category {
+  font-size: 0.7rem;
+  color: #6c757d;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.5rem;
+}
+
+.rcard-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+  color: #2d3436;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rcard-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.rcard-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.rcard-rating .stars {
+  display: flex;
+}
+
+.rcard-rating i {
+  font-size: 0.8rem;
+  color: #ffb400;
+}
+
+.rating-value {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.rcard-level {
+  font-size: 0.75rem;
+  background: #f1f1f1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: #555;
+}
+
+.rcard-button {
+  width: 100%;
+  background: linear-gradient(135deg, #6e45e2 0%, #88d3ce 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.rcard-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(110, 69, 226, 0.2);
+}
+
+/* Scroll Controls */
+.scroll-controls {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.scroll-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scroll-btn:hover {
+  background: #e9ecef;
+  transform: scale(1.1);
+}
+
+/* No Recommendations */
+.no-recommendations {
+  text-align: center;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.no-recommendations i {
+  font-size: 2rem;
+  color: #adb5bd;
+  margin-bottom: 1rem;
+}
+
+.no-recommendations p {
+  margin: 0.5rem 0;
+  color: #6c757d;
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .course-cards-container {
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust for smaller screens */
+  .recommendation-card {
+    width: 200px;
   }
 
-  .course-image {
-    height: 150px;
-  }
-
-  .card-title {
-    font-size: 1.1rem;
-  }
-
-  .card-trainer,
-  .card-description,
-  .card-level {
-    font-size: 0.8rem;
-  }
-
-  .card-footer button {
-    flex: 1 1 100%;
-    max-width: 100%;
+  .rcard-image-container {
+    height: 110px;
   }
 }
 
 @media (max-width: 480px) {
-  .course-cards-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust for mobile screens */
-  }
-
-  .course-image {
-    height: 120px;
-  }
-
-  .card-title {
+  .recommendation-header h3 {
     font-size: 1rem;
   }
 
-  .card-trainer,
-  .card-description,
-  .card-level {
+  .recommendation-card {
+    width: 180px;
+  }
+
+  .rcard-title {
+    font-size: 0.85rem;
+  }
+}
+/* Level badge styles */
+.level-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+
+  /* Different colors for different levels */
+  &.beginner {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    border: 1px solid #90caf9;
+  }
+
+  &.intermediate {
+    background-color: #e8f5e9;
+    color: #388e3c;
+    border: 1px solid #a5d6a7;
+  }
+
+  &.advanced {
+    background-color: #ffebee;
+    color: #d32f2f;
+    border: 1px solid #ef9a9a;
+  }
+
+  &.expert {
+    background-color: #f3e5f5;
+    color: #8e24aa;
+    border: 1px solid #ce93d8;
+  }
+}
+/* Recommendation card specific styles */
+.rcard {
+  .level-badge {
+    margin-left: 8px;
+    font-size: 0.65rem;
+    padding: 3px 6px;
+  }
+
+  .rcard-meta {
+    display: flex;
+    align-items: center;
+    margin-top: 8px;
+  }
+
+  .rcard-rating {
+    display: flex;
+    align-items: center;
+
+    .stars {
+      margin-right: 4px;
+
+      i {
+        font-size: 0.8rem;
+        color: #ffc107;
+      }
+    }
+
+    .rating-value {
+      font-size: 0.8rem;
+      color: #666;
+    }
+  }
+}
+
+/* Main course card specific styles */
+.course-card {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .level-badge {
+      margin-left: 8px;
+    }
+  }
+
+  .badge {
+    background-color: #e0e0e0;
+    color: #424242;
+    padding: 4px 8px;
+    border-radius: 4px;
     font-size: 0.75rem;
   }
 }
+/* Description styling */
+.course-description {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  margin: 8px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 
 /* Button Colors */
 .btn-primary {
@@ -610,6 +1041,81 @@ button[type="submit"]:hover {
   transition: all 0.3s ease;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   margin-left: 10px;
+}
+.btn-download-resources {
+  background: linear-gradient(to right, #4e54c8, #8f94fb);
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.btn-download-resources i {
+  font-size: 16px;
+}
+
+.btn-download-resources:hover {
+  background: linear-gradient(to right, #3b3fbc, #7a7ee0);
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-download-resources:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.fancy-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-align: center;
+}
+
+.fancy-btn i {
+  font-size: 16px;
+}
+
+.btn-pdf-download {
+  background-color: #d9534f;
+  color: white;
+}
+
+.btn-pdf-download:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+.btn-resources-download {
+  background-color: #0275d8;
+  color: white;
+}
+
+.btn-resources-download:hover {
+  background-color: #025aa5;
+  transform: scale(1.05);
+}
+
+.fancy-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .add-course-button:hover {

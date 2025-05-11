@@ -4,6 +4,7 @@ import { ChartType, ChartEvent } from 'ng-chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
 import { CourseService } from 'app/services/course.service';
 import { ReviewService } from 'app/services/review';
+import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
 
 
 declare var require: any;
@@ -20,8 +21,27 @@ export interface Chart {
 @Component({
   selector: 'app-dashboard1',
   templateUrl: './dashboard1.component.html',
-  styleUrls: ['./dashboard1.component.scss']
+  styleUrls: ['./dashboard1.component.scss'],
+  animations: [
+    trigger('tableAnimation', [
+      transition('* => *', [
+        query(':enter', [
+          style({ opacity: 0, transform: 'translateY(-20px)' }),
+          stagger(100, [
+            animate('0.3s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ]),
+    trigger('cardAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateY(20px)' }),
+        animate('0.5s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
 })
+
 export class Dashboard1Component implements OnInit {
   // Line area chart configuration Starts
   lineArea: Chart = {

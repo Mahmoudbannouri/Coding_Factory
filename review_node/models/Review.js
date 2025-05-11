@@ -1,3 +1,4 @@
+// models/Review.js
 module.exports = (sequelize, DataTypes) => {
     const Review = sequelize.define('Review', {
         id: {
@@ -26,7 +27,13 @@ module.exports = (sequelize, DataTypes) => {
         }
     }, {
         tableName: 'reviews',
-        timestamps: true
+        timestamps: true,
+        indexes: [
+            {
+                unique: true,
+                fields: ['studentId', 'courseId']
+            }
+        ]
     });
 
     Review.associate = (models) => {

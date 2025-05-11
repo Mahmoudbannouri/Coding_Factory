@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { CourseService } from '../services/course.service';
 import { CourseResourceService } from '../services/course-resource.service';
 import { Course } from '../models/courses';
@@ -9,16 +9,24 @@ import { CourseResource } from '../models/CourseResource';
 import { Page } from '../models/page';
 import { StorageService } from 'app/shared/auth/storage.service';
 import { ReviewService } from 'app/services/review';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-declare var bootstrap: any; 
+import { RecommendationService } from '../services/recommendation.service';
+import { validateRating } from '../utils/rating.utils';
+
 @Component({
   selector: 'app-course',
   templateUrl: './course.component.html',
   styleUrls: ['./course.component.scss']
 })
 export class CourseComponent implements OnInit {
+  @ViewChild('recommendationScroller') recommendationScroller!: ElementRef;
+  @ViewChild('scrollingContent') scrollingContent!: ElementRef;
+  recommendations?: Course[];
+  hoveredCardId: number | null = null;
   categoryEnum = CategoryEnum;
   categoryColors: { [key: string]: string } = {};
+  recommendedCourses: Course[] = [];
+  showRecommendations = false;
+  rating?: number;  // Changed from rate to rating
   page: Page<Course> = {
     content: [],
     totalElements: 0,
@@ -29,10 +37,9 @@ export class CourseComponent implements OnInit {
   };
   selectedCourse: Course | null = null;
   trainers: User[] = [];
-  enrolledStudents: User[] = []; // or any[] if you have a specific interface for enrolled students
+  enrolledStudents: User[] = [];
   showModal = false;
   showAddResourceModal = false;
-  showEnrollCourseModal = false;
   showResourcesModal = false;
   showEditModal = false;
   showEnrollModal = false;
@@ -44,197 +51,239 @@ export class CourseComponent implements OnInit {
   loading = false;
   public isTrainerLoggedIn = false;
   public isStudentLoggedIn = false;
-  public StorageService = StorageService; // Make the service available in template
+  public StorageService = StorageService;
 
   constructor(
-    private courseService: CourseService, 
-    private courseResourceService: CourseResourceService, 
+    private courseService: CourseService,
+    private courseResourceService: CourseResourceService,
     private cdr: ChangeDetectorRef,
     private storageService: StorageService,
     private reviewService: ReviewService,
-    private modalService: NgbModal
+    private recommendationService: RecommendationService
   ) {}
 
   ngOnInit(): void {
-    if (!this.storageService.isLoggedIn()) {
-      return;
+    // Load recommendations if user is logged in
+    if (this.storageService.isLoggedIn()) {
+      this.loadRecommendations();
+
     }
-  
-    // First set the roles
+    console.log('User role:', StorageService.getUserRole(), 'Is student:', this.isStudentLoggedIn);
     this.updateRoleFlags();
-    
-    console.log('Raw user data:', this.storageService.getUser());
-    console.log('Processed role:', StorageService.getUserRole());
-    console.log('Is trainer:', this.isTrainerLoggedIn); // Use the property
-    console.log(`User is ${this.isTrainerLoggedIn ? 'Trainer' : this.isStudentLoggedIn ? 'Student' : 'Guest'}`);
-    
     this.assignRandomColorsToCategories();
     this.loadInitialCourses();
   }
-  
 
-  private updateRoleFlags(): void {
-    const role = StorageService.getUserRole()?.replace(/[\[\]]/g, '');
-    this.isTrainerLoggedIn = role === 'TRAINER';
-    this.isStudentLoggedIn = role === 'STUDENT';
-    this.cdr.detectChanges(); // Add this to ensure UI updates
+  overCard(courseId: number): void {
+    this.hoveredCardId = courseId;
   }
-  getCategoryValues(): string[] {
-    return Object.keys(CategoryEnum).filter(key => isNaN(Number(key)));
-  }
-  getCategoryDisplayName(category: string): string {
-    if (!category) return '';
-    return category.toLowerCase().split('_').map(word => 
-      word.charAt(0).toUpperCase() + word.slice(1)
-    ).join(' ');
-  }
-  // Fix the ngAfterViewInit debug code
-ngAfterViewInit() {
-  setTimeout(() => {
-    const btn = document.querySelector('.floating-add-button') as HTMLElement;
-    console.log('Button element:', btn);
-    if (btn) {
-      console.log('Computed styles:', window.getComputedStyle(btn));
-      console.log('Parent visible:', (btn as any).offsetParent !== null);
+
+  unhoverCard(courseId: number): void {
+    if (this.hoveredCardId === courseId) {
+      this.hoveredCardId = null;
     }
-  }, 1000);
-}
+  }
 
+  scrollRecommendations(direction: number): void {
+    const element = this.recommendationScroller.nativeElement;
+    const scrollAmount = 300;
 
-  
-  
-loadInitialCourses(): void {
-  this.loading = true;
-  this.cdr.detectChanges();
-  
-  const subscription = (this.isTrainerLoggedIn )
-    ? this.courseService.searchMyCourses(
-        this.searchQuery,
-        this.selectedCategory,
-        this.page.number,  // Use current page number
-        this.page.size     // Use current page size
-      ).subscribe(
-        (page: Page<Course>) => {
-          this.handleCoursesResponse(page);
-        },
-        (err: any) => {
-          this.handleCoursesError(err);
-        }
-      )
-    : this.courseService.getAllCoursesWithPagination(
-        this.searchQuery, 
-        this.selectedCategory,
-        this.page.number,  // Use current page number
-        this.page.size     // Use current page size
-      ).subscribe(
-        (page: Page<Course>) => {
-          this.handleCoursesResponse(page);
-        },
-        (err: any) => {
-          this.handleCoursesError(err);
-        }
-      );
-}
+    if (direction === -1) {
+      element.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    } else {
+      element.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  }
 
-private handleCoursesResponse(courses: Course[] | Page<Course>): void {
-  const courseList = Array.isArray(courses) ? courses : courses.content;
-  const studentId = StorageService.getUserId();
-  
-  if (this.isStudentLoggedIn && studentId) {
-    courseList.forEach(course => {
-      this.reviewService.hasStudentReviewed(studentId, course.id)
-        .subscribe(hasReviewed => {
-          course.hasReviewed = hasReviewed;
-          this.cdr.detectChanges();
-        });
+  startAutoScroll() {
+    // The animation is handled by CSS, but you might want to add JS logic
+    // for more control or to handle edge cases
+  }
+
+  loadRecommendations(): void {
+    if (!this.isStudentLoggedIn) {
+      this.showRecommendations = false;
+      return;
+    }
+
+    this.recommendationService.getRecommendations().subscribe({
+      next: (courses) => {
+        this.recommendedCourses = courses;
+        this.showRecommendations = this.recommendedCourses.length > 0;
+      },
+      error: (err) => {
+        console.error('Error loading recommendations:', err);
+        this.showRecommendations = false;
+      }
     });
   }
 
-  this.page = {
-    content: courseList,
-    totalElements: Array.isArray(courses) ? courses.length : courses.totalElements,
-    totalPages: Array.isArray(courses) ? Math.ceil(courses.length / this.page.size) : courses.totalPages,
-    size: this.page.size,
-    number: Array.isArray(courses) ? 0 : courses.number,
-    numberOfElements: Array.isArray(courses) ? courses.length : courses.numberOfElements
-  };
-  this.loading = false;
-  this.cdr.detectChanges();
-}
 
-private handleCoursesError(err: any): void {
-  console.error('Error loading courses:', err);
-  this.loading = false;
-  this.cdr.detectChanges();
-  Swal.fire('Error', 'Failed to load courses', 'error');
-}
-confirmEnrollment(modal: any): void {
-  this.courseService.enrollStudentInCourse(this.selectedCourse.id, StorageService.getUserId()).subscribe({
-    next: (response) => {
-      // ✅ Inscription réussie
-      console.log('Inscription réussie :', response);
-
-      modal.close(); // ✅ Fermeture du modal ici
-    },
-    error: (error) => {
-      console.error('Erreur lors de l\'inscription :', error);
-      // Tu peux aussi afficher un toast ou message d’erreur ici si tu veux
+  toggleRecommendations(): void {
+    this.showRecommendations = !this.showRecommendations;
+    if (this.showRecommendations && this.recommendedCourses.length === 0) {
+      this.loadRecommendations();
     }
-  });
-}
-checkStudentEnroll(course: any): boolean {
-  const userId = StorageService.getUserId();
-  return course.studentIds?.includes(userId);
-}
-searchCourses(): void {
-  this.loading = true;
-  
-  const observable = (this.isTrainerLoggedIn)
-    ? this.courseService.searchMyCourses(
+    this.cdr.detectChanges(); // Manually trigger change detection
+  }
+
+  private updateRoleFlags(): void {
+    const role = StorageService.getUserRole();
+    console.log('Raw role from storage:', role); // Debug log
+
+    // Normalize the role by removing brackets
+    const normalizedRole = role.replace(/[\[\]]/g, '').trim();
+
+    this.isTrainerLoggedIn = normalizedRole === 'TRAINER';
+    this.isStudentLoggedIn = normalizedRole === 'STUDENT';
+    this.cdr.detectChanges();
+  }
+
+  getCategoryValues(): string[] {
+    return Object.keys(CategoryEnum).filter(key => isNaN(Number(key)));
+  }
+
+  getCategoryDisplayName(category: string): string {
+    if (!category) return '';
+    return category.toLowerCase().split('_').map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+  }
+
+  ngAfterViewInit() {
+    if (this.isTrainerLoggedIn) {
+      setTimeout(() => {
+        const btn = document.querySelector('.floating-add-button');
+        if (!btn) {
+          console.warn('Add course button missing for trainer');
+        }
+      }, 1000);
+    }
+  }
+
+  loadInitialCourses(): void {
+    this.loading = true;
+    this.cdr.detectChanges();
+
+    const subscription = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+      ? this.courseService.searchMyCourses(
+        this.searchQuery,
+        this.selectedCategory,
+        this.page.number,
+        this.page.size
+      ).subscribe(
+        (page: Page<Course>) => {
+          this.handleCoursesResponse(page);
+        },
+        (err: any) => {
+          this.handleCoursesError(err);
+        }
+      )
+      : this.courseService.getAllCoursesWithPagination(
+        this.searchQuery,
+        this.selectedCategory,
+        this.page.number,
+        this.page.size
+      ).subscribe(
+        (page: Page<Course>) => {
+          this.handleCoursesResponse(page);
+        },
+        (err: any) => {
+          this.handleCoursesError(err);
+        }
+      );
+  }
+
+  private handleCoursesResponse(courses: Course[] | Page<Course>): void {
+    const courseList = Array.isArray(courses) ? courses : courses.content;
+    const studentId = StorageService.getUserId();
+
+    courseList.forEach(course => {
+      if (this.isStudentLoggedIn && studentId) {
+        this.reviewService.hasStudentReviewed(studentId, course.id)
+          .subscribe(hasReviewed => {
+            course.hasReviewed = hasReviewed;
+          });
+      }
+
+      this.courseResourceService.getResourcesForCourse(course.id).subscribe(
+        resources => {
+          course.resources = resources;
+          this.cdr.detectChanges();
+        },
+        error => console.error('Error loading resources', error)
+      );
+    });
+
+    this.page = {
+      content: courseList,
+      totalElements: Array.isArray(courses) ? courses.length : courses.totalElements,
+      totalPages: Array.isArray(courses) ? Math.ceil(courses.length / this.page.size) : courses.totalPages,
+      size: this.page.size,
+      number: Array.isArray(courses) ? 0 : courses.number,
+      numberOfElements: Array.isArray(courses) ? courses.length : courses.numberOfElements
+    };
+    this.loading = false;
+    this.cdr.detectChanges();
+  }
+
+  private handleCoursesError(err: any): void {
+    console.error('Error loading courses:', err);
+    this.loading = false;
+    this.cdr.detectChanges();
+    Swal.fire('Error', 'Failed to load courses', 'error');
+  }
+
+  searchCourses(): void {
+    this.loading = true;
+
+    const observable = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+      ? this.courseService.searchMyCourses(
         this.searchQuery,
         this.selectedCategory,
         this.page.number,
         this.page.size
       )
-    : this.courseService.getAllCoursesWithPagination(
+      : this.courseService.getAllCoursesWithPagination(
         this.searchQuery,
         this.selectedCategory,
         this.page.number,
         this.page.size
       );
 
-  observable.subscribe({
-    next: (page) => {
-      this.page = {
-        ...page,
-        content: page.content.map(course => ({
-          ...course,
-          image: this.getFile(course.image)
-        }))
-      };
-      this.loading = false;
-      this.cdr.detectChanges();
-    },
-    error: (error) => {
-      console.error('Error searching courses:', error);
-      this.loading = false;
-      Swal.fire('Error', 'Failed to load courses', 'error');
-      this.cdr.detectChanges();
-    }
-  });
-}
+    observable.subscribe({
+      next: (page) => {
+        this.page = {
+          ...page,
+          content: page.content.map(course => ({
+            ...course,
+            image: this.getFile(course.image)
+          }))
+        };
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error searching courses:', error);
+        this.loading = false;
+        Swal.fire('Error', 'Failed to load courses', 'error');
+        this.cdr.detectChanges();
+      }
+    });
+  }
 
   enrollInCourse(course: Course): void {
     this.courseService.enrollCurrentUser(course.id).subscribe({
       next: () => {
         Swal.fire('Success', 'Enrolled successfully!', 'success');
-        this.searchCourses(); // Refresh the list
+        this.searchCourses();
       },
       error: (err) => {
         Swal.fire('Error', err.error.message || 'Enrollment failed', 'error');
       }
     });
   }
+
   private loadTrainerCourses(): void {
     this.loading = true;
     this.courseService.getMyCourses().subscribe({
@@ -255,6 +304,7 @@ searchCourses(): void {
       }
     });
   }
+
   generateRandomColor(): string {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -302,10 +352,7 @@ searchCourses(): void {
     this.showResourcesModal = false;
     this.cdr.detectChanges();
   }
-  openModal(content: any,course:any) {
-    this.selectedCourse=course
-    this.modalService.open(content);
-  }
+
   openAddCourseModal(): void {
     console.log('Current user role:', StorageService.getUserRole());
     this.showModal = true;
@@ -314,17 +361,14 @@ searchCourses(): void {
 
   onCourseAdded(course: Course): void {
     if (this.isTrainerLoggedIn) {
-      // For trainers, reload their specific courses
       this.loadTrainerCourses();
     } else {
-      // For others, refresh the general search
       this.searchCourses();
     }
     this.page.content = [course, ...this.page.content];
     this.page.totalElements++;
     this.cdr.detectChanges();
   }
-  
 
   openReviewModal(course: Course): void {
     this.selectedCourse = course;
@@ -343,6 +387,7 @@ searchCourses(): void {
       this.cdr.detectChanges();
     }
   }
+
   downloadPdf(courseId: number): void {
     this.courseService.downloadCoursePdf(courseId).subscribe({
       next: (blob) => {
@@ -360,9 +405,13 @@ searchCourses(): void {
       }
     });
   }
-  
-  
+
   downloadResourcesZip(courseId: number): void {
+    const course = this.page.content.find(c => c.id === courseId);
+    const filename = course ?
+      `${course.title.replace(/[^a-zA-Z0-9]/g, '_')}_Content.zip` :
+      `course_${courseId}_resources.zip`;
+
     Swal.fire({
       title: 'Preparing Download',
       text: 'Please wait while we prepare your resources...',
@@ -371,14 +420,14 @@ searchCourses(): void {
         Swal.showLoading();
       }
     });
-  
+
     this.courseService.downloadCourseResourcesZip(courseId).subscribe({
       next: (blob) => {
         Swal.close();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `course_${courseId}_resources.zip`;
+        a.download = filename;
         a.click();
         window.URL.revokeObjectURL(url);
       },
@@ -388,7 +437,7 @@ searchCourses(): void {
       }
     });
   }
-  
+
   openAIImprovementsModal(course: Course): void {
     console.log('Opening AI Improvements Modal for Course ID:', course.id);
     this.selectedCourse = course;
@@ -396,21 +445,30 @@ searchCourses(): void {
     this.cdr.detectChanges();
   }
 
-  getFilledStars(rate: number): number[] {
-    const filledStars = Math.floor(rate);
-    return Array(filledStars).fill(0);
+  getFilledStars(rate: number | undefined): number[] {
+    const validatedRate = rate ? this.validateRating(rate) : 0;
+    const filledStars = Math.floor(validatedRate);
+    return filledStars > 0 ? Array(filledStars).fill(0) : [];
   }
 
-  hasPartialStar(rate: number): boolean {
-    return rate % 1 !== 0;
-  }
-
-  getEmptyStars(rate: number): number[] {
+  getEmptyStars(rate: number | undefined): number[] {
+    const validatedRate = rate ? this.validateRating(rate) : 0;
     const totalStars = 5;
-    const filledStars = Math.floor(rate);
-    const hasPartial = this.hasPartialStar(rate);
+    const filledStars = Math.floor(validatedRate);
+    const hasPartial = this.hasPartialStar(validatedRate);
     const emptyStars = totalStars - filledStars - (hasPartial ? 1 : 0);
-    return Array(emptyStars).fill(0);
+    return emptyStars > 0 ? Array(emptyStars).fill(0) : [];
+  }
+
+  hasPartialStar(rate: number | undefined): boolean {
+    if (!rate) return false;
+    const validatedRate = this.validateRating(rate);
+    return validatedRate % 1 !== 0;
+  }
+
+  private validateRating(rate: number): number {
+    if (!rate) return 0;
+    return Math.max(0, Math.min(5, rate));
   }
 
   openResourcesModal(course: Course): void {
@@ -440,13 +498,11 @@ searchCourses(): void {
       if (result.isConfirmed) {
         this.courseService.deleteCourse(courseId).subscribe({
           next: () => {
-            // Remove the deleted course from the local array
             this.page.content = this.page.content.filter(course => course.id !== courseId);
-            // Update the total elements count
             this.page.totalElements--;
-            
+
             Swal.fire('Deleted!', 'The course has been deleted.', 'success');
-            this.cdr.detectChanges(); // Trigger change detection
+            this.cdr.detectChanges();
           },
           error: (error) => {
             console.error('Error deleting course:', error);
@@ -494,7 +550,7 @@ searchCourses(): void {
       this.courseService.getEnrolledStudentsWithDetails(this.selectedCourse.id)
         .subscribe(students => {
           this.enrolledStudents = students;
-          this.showStudentsModal = true; // Show students modal after enrollment
+          this.showStudentsModal = true;
         });
     }
   }
@@ -502,10 +558,10 @@ searchCourses(): void {
   openStudentsModal(course: Course): void {
     this.selectedCourse = course;
     this.loading = true;
-    
+
     this.courseService.getEnrolledStudentsWithDetails(course.id).subscribe({
       next: (students) => {
-        this.enrolledStudents = students; // This should now be an array of student objects
+        this.enrolledStudents = students;
         this.showStudentsModal = true;
         this.loading = false;
         this.cdr.detectChanges();

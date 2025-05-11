@@ -1,5 +1,5 @@
 <!--Statistics cards Starts-->
-<div class="row" (resized)="onResized($event)">
+<div class="row" (resized)="onResized($event)" @cardAnimation>
   <div class="col-xl-3 col-lg-6 col-md-6 col-12">
     <div class="card gradient-purple-love">
       <div class="card-content">
@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div class="col-xl-3 col-lg-6 col-md-6 col-12">
+  <div class="col-xl-6 col-lg-12 col-12" @cardAnimation>
     <div class="card gradient-mint">
       <div class="card-content">
         <div class="card-body py-0">
@@ -54,23 +54,7 @@
     </div>
   </div>
 
-  <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-    <div class="card gradient-king-yna">
-      <div class="card-content">
-        <div class="card-body py-0">
-          <div class="media pb-1">
-            <div class="media-body white text-left">
-              <h3 class="font-large-1 white mb-0">{{mostEnrolledCourses[0]?.studentIds?.length || 0}}</h3>
-              <span>Most Enrolled Course</span>
-            </div>
-            <div class="media-right white text-right">
-              <i class="ft-award font-large-1"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 </div>
 <!--Statistics cards Ends-->
 
@@ -85,7 +69,7 @@
       <div class="card-content">
         <div class="card-body p-0">
           <div class="table-responsive">
-            <table class="table text-center m-0">
+            <table class="table text-center m-0" @tableAnimation>
               <thead>
                 <tr>
                   <th>Course</th>
@@ -117,7 +101,7 @@
     </div>
   </div>
 
-  <div class="col-xl-6 col-lg-12 col-12">
+  <div class="col-xl-6 col-lg-12 col-12" @cardAnimation>
     <div class="card">
       <div class="card-header">
         <h4 class="card-title">Most Enrolled Courses</h4>
@@ -125,7 +109,7 @@
       <div class="card-content">
         <div class="card-body p-0">
           <div class="table-responsive">
-            <table class="table text-center m-0">
+            <table class="table text-center m-0" @tableAnimation>
               <thead>
                 <tr>
                   <th>Course</th>
@@ -159,7 +143,7 @@
 </div>
 
 <!-- Enrollments by Category Chart -->
-<div class="row">
+<div class="row" @cardAnimation>
   <div class="col-12">
     <div class="card">
       <div class="card-header">

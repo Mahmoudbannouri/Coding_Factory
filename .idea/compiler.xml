@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Event" />
         <module name="Gestion-PFE" />
         <module name="EEureka" />
         <module name="ApiGetway" />
@@ -21,16 +22,6 @@
         </processorPath>
         <module name="esponline" />
       </profile>
-      <profile name="Annotation profile for Event" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processor name="lombok.launch.AnnotationProcessorHider$AnnotationProcessor" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
-        </processorPath>
-        <module name="Event" />
-      </profile>
       <profile name="Annotation profile for authservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -41,13 +32,16 @@
         <module name="authservice" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Gestion_Pfe" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ApiGetway" options="-parameters" />
       <module name="EEureka" options="-parameters" />
-      <module name="Event" options="-parameters" />
-      <module name="Gestion-PFE" options="-parameters" />
+      <module name="Event" options="" />
+      <module name="Gestion-PFE" options="" />
       <module name="authservice" options="-parameters -parameters" />
       <module name="esponline" options="-parameters" />
       <module name="reviews" options="-parameters" />

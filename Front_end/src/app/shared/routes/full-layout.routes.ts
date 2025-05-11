@@ -8,14 +8,6 @@ export const Full_ROUTES: Routes = [
     loadChildren: () => import('../../dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
-    path: 'calendar',
-    loadChildren: () => import('../../calendar/calendar.module').then(m => m.CalendarsModule)
-  },
-  {
-    path: 'charts',
-    loadChildren: () => import('../../charts/charts.module').then(m => m.ChartsNg2Module)
-  },
-  {
     path: 'courses',
     loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
   },
@@ -25,14 +17,7 @@ export const Full_ROUTES: Routes = [
     loadChildren: () => import('../../event/event.module').then(m => m.EventModule)
   },
 
-   {
-    path: 'forms',
-    loadChildren: () => import('../../forms/forms.module').then(m => m.FormModule)
-  },
-  {
-    path: 'maps',
-    loadChildren: () => import('../../maps/maps.module').then(m => m.MapsModule)
-  },
+
   {
     path: 'tables',
     loadChildren: () => import('../../tables/tables.module').then(m => m.TablesModule)
@@ -41,14 +26,8 @@ export const Full_ROUTES: Routes = [
     path: 'datatables',
     loadChildren: () => import('../../data-tables/data-tables.module').then(m => m.DataTablesModule)
   },
-  {
-    path: 'uikit',
-    loadChildren: () => import('../../ui-kit/ui-kit.module').then(m => m.UIKitModule)
-  },
-  {
-    path: 'components',
-    loadChildren: () => import('../../components/ui-components.module').then(m => m.UIComponentsModule)
-  },
+
+
   {
     path: 'pages',
     loadChildren: () => import('../../pages/full-pages/full-pages.module').then(m => m.FullPagesModule)
@@ -57,34 +36,12 @@ export const Full_ROUTES: Routes = [
     path: 'cards',
     loadChildren: () => import('../../cards/cards.module').then(m => m.CardsModule)
   },
-  {
-    path: 'chat',
-    loadChildren: () => import('../../chat/chat.module').then(m => m.ChatModule)
-  },
-  {
-    path: 'chat-ngrx',
-    loadChildren: () => import('../../chat-ngrx/chat-ngrx.module').then(m => m.ChatNGRXModule)
-  },
+
+
   {
     path: 'courses',
     loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
   },
-  {
-    path: 'taskboard',
-    loadChildren: () => import('../../taskboard/taskboard.module').then(m => m.TaskboardModule)
-  },
-  {
-    path: 'exams',
-    loadChildren: () =>
-      import('../../modules/exams/exam.module').then((m) => m.ExamModule),
-  },
-  {
-    path: 'ExmanQuiz',
-    loadChildren: () =>
-      import('../../modules/ExmanQuiz/ExmanQuiz.module').then((m) => m.ExmanQuizModule),
-  },
-  {
-    path: 'taskboard-ngrx',
-    loadChildren: () => import('../../taskboard-ngrx/taskboard-ngrx.module').then(m => m.TaskboardNGRXModule)
-  }
+
+
 ];

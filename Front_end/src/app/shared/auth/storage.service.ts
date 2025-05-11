@@ -19,7 +19,7 @@ export class StorageService {
     };
     window.localStorage.setItem(USER_KEY, JSON.stringify(userData));
   }
-  
+
 
   // Save token
   public saveToken(token: string): void {
@@ -83,7 +83,7 @@ export class StorageService {
   public static getUserRole(): string {
     const user = this.getUser();
     if (!user || !user.roles) return '';
-    
+
     // Handle both string and array roles
     if (Array.isArray(user.roles)) {
       return user.roles[0]; // Return first role
@@ -97,10 +97,11 @@ export class StorageService {
     return role === "ADMIN" || role === "[ADMIN]";
   }
 
-  // Check if student is logged in
   public static isStudentLoggedIn(): boolean {
     const role = this.getUserRole();
-    return role === 'STUDENT' || role === '[STUDENT]';
+    // Normalize the role by removing brackets and trim whitespace
+    const normalizedRole = role.replace(/[\[\]]/g, '').trim();
+    return normalizedRole === 'STUDENT';
   }
 
   // Check if partner is logged in

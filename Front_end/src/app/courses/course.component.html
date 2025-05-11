@@ -1,5 +1,68 @@
 <div class="course-container">
-  <!-- Search Input and Filters -->
+  <div class="recommendation-section">
+    <div class="recommendation-header" *ngIf="isStudentLoggedIn" (click)="toggleRecommendations()">
+      <h3>
+        <i class="bi bi-stars"></i>
+        Recommended For You
+        <i class="bi bi-chevron-{{showRecommendations ? 'up' : 'down'}}"></i>
+      </h3>
+      <div class="badge">{{recommendedCourses.length}} recommendations</div>
+    </div>
+
+    <div *ngIf="showRecommendations" class="recommendation-container">
+      <div *ngIf="recommendedCourses.length > 0;">
+        <div class="recommendation-scroller" #recommendationScroller>
+          <div class="recommendation-cards">
+            <div *ngFor="let course of recommendedCourses" class="recommendation-card">
+              <div class="rcard">
+                <div class="rcard-image-container">
+                  <img [src]="getFile(course.image)" alt="Course Image" class="rcard-image">
+                  <div class="rcard-badge">Recommended</div>
+                </div>
+                <div class="rcard-content">
+                  <div class="rcard-category">{{ getCategoryDisplayName(course.categoryCourse) }}</div>
+                  <h4 class="rcard-title">{{ course.title }}</h4>
+
+                  <!-- Added description -->
+                  <p class="course-description">{{ course.description }}</p>
+                  <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round level-badge">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Module file</span>
+                  </button>
+                  <div class="rcard-meta">
+                    <div class="rcard-rating">
+                      <div class="stars">
+                        <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill"></i>
+                        <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star"></i>
+                      </div>
+                      <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
+                    </div>
+                    <!-- Updated level badge -->
+                    <div class="level-badge" [class]="course.level.toLowerCase()">
+                      {{ course.level }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="scroll-controls" *ngIf="recommendedCourses.length > 1">
+          <button (click)="scrollRecommendations(-1)" class="scroll-btn">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+
+        </div>
+      </div>
+      <ng-template #noRecommendations>
+        <div class="no-recommendations">
+          <i class="bi bi-info-circle"></i>
+          <p>No personalized recommendations available yet.</p>
+          <p>Complete more courses to get better recommendations!</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+    <br>
   <div class="search-container">
     <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..."
            class="search-input" (ngModelChange)="onSearchChange()">
@@ -12,31 +75,27 @@
     <div style="display: flex; align-items: center; gap: 10px;">
       <button class="clear-button" (click)="clearFilters()">Clear</button>
       <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-        (click)="openAddCourseModal()"
-        class="add-course-button">
+              (click)="openAddCourseModal()"
+              class="floating-plus btn-floating">
         +
       </button>
     </div>
   </div>
 
-  <!-- Loading Indicator -->
   <div *ngIf="loading" class="loading-indicator">
     Loading courses...
   </div>
 
-  <!-- No Courses Available -->
   <div *ngIf="!loading && page.content.length === 0">
     <p>No courses available.</p>
   </div>
 
-  <!-- Add New Course Modal -->
   <app-add-course-modal
     [showModal]="showModal"
     (showModalChange)="showModal = $event"
     (courseAdded)="onCourseAdded($event)">
   </app-add-course-modal>
 
-  <!-- Edit Course Modal -->
   <app-edit-course-modal
     [showModal]="showEditModal"
     [courseId]="selectedCourse?.id"
@@ -44,7 +103,6 @@
     (courseUpdated)="onCourseUpdated($event)">
   </app-edit-course-modal>
 
-  <!-- All Courses Section -->
   <div *ngIf="!loading && page.content.length > 0">
     <h3>All Courses</h3>
     <div class="course-cards-container">
@@ -59,10 +117,9 @@
             </a>
             <div class="card-body">
               <p><strong>Description:</strong> {{ course.description }}</p>
-              <p><strong>Level:</strong> {{ course.level }}</p>
+              <p ><strong>Level:</strong> {{ course.level }}</p>
               <p class="badge">{{ getCategoryDisplayName(course.categoryCourse) }}</p>
             </div>
-            <!-- Rating Stars -->
             <div class="rating">
               <div class="stars-container">
                 <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
@@ -82,62 +139,48 @@
             </div>
           </div>
           <div class="card-footer">
-            <!-- Show resources button to all authenticated users -->
             <button (click)="openResourcesModal(course)" class="btn-primary round">
               <span class="icon">📦</span>Resources
             </button>
-
-            <!-- Only show add resource to trainer (not admin) -->
             <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
                     (click)="openAddResourceModal(course)"
                     class="btn-secondary round">
               <span class="icon" style="color: white;">➕</span>Add Resource
             </button>
-
-            <!-- Show delete to admin or trainer -->
             <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
                     (click)="deleteCourse(course.id)"
                     class="btn-danger round">
               <span class="icon">🗑️</span> Delete
             </button>
-
-            <!-- Show edit to admin or trainer -->
             <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
                     (click)="openEditModal(course)"
                     class="btn-warning round">
               <span class="icon">✏️</span> Edit
             </button>
-
-            <!-- Show students modal to admin or trainer -->
             <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
                     (click)="openStudentsModal(course)"
                     class="btn-info round">
               <span class="icon">👥</span> View Students
             </button>
-
-            <!-- Show enroll to admin or trainer -->
             <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
                     (click)="openEnrollModal(course)"
                     class="btn-success round">
               <span class="icon">👥</span> Enroll Students
             </button>
-
-            <!-- Only show AI improvements to trainer -->
             <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
                     (click)="openAIImprovementsModal(course)"
                     class="btn-ai-improvements round">
               <span class="icon">🤖</span> AI Improvements
             </button>
-
-            <!-- Add these buttons inside your card-footer div -->
-            <button (click)="downloadPdf(course.id)" class="btn-info round">
-              <i class="fas fa-file-pdf"></i> Module File
+            <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round">
+              <i class="fas fa-file-pdf"></i>
+              <span>Module file</span>
             </button>
-
             <button (click)="downloadResourcesZip(course.id)"
-                    class="btn-info round"
-                    *ngIf="course.resources?.length > 0">
-              <i class="fas fa-file-archive"></i> Download Resources
+                    class="btn-download-resources round"
+                    [disabled]="!course.resources || course.resources.length === 0">
+              <i class="fas fa-file-archive"></i>
+              {{ (course.resources?.length > 0) ? 'Download Resources (' + course.resources.length + ')' : 'No Resources' }}
             </button>
             <div *ngIf="isStudentLoggedIn" class="card-footer border-top ">
               <button type="button"   [disabled]="checkStudentEnroll(course)"
@@ -152,7 +195,6 @@
   </div>
 </div>
 
-<!-- Move this outside the course cards container -->
 <div class="pagination-controls" *ngIf="page.totalPages > 1">
   <button (click)="prevPage()" [disabled]="page.number === 0">Previous</button>
   <span>Page {{ page.number + 1 }} of {{ page.totalPages }}</span>
@@ -180,7 +222,6 @@
 </ng-template>
 
 
-<!-- Add Course Resource Modal -->
 <app-add-course-resource
   [showModal]="showAddResourceModal"
   [selectedCourse]="selectedCourse"
@@ -188,7 +229,6 @@
   (resourceAdded)="onResourceAdded($event)">
 </app-add-course-resource>
 
-<!-- Show Course Resource Modal -->
 <app-show-course-resource
   [showModal]="showResourcesModal"
   [selectedCourse]="selectedCourse"
@@ -196,7 +236,6 @@
   (resourceAdded)="onResourceAdded($event)">
 </app-show-course-resource>
 
-<!-- Enroll Students Modal -->
 <app-enroll-students-modal
   [showModal]="showEnrollModal"
   [selectedCourse]="selectedCourse"
@@ -204,7 +243,6 @@
   (studentsEnrolled)="onStudentsEnrolled()">
 </app-enroll-students-modal>
 
-<!-- View Students Modal -->
 <app-show-students-modal
   [showModal]="showStudentsModal"
   [students]="enrolledStudents"
@@ -212,7 +250,6 @@
   (showModalChange)="showStudentsModal = $event">
 </app-show-students-modal>
 
-<!-- Add Review Modal -->
 <app-review-modal
   [showModal]="showReviewModal"
   [selectedCourse]="selectedCourse"
@@ -220,7 +257,6 @@
   (reviewAdded)="onReviewAdded()">
 </app-review-modal>
 
-<!-- AI Improvements Modal -->
 <app-ai-improvements-modal
   [showModal]="showAIImprovementsModal"
   [selectedCourse]="selectedCourse"

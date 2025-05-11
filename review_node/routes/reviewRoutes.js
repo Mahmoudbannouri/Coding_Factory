@@ -5,8 +5,14 @@ async function handleReviewsRoutes(req, res) {
     const parsedUrl = parse(req.url, true);
     const method = req.method;
 
-    // Set CORS headers (API Gateway will override these)
-    res.setHeader('Content-Type', 'application/json');
+
+
+    // Handle preflight requests
+    if (method === 'OPTIONS') {
+        res.writeHead(204);
+        res.end();
+        return;
+    }
 
     // POST /reviews
     if (method === 'POST' && parsedUrl.pathname === '/reviews') {
@@ -14,9 +20,18 @@ async function handleReviewsRoutes(req, res) {
             let body = '';
             req.on('data', chunk => body += chunk);
             req.on('end', async () => {
-                const review = await reviewService.addReview(JSON.parse(body));
-                res.writeHead(201);
-                res.end(JSON.stringify(review));
+                try {
+                    const review = await reviewService.addReview(JSON.parse(body));
+                    res.writeHead(201);
+                    res.end(JSON.stringify(review));
+                } catch (error) {
+                    if (error.message.includes('already reviewed')) {
+                        res.writeHead(409);
+                    } else {
+                        res.writeHead(500);
+                    }
+                    res.end(JSON.stringify({ error: error.message }));
+                }
             });
             return;
         } catch (error) {
@@ -24,6 +39,29 @@ async function handleReviewsRoutes(req, res) {
             res.end(JSON.stringify({ error: 'Failed to add review' }));
             return;
         }
+    }
+
+    // GET /reviews/has-reviewed/:studentId/:courseId
+    if (method === 'GET' && parsedUrl.pathname.startsWith('/reviews/has-reviewed/')) {
+        const parts = parsedUrl.pathname.split('/');
+        const studentId = parts[3];
+        const courseId = parts[4];
+
+        if (!studentId || !courseId) {
+            res.writeHead(400);
+            res.end(JSON.stringify({ error: 'Missing studentId or courseId' }));
+            return;
+        }
+
+        try {
+            const hasReviewed = await reviewService.hasStudentReviewed(studentId, courseId);
+            res.writeHead(200);
+            res.end(JSON.stringify({ hasReviewed }));
+        } catch (error) {
+            res.writeHead(500);
+            res.end(JSON.stringify({ error: error.message }));
+        }
+        return;
     }
 
     // GET /reviews/courses/:courseId
@@ -35,12 +73,11 @@ async function handleReviewsRoutes(req, res) {
             const reviews = await reviewService.getReviewsByCourseId(courseId);
             res.writeHead(200);
             res.end(JSON.stringify(reviews));
-            return;
         } catch (error) {
             res.writeHead(500);
             res.end(JSON.stringify({ error: error.message }));
-            return;
         }
+        return;
     }
 
     // GET /reviews/courses/:courseId/ai-recommendations
@@ -50,12 +87,11 @@ async function handleReviewsRoutes(req, res) {
             const result = await reviewService.getAIRecommendationsForCourse(courseId);
             res.writeHead(200);
             res.end(JSON.stringify({ recommendations: result }));
-            return;
         } catch (error) {
             res.writeHead(500);
             res.end(JSON.stringify({ error: error.message }));
-            return;
         }
+        return;
     }
 
     // GET /reviews/courses/:courseId/average-rating
@@ -65,12 +101,11 @@ async function handleReviewsRoutes(req, res) {
             const averageRating = await reviewService.getAverageRatingByCourseId(courseId);
             res.writeHead(200);
             res.end(JSON.stringify(averageRating));
-            return;
         } catch (error) {
             res.writeHead(500);
             res.end(JSON.stringify({ error: error.message }));
-            return;
         }
+        return;
     }
 
     // DELETE /reviews/courses/:courseId/recommendations?text=...
@@ -81,12 +116,11 @@ async function handleReviewsRoutes(req, res) {
             await reviewService.deleteRecommendation(courseId, text);
             res.writeHead(204);
             res.end();
-            return;
         } catch (error) {
             res.writeHead(500);
             res.end(JSON.stringify({ error: error.message }));
-            return;
         }
+        return;
     }
 
     // Not found
