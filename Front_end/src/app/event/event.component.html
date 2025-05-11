@@ -73,129 +73,126 @@
   <div *ngIf="events.length === 0">
     <p>No Events available.</p>
   </div>
- <!-- Recommendation Modal -->
+<!-- Recommendation Modal -->
 <div class="modal" [ngClass]="{ 'show': showRecommendModal, 'hide': !showRecommendModal }">
-  <div class="modal-content">
-    <h1>Event Recommendation</h1>
-    <form #recommendForm="ngForm">
-      
-      <!-- Developer Community -->
-      <label for="developerCommunity">Are you associated with any developer Community?</label>
-      <div>
-        <input type="radio" id="developerCommunityYes" [(ngModel)]="recommendationData.developerCommunity" name="developerCommunity" value="Yes" required #developerCommunity="ngModel" />
-        <label for="developerCommunityYes">Yes</label>
-        <input type="radio" id="developerCommunityNo" [(ngModel)]="recommendationData.developerCommunity" name="developerCommunity" value="No" />
-        <label for="developerCommunityNo">No</label>
-      </div>
-      <div *ngIf="developerCommunity.invalid && (developerCommunity.dirty || developerCommunity.touched)" class="error-message">
-        <div *ngIf="developerCommunity.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Hackathons Participation -->
-      <label for="hackathons">Participating in Hackathons and other competitions?</label>
-      <div>
-        <input type="radio" id="hackathonsNo" [(ngModel)]="recommendationData.hackathons" name="hackathons" value="No" required #hackathons="ngModel" />
-        <label for="hackathonsNo">No</label>
-        <input type="radio" id="hackathonsParticipated" [(ngModel)]="recommendationData.hackathons" name="hackathons" value="Participated" />
-        <label for="hackathonsParticipated">Participated</label>
-        <input type="radio" id="hackathonsWon" [(ngModel)]="recommendationData.hackathons" name="hackathons" value="Participated and Won" />
-        <label for="hackathonsWon">Participated and Won</label>
-      </div>
-      <div *ngIf="hackathons.invalid && (hackathons.dirty || hackathons.touched)" class="error-message">
-        <div *ngIf="hackathons.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Programming Languages -->
-      <label for="programmingLanguages">How many programming languages do you know?</label>
-      <select id="programmingLanguages" [(ngModel)]="recommendationData.programmingLanguages" name="programmingLanguages" required #programmingLanguages="ngModel">
-        <option value="1">1</option>
-        <option value="2-3">2-3</option>
-        <option value="4-5">4-5</option>
-        <option value="More than 5">More than 5</option>
-      </select>
-      <div *ngIf="programmingLanguages.invalid && (programmingLanguages.dirty || programmingLanguages.touched)" class="error-message">
-        <div *ngIf="programmingLanguages.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Volunteer Groups -->
-      <label for="volunteerGroups">Involved in additional volunteer groups? (e.g., NCC, NSS)</label>
-      <div>
-        <input type="radio" id="volunteerGroupsYes" [(ngModel)]="recommendationData.volunteerGroups" name="volunteerGroups" value="Yes" required #volunteerGroups="ngModel" />
-        <label for="volunteerGroupsYes">Yes</label>
-        <input type="radio" id="volunteerGroupsNo" [(ngModel)]="recommendationData.volunteerGroups" name="volunteerGroups" value="No" />
-        <label for="volunteerGroupsNo">No</label>
-      </div>
-      <div *ngIf="volunteerGroups.invalid && (volunteerGroups.dirty || volunteerGroups.touched)" class="error-message">
-        <div *ngIf="volunteerGroups.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Active in Developer Communities -->
-      <label for="activeDeveloperCommunities">Active in developer Communities</label>
-      <div>
-        <input type="radio" id="activeDeveloperCommunitiesInactive" [(ngModel)]="recommendationData.activeDeveloperCommunities" name="activeDeveloperCommunities" value="Inactive Member" required #activeDeveloperCommunities="ngModel" />
-        <label for="activeDeveloperCommunitiesInactive">Inactive Member</label>
-        <input type="radio" id="activeDeveloperCommunitiesActive" [(ngModel)]="recommendationData.activeDeveloperCommunities" name="activeDeveloperCommunities" value="Active Member" />
-        <label for="activeDeveloperCommunitiesActive">Active Member</label>
-        <input type="radio" id="activeDeveloperCommunitiesModerate" [(ngModel)]="recommendationData.activeDeveloperCommunities" name="activeDeveloperCommunities" value="Moderately active" />
-        <label for="activeDeveloperCommunitiesModerate">Moderately active</label>
-      </div>
-      <div *ngIf="activeDeveloperCommunities.invalid && (activeDeveloperCommunities.dirty || activeDeveloperCommunities.touched)" class="error-message">
-        <div *ngIf="activeDeveloperCommunities.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Achievement Count -->
-      <label for="achievementCount">Number of achievements</label>
-      <input type="number" id="achievementCount" [(ngModel)]="recommendationData.achievementCount" name="achievementCount" min="0" required #achievementCount="ngModel" />
-      <div *ngIf="achievementCount.invalid && (achievementCount.dirty || achievementCount.touched)" class="error-message">
-        <div *ngIf="achievementCount.errors?.['required']">This field is required.</div>
-        <div *ngIf="achievementCount.errors?.['min']">Value cannot be negative.</div>
-      </div>
-      <!-- Pitched an Idea -->
-      <label for="pitchedIdea">Have you ever pitched any idea?</label>
-      <div>
-        <input type="radio" id="pitchedIdeaYes" [(ngModel)]="recommendationData.pitchedIdea" name="pitchedIdea" value="Yes" required #pitchedIdea="ngModel" />
-        <label for="pitchedIdeaYes">Yes</label>
-        <input type="radio" id="pitchedIdeaNo" [(ngModel)]="recommendationData.pitchedIdea" name="pitchedIdea" value="No" />
-        <label for="pitchedIdeaNo">No</label>
-      </div>
-      <div *ngIf="pitchedIdea.invalid && (pitchedIdea.dirty || pitchedIdea.touched)" class="error-message">
-        <div *ngIf="pitchedIdea.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Software Projects -->
-      <label for="softwareProjects">Have you made any Software based projects?</label>
-      <div>
-        <input type="radio" id="softwareProjectsYes" [(ngModel)]="recommendationData.softwareProjects" name="softwareProjects" value="Yes" required #softwareProjects="ngModel" />
-        <label for="softwareProjectsYes">Yes</label>
-        <input type="radio" id="softwareProjectsNo" [(ngModel)]="recommendationData.softwareProjects" name="softwareProjects" value="No" />
-        <label for="softwareProjectsNo">No</label>
-      </div>
-      <div *ngIf="softwareProjects.invalid && (softwareProjects.dirty || softwareProjects.touched)" class="error-message">
-        <div *ngIf="softwareProjects.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- GitHub Exposure -->
-      <label for="githubExposure">Exposure to GitHub?</label>
-      <div>
-        <input type="radio" id="githubExposureNo" [(ngModel)]="recommendationData.githubExposure" name="githubExposure" value="No" required #githubExposure="ngModel" />
-        <label for="githubExposureNo">No</label>
-        <input type="radio" id="githubExposureEasy" [(ngModel)]="recommendationData.githubExposure" name="githubExposure" value="Easy" />
-        <label for="githubExposureEasy">Easy</label>
-        <input type="radio" id="githubExposureMedium" [(ngModel)]="recommendationData.githubExposure" name="githubExposure" value="Medium" />
-        <label for="githubExposureMedium">Medium</label>
-        <input type="radio" id="githubExposureHard" [(ngModel)]="recommendationData.githubExposure" name="githubExposure" value="Hard" />
-        <label for="githubExposureHard">Hard</label>
-      </div>
-      <div *ngIf="githubExposure.invalid && (githubExposure.dirty || githubExposure.touched)" class="error-message">
-        <div *ngIf="githubExposure.errors?.['required']">This field is required.</div>
-      </div>
-      <!-- Specific Technology -->
-      <label for="specificTechnology">Specific technologie</label>
-      <select id="specificTechnology" [(ngModel)]="recommendationData.specificTechnology" name="specificTechnology" required #category="ngModel">
-        <option *ngFor="let category of getCategoryEnumValues()" [value]="category">{{ category }}</option>
-      </select>
-      <div *ngIf="category.invalid && (category.dirty || category.touched)" class="error-message">
-        <div *ngIf="category.errors?.['required']">This field is required.</div>
-      </div>
-      
+  <div class="modal-content chatbot-style">
+    <div class="chat-header">
+      <h2>Event Recommendation Bot</h2>
+    </div>
     
-      <!-- Buttons -->
-      <button type="button" (click)="getRecommendedEvents()" [disabled]="recommendForm.invalid" class="btn-primary">Predict</button>
-      <button type="button" (click)="closeRecommendModal()" class="btn-close">Close</button>
-    </form>
+    <div class="chat-messages">
+      <!-- Progress Indicator -->
+      <div class="progress-indicator">
+        Step {{ currentStep }} of {{ totalSteps }}
+      </div>
+
+      <!-- Question Steps -->
+      <div *ngIf="currentStep === 1" class="chat-bubble question">
+        <p>Are you associated with any developer community?</p>
+        <div class="options">
+          <button (click)="setResponse('developerCommunity', 'Yes')">Yes</button>
+          <button (click)="setResponse('developerCommunity', 'No')">No</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 2" class="chat-bubble question">
+        <p>How many programming languages do you know?</p>
+        <div class="options">
+          <button (click)="setResponse('programmingLanguages', '1')">1</button>
+          <button (click)="setResponse('programmingLanguages', '2-3')">2-3</button>
+          <button (click)="setResponse('programmingLanguages', '4-5')">4-5</button>
+          <button (click)="setResponse('programmingLanguages', 'More than 5')">5+</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 3" class="chat-bubble question">
+        <p>Have you participated in hackathons?</p>
+        <div class="options">
+          <button (click)="setResponse('hackathons', 'No')">Never</button>
+          <button (click)="setResponse('hackathons', 'Participated')">Participated</button>
+          <button (click)="setResponse('hackathons', 'Participated and Won')">Won Some</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 4" class="chat-bubble question">
+        <p>Are you part of any volunteer groups like NCC/NSS?</p>
+        <div class="options">
+          <button (click)="setResponse('volunteerGroups', 'Yes')">Yes</button>
+          <button (click)="setResponse('volunteerGroups', 'No')">No</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 5" class="chat-bubble question">
+        <p>How active are you in developer communities?</p>
+        <div class="options">
+          <button (click)="setResponse('activeDeveloperCommunities', 'Inactive Member')">Inactive</button>
+          <button (click)="setResponse('activeDeveloperCommunities', 'Moderately active')">Moderate</button>
+          <button (click)="setResponse('activeDeveloperCommunities', 'Active Member')">Very Active</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 6" class="chat-bubble question">
+        <p>How many achievements have you earned in tech?</p>
+        <div class="options">
+          <input type="number" 
+                [(ngModel)]="recommendationData.achievementCount"
+                min="0"
+                placeholder="Enter number">
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 7" class="chat-bubble question">
+        <p>Have you ever pitched a tech idea?</p>
+        <div class="options">
+          <button (click)="setResponse('pitchedIdea', 'Yes')">Yes</button>
+          <button (click)="setResponse('pitchedIdea', 'No')">No</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 8" class="chat-bubble question">
+        <p>Have you created software projects?</p>
+        <div class="options">
+          <button (click)="setResponse('softwareProjects', 'Yes')">Yes</button>
+          <button (click)="setResponse('softwareProjects', 'No')">No</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 9" class="chat-bubble question">
+        <p>What's your GitHub experience level?</p>
+        <div class="options">
+          <button (click)="setResponse('githubExposure', 'No')">None</button>
+          <button (click)="setResponse('githubExposure', 'Easy')">Basic</button>
+          <button (click)="setResponse('githubExposure', 'Medium')">Intermediate</button>
+          <button (click)="setResponse('githubExposure', 'Hard')">Advanced</button>
+        </div>
+      </div>
+
+      <div *ngIf="currentStep === 10" class="chat-bubble question">
+        <p>Almost done! Which technology are you most interested in?</p>
+        <select [(ngModel)]="recommendationData.specificTechnology">
+          <option *ngFor="let cat of getCategoryEnumValues()" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+
+      
+    </div>
+
+    <div class="chat-controls">
+      <button *ngIf="currentStep > 1" (click)="previousStep()" class="btn-prev">← Previous</button>
+      
+      <button *ngIf="currentStep < totalSteps" (click)="nextStep()" class="btn-next">
+        Continue →
+      </button>
+      
+      <button *ngIf="currentStep === totalSteps" 
+              (click)="getRecommendedEvents()" 
+              class="btn-predict"
+              [disabled]="!recommendationData.specificTechnology">
+        🚀 Predict
+      </button>
+      
+      <button class="btn-close" (click)="closeRecommendModal()">✕ Close</button>
+    </div>
   </div>
 </div>
   <!-- Add/Edit Modal -->
@@ -411,5 +408,5 @@
   <!-- Floating Plus Button -->
   <button *ngIf="canAddEvent()" class="floating-plus" (click)="openAddEventModal()">+</button>
   <!-- Floating Recommend Button -->
-  <button class="floating-recommend" (click)="openRecommendModal()">💡</button>
+  <button class="floating-recommend" (click)="openRecommendModal()">🤔</button>
 </div>

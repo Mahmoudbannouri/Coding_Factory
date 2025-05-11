@@ -889,4 +889,68 @@ getRecommendedEvents(): void {
   );
 }
 
+currentStep: number = 1;
+totalSteps: number = 10;
+chatHistory: { question: string, answer: string }[] = [];
+
+nextStep(): void {
+  if (this.validateCurrentStep()) {
+    if (this.currentStep === this.totalSteps) {
+      this.getRecommendedEvents();
+      return;
+    }
+    this.currentStep++;
+  }
+}
+
+previousStep(): void {
+  if (this.currentStep > 1) {
+    this.currentStep--;
+    this.chatHistory.pop();
+  }
+}
+
+setResponse(field: string, value: any): void {
+  this.recommendationData[field] = value;
+  this.chatHistory.push({
+    question: this.getCurrentQuestion(),
+    answer: typeof value === 'string' ? value : value.toString()
+  });
+  if (this.currentStep !== 6) { // Skip auto-advance for number input
+    this.nextStep();
+  }
+}
+
+private validateCurrentStep(): boolean {
+  switch(this.currentStep) {
+    case 1: return !!this.recommendationData.developerCommunity;
+    case 2: return !!this.recommendationData.programmingLanguages;
+    case 3: return !!this.recommendationData.hackathons;
+    case 4: return !!this.recommendationData.volunteerGroups;
+    case 5: return !!this.recommendationData.activeDeveloperCommunities;
+    case 6: return this.recommendationData.achievementCount >= 0;
+    case 7: return !!this.recommendationData.pitchedIdea;
+    case 8: return !!this.recommendationData.softwareProjects;
+    case 9: return !!this.recommendationData.githubExposure;
+    case 10: return !!this.recommendationData.specificTechnology;
+    default: return true;
+  }
+}
+
+private getCurrentQuestion(): string {
+  const questions = [
+    'Are you associated with any developer community?',
+    'How many programming languages do you know?',
+    'Have you participated in hackathons?',
+    'Are you part of any volunteer groups?',
+    'How active are you in developer communities?',
+    'How many achievements have you earned?',
+    'Have you ever pitched a tech idea?',
+    'Have you created software projects?',
+    'What\'s your GitHub experience?',
+    'Which technology interests you most?'
+  ];
+  return questions[this.currentStep - 1] || '';
+}
+
 }

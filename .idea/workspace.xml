@@ -5,20 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ca224d14-1d9b-45fb-9401-94919ccfb091" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/MainCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/models/MainCategory.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/2357f560-9caf-43a9-b743-c8b2fddfca96.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/uploads/ad0a7315-1273-4d82-a11e-7838a6e2e6c2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Controller/EventRestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/entities/Event.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/repository/EventRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/DAO/repository/EventRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/EventServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/PredictionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/Services/PredictionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Event Recommendation Flask/best_multi_label_model_no_research_seminar.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/Event Recommendation Flask/best_multi_label_model_no_research_seminar.pkl" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/event/event.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/CategoryEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/CategoryEnum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/Event.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/Event.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +85,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ReviewsApplication">
+  <component name="RunManager" selected="Spring Boot.EventApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <method v="2">
         <option name="Make" enabled="true" />
@@ -218,6 +209,8 @@
       <workItem from="1746462299579" duration="3608000" />
       <workItem from="1746519899970" duration="12374000" />
       <workItem from="1746699742371" duration="10838000" />
+      <workItem from="1746834472960" duration="750000" />
+      <workItem from="1746868343087" duration="2405000" />
     </task>
     <servers />
   </component>
