@@ -45,147 +45,142 @@
                 </div>
               </div>
             </div>
-        </div>
-        <div class="scroll-controls" *ngIf="recommendedCourses.length > 1">
-          <button (click)="scrollRecommendations(-1)" class="scroll-btn">
-            <i class="bi bi-chevron-left"></i>
-          </button>
+          </div>
+          <div class="scroll-controls" *ngIf="recommendedCourses.length > 1">
+            <button (click)="scrollRecommendations(-1)" class="scroll-btn">
+              <i class="bi bi-chevron-left"></i>
+            </button>
 
+          </div>
         </div>
+        <ng-template #noRecommendations>
+          <div class="no-recommendations">
+            <i class="bi bi-info-circle"></i>
+            <p>No personalized recommendations available yet.</p>
+            <p>Complete more courses to get better recommendations!</p>
+          </div>
+        </ng-template>
       </div>
-      <ng-template #noRecommendations>
-        <div class="no-recommendations">
-          <i class="bi bi-info-circle"></i>
-          <p>No personalized recommendations available yet.</p>
-          <p>Complete more courses to get better recommendations!</p>
-        </div>
-      </ng-template>
     </div>
-  </div>
     <br>
-  <div class="search-container">
-    <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..."
-           class="search-input" (ngModelChange)="onSearchChange()">
-    <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="onSearchChange()">
-      <option value="">All Categories</option>
-      <option *ngFor="let category of getCategoryValues()" [value]="category">
-        {{ getCategoryDisplayName(category) }}
-      </option>
-    </select>
-    <div style="display: flex; align-items: center; gap: 10px;">
-      <button class="clear-button" (click)="clearFilters()">Clear</button>
-      <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-              (click)="openAddCourseModal()"
-              class="floating-plus btn-floating">
-        +
-      </button>
+    <div class="search-container">
+      <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..."
+             class="search-input" (ngModelChange)="onSearchChange()">
+      <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="onSearchChange()">
+        <option value="">All Categories</option>
+        <option *ngFor="let category of getCategoryValues()" [value]="category">
+          {{ getCategoryDisplayName(category) }}
+        </option>
+      </select>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="clear-button" (click)="clearFilters()">Clear</button>
+        <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
+                (click)="openAddCourseModal()"
+                class="floating-plus btn-floating">
+          +
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div *ngIf="loading" class="loading-indicator">
-    Loading courses...
-  </div>
+    <div *ngIf="loading" class="loading-indicator">
+      Loading courses...
+    </div>
 
-  <div *ngIf="!loading && page.content.length === 0">
-    <p>No courses available.</p>
-  </div>
+    <div *ngIf="!loading && page.content.length === 0">
+      <p>No courses available.</p>
+    </div>
 
-  <app-add-course-modal
-    [showModal]="showModal"
-    (showModalChange)="showModal = $event"
-    (courseAdded)="onCourseAdded($event)">
-  </app-add-course-modal>
+    <app-add-course-modal
+      [showModal]="showModal"
+      (showModalChange)="showModal = $event"
+      (courseAdded)="onCourseAdded($event)">
+    </app-add-course-modal>
 
-  <app-edit-course-modal
-    [showModal]="showEditModal"
-    [courseId]="selectedCourse?.id"
-    (showModalChange)="showEditModal = $event"
-    (courseUpdated)="onCourseUpdated($event)">
-  </app-edit-course-modal>
+    <app-edit-course-modal
+      [showModal]="showEditModal"
+      [courseId]="selectedCourse?.id"
+      (showModalChange)="showEditModal = $event"
+      (courseUpdated)="onCourseUpdated($event)">
+    </app-edit-course-modal>
 
-  <div *ngIf="!loading && page.content.length > 0">
-    <h3>All Courses</h3>
-    <div class="course-cards-container">
-      <div *ngFor="let course of page.content; let i = index" class="course-card">
-        <div class="card">
-          <div class="card-header">
-            <h4 class="card-title">{{ course.title }}</h4>
-          </div>
-          <div class="card-content">
-            <a [href]="course.link" target="_blank">
-              <img *ngIf="course.image" [src]="getFile(course.image)" alt="Course Image" class="course-image">
-            </a>
-            <div class="card-body">
-              <p><strong>Description:</strong> {{ course.description }}</p>
-              <p ><strong>Level:</strong> {{ course.level }}</p>
-              <p class="badge">{{ getCategoryDisplayName(course.categoryCourse) }}</p>
+    <div *ngIf="!loading && page.content.length > 0">
+      <h3>All Courses</h3>
+      <div class="course-cards-container">
+        <div *ngFor="let course of page.content; let i = index" class="course-card">
+          <div class="card">
+            <div class="card-header">
+              <h4 class="card-title">{{ course.title }}</h4>
             </div>
-            <div class="rating">
-              <div class="stars-container">
-                <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
-                <i *ngIf="hasPartialStar(course.rate)" class="bi bi-star-half star partial"></i>
-                <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star star"></i>
+            <div class="card-content">
+              <a [href]="course.link" target="_blank">
+                <img *ngIf="course.image" [src]="getFile(course.image)" alt="Course Image" class="course-image">
+              </a>
+              <div class="card-body">
+                <p><strong>Description:</strong> {{ course.description }}</p>
+                <p ><strong>Level:</strong> {{ course.level }}</p>
+                <p class="badge">{{ getCategoryDisplayName(course.categoryCourse) }}</p>
               </div>
-              <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
-              <button *ngIf="isStudentLoggedIn"
-                      (click)="!course.hasReviewed && openReviewModal(course)"
-                      class="add-review-button round"
-                      [class.reviewed]="course.hasReviewed"
-                      [disabled]="course.hasReviewed">
-                <i *ngIf="!course.hasReviewed" class="bi bi-star-fill icon"></i>
-                <i *ngIf="course.hasReviewed" class="bi bi-check-circle-fill icon"></i>
-                {{ course.hasReviewed ? 'Reviewed' : 'Rate' }}
-              </button>
+              <div class="rating">
+                <div class="stars-container">
+                  <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
+                  <i *ngIf="hasPartialStar(course.rate)" class="bi bi-star-half star partial"></i>
+                  <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star star"></i>
+                </div>
+                <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
+                <button *ngIf="isStudentLoggedIn"
+                        (click)="!course.hasReviewed && openReviewModal(course)"
+                        class="add-review-button round"
+                        [class.reviewed]="course.hasReviewed"
+                        [disabled]="course.hasReviewed">
+                  <i *ngIf="!course.hasReviewed" class="bi bi-star-fill icon"></i>
+                  <i *ngIf="course.hasReviewed" class="bi bi-check-circle-fill icon"></i>
+                  {{ course.hasReviewed ? 'Reviewed' : 'Rate' }}
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="card-footer">
-            <button (click)="openResourcesModal(course)" class="btn-primary round">
-              <span class="icon">📦</span>Resources
-            </button>
-            <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-                    (click)="openAddResourceModal(course)"
-                    class="btn-secondary round">
-              <span class="icon" style="color: white;">➕</span>Add Resource
-            </button>
-            <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                    (click)="deleteCourse(course.id)"
-                    class="btn-danger round">
-              <span class="icon">🗑️</span> Delete
-            </button>
-            <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                    (click)="openEditModal(course)"
-                    class="btn-warning round">
-              <span class="icon">✏️</span> Edit
-            </button>
-            <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                    (click)="openStudentsModal(course)"
-                    class="btn-info round">
-              <span class="icon">👥</span> View Students
-            </button>
-            <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                    (click)="openEnrollModal(course)"
-                    class="btn-success round">
-              <span class="icon">👥</span> Enroll Students
-            </button>
-            <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-                    (click)="openAIImprovementsModal(course)"
-                    class="btn-ai-improvements round">
-              <span class="icon">🤖</span> AI Improvements
-            </button>
-            <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round">
-              <i class="fas fa-file-pdf"></i>
-              <span>Module file</span>
-            </button>
-            <button (click)="downloadResourcesZip(course.id)"
-                    class="btn-download-resources round"
-                    [disabled]="!course.resources || course.resources.length === 0">
-              <i class="fas fa-file-archive"></i>
-              {{ (course.resources?.length > 0) ? 'Download Resources (' + course.resources.length + ')' : 'No Resources' }}
-            </button>
-            <div *ngIf="isStudentLoggedIn" class="card-footer border-top ">
-              <button type="button"   [disabled]="checkStudentEnroll(course)"
-              (click)="openModal(confirmModal,course)" class="btn btn-primary btn-lg w-100">
-                Enroll Now
+            <div class="card-footer">
+              <button (click)="openResourcesModal(course)" class="btn-primary round">
+                <span class="icon">📦</span>Resources
+              </button>
+              <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
+                      (click)="openAddResourceModal(course)"
+                      class="btn-secondary round">
+                <span class="icon" style="color: white;">➕</span>Add Resource
+              </button>
+              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
+                      (click)="deleteCourse(course.id)"
+                      class="btn-danger round">
+                <span class="icon">🗑️</span> Delete
+              </button>
+              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
+                      (click)="openEditModal(course)"
+                      class="btn-warning round">
+                <span class="icon">✏️</span> Edit
+              </button>
+              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
+                      (click)="openStudentsModal(course)"
+                      class="btn-info round">
+                <span class="icon">👥</span> View Students
+              </button>
+              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
+                      (click)="openEnrollModal(course)"
+                      class="btn-success round">
+                <span class="icon">👥</span> Enroll Students
+              </button>
+              <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
+                      (click)="openAIImprovementsModal(course)"
+                      class="btn-ai-improvements round">
+                <span class="icon">🤖</span> AI Improvements
+              </button>
+              <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round">
+                <i class="fas fa-file-pdf"></i>
+                <span>Module file</span>
+              </button>
+              <button (click)="downloadResourcesZip(course.id)"
+                      class="btn-download-resources round"
+                      [disabled]="!course.resources || course.resources.length === 0">
+                <i class="fas fa-file-archive"></i>
+                {{ (course.resources?.length > 0) ? 'Download Resources (' + course.resources.length + ')' : 'No Resources' }}
               </button>
             </div>
           </div>
@@ -193,72 +188,50 @@
       </div>
     </div>
   </div>
-</div>
 
-<div class="pagination-controls" *ngIf="page.totalPages > 1">
-  <button (click)="prevPage()" [disabled]="page.number === 0">Previous</button>
-  <span>Page {{ page.number + 1 }} of {{ page.totalPages }}</span>
-  <button (click)="nextPage()" [disabled]="page.number >= page.totalPages - 1">Next</button>
-</div>
-<ng-template #confirmModal let-modal>
-  <div class="custom-modal-content">
-    <div class="custom-modal-header">
-      <h5 class="modal-title">
-        <i class="bi bi-question-circle-fill me-2"></i>
-        Confirmation d'inscription
-      </h5>
-      <button type="button" class="close-btn" (click)="modal.dismiss()" aria-label="Fermer">&times;</button>
-    </div>
-
-    <div class="custom-modal-body">
-      <p>Êtes-vous sûr(e) de vouloir vous inscrire à ce cours ?</p>
-    </div>
-
-    <div class="custom-modal-footer">
-      <button class="btn-cancel" (click)="modal.dismiss()">Annuler</button>
-      <button class="btn-confirm" (click)="confirmEnrollment(modal)">S'inscrire</button>
-    </div>
+  <div class="pagination-controls" *ngIf="page.totalPages > 1">
+    <button (click)="prevPage()" [disabled]="page.number === 0">Previous</button>
+    <span>Page {{ page.number + 1 }} of {{ page.totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="page.number >= page.totalPages - 1">Next</button>
   </div>
-</ng-template>
 
+  <app-add-course-resource
+    [showModal]="showAddResourceModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showAddResourceModal = $event"
+    (resourceAdded)="onResourceAdded($event)">
+  </app-add-course-resource>
 
-<app-add-course-resource
-  [showModal]="showAddResourceModal"
-  [selectedCourse]="selectedCourse"
-  (showModalChange)="showAddResourceModal = $event"
-  (resourceAdded)="onResourceAdded($event)">
-</app-add-course-resource>
+  <app-show-course-resource
+    [showModal]="showResourcesModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showResourcesModal = $event"
+    (resourceAdded)="onResourceAdded($event)">
+  </app-show-course-resource>
 
-<app-show-course-resource
-  [showModal]="showResourcesModal"
-  [selectedCourse]="selectedCourse"
-  (showModalChange)="showResourcesModal = $event"
-  (resourceAdded)="onResourceAdded($event)">
-</app-show-course-resource>
+  <app-enroll-students-modal
+    [showModal]="showEnrollModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showEnrollModal = $event"
+    (studentsEnrolled)="onStudentsEnrolled()">
+  </app-enroll-students-modal>
 
-<app-enroll-students-modal
-  [showModal]="showEnrollModal"
-  [selectedCourse]="selectedCourse"
-  (showModalChange)="showEnrollModal = $event"
-  (studentsEnrolled)="onStudentsEnrolled()">
-</app-enroll-students-modal>
+  <app-show-students-modal
+    [showModal]="showStudentsModal"
+    [students]="enrolledStudents"
+    [courseId]="selectedCourse?.id"
+    (showModalChange)="showStudentsModal = $event">
+  </app-show-students-modal>
 
-<app-show-students-modal
-  [showModal]="showStudentsModal"
-  [students]="enrolledStudents"
-  [courseId]="selectedCourse?.id"
-  (showModalChange)="showStudentsModal = $event">
-</app-show-students-modal>
+  <app-review-modal
+    [showModal]="showReviewModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showReviewModal = $event"
+    (reviewAdded)="onReviewAdded()">
+  </app-review-modal>
 
-<app-review-modal
-  [showModal]="showReviewModal"
-  [selectedCourse]="selectedCourse"
-  (showModalChange)="showReviewModal = $event"
-  (reviewAdded)="onReviewAdded()">
-</app-review-modal>
-
-<app-ai-improvements-modal
-  [showModal]="showAIImprovementsModal"
-  [selectedCourse]="selectedCourse"
-  (showModalChange)="showAIImprovementsModal = $event">
-</app-ai-improvements-modal>
+  <app-ai-improvements-modal
+    [showModal]="showAIImprovementsModal"
+    [selectedCourse]="selectedCourse"
+    (showModalChange)="showAIImprovementsModal = $event">
+  </app-ai-improvements-modal>
