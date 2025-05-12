@@ -1,0 +1,54 @@
+<div *ngIf="top5Results?.length; else noData" class="container mt-4">
+    <h2 class="mb-4 text-primary fw-bold border-bottom pb-2">Top 5 Potential Partners</h2>
+  
+    <div *ngFor="let item of top5Results" class="card mb-4 border-0 p-4 rounded-4 card-hover">
+      <div class="card-body">
+        <h4 class="card-title text-primary mb-3">{{ item.Title }}</h4>
+  
+        <p class="card-text text-dark fs-6 lh-lg">
+          {{ item.Description }}
+        </p>
+  
+        <!-- Relevance & Contact -->
+        <div class="mb-3 d-flex flex-wrap align-items-center gap-3">
+          <!-- Relevance badge -->
+          <span class="badge fs-6 px-3 py-2 relevance-badge"
+                [ngClass]="getRelevanceClass(item.relevance)">
+            🔍 Relevance Score: {{ item.relevance }}%
+          </span>
+  
+          <!-- Contact Us with mailto + pre-filled message -->
+          <a *ngIf="item.Contact && item.relevance >= 70"
+             [href]="getMailToLink(item)"
+             class="badge bg-primary text-white text-decoration-none fs-6 px-3 py-2 d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="fas fa-envelope-open-text"></i> Send a Cold Email
+          </a>
+          
+        </div>
+  
+        <!-- Website Link -->
+        <div *ngIf="item.Link && item.Title" class="d-flex flex-wrap gap-2 mt-2">
+          <a [href]="item.Link" target="_blank" rel="noopener noreferrer"
+             class="badge bg-light-info text-dark text-decoration-none fs-6 px-3 py-2 d-inline-flex align-items-center gap-2 shadow-sm">
+            <i class="fas fa-link"></i> Visit Website
+          </a>
+        </div>
+  
+        <!-- Tags (Keywords) -->
+        <div *ngIf="item.tags?.length > 0" class="d-flex flex-wrap gap-2 mt-3">
+          <span *ngFor="let tag of item.tags; let i = index"
+                class="badge d-inline-flex align-items-center gap-1 text-dark px-3 py-2 fs-6"
+                [ngClass]="'bg-light-' + getColorForTag(tag, i)">
+            <i [ngClass]="getIconForTag(tag)"></i> {{ tag }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #noData>
+    <div class="alert alert-warning mt-4 text-center fs-5">
+      ⚠️ Scraping still in progress. Please be patient.
+    </div>
+  </ng-template>
+  

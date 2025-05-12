@@ -20,7 +20,6 @@ import { ShowStudentsModalComponent } from './show-students-modal/show-students-
 import { ReviewModalComponent } from './review-modal/review-modal.component';
 import { AIImprovementsModalComponent } from './aiimprovements-modal/aiimprovements-modal.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { EnrollStudentCoursesComponent } from './enroll-student-courses/enroll-student-courses.component';
 
 @NgModule({
     imports: [
@@ -43,8 +42,7 @@ import { EnrollStudentCoursesComponent } from './enroll-student-courses/enroll-s
         EnrollStudentsModalComponent,
         ShowStudentsModalComponent,
         ReviewModalComponent,
-        AIImprovementsModalComponent,
-        EnrollStudentCoursesComponent
+        AIImprovementsModalComponent
     ]
 })
 export class CourseModule { }

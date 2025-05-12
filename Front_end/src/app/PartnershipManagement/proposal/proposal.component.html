@@ -1,0 +1,140 @@
+<div class="proposal-container">
+  <h2>Proposals</h2>
+
+  <div *ngIf="loading" class="loading">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate">
+      <p style="color: white">Loading...</p>
+    </ngx-spinner>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="buttons-container mb-3">
+    <button *ngIf="isAdminLoggedIn" class="btn btn-primary" (click)="navigateToAdd()">
+      <i class="fas fa-plus"></i> Add New Proposal
+    </button>
+    <button *ngIf="isAdminLoggedIn" class="btn btn-warning" (click)="deleteExpiredProposals()">
+      <i class="fas fa-trash"></i> Delete Expired Proposals
+    </button>
+  </div>
+
+  <div class="proposals-list" *ngIf="!loading && proposals.length > 0">
+    <div class="proposal-item"
+         [class.selected]="selectedProposal?.idProposal === proposal.idProposal"
+         *ngFor="let proposal of proposals"
+         (click)="selectProposal(proposal)">
+
+      <!-- Card Container -->
+      <div class="card">
+        <!-- Front of Card -->
+        <div class="card-front">
+          <div class="flags">
+            <!-- Display Flags based on status -->
+            <span *ngIf="proposal.proposalStatus === 'OPEN'" class="flag-icon">
+              <i class="fas fa-flag"></i> Open
+            </span>
+            <span *ngIf="proposal.proposalStatus === 'PENDING'" class="flag-icon">
+              <i class="fas fa-flag"></i> Pending
+            </span>
+            <span *ngIf="proposal.proposalStatus === 'FULFILLED'" class="flag-icon">
+              <i class="fas fa-flag"></i> Fulfilled
+            </span>
+            <span *ngIf="proposal.proposalStatus === 'REJECTED'" class="flag-icon">
+              <i class="fas fa-flag"></i> Rejected
+            </span>
+          </div>
+
+          <h3>{{ proposal.proposalName }}</h3>
+          <p>{{ proposal.proposalDescription }}</p>
+
+          <!-- Display Proposal Status -->
+          <div class="proposal-status">
+            <span class="status-label">Status:</span>
+            <span class="status-value" [ngClass]="{
+              'open': proposal.proposalStatus === 'OPEN',
+              'pending': proposal.proposalStatus === 'PENDING',
+              'fulfilled': proposal.proposalStatus === 'FULFILLED',
+              'rejected': proposal.proposalStatus === 'REJECTED'
+            }">
+              {{ proposal.proposalStatus }}
+            </span>
+          </div>
+
+          <div><strong>Type:</strong> {{ proposal.proposalType }}</div>
+          <div><strong>Amount:</strong> {{ proposal.plannedAmount | currency }}</div>
+          <div><strong>Start Date:</strong> {{ proposal.startDate | date }}</div>
+          <div><strong>End Date:</strong> {{ proposal.endDate | date }}</div>
+        </div>
+
+        <!-- Back of Card -->
+        <div class="card-back">
+          <p class="description">{{ proposal.proposalDescription }}</p>
+
+          <!-- Edit and Delete Buttons -->
+          <div class="actions">
+            <!-- Edit Button -->
+            <button *ngIf="isAdminLoggedIn" class="edit-button" (click)="navigateToEdit(proposal.idProposal)">
+              <svg class="edit-svgIcon" viewBox="0 0 512 512">
+                <path d="M410.3 231l11.3-11.3-33.9-33.9-62.1-62.1L291.7 89.8l-11.3 11.3-22.6 22.6L58.6 322.9c-10.4 10.4-18 23.3-22.2 37.4L1 480.7c-2.5 8.4-.2 17.5 6.1 23.7s15.3 8.5 23.7 6.1l120.3-35.4c14.1-4.2 27-11.8 37.4-22.2L387.7 253.7 410.3 231zM160 399.4l-9.1 22.7c-4 3.1-8.5 5.4-13.3 6.9L59.4 452l23-78.1c1.4-4.9 3.8-9.4 6.9-13.3l22.7-9.1v32c0 8.8 7.2 16 16 16h32zM362.7 18.7L348.3 33.2 325.7 55.8 314.3 67.1l33.9 33.9 62.1 62.1 33.9 33.9 11.3-11.3 22.6-22.6 14.5-14.5c25-25 25-65.5 0-90.5L453.3 18.7c-25-25-65.5-25-90.5 0zm-47.4 168l-144 144c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6l144-144c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"></path>
+              </svg>
+            </button>
+
+            <!-- Delete Button -->
+            <button *ngIf="isAdminLoggedIn" class="delete-button" (click)="deleteProposal(proposal.idProposal)">
+              <svg class="delete-svgIcon" viewBox="0 0 448 512">
+                <path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"></path>
+              </svg>
+            </button>
+
+            <!-- Apply Button -->
+            <button *ngIf="isPartnerLoggedIn" class="apply-button" (click)="applyForPartnership(proposal.idProposal)">
+  <svg class="apply-svgIcon" viewBox="0 0 512 512">
+    <path d="M464 256c0-114.8-93.3-208-208-208S48 141.2 48 256s93.3 208 208 208 416 370.8 416 256zm-80 0c0 35.3-28.7 64-64 64s-64-28.7-64-64 28.7-64 64-64 64 28.7 64 64zm160 0c0-88.4-71.6-160-160-160S96 167.6 96 256s71.6 160 160 160 88.4 0 160-88.4z"></path>
+  </svg>
+  Apply
+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && proposals.length === 0" class="no-data">
+    No proposals found.
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()"></div>
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-header">
+      <h2>Proposal Details</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <h3 class="proposal-title">{{ selectedProposal?.proposalName }}</h3>
+      <p class="proposal-description">{{ selectedProposal?.proposalDescription }}</p>
+
+      <div class="proposal-info">
+        <div>
+          <strong>Status:</strong> {{ selectedProposal?.proposalStatus }}
+        </div>
+        <div>
+          <strong>Amount:</strong> {{ selectedProposal?.plannedAmount | currency }}
+        </div>
+        <div>
+          <strong>Start Date:</strong> {{ selectedProposal?.startDate | date }}
+        </div>
+        <div>
+          <strong>End Date:</strong> {{ selectedProposal?.endDate | date }}
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-primary" (click)="downloadProposalPDF(selectedProposal)">
+        <i class="fas fa-download"></i> Download PDF
+      </button>
+    </div>
+  </div>
+</div>

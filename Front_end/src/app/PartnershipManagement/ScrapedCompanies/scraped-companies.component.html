@@ -1,0 +1,88 @@
+<div class="container">
+  <h2>Scraped Companies</h2>
+
+  <div *ngIf="loading">Loading...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- Filter Button -->
+  <button (click)="sortByProbability()" class="btn btn-primary mb-3">Sort by Probability</button>
+  <button (click)="predictAllCompaniesEligibility()" class="btn btn-primary mb-3">Predict all companies eligibility</button>
+  <button (click)="resetEligibility()" class="btn btn-primary mb-3">Reset eligibility</button>
+
+  <!-- Prompt Area -->
+  <div class="mb-3">
+    <label for="questionInput" class="form-label">Ask a question:</label>
+    <input type="text" id="questionInput" class="form-control" [(ngModel)]="question" placeholder="Type your question here...">
+    <button (click)="askQuestion()" class="btn btn-primary mt-2">Ask</button>
+  </div>
+
+  <!-- Pop-up for displaying the answer -->
+  <div *ngIf="answer" class="popup-backdrop" (click)="closePopup()">
+    <div class="popup-content" (click)="$event.stopPropagation()">
+      <h2>{{ answer.answer }}</h2>
+      <ul *ngIf="answer.follow_up">
+        <li *ngFor="let followUp of answer.follow_up">{{ followUp }}</li>
+      </ul>
+      <table *ngIf="answer.top_5_eligible_companies" class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Eligibility Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let company of answer.top_5_eligible_companies">
+            <td>{{ company.name }}</td>
+            <td>{{ company.eligibility_precentage }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="closePopup()" class="btn btn-primary">Close</button>
+    </div>
+  </div>
+
+  <div *ngIf="scrapedCompanies.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Reviews</th>
+          <th>Score</th>
+          <th>Eligibility</th>
+          <th>Eligibility percentage</th>
+          <th>Predict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of scrapedCompanies">
+          <td>{{ company.title }}</td>
+          <td>{{ company.reviews }}</td>
+          <td>{{ company.score }}</td>
+          <td>{{ company.elegible }}</td>
+          <td>{{ company.eligibility_precentage }}</td>
+          <td>
+            <ng-container *ngIf="company.eligibility_precentage === 0; else predictedBlock">
+              <button
+                (click)="getAndSavePrediction(company.id)"
+                class="btn btn-primary"
+                title="Predict eligibility">
+                Predict
+              </button>
+            </ng-container>
+
+            <ng-template #predictedBlock>
+              <label class="container" title="Value predicted">
+                <input type="checkbox" checked="checked" disabled>
+                <div class="checkmark"></div>
+              </label>
+            </ng-template>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!loading && scrapedCompanies.length === 0">
+    No companies found.
+  </div>
+</div>

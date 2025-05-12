@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CourseComponent } from './course.component';
-import { EnrollStudentCoursesComponent } from './enroll-student-courses/enroll-student-courses.component';
 
 const routes: Routes = [
   {
@@ -10,16 +9,7 @@ const routes: Routes = [
     data: {
       title: 'Courses'
     },
-    
-  },
-  {
-    path: 'enroll-courses',  // Le chemin pour accéder à ton nouveau composant
-    component: EnrollStudentCoursesComponent,
-    data: {
-      title: 'enroll'
-    },
   }
-  
 ];
 
 @NgModule({

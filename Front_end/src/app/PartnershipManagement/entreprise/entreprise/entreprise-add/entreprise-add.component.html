@@ -1,0 +1,156 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Add New Entreprise</h2>
+
+  <!-- Card Layout for the Form -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <form (ngSubmit)="onSubmit()" #entrepriseForm="ngForm">
+        <div class="row">
+          <!-- Entreprise Name -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="nameEntreprise">Entreprise Name:</label>
+              <input
+                type="text"
+                id="nameEntreprise"
+                name="nameEntreprise"
+                class="form-control form-control-lg"
+                placeholder="Enter entreprise name"
+                [(ngModel)]="entreprise.nameEntreprise"
+                required
+                #nameEntreprise="ngModel"
+                [ngClass]="{ 'is-invalid': nameEntreprise.invalid && nameEntreprise.touched }"
+              />
+              <div *ngIf="nameEntreprise.invalid && nameEntreprise.touched" class="invalid-feedback">
+                Name is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- Partner Dropdown -->
+          <div class="col-md-6">
+  <div class="form-group">
+    <label for="partner">Partner:</label>
+    <select
+      class="form-control form-control-lg"
+      id="partner"
+      name="partner"
+      required
+      [(ngModel)]="entreprise.partnerId"
+      #partner="ngModel"
+      [ngClass]="{ 'is-invalid': partner.invalid && partner.touched }"
+    >
+      <option value="" disabled selected>Select a Partner</option>
+      <option *ngFor="let p of partners" [value]="p.id">{{ p.name }}</option>
+    </select>
+    <div *ngIf="partner.invalid && partner.touched" class="invalid-feedback">
+      Partner is required.
+    </div>
+  </div>
+</div>
+
+        </div>
+
+        <div class="row">
+          <!-- Address -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="addressEntreprise">Address:</label>
+              <input
+                type="text"
+                id="addressEntreprise"
+                name="addressEntreprise"
+                class="form-control form-control-lg"
+                placeholder="Enter entreprise address"
+                [(ngModel)]="entreprise.addressEntreprise"
+                required
+                #addressEntreprise="ngModel"
+                [ngClass]="{ 'is-invalid': addressEntreprise.invalid && addressEntreprise.touched }"
+              />
+              <div *ngIf="addressEntreprise.invalid && addressEntreprise.touched" class="invalid-feedback">
+                Address is required.
+              </div>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="phoneEntreprise">Phone:</label>
+              <input
+                type="text"
+                id="phoneEntreprise"
+                name="phoneEntreprise"
+                class="form-control form-control-lg"
+                placeholder="Enter entreprise phone"
+                pattern="^[0-9]{8,10}$"
+                [(ngModel)]="entreprise.phoneEntreprise"
+                required
+                #phoneEntreprise="ngModel"
+                [ngClass]="{ 'is-invalid': phoneEntreprise.invalid && phoneEntreprise.touched }"
+              />
+              <div *ngIf="phoneEntreprise.invalid && phoneEntreprise.touched" class="invalid-feedback">
+                Please enter a valid 8–10 digit phone number.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Email -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="emailEntreprise">Email:</label>
+              <input
+                type="email"
+                id="emailEntreprise"
+                name="emailEntreprise"
+                class="form-control form-control-lg"
+                placeholder="Enter entreprise email"
+                [(ngModel)]="entreprise.emailEntreprise"
+                required
+                #emailEntreprise="ngModel"
+                [ngClass]="{ 'is-invalid': emailEntreprise.invalid && emailEntreprise.touched }"
+              />
+              <div *ngIf="emailEntreprise.invalid && emailEntreprise.touched" class="invalid-feedback">
+                Please enter a valid email address.
+              </div>
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label for="descriptionEntreprise">Description:</label>
+              <textarea
+                id="descriptionEntreprise"
+                name="descriptionEntreprise"
+                class="form-control form-control-lg"
+                placeholder="Introduce briefly your entreprise"
+                rows="4"
+                [(ngModel)]="entreprise.descriptionEntreprise"
+                required
+                minlength="20"
+                #descriptionEntreprise="ngModel"
+                [ngClass]="{ 'is-invalid': descriptionEntreprise.invalid && descriptionEntreprise.touched }"
+              ></textarea>
+              <div *ngIf="descriptionEntreprise.invalid && descriptionEntreprise.touched" class="invalid-feedback">
+                Description is required and must be at least 20 characters long.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg" [disabled]="entrepriseForm.invalid">
+            Add Entreprise
+          </button>
+          <button type="button" class="btn btn-secondary btn-lg" (click)="onCancel()">
+            Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

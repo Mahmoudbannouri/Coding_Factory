@@ -1,0 +1,100 @@
+
+<div class="chat-container">
+  <!-- Header -->
+  <div class="chat-header">
+    <img [src]="activeChatUserImg" alt="avatar" class="chat-avatar">
+    <span class="chat-username">{{ activeChatUser }}</span>
+  </div>
+
+  <!-- Chat Messages -->
+  <div class="chat-messages">
+    <div *ngFor="let chat of activeChat.chats"
+         [ngClass]="{'chat-row': true, 'reverse': !chat.isReceived}">
+
+      <!-- Chat Avatar -->
+      <img [src]="chat.isReceived ? activeChatUserImg : loggedInUserImg"
+           alt="avatar"
+           class="chat-avatar-small">
+
+      <div class="chat-bubble-container">
+
+        <!-- Typing Animation -->
+        <div class="thinking-animation" *ngIf="isThinking">
+          <div class="dot-typing"></div>
+        </div>
+
+        <!-- Text or Reset Message -->
+        <div *ngIf="chat.messageType === 'text' && chat.messages[0] !== '...thinking'" class="chat-bubble" [class.received]="chat.isReceived">
+          <ng-container *ngFor="let msg of chat.messages">
+            <span
+              class="message-content"
+              [class.clickable]="chat.messageAction === 'reset'"
+              (click)="chat.messageAction === 'reset' ? onResetClick() : null">
+              {{ msg }}
+            </span>
+          </ng-container>
+        </div>
+
+        <!-- Company Message -->
+        <div *ngIf="chat.messageType === 'company'" class="company-bubble">
+          <div *ngFor="let message of chat.messages" class="company-detail">
+            {{ message }}
+          </div>
+        </div>
+
+        <!-- Chart Bubble -->
+        <div *ngIf="chat.messageType === 'chart'" class="chart-bubble">
+          <canvas [attr.id]="chat.messages[0]" width="300" height="300"></canvas>
+        </div>
+
+        <!-- Suggestion Message -->
+        <ng-container *ngIf="chat.messageType === 'suggestion'">
+          <div class="suggestion-row">
+            <div class="suggestion-bubble" (click)="selectSuggestion(chat.messages[0])">
+              {{ chat.messages[0] }}
+            </div>
+          </div>
+        </ng-container>
+
+        <!-- Error Message -->
+        <div *ngIf="chat.messageType === 'error'" class="error-bubble">
+          <div class="error-detail">
+            {{ chat.messages[0] }}
+          </div>
+        </div>
+
+        <!-- Time -->
+        <span *ngIf="chat.time" class="chat-time">{{ chat.time }}</span>
+
+      </div>
+    </div>
+  </div>
+
+<!-- Message Input -->
+<div class="chat-input-bar">
+  <input type="text"
+         placeholder="Type your message..."
+         [(ngModel)]="newMessage"
+         (input)="onMessageChange()"
+         (keydown.enter)="onAddMessage(); $event.preventDefault()"
+         class="chat-input">
+
+  <button (click)="onAddMessage()" class="chat-send-btn">Send</button>
+  
+  <!-- Delete Chat History Button -->
+  <button (click)="clearChatHistory()" class="delete-chat-btn">
+    🗑️ Delete Chat History
+  </button>
+
+    
+    <!-- Suggestion Dropdown -->
+    <ul class="suggestions-list" [ngClass]="{'show': showSuggestions}">
+      <li *ngFor="let suggestion of filteredSuggestions"
+          (click)="selectSuggestion(suggestion)">
+        <div class="suggestion-bubble">
+          {{ suggestion }}
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

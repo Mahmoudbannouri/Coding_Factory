@@ -55,7 +55,10 @@ public class StudentController {
                 })
                 .orElseThrow(() -> new RuntimeException("Student not found"));
     }
-
+    @GetMapping("/user/{id}")
+    public User getUserById(@PathVariable Integer id) {
+        return userRepository.findById(id).orElse(null);
+    }
     private List<User> getStudentUsers() {
         return userRepository.findAllByRolesContaining(Role.STUDENT);
     }

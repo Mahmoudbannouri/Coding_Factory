@@ -1,0 +1,68 @@
+<div class="proposal-edit-container">
+  <h2>{{ isEditMode ? 'Edit' : 'Create' }} Proposal</h2>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <form (ngSubmit)="onSubmit()" #proposalForm="ngForm" *ngIf="!loading">
+    <div class="form-group">
+      <label for="name">Proposal Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="proposal.proposalName" 
+             class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea id="description" name="description" [(ngModel)]="proposal.proposalDescription" 
+                class="form-control" required rows="4"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status:</label>
+      <select id="status" name="status" [(ngModel)]="proposal.proposalStatus" 
+              class="form-control" required>
+        <option value="" disabled>Select Status</option>
+        <option value="OPEN">Open</option>
+        <option value="PENDING">Pending</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="type">Type:</label>
+      <select id="type" name="type" [(ngModel)]="proposal.proposalType" 
+              class="form-control" required>
+        <option value="">Select Type</option>
+        <option value="RESEARCH">Research</option>
+        <option value="DEVELOPMENT">Development</option>
+        <option value="COLLABORATION">Collaboration</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="amount">Planned Amount:</label>
+      <input type="number" id="amount" name="amount" [(ngModel)]="proposal.plannedAmount" 
+             class="form-control" required min="0" step="0.01">
+    </div>
+
+    <div class="form-group">
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="proposal.startDate" 
+             class="form-control" required>
+    </div>
+
+    <div class="form-group">
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endDate" [(ngModel)]="proposal.endDate" 
+             class="form-control" required>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary" [disabled]="!proposalForm.form.valid || loading">
+        {{ loading ? 'Saving...' : 'Save Proposal' }}
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="router.navigate(['/proposal'])" [disabled]="loading">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>

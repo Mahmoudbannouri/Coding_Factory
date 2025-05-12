@@ -12,7 +12,6 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { ConfigService } from '../services/config.service';
 import { Subscription } from 'rxjs';
 import { LayoutService } from '../services/layout.service';
-import { StorageService } from "../auth/storage.service";
 
 @Component({
   selector: "app-sidebar",
@@ -20,7 +19,6 @@ import { StorageService } from "../auth/storage.service";
   animations: customAnimations
 })
 export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
-  public isStudentLoggedIn = false;
 
   @ViewChild('toggleIcon') toggleIcon: ElementRef;
   public menuItems: any[];
@@ -50,9 +48,6 @@ export class VerticalMenuComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.menuItems = ROUTES;
-        const role = StorageService.getUserRole()?.replace(/[\[\]]/g, '');
-        this.isStudentLoggedIn = role === 'STUDENT';
-    
   }
 
   ngAfterViewInit() {

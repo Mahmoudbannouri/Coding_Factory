@@ -1,0 +1,17 @@
+<!-- add-assessment.component.html -->
+<div *ngIf="assessments.length > 0; else noData">
+    <h4>Assessments for Partnership ID: {{ partnershipId }}</h4>
+    <ul>
+      <li *ngFor="let assessment of assessments">
+        <p><strong>Score:</strong> {{ assessment.score }}</p>
+        <p><strong>Feedback:</strong> {{ assessment.feedback }}</p>
+        <p><strong>Status:</strong> {{ assessment.status }}</p>
+        <p><strong>Acceptance Status:</strong> {{ assessment.acceptanceStatus }}</p>
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #noData>
+    <p>No assessments found for this partnership.</p>
+  </ng-template>
+  

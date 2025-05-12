@@ -1,21 +1,17 @@
 package com.esprit.event.Controller;
 
-import com.esprit.event.DAO.entities.Centre;
 import com.esprit.event.DAO.entities.Event;
-import com.esprit.event.DAO.entities.User;
 import com.esprit.event.Services.IEventService;
 import com.esprit.event.Services.GeminiAiService;
+import com.esprit.event.Services.PredictionService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +24,17 @@ public class EventRestController {
     private IEventService eventService;
     @Autowired
     private GeminiAiService geminiAIService;
+    @Autowired
+    private PredictionService predictionService;
+
+
+    @PostMapping("/recommend")
+    public ResponseEntity<List<Event>> getRecommendedEvents(@RequestBody Map<String, String> features) {
+
+        List<Event> events = predictionService.getRecommendedEvents(features);
+        System.out.println(events);
+        return ResponseEntity.ok(events);
+    }
 
     @PostMapping("/generate-description")
     public ResponseEntity<Map<String, String>> generateEventDescription(@RequestBody Event event) throws IOException {
@@ -126,8 +133,8 @@ public class EventRestController {
         }
     }
     @GetMapping("/{eventID}/participants")
-    public ResponseEntity<List<User>> getParticipants(@PathVariable int eventID) {
-        List<User> participants = eventService.getParticipants(eventID);
+    public ResponseEntity<List<Integer>> getParticipants(@PathVariable int eventID) {
+        List<Integer> participants = eventService.getParticipants(eventID);
         return ResponseEntity.ok(participants);
     }
     @DeleteMapping("/deroll/{eventID}/{userID}")
@@ -135,21 +142,24 @@ public class EventRestController {
         Event updatedEvent = eventService.derollFromEvent(eventID, userID);
         return ResponseEntity.ok(updatedEvent);
     }
-    @GetMapping("/centers")
-    public ResponseEntity<List<Centre>> getAllCenters() {
-        List<Centre> centers = eventService.getCenters();
-        return ResponseEntity.ok(centers);
-    }
+
     @GetMapping("/filtredEvents")
     public  List<Event> getFilteredEvents(
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String category,
             @RequestParam(required = false) String startDate,
             @RequestParam(required = false) String endDate,
-            @RequestParam(required = false) String timePeriod) {
-        List<Event> events = eventService.getFilteredEvents(search, category, startDate, endDate, timePeriod);
+            @RequestParam(required = false) String timePeriod,
+            @RequestParam(required = false) Integer enrolledUserId,
+            @RequestParam(required = false) Integer createdBy)
+    {
+        List<Event> events = eventService.getFilteredEvents(search, category, startDate, endDate, timePeriod,enrolledUserId,createdBy);
 
         // Sort the filtered events by date
         return eventService.sortEventsByDate(events);
+    }
+    @GetMapping("/download-ics/{eventId}")
+    public byte[] downloadICS(@PathVariable int eventId) {
+        return eventService.generateICSFile(eventId);
     }
 }

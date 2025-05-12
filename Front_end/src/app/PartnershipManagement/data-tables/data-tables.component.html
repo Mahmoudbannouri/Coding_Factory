@@ -1,0 +1,173 @@
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4 class="card-title">Partnerships</h4>
+          <button *ngIf="isAdminLoggedIn" class="btn btn-primary" (click)="showAddForm = !showAddForm">
+            <i class="fas fa-plus"></i> Add Partnership
+          </button>
+        </div>
+
+        <div class="card-content">
+          <div class="card-body">
+            <!-- Error Message -->
+            <div *ngIf="error" class="alert alert-danger">
+              {{ error }}
+            </div>
+
+            <!-- Add/Edit Partnership Form -->
+            <div *ngIf="showAddForm" class="add-form border p-3 rounded shadow-sm bg-light">
+              <h5 class="mb-3">New Partnership</h5>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="entreprise" class="form-label">Entreprise</label>
+                  <select id="entreprise" class="form-control" [(ngModel)]="newPartnership.entreprise">
+                    <option [ngValue]="null" disabled selected>Select an Entreprise</option>
+                    <option *ngFor="let entreprise of entreprises" [ngValue]="entreprise">
+                      {{ entreprise.nameEntreprise }}
+                      <span *ngIf="entreprise.isBanned" class="text-danger ml-2">(Banned)</span>
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="proposal" class="form-label">Proposal</label>
+                  <select id="proposal" class="form-control" [(ngModel)]="newPartnership.proposals">
+                    <option [ngValue]="null" disabled selected>Select a Proposal</option>
+                    <option *ngFor="let proposal of filteredProposals" [ngValue]="proposal">
+                      {{ proposal.proposalName }}
+                    </option>
+                  </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="status" class="form-label">Status</label>
+                  <select id="status" class="form-control" [(ngModel)]="newPartnership.partnershipStatus">
+                    <option value="pending">Pending</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-2">
+                <button class="btn btn-success" (click)="onAddPartnership()">
+                  <i class="fas fa-save"></i> Save
+                </button>
+                <button class="btn btn-secondary" (click)="cancelAddPartnership()">
+                  <i class="fas fa-times"></i> Cancel
+                </button>
+              </div>
+            </div>
+
+            <!-- Search Input -->
+            <div class="form-group mt-4">
+              <input id="ngx-filter-ref" class="form-control" type="text" placeholder="Search by Status or Entreprise..." (keyup)="filterUpdate($event)" />
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive mt-3">
+              <table class="table table-hover custom-table">
+                <thead>
+                  <tr>
+                    <th>Proposal</th>
+                    <th>Entreprise</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let partnership of partnerships">
+                    <td>{{ partnership.proposals?.proposalName }}</td>
+                    <td>{{ partnership.entreprise?.nameEntreprise }}</td>
+                    <td>
+                      <span class="badge" [ngClass]="{
+                        'badge-primary': partnership.partnershipStatus == 'Active',
+                        'badge-success': partnership.partnershipStatus == 'completed',
+                        'badge-danger': partnership.partnershipStatus == 'Rejected',
+                        'badge-warning': partnership.partnershipStatus == 'pending',
+                        'badge-dark': partnership.partnershipStatus == 'terminated'
+                      }">
+                        {{ partnership.partnershipStatus }}
+                      </span>
+                    </td>
+                    <td>
+                      <div class="btn-group btn-group-sm">
+                        <a class="btn btn-info" [routerLink]="['/partnership-details', partnership.idPartnership]">View Details</a>
+                        <button class="btn btn-info" (click)="viewPartnership(partnership)">
+                          <i class="fas fa-eye"></i>
+                        </button>
+                        <button *ngIf="isAdminLoggedIn" class="btn btn-warning" (click)="navigateToEdit(partnership.idPartnership)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button *ngIf="isAdminLoggedIn" class="btn btn-danger" (click)="deletePartnership(partnership.idPartnership)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                        <button class="btn btn-success" (click)="generatePartnershipPdf(partnership.idPartnership)">
+                          <i class="fas fa-file-pdf"></i>
+                        </button>
+                        <button *ngIf="isAdminLoggedIn" class="btn btn-dark" (click)="signContract(partnership.idPartnership)">
+                          <i class="fas fa-pen-nib"></i>
+                        </button>
+                        <button *ngIf="isAdminLoggedIn" class="btn btn-outline-dark" (click)="terminatePartnership(partnership.idPartnership)">
+                          <i class="fas fa-ban"></i> Terminate
+                        </button>
+                        <button *ngIf="isAdminLoggedIn" class="btn btn-success"
+                          (click)="acceptPartnership(partnership.idPartnership, partnership.entreprise?.idEntreprise)"
+                          [disabled]="partnership.partnershipStatus === 'active'">
+                          <i class="fas fa-check"></i> Accept
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <nav class="mt-3">
+              <ul class="pagination justify-content-center">
+                <li class="page-item" [class.disabled]="page === 1">
+                  <button class="page-link" (click)="goToPage(page - 1)">Previous</button>
+                </li>
+                <li class="page-item" *ngFor="let p of [].constructor(totalPages); let i = index" [class.active]="page === i + 1">
+                  <button class="page-link" (click)="goToPage(i + 1)">{{ i + 1 }}</button>
+                </li>
+                <li class="page-item" [class.disabled]="page === totalPages">
+                  <button class="page-link" (click)="goToPage(page + 1)">Next</button>
+                </li>
+              </ul>
+            </nav>
+
+            <!-- Signature Modal -->
+            <div class="modal-backdrop" *ngIf="showSignModal">
+              <div class="modal-box bg-white shadow p-4 rounded">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <h5 class="mb-0">
+                    <i class="fas fa-file-signature text-primary me-2"></i>
+                    Sign Contract
+                  </h5>
+                  <button class="btn btn-sm btn-outline-secondary" (click)="closeSignModal()">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+
+                <p class="mb-3">
+                  A document is ready to be signed. Click the link below to open the signature page:
+                </p>
+
+                <a [href]="signatureUrl" target="_blank" class="btn btn-primary w-100">
+                  <i class="fas fa-external-link-alt me-2"></i>
+                  Open Signing Link
+                </a>
+
+                <div class="text-end mt-3">
+                  <button class="btn btn-secondary" (click)="closeSignModal()">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

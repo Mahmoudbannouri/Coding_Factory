@@ -145,9 +145,7 @@ uploadFile(file: File): Observable<string> {
       { headers: this.getAuthHeaders() }
     );
   }
-  getEnrolledCoursesByStudent(studentId: number): Observable<Course[]> {
-    return this.http.get<Course[]>(`${this.apiUrl}/student/enroll/${studentId}`);
-  }
+
    // Fetch students enrolled in a specific course
   // Fetch students enrolled in a specific course
 getEnrolledStudents(courseId: number): Observable<number[]> {

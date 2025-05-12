@@ -1,8 +1,11 @@
 package com.esprit.event.Services;
 
+import com.esprit.event.OpenFeign.CenterClient;
+import com.esprit.event.OpenFeign.CenterDTO;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.services.calendar.model.EventReminder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
@@ -48,6 +51,17 @@ public class GoogleCalendarService {
         }
     }
 
+    @Autowired
+    private CenterClient centerClient;
+    public String getEventLocation(com.esprit.event.DAO.entities.Event event) {
+        // Fetch the Center by ID using OpenFeign
+        CenterDTO center = centerClient.getCenterById(event.getCentre());
+
+        // Access the centre name
+        String location = "LOCATION: " + (center != null ? center.getNameCenter() : "Unknown");
+
+        return location;
+    }
     // Method to create an event on Google Calendar
     public void createGoogleCalendarEvent(com.esprit.event.DAO.entities.Event eventToAttend, String accessToken) {
         try {
@@ -60,7 +74,7 @@ public class GoogleCalendarService {
             // Build the Google Calendar event
             Event googleEvent = new Event()
                     .setSummary(eventToAttend.getEventName())
-                    .setLocation(eventToAttend.getCentre().getCentreName())
+                    .setLocation(getEventLocation(eventToAttend))
                     .setDescription(eventToAttend.getEventDescription());
 
             LocalDateTime localDateTime = eventToAttend.getEventDate();

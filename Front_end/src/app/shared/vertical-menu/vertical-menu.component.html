@@ -38,19 +38,12 @@
           <span class="menu-title">{{menuItem.title | translate }}</span>
           <span *ngIf="menuItem.badge && menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
         </a>
-        <a
-        appSidebarAnchorToggle
-        routerLink="{{menuItem.path}}"
-        *ngIf="menuItem.submenu.length === 0 
-               && !menuItem.isExternalLink 
-               && (menuItem.title !== 'Courses Enroll' || isStudentLoggedIn)">
-        
-        <i [ngClass]="[menuItem.icon]"></i>
-        <span class="menu-title">{{menuItem.title | translate }}</span>
-        <span *ngIf="menuItem.badge && menuItem.badge !== ''" [ngClass]="[menuItem.badgeClass]">
-          {{menuItem.badge}}
-        </span>
-      </a>
+        <a appSidebarAnchorToggle routerLink="{{menuItem.path}}"
+          *ngIf="menuItem.submenu.length === 0 && !menuItem.isExternalLink">
+          <i [ngClass]="[menuItem.icon]"></i>
+          <span class="menu-title">{{menuItem.title | translate }}</span>
+          <span *ngIf="menuItem.badge && menuItem.badge != '' " [ngClass]="[menuItem.badgeClass]">{{menuItem.badge}}</span>
+        </a>
         <a [href]="[menuItem.path]" target="_blank" *ngIf="menuItem.isExternalLink">
           <i [ngClass]="[menuItem.icon]"></i>
           <span class="menu-title">{{menuItem.title | translate }}</span>

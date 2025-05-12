@@ -1,0 +1,297 @@
+.card {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  position: relative;
+  transition: box-shadow 0.3s;
+
+  &:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .card-header {
+    background-color: #6c757d;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 15px 15px 0 0;
+    font-size: 1.5rem;
+  }
+
+  .card-body {
+    padding: 25px;
+  }
+}
+
+.section {
+  margin-top: 30px;
+  padding: 15px;
+  border-left: 5px solid #6c757d;
+  background: #f8f9fa;
+  border-radius: 5px;
+}
+
+.proposal-card {
+  background: #e9ecef;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+}
+
+.assessment-list {
+  list-style: none;
+  padding: 0;
+
+  li {
+    background: #f1f1f1;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+}
+
+.add-form {
+  margin-top: 20px;
+
+  textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    resize: vertical;
+    transition: border 0.3s;
+
+    &:focus {
+      border-color: #6c757d;
+      outline: none;
+    }
+  }
+
+  button {
+    margin-top: 10px;
+  }
+}
+
+// Agreement card layout
+.agreement-card {
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Cyberpunk Checkbox
+.cyberpunk-checkbox {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 2px solid #30cfd0;
+  border-radius: 3px;
+  background-color: transparent;
+  display: inline-block;
+  position: relative;
+  margin-right: 6px;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    background-color: #30cfd0;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 6px;
+    height: 6px;
+    border-radius: 2px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  &:checked::before {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.cyberpunk-checkbox-label {
+  font-size: 14px;
+  color: #30cfd0;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+// Manual checkbox styling
+.check-done-label {
+  display: flex;
+  align-items: center;
+}
+
+.check-done-checkbox {
+  display: none;
+}
+
+.check-done-square {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  margin-right: 8px;
+  position: relative;
+  cursor: pointer;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 2px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.check-done-checkbox:checked + .check-done-square {
+  background-color: #007bff;
+}
+
+// Enhanced button
+.check-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+
+  &:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+
+    .check-icon {
+      transform: scale(1.2);
+    }
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+}
+
+.check-icon {
+  margin-right: 8px;
+  font-size: 20px;
+  transition: transform 0.2s;
+}
+
+// Status badge enhancements
+.status-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 13px;
+  color: white;
+}
+
+.status-approved {
+  background-color: #28a745;
+}
+
+.status-pending {
+  background-color: #ffc107;
+  color: black;
+}
+
+.status-rejected {
+  background-color: #dc3545;
+}
+
+// Delete button styling (Position above the Completed checkbox)
+.bin-button-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Aligns the button to the right */
+  margin-bottom: 10px; /* Adds space below delete button */
+}
+
+.bin-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgb(255, 95, 95);
+  cursor: pointer;
+  border: 2px solid rgb(255, 201, 201);
+  transition-duration: 0.3s;
+  position: relative;
+  overflow: hidden;
+  top: 10px; /* Position from the top */
+  right: 10px; /* Position from the right */
+}
+.bin-bottom {
+  width: 15px;
+  z-index: 2;
+}
+.bin-top {
+  width: 17px;
+  transform-origin: right;
+  transition-duration: 0.3s;
+  z-index: 2;
+}
+.bin-button:hover .bin-top {
+  transform: rotate(45deg);
+}
+.bin-button:hover {
+  background-color: rgb(255, 0, 0);
+}
+.bin-button:active {
+  transform: scale(0.9);
+}
+.garbage {
+  position: absolute;
+  width: 14px;
+  height: auto;
+  z-index: 1;
+  opacity: 0;
+  transition: all 0.3s;
+}
+.bin-button:hover .garbage {
+  animation: throw 0.4s linear;
+}
+@keyframes throw {
+  from {
+    transform: translate(-400%, -700%);
+    opacity: 0;
+  }
+  to {
+    transform: translate(0%, 0%);
+    opacity: 1;
+  }
+}
+
+.completed-checkbox {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}

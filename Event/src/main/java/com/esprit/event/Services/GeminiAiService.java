@@ -1,6 +1,8 @@
 package com.esprit.event.Services;
 
 import com.esprit.event.DAO.entities.Event;
+import com.esprit.event.OpenFeign.CenterClient;
+import com.esprit.event.OpenFeign.CenterDTO;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
@@ -10,6 +12,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,17 @@ public class GeminiAiService {
     private static final String GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
     private static final String API_KEY = "AIzaSyANt-b9SxtIhencQ4IV7OHtoGGjFBtD0NQ";
 
+    @Autowired
+    private CenterClient centerClient;
+    public String getEventLocation(Event event) {
+        // Fetch the Center by ID using OpenFeign
+        CenterDTO center = centerClient.getCenterById(event.getCentre());
+
+        // Access the centre name
+        String location = "LOCATION: " + (center != null ? center.getNameCenter() : "Unknown");
+
+        return location;
+    }
     public ResponseEntity<Map<String, String>> generateEventDescription(Event event) throws IOException {
         // Construct the prompt using the Event object
         String prompt = String.format(
@@ -75,7 +89,7 @@ public class GeminiAiService {
                         generatedText = generatedText.replaceAll("\\*+", ""); // Remove bold markers
                         generatedText = generatedText.replaceAll("^(#)+\\s*", ""); // Remove headings # symbols
                         // Step 1: Extract only the center name for the "Location" field
-                        generatedText = generatedText.replaceAll("Location: .+?\\(.*\\)", "Location: "+event.getCentre().getCentreName()); // Keep only the center name
+                        generatedText = generatedText.replaceAll("Location: .+?\\(.*\\)", "Location: "+getEventLocation(event)); // Keep only the center name
 
 // Step 2: Remove any "About the Venue" section from the generated text
                         generatedText = generatedText.replaceAll("About the Venue:.*", "");

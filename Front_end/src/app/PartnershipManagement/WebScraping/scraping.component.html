@@ -1,0 +1,68 @@
+<!-- Loading Spinner -->
+<div *ngIf="isLoading" class="loading">
+  <p>Loading data...</p>
+</div>
+
+<!-- Error Message -->
+<div *ngIf="errorMessage" class="error">
+  <p>{{ errorMessage }}</p>
+</div>
+
+<!-- Display Scraped Data -->
+<div *ngIf="scrapedData.length > 0">
+  <h2>Scraped Data</h2>
+
+  <div class="filter-container">
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        class="search-input"
+        placeholder="Search by title or description"
+      />
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="filter-buttons">
+      <button (click)="filterByHighestScore()" class="filter-button">
+        Sort by Highest Score
+      </button>
+      <button (click)="filterByMostPopular()" class="filter-button">
+        Filter by Most Popular
+      </button>
+    </div>
+  </div>
+
+  <!-- Cards Display -->
+  <div *ngIf="filteredData.length > 0" class="card-container">
+    <div class="card" *ngFor="let item of filteredData">
+      <div class="card-body">
+        <!-- Title with Highlighting -->
+        <h5 class="card-title" [innerHTML]="highlightText(item.Title, searchTerm)"></h5>
+        
+        <!-- Description with Highlighting -->
+        <p class="card-text" [innerHTML]="highlightText(item.Description, searchTerm)"></p>
+      </div>
+
+      <div class="card-footer">
+        <span class="reviews">Reviews: {{ item.Reviews }}</span>
+        <span class="score">Score: {{ item.Score }}</span>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Pagination Controls -->
+  <div *ngIf="filteredData.length > 10" class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+
+  <!-- No Data Message -->
+  <ng-template #noData>
+    <div class="alert alert-warning mt-4">⚠️ No results found. Please try again later.</div>
+  </ng-template>
+</div>

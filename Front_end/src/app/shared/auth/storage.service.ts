@@ -106,8 +106,13 @@ export class StorageService {
 
   // Check if partner is logged in
   public static isPartnerLoggedIn(): boolean {
-    return this.getUserRole() === 'PARTNER';
-  }
+  const role = this.getUserRole();
+  console.log('Checking Partner Role:', role); // Log the role being checked
+
+  // Normalize the role by removing brackets and trim whitespace
+  const normalizedRole = role.replace(/[\[\]]/g, '').trim();
+  return normalizedRole === 'PARTNER';
+}
 
   // Check if trainer is logged in
  // In storage.service.ts

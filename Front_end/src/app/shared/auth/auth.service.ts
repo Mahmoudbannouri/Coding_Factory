@@ -3,6 +3,7 @@ import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { StorageService } from './storage.service';
 import { catchError, tap } from 'rxjs/operators';
+import { User } from 'app/models/User';
 
 const BASIC_URL = 'http://localhost:8887';
 export const AUTH_HEADER = 'Authorization';
@@ -68,5 +69,9 @@ export class AuthService {
   // Check if the user is authenticated
   isAuthenticated(): boolean {
     return StorageService.hasToken();
+  }
+
+  getPartners(): Observable<User[]> {
+    return this.http.get<User[]>('http://localhost:8887/api/v1/auth/partners');
   }
 }
