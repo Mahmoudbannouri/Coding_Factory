@@ -5,97 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="837be1dd-3955-43e2-aeb2-851e001f04e1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/models/performance.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/otp-verification/otp-verification.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/otp-verification/otp-verification.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/otp-verification/otp-verification.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/otp-verification/otp-verification.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/reset-password/reset-password.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/reset-password/reset-password.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/reset-password/reset-password.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/reset-password/reset-password.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/input-form/input-form.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/input-form/input-form.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/input-form/input-form.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/input-form/input-form.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-prediction/performance-prediction.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-prediction/performance-prediction.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-prediction/performance-prediction.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-prediction/performance-prediction.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-results/performance-results.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-results/performance-results.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-results/performance-results.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/performance-results/performance-results.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verification-success/verification-success.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verification-success/verification-success.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verification-success/verification-success.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verification-success/verification-success.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email-handler/verify-email-handler.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email-handler/verify-email-handler.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email-handler/verify-email-handler.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email-handler/verify-email-handler.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email/verify-email.component.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email/verify-email.component.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email/verify-email.component.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/pages/verify-email/verify-email.component.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/services/student-performance.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/services/student-performance.service.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/services/user.service.spec.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Front_end/src/app/services/user.service.ts" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/DropBoxSignController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/Controllers/PartnershipFeatureController.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/DropBoxSignService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/Services/PartnershipFeatureService.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/dto/PartnershipEligibilityResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/configurations/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/StudentPerformanceController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/EmailService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/EmailVerificationService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/StudentPerformanceService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/resources/templates.email/password-reset-confirmation.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/authservice/src/main/resources/templates.email/password-reset-email.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ApiGetway/src/main/java/tn/esprit/apigetway/ApiGetwayApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/OpenFeign/UserClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/java/com/esprit/event/OpenFeign/UserClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Event/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Event/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard2/dashboard2.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard2/dashboard2.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard2/dashboard2.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard2/dashboard2.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard2/dashboard2.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/dashboard/dashboard2/dashboard2.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/Role.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/Role.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/RoleNameEnum.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/RoleNameEnum.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/User.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/models/User.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/coming-soon/coming-soon-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/coming-soon/coming-soon-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/coming-soon/coming-soon-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/coming-soon/coming-soon-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/content-pages-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/content-pages-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/content-pages.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/content-pages.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/error/error-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/error/error-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/error/error-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/error/error-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/forgot-password/forgot-password-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/forgot-password/forgot-password-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/forgot-password/forgot-password-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/forgot-password/forgot-password-page.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/forgot-password/forgot-password-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/forgot-password/forgot-password-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/lock-screen/lock-screen-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/lock-screen/lock-screen-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/lock-screen/lock-screen-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/lock-screen/lock-screen-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/login/login-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/login/login-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/login/login-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/login/login-page.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/login/login-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/login/login-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/maintenance/maintenance-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/maintenance/maintenance-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/maintenance/maintenance-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/maintenance/maintenance-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/register/register-page.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/register/register-page.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/register/register-page.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/register/register-page.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/register/register-page.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/content-pages/register/register-page.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/users/users-list/users-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/users/users-list/users-list.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/users/users-list/users-list.component.scss" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/users/users-list/users-list.component.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/users/users-list/users-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/users/users-list/users-list.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/course.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/event.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/auth/storage.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/routes/full-layout.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/routes/full-layout.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/environments/environment.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/environments/environment.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion Partners/Front_end/.browserslistrc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion Partners/Front_end/.editorconfig" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion Partners/Front_end/.gitattributes" beforeDir="false" />
@@ -1149,31 +1063,6 @@
       <change beforePath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/configurations/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/java/com/partnershipmanagement/configurations/CorsConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/resources/flaskApplication.py" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion Partners/Partnership-Managment/src/main/resources/flaskApplication.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Feign/AuthServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/Gestion-Courses/src/main/java/tn/esprit/esponline/Feign/AuthServiceClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/AuthserviceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/AuthserviceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/config/JwtAuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/config/JwtAuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/config/SecurityConfiguration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthenticationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthenticationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthorizationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/AuthorizationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/PasswordController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/StudentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/controller/StudentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/dao/request/SignUpRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/dao/request/SignUpRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/dao/request/SingninRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/dao/request/SingninRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/dao/request/response/JwtAuthenticationResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/dao/request/response/JwtAuthenticationResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/RefreshToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/RefreshToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/entities/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/exception/TokenRefreshException.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/exception/TokenRefreshException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/AuthenticationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/AuthenticationService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/EmailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/ForgotPasswordService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/AuthenticationServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/AuthenticationServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/ForgetPasswordServiceServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/JwtServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/JwtServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/java/com/Microservice/authservice/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authservice/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/authservice/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -1188,7 +1077,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/Gestion Partners" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="KubernetesApiProvider">{
     &quot;isMigrated&quot;: true
@@ -1226,7 +1115,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "PartnerManagment",
+    "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/authservice/src/main/java/com/Microservice/authservice",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -1371,7 +1260,7 @@
       <workItem from="1746969507778" duration="703000" />
       <workItem from="1747040833456" duration="11195000" />
       <workItem from="1747131197266" duration="644000" />
-      <workItem from="1747142832879" duration="8494000" />
+      <workItem from="1747142832879" duration="8830000" />
     </task>
     <servers />
   </component>
