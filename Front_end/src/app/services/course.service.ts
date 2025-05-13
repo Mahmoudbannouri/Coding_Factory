@@ -26,7 +26,7 @@ export class CourseService {
       { headers: this.getAuthHeaders() }
     );
   }
-  
+
   getStudentDetails(studentId: number): Observable<any> {
     return this.http.get<any>(
       `${this.apiUrl}/students/${studentId}`,
@@ -38,17 +38,17 @@ export class CourseService {
     if (!user) {
       return throwError(() => new Error('User not authenticated'));
     }
-  
+
     let userRole = StorageService.getUserRole();
     // Remove brackets and ensure proper case
     userRole = userRole.replace(/[\[\]]/g, '').toUpperCase();
-  
+
     const params = new HttpParams()
       .set('userId', user.id.toString())
       .set('userRole', userRole);
-  
+
     console.log('Making request to /my-courses with params:', params.toString());
-  
+
     return this.http.get<Course[]>(`${this.apiUrl}/my-courses`, {
       params,
       headers: this.getAuthHeaders()
@@ -151,7 +151,7 @@ uploadFile(file: File): Observable<string> {
 getEnrolledStudents(courseId: number): Observable<number[]> {
   return this.http.get<number[]>(
       `${this.apiUrl}/${courseId}/students`,
-      { 
+      {
           headers: this.getAuthHeaders(),
           withCredentials: true
       }
@@ -166,7 +166,7 @@ getEnrolledStudents(courseId: number): Observable<number[]> {
 getAllStudents(): Observable<number[]> {
   return this.http.get<number[]>(
     `${this.apiUrl}/students`,
-    { 
+    {
       headers: this.getAuthHeaders()
     }
   ).pipe(
@@ -195,10 +195,10 @@ unenrollStudent(courseId: number, studentId: number): Observable<void> {
   if (!courseId) {
       return throwError(() => new Error('Course ID is required'));
   }
-  
+
   return this.http.delete<void>(
       `${this.apiUrl}/${courseId}/students/${studentId}`,
-      { 
+      {
           headers: this.getAuthHeaders(),
           withCredentials: true
       }
@@ -244,5 +244,5 @@ searchMyCourses(searchQuery: string = '', category: string = '', page: number = 
 
   return this.http.get<Page<Course>>(`${this.apiUrl}/my-courses/search`, { params });
 }
-  
+
 }

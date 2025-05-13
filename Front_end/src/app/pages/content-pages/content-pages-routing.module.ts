@@ -8,6 +8,8 @@ import { LockScreenPageComponent } from "./lock-screen/lock-screen-page.componen
 import { LoginPageComponent } from "./login/login-page.component";
 import { MaintenancePageComponent } from "./maintenance/maintenance-page.component";
 import { RegisterPageComponent } from "./register/register-page.component";
+import { OtpVerificationComponent } from './otp-verification/otp-verification.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 
 const routes: Routes = [
@@ -35,6 +37,10 @@ const routes: Routes = [
           title: 'Forgot Password Page'
         }
       },   
+
+      { path: 'otp-verification', component: OtpVerificationComponent },
+
+      { path: 'reset-password', component: ResetPasswordComponent },
       
       {
         path: 'lockscreen',

@@ -1,0 +1,137 @@
+.user-management-card {
+    border: none;
+    box-shadow: 0 4px 24px 0 rgba(34, 41, 47, 0.1);
+    
+    .card-header {
+      border-radius: 0.428rem 0.428rem 0 0 !important;
+      padding: 1.5rem;
+      
+      .card-title {
+        font-weight: 600;
+        letter-spacing: 0.3px;
+      }
+    }
+    
+    .custom-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px 12px;
+    }
+  }
+  
+  .datatable-container {
+    margin-top: 1rem;
+    border-radius: 0.428rem;
+    overflow: hidden;
+    
+    .spaced-rows {
+      .datatable-header {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #e9ecef;
+        
+        .datatable-header-cell {
+          font-weight: 600;
+          color: #5a6169;
+          text-transform: uppercase;
+          font-size: 0.75rem;
+          letter-spacing: 0.5px;
+          padding: 1rem 1.2rem;
+        }
+      }
+      
+      .datatable-row-wrapper {
+        margin-bottom: 10px;
+        background-color: white;
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+      }
+      
+      .datatable-body-row {
+        padding: 8px 0;
+      }
+      
+      .datatable-cell {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+      }
+      
+      .btn-group {
+        .btn {
+          transition: all 0.2s;
+          border-radius: 50% !important;
+          width: 32px;
+          height: 32px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          
+          &:hover {
+            transform: scale(1.1);
+          }
+        }
+      }
+    }
+  }
+  
+  /* Pagination styling */
+  ::ng-deep .page-item {
+    &.active .page-link {
+      background-color: #7367f0;
+      border-color: #7367f0;
+    }
+    
+    .page-link {
+      color: #7367f0;
+      border-radius: 50% !important;
+      margin: 0 3px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+      
+      &:hover {
+        background-color: rgba(115, 103, 240, 0.1);
+      }
+    }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .user-management-card {
+      .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        
+        .btn {
+          margin-top: 1rem;
+          width: 100%;
+        }
+      }
+      
+      .datatable-container {
+        .spaced-rows {
+          .datatable-row-wrapper {
+            margin-bottom: 15px;
+          }
+          
+          .datatable-cell {
+            padding: 10px 8px;
+          }
+        }
+      }
+    }
+  }

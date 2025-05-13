@@ -1,0 +1,292 @@
+<div class="row">
+    <div class="col-12">
+      <div class="content-header">Student Performance Prediction</div>
+    </div>
+  </div>
+  
+  <section id="student-performance-form">
+    <div class="row match-height">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Student Information</h4>
+          </div>
+          <div class="card-content">
+            <div class="card-body">
+              <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" class="form-bordered">
+                <!-- Personal Information -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="age">Age</label>
+                  <div class="col-md-9">
+                    <input type="number" id="age" class="form-control" formControlName="age" min="15" max="22">
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="sex">Gender</label>
+                  <div class="col-md-9">
+                    <select id="sex" class="form-control" formControlName="sex">
+                      <option value="F">Female</option>
+                      <option value="M">Male</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="address">Address</label>
+                  <div class="col-md-9">
+                    <select id="address" class="form-control" formControlName="address">
+                      <option value="U">Urban</option>
+                      <option value="R">Rural</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <!-- Family Information -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="famsize">Family Size</label>
+                  <div class="col-md-9">
+                    <select id="famsize" class="form-control" formControlName="famsize">
+                      <option value="GT3">Greater than 3</option>
+                      <option value="LE3">Less than or equal to 3</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="Pstatus">Parent Cohabitation Status</label>
+                  <div class="col-md-9">
+                    <select id="Pstatus" class="form-control" formControlName="Pstatus">
+                      <option value="A">Apart</option>
+                      <option value="T">Together</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="Medu">Mother's Education</label>
+                  <div class="col-md-9">
+                    <select id="Medu" class="form-control" formControlName="Medu">
+                      <option value="0">None</option>
+                      <option value="1">Primary Education (4th grade)</option>
+                      <option value="2">5th to 9th grade</option>
+                      <option value="3">Secondary Education</option>
+                      <option value="4">Higher Education</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="Fedu">Father's Education</label>
+                  <div class="col-md-9">
+                    <select id="Fedu" class="form-control" formControlName="Fedu">
+                      <option value="0">None</option>
+                      <option value="1">Primary Education (4th grade)</option>
+                      <option value="2">5th to 9th grade</option>
+                      <option value="3">Secondary Education</option>
+                      <option value="4">Higher Education</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="Mjob">Mother's Job</label>
+                  <div class="col-md-9">
+                    <select id="Mjob" class="form-control" formControlName="Mjob">
+                      <option value="teacher">Teacher</option>
+                      <option value="health">Health Care</option>
+                      <option value="services">Civil Services</option>
+                      <option value="at_home">At Home</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="Fjob">Father's Job</label>
+                  <div class="col-md-9">
+                    <select id="Fjob" class="form-control" formControlName="Fjob">
+                      <option value="teacher">Teacher</option>
+                      <option value="health">Health Care</option>
+                      <option value="services">Civil Services</option>
+                      <option value="at_home">At Home</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <!-- School Information -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="school">School</label>
+                  <div class="col-md-9">
+                    <select id="school" class="form-control" formControlName="school">
+                      <option value="GP">Gabriel Pereira</option>
+                      <option value="MS">Mousinho da Silveira</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="reason">Reason to Choose School</label>
+                  <div class="col-md-9">
+                    <select id="reason" class="form-control" formControlName="reason">
+                      <option value="home">Close to Home</option>
+                      <option value="reputation">School Reputation</option>
+                      <option value="course">Course Preference</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="guardian">Guardian</label>
+                  <div class="col-md-9">
+                    <select id="guardian" class="form-control" formControlName="guardian">
+                      <option value="mother">Mother</option>
+                      <option value="father">Father</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <!-- Academic Information -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="traveltime">Travel Time to School (hours)</label>
+                  <div class="col-md-9">
+                    <select id="traveltime" class="form-control" formControlName="traveltime">
+                      <option value="1">Less than 15 min</option>
+                      <option value="2">15 to 30 min</option>
+                      <option value="3">30 min to 1 hour</option>
+                      <option value="4">More than 1 hour</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="studytime">Weekly Study Time (hours)</label>
+                  <div class="col-md-9">
+                    <select id="studytime" class="form-control" formControlName="studytime">
+                      <option value="1">Less than 2</option>
+                      <option value="2">2 to 5</option>
+                      <option value="3">5 to 10</option>
+                      <option value="4">More than 10</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="failures">Number of Past Class Failures</label>
+                  <div class="col-md-9">
+                    <input type="number" id="failures" class="form-control" formControlName="failures" min="0" max="4">
+                  </div>
+                </div>
+  
+                <!-- Support Information -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control">Extra Educational Support</label>
+                  <div class="col-md-9">
+                    <div class="radio d-inline-block mr-2">
+                      <input type="radio" id="schoolsup-yes" value="yes" formControlName="schoolsup">
+                      <label for="schoolsup-yes">Yes</label>
+                    </div>
+                    <div class="radio d-inline-block">
+                      <input type="radio" id="schoolsup-no" value="no" formControlName="schoolsup">
+                      <label for="schoolsup-no">No</label>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control">Family Educational Support</label>
+                  <div class="col-md-9">
+                    <div class="radio d-inline-block mr-2">
+                      <input type="radio" id="famsup-yes" value="yes" formControlName="famsup">
+                      <label for="famsup-yes">Yes</label>
+                    </div>
+                    <div class="radio d-inline-block">
+                      <input type="radio" id="famsup-no" value="no" formControlName="famsup">
+                      <label for="famsup-no">No</label>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Additional Information -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="paid">Extra Paid Classes</label>
+                  <div class="col-md-9">
+                    <select id="paid" class="form-control" formControlName="paid">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="activities">Extra-curricular Activities</label>
+                  <div class="col-md-9">
+                    <select id="activities" class="form-control" formControlName="activities">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="higher">Wants to Take Higher Education</label>
+                  <div class="col-md-9">
+                    <select id="higher" class="form-control" formControlName="higher">
+                      <option value="yes">Yes</option>
+                      <option value="no">No</option>
+                    </select>
+                  </div>
+                </div>
+  
+                <!-- Grades -->
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="G1">First Period Grade (G1)</label>
+                  <div class="col-md-9">
+                    <input type="number" id="G1" class="form-control" formControlName="G1" min="0" max="20" step="0.5">
+                  </div>
+                </div>
+  
+                <div class="form-group row">
+                  <label class="col-md-3 label-control" for="G2">Second Period Grade (G2)</label>
+                  <div class="col-md-9">
+                    <input type="number" id="G2" class="form-control" formControlName="G2" min="0" max="20" step="0.5">
+                  </div>
+                </div>
+  
+                <!-- Prediction Result -->
+                <div class="form-group row" *ngIf="predictionResult">
+                  <label class="col-md-3 label-control">Predicted Final Grade (G3)</label>
+                  <div class="col-md-9">
+                    <div class="alert alert-success">
+                      <h4 class="alert-heading">Prediction Result</h4>
+                      <p>The predicted final grade is: <strong>{{ predictionResult }}</strong></p>
+                    </div>
+                  </div>
+                </div>
+  
+                <!-- Form Actions -->
+                <div class="form-group row last">
+                  <div class="col-md-9 offset-md-3">
+                    <button type="submit" class="btn btn-primary mr-2" [disabled]="studentForm.invalid || isLoading">
+                      <span *ngIf="!isLoading">
+                        <i class="ft-check-square mr-1"></i>Predict Performance
+                      </span>
+                      <span *ngIf="isLoading">
+                        <i class="fa fa-spinner fa-spin mr-1"></i>Processing...
+                      </span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="resetForm()">
+                      <i class="ft-x mr-1"></i>Reset
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

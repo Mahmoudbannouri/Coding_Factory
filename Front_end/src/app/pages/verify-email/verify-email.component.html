@@ -1,0 +1,50 @@
+<div class="center-container">
+  <div class="card">
+    <!-- Gmail Icon -->
+    <div class="icon new-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+        <path fill="#e53935" d="M44 39V9L24 24z"/>
+        <path fill="#c62828" d="M4 39V9l20 15z"/>
+        <path fill="#fbc02d" d="M44 9L24 24 4 9z"/>
+        <path fill="#e0e0e0" d="M24 27L4 12v27h40V12z"/>
+      </svg>
+    </div>
+
+    <!-- Title -->
+    <h2 class="title">Verify your email</h2>
+
+    <!-- Email info -->
+    <p class="subtitle">
+      We've sent a verification link to
+      <span class="email-highlight">{{ email }}</span>.
+    </p>
+
+    <!-- Success Message -->
+    <div class="message success" *ngIf="successMessage">
+      ✅ {{ successMessage }}
+    </div>
+
+    <!-- Error Message -->
+    <div class="message error" *ngIf="errorMessage">
+      ❌ {{ errorMessage }}
+    </div>
+
+    <!-- Button -->
+    <button
+      class="btn"
+      (click)="resendVerification()"
+      [disabled]="resendDisabled || isProcessing"
+    >
+      <ng-container *ngIf="isProcessing; else defaultText">
+        <span class="spinner"></span> Sending...
+      </ng-container>
+      <ng-template #defaultText>
+        Resend Verification
+        <span *ngIf="resendDisabled">({{ resendCountdown }}s)</span>
+      </ng-template>
+    </button>
+
+    <!-- Back Link -->
+    <a routerLink="/pages/login" class="back-link">← Back to login</a>
+  </div>
+</div>

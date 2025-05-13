@@ -1,31 +1,58 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router, ActivatedRoute } from "@angular/router";
+// forgot-password-page.component.ts
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'app/shared/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
-    selector: 'app-forgot-password-page',
-    templateUrl: './forgot-password-page.component.html',
-    styleUrls: ['./forgot-password-page.component.scss']
+  selector: 'app-forgot-password-page',
+  templateUrl: './forgot-password-page.component.html',
+  styleUrls: ['./forgot-password-page.component.scss']
 })
-
 export class ForgotPasswordPageComponent {
-    @ViewChild('f') forogtPasswordForm: NgForm;
+  currentStep: number = 1;
+  passwordForm: FormGroup;
+  email: string = '';
+  loading: boolean = false;
 
-    constructor(private router: Router,
-        private route: ActivatedRoute) { }
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private toastr: ToastrService,
+    private router: Router
+  ) {
+    this.passwordForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]]
+    });
+  }
 
-    // On submit click, reset form fields
-    onSubmit() {
-        this.forogtPasswordForm.reset();
+  sendOtp() {
+    if (this.passwordForm.invalid) {
+      this.toastr.error('Please enter a valid email.');
+      return;
     }
 
-    // On login link click
-    onLogin() {
-        this.router.navigate(['login'], { relativeTo: this.route.parent });
-    }
+    this.loading = true;
+    this.email = this.passwordForm.value.email;
 
-    // On registration link click
-    onRegister() {
-        this.router.navigate(['register'], { relativeTo: this.route.parent });
-    }
+    this.authService.forgotPassword(this.email).subscribe({
+      next: (res) => {
+        this.loading = false;
+        if (res.status === 'success') {
+          this.toastr.success(res.message || 'OTP sent successfully!');
+          // Navigate to OTP verification page with email as query param
+          this.router.navigate(['/pages/otp-verification'], { 
+            queryParams: { email: this.email } 
+          });
+        } else {
+          this.toastr.error(res.message || 'Failed to send OTP.');
+        }
+      },
+      error: (err) => {
+        this.loading = false;
+        this.toastr.error(err.error?.message || 'Failed to send OTP.');
+      }
+    });
+  }
 }

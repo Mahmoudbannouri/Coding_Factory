@@ -1,0 +1,91 @@
+/* Global styles */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f7fafc;
+  }
+  
+  /* Input and select fields */
+  .input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .input-field:focus {
+    outline: none;
+    border-color: #3182ce;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.5);
+  }
+  
+  /* Error messages */
+  .error-message {
+    color: #e53e3e;
+    font-size: 0.875rem;
+    margin-top: 4px;
+  }
+  
+  /* Action Buttons */
+  .action-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .reset {
+    border: 1px solid #e2e8f0;
+    background-color: white;
+    color: #4a5568;
+  }
+  
+  .reset:hover {
+    background-color: #edf2f7;
+  }
+  
+  .submit {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+  }
+  
+  .submit:hover {
+    background-color: #2b6cb0;
+  }
+  
+  .submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Container styles */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Header styles */
+  .bg-gradient-to-r {
+    background: linear-gradient(to right, #2b6cb0, #3182ce);
+  }
+  
+  h1 {
+    font-size: 2.25rem;
+  }
+  
+  h2 {
+    font-size: 1.75rem;
+  }
+  
+  h3 {
+    font-size: 1.25rem;
+  }
+  
+  h4 {
+    font-size: 1.125rem;
+  }
+  

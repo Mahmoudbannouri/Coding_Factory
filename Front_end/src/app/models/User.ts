@@ -11,5 +11,10 @@ export class User {
   dateOfBirth!: Date;
   role!: Role;
   courses!: Course[];
-  isSelected?: boolean; // Add this property to handle selection in the modal
+  isSelected?: boolean;
+  enabled: boolean;
+  verified: boolean;
+  lastActivity?: Date;
+  roles: string[];
+
 }

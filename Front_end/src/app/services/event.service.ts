@@ -100,7 +100,7 @@ downloadIcs(eventId: number): Observable<Blob> {
 }
 
 getUserCreator(id: number): Observable<User> {
-  return this.http.get<User>(`http://localhost:8090/api/v1/auth/students/user/${id}`);
+  return this.http.get<User>(`http://localhost:8080/api/v1/auth/user/${id}`);
 }
 
 // Get all centers

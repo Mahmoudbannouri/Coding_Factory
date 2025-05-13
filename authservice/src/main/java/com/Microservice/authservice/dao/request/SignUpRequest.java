@@ -23,4 +23,13 @@ public class SignUpRequest {
     private Date dateOfBirth;
     private String password;
     private Set<Role> roles;
+
+    @Builder.Default
+    private boolean isEnabled = true; // New field - accounts are enabled by default
+
+    // Custom builder to handle default values
+    public static class SignUpRequestBuilder {
+        private boolean isEnabled = true;
+
+    }
 }

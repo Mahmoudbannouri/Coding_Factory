@@ -1,0 +1,121 @@
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f9fafb;
+  padding: 1rem;
+}
+
+.card {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  background-color: #7c3aed; // Purple
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #111827; // Black
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  color: #374151;
+  margin-bottom: 1rem;
+
+  .email-highlight {
+    font-weight: 600;
+    color: #7c3aed; // Purple
+  }
+}
+
+.message {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  text-align: left;
+
+  &.success {
+    background-color: #ecfdf5;
+    color: #065f46;
+  }
+
+  &.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+  }
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-weight: 600;
+  background-color: #7c3aed; // Purple
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: #6d28d9;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.back-link {
+  display: block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: #7c3aed;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

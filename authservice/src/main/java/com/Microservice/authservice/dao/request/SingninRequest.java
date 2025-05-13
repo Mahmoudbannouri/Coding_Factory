@@ -1,5 +1,4 @@
 package com.Microservice.authservice.dao.request;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

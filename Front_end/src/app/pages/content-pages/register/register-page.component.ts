@@ -73,9 +73,11 @@ export class RegisterPageComponent implements OnInit {
 
     this.authService.register(userData).subscribe({
       next: (response) => {
-        console.log('User registered:', response);
-        this.router.navigate(['/pages/login']);// ✅ Correct path
-      },
+       // Show verification message instead of redirecting to login
+      this.router.navigate(['/verify-email'], { 
+        state: { email: userData.email } 
+      });
+    },
       error: (error) => {
         console.error('Registration error:', error);
       }

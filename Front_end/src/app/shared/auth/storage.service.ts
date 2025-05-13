@@ -106,21 +106,21 @@ export class StorageService {
 
   // Check if partner is logged in
   public static isPartnerLoggedIn(): boolean {
-  const role = this.getUserRole();
-  console.log('Checking Partner Role:', role); // Log the role being checked
+    const role = this.getUserRole();
+    console.log('Checking Partner Role:', role); // Log the role being checked
 
-  // Normalize the role by removing brackets and trim whitespace
-  const normalizedRole = role.replace(/[\[\]]/g, '').trim();
-  return normalizedRole === 'PARTNER';
-}
+    // Normalize the role by removing brackets and trim whitespace
+    const normalizedRole = role.replace(/[\[\]]/g, '').trim();
+    return normalizedRole === 'PARTNER';
+  }
 
   // Check if trainer is logged in
- // In storage.service.ts
- public static isTrainerLoggedIn(): boolean {
-  const role = this.getUserRole();
-  // Handle both "[TRAINER]" and "TRAINER" cases
-  return role?.replace(/[\[\]]/g, '') === 'TRAINER';
-}
+  // In storage.service.ts
+  public static isTrainerLoggedIn(): boolean {
+    const role = this.getUserRole();
+    // Handle both "[TRAINER]" and "TRAINER" cases
+    return role?.replace(/[\[\]]/g, '') === 'TRAINER';
+  }
 
   // Logout user
   public static logout(): void {

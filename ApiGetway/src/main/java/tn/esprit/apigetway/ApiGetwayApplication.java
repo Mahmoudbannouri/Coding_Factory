@@ -37,6 +37,12 @@ public class ApiGetwayApplication {
                         .uri("lb://PARTNERSHIPMANAGEMENT"))
                 .route("auth", r -> r.path("/api/v1/auth/**")
                         .uri("lb://AUTHSERVICE")) // Ensure this matches the Eureka service name
+                // Route for student-performance-service
+                .route("student-performance-service", r -> r.path("/api/v1/performance/**")
+                        .uri("lb://student-performance-service"))
+                .route("auth", r -> r.path("/api/v1/auth/**","/api/v1/auth/password/**", "/api/v1/auth/verify", "/api/v1/auth/resend-verification","/api/v1/auth/users","/api/v1/auth/users/**","/api/v1/auth/users/*/enable",
+                                "/api/v1/auth/users/*/disable","/api/v1/performance/**")
+                        .uri("lb://AUTHSERVICE")) // Ensure this matches the Eureka service name
                 .build(); // Only one .build() is needed
     }
 }

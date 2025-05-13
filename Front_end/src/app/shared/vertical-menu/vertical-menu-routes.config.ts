@@ -31,8 +31,10 @@ function isPartner(): boolean {
 export const ROUTES: RouteInfo[] = [
 
   {
-     path: '/dashboard/dashboard1', title: 'home', icon: 'ft-home', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: []
-
+    path: '', title: 'Home', icon: 'ft-home', class: 'has-sub', badge: '2', badgeClass: 'badge badge-pill badge-danger float-right mr-1 mt-1', isExternalLink: false, submenu: [
+      { path: '/dashboard/dashboard1', title: 'Dashboard', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+      { path: '/dashboard/dashboard2', title: 'Users', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+    ]
   },
   { path: '/courses', title: 'Courses', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
 

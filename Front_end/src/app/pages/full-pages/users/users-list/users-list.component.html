@@ -1,119 +1,102 @@
-<!-- Filter Datatables -->
-<section id="ngx-datatable-filter">
-  <div class="row">
-    <div class="col-12">
-      <!-- Filter starts -->
-      <div class="users-list-filter px-2">
-        <form>
-          <div class="row border rounded py-2 mb-2 mx-n2">
-            <div class="col-12 col-sm-6 col-lg-3">
-              <label for="users-list-verified">Verified</label>
-              <fieldset class="form-group">
-                <select id="users-list-verified" class="form-control">
-                  <option value="">Any</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-              </fieldset>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-              <label for="users-list-role">Role</label>
-              <fieldset class="form-group">
-                <select id="users-list-role" class="form-control">
-                  <option value="">Any</option>
-                  <option value="User">User</option>
-                  <option value="Staff">Staff</option>
-                </select>
-              </fieldset>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3">
-              <label for="users-list-status">Status</label>
-              <fieldset class="form-group">
-                <select id="users-list-status" class="form-control">
-                  <option value="">Any</option>
-                  <option value="Active">Active</option>
-                  <option value="Close">Close</option>
-                  <option value="Banned">Banned</option>
-                </select>
-              </fieldset>
-            </div>
-
-            <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-              <button type="reset" class="btn btn-primary btn-block users-list-clear glow mb-0">
-                Clear
-              </button>
-            </div>
-          </div>
-        </form>
+<div class="card">
+  <div class="card-header">
+    <h4 class="card-title">User Management</h4>
+  </div>
+  <div class="card-body">
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <label>Show
+          <select class="form-control form-control-sm d-inline-block width-100" 
+                  (change)="updateLimit($event)">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select> entries
+        </label>
       </div>
-      <!-- Filter ends -->
+      <div class="col-md-6 text-right">
+        <input type="text" class="form-control form-control-sm width-200 float-right" 
+               placeholder="Search..." (keyup)="filterUpdate($event)">
+      </div>
     </div>
-    <div class="col-12">
-      <div class="card">
-        <div class="card-content">
-          <div class="card-body">
-            <!-- ngx-datatable-filter -->
-            <fieldset class="form-group">
-              <label>Show
-                <select name="users-list-select"
-                  class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
-                  (click)="updateLimit($event)">
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                </select>
-                entries</label>
-              <label for="ngx-filter-ref" class="float-right">Search:
-                <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200 ml-1"
-                  type="text" (keyup)="filterUpdate($event)" />
-              </label>
-            </fieldset>
-            <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
-              [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="rows" [scrollbarH]="true"
-              [columns]="columns">
-              <ngx-datatable-column name="ID" prop="ID" [width]="50"></ngx-datatable-column>
-              <ngx-datatable-column name="Username" prop="Username" [width]="150">
-                <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
-                  <div class="d-flex align-items-center">
-                    <img class="rounded-circle mr-1" src="assets/img/portrait/small/{{
-                        row.avatar
-                      }}" height="32" width="32" alt="datatable-avatar" />
 
-                    <div class="cell-line-height">
-                      <a class="line-height-1 mb-0" routerLink="/pages/users-view">{{ name }}</a>
-                    </div>
-                  </div>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Name" prop="Name" [width]="150"></ngx-datatable-column>
-              <ngx-datatable-column name="Last Activity" prop="Last Activity" [width]="120"></ngx-datatable-column>
-              <ngx-datatable-column name="Verified" prop="Verified" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="Role" prop="Role" [width]="70"></ngx-datatable-column>
-              <ngx-datatable-column name="Status" prop="Status" [width]="70">
-                <ng-template let-status="value" ngx-datatable-cell-template>
-                  <div class="badge" [ngClass]="{
-                      'bg-light-success': status == 'Active',
-                      'bg-light-danger': status == 'Banned',
-                      'bg-light-warning': status == 'Close'
-                    }">
-                    {{ status }}
-                  </div>
-                </ng-template>
-              </ngx-datatable-column>
-              <ngx-datatable-column name="Actions" [width]="50">
-                <ng-template ngx-datatable-cell-template>
-                  <a routerLink="/pages/users-edit"><i class="ft-edit text-primary cursor-pointer"></i></a>
-                </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
-            <!-- ngx-datatable-filter -->
-          </div>
-        </div>
-      </div>
+    <div class="datatable-container"> <!-- Wrapper div for better control -->
+      <ngx-datatable
+        class="bootstrap spaced-rows"
+        [rows]="rows"
+        [columns]="columns"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="60"
+        [limit]="limitRef"
+        [loadingIndicator]="loading"
+        [scrollbarH]="true"
+        [trackByProp]="'id'">
+        
+        <ngx-datatable-column name="ID" prop="id" [width]="80"></ngx-datatable-column>
+        <ngx-datatable-column name="Name" prop="name" [width]="150"></ngx-datatable-column>
+        <ngx-datatable-column name="Email" prop="email" [width]="200"></ngx-datatable-column>
+        
+        <ngx-datatable-column name="Roles" [width]="150">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div *ngFor="let role of row.roles" class="badge badge-primary mr-1 mb-1">
+              {{ role }}
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Verified" [width]="100">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="badge" [ngClass]="{
+              'badge-success': row.verified,
+              'badge-warning': !row.verified
+            }">
+              {{ row.verified ? 'Yes' : 'No' }}
+            </span>
+          </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Status" [width]="100">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <span class="badge" [ngClass]="{
+              'badge-success': row.enabled,
+              'badge-danger': !row.enabled
+            }">
+              {{ row.enabled ? 'Active' : 'Disabled' }}
+            </span>
+          </ng-template>
+        </ngx-datatable-column>
+        
+        <ngx-datatable-column name="Actions" [width]="180">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            <div class="d-flex align-items-center" style="height: 100%;">
+              <button class="btn btn-sm btn-icon mx-1"
+                      [ngClass]="{
+                        'btn-success': !row.enabled,
+                        'btn-danger': row.enabled
+                      }"
+                      (click)="toggleUserStatus(row)"
+                      [title]="row.enabled ? 'Disable User' : 'Enable User'">
+                <i [class]="row.enabled ? 'ft-power' : 'ft-check-circle'"></i>
+              </button>
+              
+              <button class="btn btn-sm btn-icon btn-danger mx-1" 
+                      (click)="deleteUser(row)"
+                      title="Delete User">
+                <i class="ft-trash-2"></i>
+              </button>
+              
+              <a class="btn btn-sm btn-icon btn-info mx-1" 
+                 [routerLink]="['/users/view', row.id]"
+                 title="View Details">
+                <i class="ft-eye"></i>
+              </a>
+            </div>
+          </ng-template>
+        </ngx-datatable-column>
+      </ngx-datatable>
     </div>
   </div>
-</section>
-<!--/ Filter Datatables -->
+</div>

@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg text-center">
+          <div class="card-body">
+            <div class="icon-success mb-4">
+              <i class="bi bi-check-circle-fill text-success" style="font-size: 4rem;"></i>
+            </div>
+            <h2 class="card-title">Email Verified Successfully!</h2>
+            <p class="card-text">Your account has been verified. You will be redirected to login shortly.</p>
+            <p *ngIf="email" class="text-muted">Verified email: {{email}}</p>
+            
+            <div class="mt-4">
+              <a routerLink="/pages/login" class="btn btn-primary">
+                Go to Login Now
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,154 @@
+<div *ngIf="results && !isLoading" class="fade-in">
+    <!-- Prediction Summary -->
+    <div class="bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl p-6 mb-8 shadow-sm border border-blue-200">
+      <div class="flex flex-col md:flex-row items-start md:items-center">
+        <!-- Prediction Badge -->
+        <div class="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
+          <div class="h-20 w-20 rounded-full {{getPredictionColor()}} flex items-center justify-center text-white text-3xl font-bold shadow-md">
+            {{ getPredictionLabel(results.prediction).charAt(0) }}
+          </div>
+        </div>
+        
+        <!-- Prediction Details -->
+        <div class="flex-1">
+          <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div>
+              <h3 class="text-xl font-semibold text-gray-900">Performance Prediction</h3>
+              <div class="mt-2">
+                <span class="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold {{getPredictionColor()}} text-white shadow-sm">
+                  {{ getPredictionLabel(results.prediction) }}
+                  <span class="ml-2 text-xs bg-white bg-opacity-20 px-2 py-0.5 rounded-full">
+                    {{ (getProbabilityForPrediction() * 100).toFixed(1) }}%
+                  </span>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Confidence Indicator -->
+            <div *ngIf="results.confidence" class="mt-4 md:mt-0">
+              <div class="text-sm text-gray-500">Confidence Level</div>
+              <div class="flex items-center mt-1">
+                <div class="w-32 bg-gray-200 rounded-full h-2.5 mr-2">
+                  <div class="bg-green-500 h-2.5 rounded-full" 
+                       [style.width.%]="results.confidence * 100"></div>
+                </div>
+                <span class="text-sm font-medium text-gray-700">{{ getConfidenceLevel() }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Interpretation -->
+          <p class="mt-3 text-sm text-gray-600">
+            {{ interpretation }}
+          </p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Probability Distribution -->
+    <div class="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-200">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Probability Distribution</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Progress Bars -->
+        <div>
+          <div *ngFor="let item of probabilityItems" class="mb-5 last:mb-0">
+            <div class="flex justify-between items-center mb-2">
+              <div class="flex items-center">
+                <div class="h-3 w-3 rounded-full {{item.color}} mr-2"></div>
+                <span class="text-sm font-medium text-gray-700">{{ item.label }}</span>
+              </div>
+              <span class="text-sm font-medium text-gray-700">{{ (item.value * 100).toFixed(1) }}%</span>
+            </div>
+            <div class="w-full bg-gray-200 rounded-full h-2.5">
+              <div class="h-2.5 rounded-full probability-bar {{item.color}}" 
+                   [style.width.%]="item.value * 100"></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Donut Chart -->
+        <div class="flex flex-col items-center justify-center">
+          <div class="relative w-56 h-56 mb-4">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+              <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" stroke-width="10" />
+              <path *ngFor="let item of probabilityItems; let i = index" 
+                    class="donut-segment"
+                    [attr.stroke]="getColor(item.color)" 
+                    stroke-width="10" 
+                    fill="none"
+                    stroke-linecap="round"
+                    [attr.stroke-dasharray]="getDashArray(item.value)"
+                    [attr.stroke-dashoffset]="getDashOffset(i)"
+                    d="M50,5 A45,45 0 1,1 5,50" />
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center flex-col">
+              <span class="text-3xl font-bold text-gray-800">{{ getPredictionLabel(results.prediction) }}</span>
+              <span class="text-sm text-gray-500">{{ (getProbabilityForPrediction() * 100).toFixed(1) }}% probability</span>
+            </div>
+          </div>
+          <div class="text-center">
+            <p class="text-sm text-gray-600">The chart shows the distribution of possible outcomes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Performance Guide -->
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">Performance Interpretation Guide</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div *ngFor="let item of probabilityItems" 
+             class="p-4 rounded-lg {{item.color.replace('bg-', 'bg-').replace('500', '100')}} border-l-4 {{item.color}}">
+          <div class="flex items-center mb-2">
+            <div class="h-4 w-4 rounded-full {{item.color}} mr-2"></div>
+            <span class="text-sm font-semibold">{{ item.label }}</span>
+          </div>
+          <p class="text-xs text-gray-600">
+            <span *ngIf="item.label === 'Failed'">Student is at risk of failing and may need immediate intervention.</span>
+            <span *ngIf="item.label === 'Passable'">Student meets minimum requirements but could improve with support.</span>
+            <span *ngIf="item.label === 'Good'">Student performs above average with consistent results.</span>
+            <span *ngIf="item.label === 'Very Good'">Student demonstrates strong academic achievement.</span>
+            <span *ngIf="item.label === 'Excellent'">Student shows outstanding performance across all metrics.</span>
+          </p>
+          <div class="mt-2">
+            <span class="inline-block px-2 py-0.5 text-xs rounded {{item.color}} text-white">
+              {{ (item.value * 100).toFixed(1) }}%
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Recommendations -->
+    <div class="mt-8 bg-yellow-50 rounded-xl shadow-sm p-6 border border-yellow-200">
+      <h3 class="text-lg font-semibold text-gray-800 mb-3">Recommendations</h3>
+      <div class="prose prose-sm max-w-none text-gray-600">
+        <ul>
+          <li *ngIf="getPredictionLabel(results.prediction) === 'Failed'">
+            <strong>Immediate Action Required:</strong> Schedule a meeting with the student and parents to discuss intervention strategies.
+          </li>
+          <li *ngIf="getPredictionLabel(results.prediction) === 'Passable'">
+            <strong>Targeted Support:</strong> Identify specific areas for improvement and provide additional resources.
+          </li>
+          <li *ngIf="getPredictionLabel(results.prediction) === 'Good'">
+            <strong>Encourage Growth:</strong> Challenge the student with advanced materials to reach higher potential.
+          </li>
+          <li *ngIf="['Very Good', 'Excellent'].includes(getPredictionLabel(results.prediction))">
+            <strong>Enrichment Opportunities:</strong> Provide opportunities for advanced learning and leadership roles.
+          </li>
+          <li>
+            <strong>Monitor Progress:</strong> Regularly review the student's performance and adjust support as needed.
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="flex flex-col items-center justify-center py-16">
+    <div class="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+    <p class="text-gray-600">Analyzing performance data...</p>
+    <p class="text-sm text-gray-500 mt-2">This may take a few moments</p>
+  </div>

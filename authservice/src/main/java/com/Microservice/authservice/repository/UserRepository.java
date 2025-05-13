@@ -3,6 +3,7 @@ package com.Microservice.authservice.repository;
 import com.Microservice.authservice.entities.Role;
 import com.Microservice.authservice.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,14 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     // Find user by email
     Optional<User> findByEmail(String email);
 
-    // Find user by reset token
-    Optional<User> findByResetToken(String token);
+
+    // Add this method for email verification
+    Optional<User> findByVerificationToken(String verificationToken);
+
+    @Query("SELECT u FROM User u WHERE u.isEnabled = true")
+    List<User> findAllEnabledUsers();
+
+    @Query("SELECT u FROM User u WHERE u.isEnabled = false")
+    List<User> findAllDisabledUsers();
+
 }
