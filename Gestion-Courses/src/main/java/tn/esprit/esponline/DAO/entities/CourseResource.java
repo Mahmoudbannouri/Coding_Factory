@@ -1,5 +1,6 @@
 package tn.esprit.esponline.DAO.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +45,7 @@ public class CourseResource {
 
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "courses_id")
     private Course course;
 

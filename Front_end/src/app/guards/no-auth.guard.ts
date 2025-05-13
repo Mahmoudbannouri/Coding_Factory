@@ -16,20 +16,20 @@ export class NoAuthGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (StorageService.hasToken()) {
-      // Admins should access Dashboard 1 only
-      if (StorageService.isAdminLoggedIn()) {
-        if (next.url[0]?.path !== 'dashboard1') {
-          this.router.navigateByUrl("/dashboard/dashboard1");
-          return false;
-        }
-      } 
-      // Other users go to Dashboard 2
-      else {
+      const role = StorageService.getUserRole(); // Get the role of the logged-in user
+
+      if (role === 'ADMIN') {
         if (next.url[0]?.path !== 'dashboard2') {
           this.router.navigateByUrl("/dashboard/dashboard2");
           return false;
         }
+      } else if (['TRAINER', 'STUDENT', 'PARTNER'].includes(role)) {
+        if (next.url[0]?.path !== 'dashboard1') {
+          this.router.navigateByUrl("/dashboard/dashboard1");
+          return false;
+        }
       }
+
     } else {
       // Redirect unauthorized users to login
       this.router.navigate(['/pages/login']);

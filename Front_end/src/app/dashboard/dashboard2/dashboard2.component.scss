@@ -1,216 +1,181 @@
-@import "assets/sass/core/variables/gradient-variables.scss";
-
-:host ::ng-deep .ct-grid {
-  stroke-dasharray : 0;
-  stroke : rgba(0, 0, 0, 0.1);
+/* General Layout */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Inter', sans-serif;
 }
 
-:host ::ng-deep .ct-label {
-  font-size : 0.9rem;
+/* Table Styles */
+.table-container {
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
 }
 
-:host ::ng-deep .WidgetlineChart .ct-point {
-  stroke-width : 0;
+.table-container:hover {
+  transform: scale(1.02);
 }
 
-:host ::ng-deep .WidgetlineChartShadow {
-  -webkit-filter : drop-shadow(0px 15px 6px rgba(47, 139, 230, 0.6));
-          filter : drop-shadow(0px 15px 6px rgba(47, 139, 230, 0.6));
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  transition: opacity 0.3s ease-in-out;
 }
 
-:host ::ng-deep .WidgetlineChart .ct-line {
-  stroke : #2F8BE6;
-  stroke-width: 4px;
+.user-table th, .user-table td {
+  padding: 16px 24px;
+  border-bottom: 2px solid #e2e8f0;
 }
 
-:host ::ng-deep .WidgetlineChart1 .ct-point {
-  stroke-width : 0;
+.user-table th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-:host ::ng-deep .WidgetlineChart1Shadow {
-  -webkit-filter : drop-shadow(0px 15px 6px rgba(247, 126, 23, 0.6));
-          filter : drop-shadow(0px 15px 6px rgba(247, 126, 23, 0.6));
+.table-row:hover {
+  background-color: #f7fafc;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-:host ::ng-deep .WidgetlineChart1 .ct-line {
-  stroke : #F77E17;
-  stroke-width: 4px;
+/* Button Styles */
+.actions button {
+  margin-right: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
-:host ::ng-deep .WidgetlineChart2 .ct-point {
-  stroke-width : 0;
+.edit-btn {
+  background-color: #fbbf24;
+  color: white;
+  border: none;
 }
 
-:host ::ng-deep .WidgetlineChart2Shadow {
-  -webkit-filter : drop-shadow(0px 15px 6px rgba(151, 90, 255, 0.6));
-          filter : drop-shadow(0px 15px 6px rgba(151, 90, 255, 0.6));
+.edit-btn:hover {
+  background-color: #f59e0b;
+  transform: translateY(-2px);
 }
 
-:host ::ng-deep .WidgetlineChart2 .ct-line {
-  stroke : #975AFF;
-  stroke-width: 4px;
+.delete-btn {
+  background-color: #ef4444;
+  color: white;
+  border: none;
 }
 
-:host ::ng-deep .WidgetlineChart3 .ct-point {
-  stroke-width : 0;
+.delete-btn:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
 }
 
-:host ::ng-deep .WidgetlineChart3Shadow {
-  -webkit-filter : drop-shadow(0px 15px 6px rgba(64, 192, 87, 0.6));
-          filter : drop-shadow(0px 15px 6px rgba(64, 192, 87, 0.6));
+/* Form Styles */
+.edit-form {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  max-width: 700px;
+  margin: 0 auto;
+  transition: transform 0.3s ease-in-out;
 }
 
-:host ::ng-deep .WidgetlineChart3 .ct-line {
-  stroke : #40C057;
-  stroke-width: 4px;
+.edit-form:hover {
+  transform: scale(1.02);
 }
 
-:host ::ng-deep .lineChart1 .apexcharts-tooltip {
-  color : #342E49 !important;
+.edit-form h3 {
+  font-size: 28px;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
 }
 
-:host ::ng-deep .lineChart1Shadow {
-  -webkit-filter : drop-shadow(0px 15px 5px rgba(0, 0, 0, 0.1));
-          filter : drop-shadow(0px 15px 5px rgba(0, 0, 0, 0.1));
-  /* Same syntax as box-shadow, except for the spread property */
+.input-field {
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid #cbd5e0;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+  background-color: #f7fafc;
+  transition: all 0.3s ease-in-out;
 }
 
-:host ::ng-deep .donut1 .ct-label {
-  font-size : 4rem;
-  fill : #F77E17;
+.input-field:focus {
+  border-color: #4caf50;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
 }
 
-:host ::ng-deep .donut1 .ct-outstanding .ct-slice-donut {
-  stroke : #F5F5F5;
+.input-field::placeholder {
+  color: #a0aec0;
 }
 
-:host ::ng-deep .donut1 .ct-done .ct-slice-donut {
-  stroke : #FCC173;
+/* Button Styles */
+.save-btn, .cancel-btn {
+  padding: 12px 30px;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-:host ::ng-deep .donut2 .ct-label {
-  font-size : 4rem;
-  fill : #2F8BE6;
+.save-btn {
+  background-color: #48bb78;
+  color: white;
 }
 
-:host ::ng-deep .donut2 .ct-outstanding .ct-slice-donut {
-  stroke : #F5F5F5;
+.save-btn:hover {
+  background-color: #38a169;
+  transform: translateY(-2px);
 }
 
-:host ::ng-deep .donut2 .ct-done .ct-slice-donut {
-  stroke : #81C8F7;
+.cancel-btn {
+  background-color: #e2e8f0;
+  color: #4a5568;
 }
 
-:host ::ng-deep .donut3 .ct-label {
-  font-size : 4rem;
-  fill : #F55252;
+.cancel-btn:hover {
+  background-color: #cbd5e0;
+  transform: translateY(-2px);
 }
 
-:host ::ng-deep .donut3 .ct-outstanding .ct-slice-donut {
-  stroke : #F5F5F5;
+/* Hover effect for button */
+button:hover {
+  transform: scale(1.05);
 }
 
-:host ::ng-deep .donut3 .ct-done .ct-slice-donut {
-  stroke : #FCA897;
-}
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .table-container {
+    padding: 1.5rem;
+  }
 
-:host ::ng-deep .weather-pic {
-  object-fit : cover;
-}
+  .user-table th, .user-table td {
+    padding: 10px;
+  }
 
-:host ::ng-deep .lineChart2 .ct-point-circle {
-  stroke-width : 2px;
-  fill : #FFFFFF;
-}
+  .edit-form {
+    padding: 2rem;
+    max-width: 100%;
+  }
 
-:host ::ng-deep .lineChart2 .ct-line {
-  stroke-width : 1px;
-}
+  .input-field {
+    padding: 12px;
+    font-size: 14px;
+  }
 
-:host ::ng-deep .lineChart2 .ct-series-a .ct-line {
-  stroke : #60AFF0;
-}
-
-:host ::ng-deep .lineChart2 .ct-series-a .ct-point-circle {
-  stroke : #2F8BE6;
-}
-
-:host ::ng-deep .lineChart2 .ct-series-b .ct-line {
-  stroke : #6CD975;
-}
-
-:host ::ng-deep .lineChart2 .ct-series-b .ct-point-circle {
-  stroke : #40C057;
-}
-
-:host ::ng-deep .lineChart2Shadow {
-  -webkit-filter : drop-shadow(0px 16px 6px rgba(0, 0, 0, 0.15));
-          filter : drop-shadow(0px 16px 6px rgba(0, 0, 0, 0.15));
-  /* Same syntax as box-shadow, except for the spread property */
-}
-
-:host ::ng-deep .WidgetlineChartEarning .ct-point {
-  stroke-width : 0;
-}
-
-:host ::ng-deep .WidgetlineChartEarning .ct-line {
-  stroke : url($dashboard2-gradient-path +  #widgradient1) !important;
-  stroke-width: 4px;
-}
-
-:host ::ng-deep .WidgetlineChartEarning .ct-grid {
-  stroke : transparent !important;
-}
-
-:host ::ng-deep .WidgetlineChartEarningShadow {
-  -webkit-filter : drop-shadow(0px 20px 6px rgba(0, 0, 0, 0.2));
-          filter : drop-shadow(0px 20px 6px rgba(0, 0, 0, 0.2));
-  /* Same syntax as box-shadow, except for the spread property */
-}
-
-:host ::ng-deep .dash2-user img {
-  width : 6.5rem;
-  background-color : transparent;
-  border : 2px solid #975AFF;
-  padding : 0.4rem;
-}
-
-:host ::ng-deep .dash2-progress {
-  height : 1rem;
-  background-color : #F7F7F8;
-}
-:host ::ng-deep .dash2-progress .progress-bar {
-  border-radius : 0;
-}
-:host ::ng-deep .dash2-progress .progress-bar:last-child {
-  border-top-right-radius : inherit;
-  border-bottom-right-radius : inherit;
-}
-
-:host ::ng-deep .lineAreaChart .ct-line {
-  stroke-width : 1px;
-}
-
-:host ::ng-deep .lineAreaChart .ct-point-circle {
-  stroke-width : 2px;
-  fill : #FFFFFF;
-}
-
-:host ::ng-deep .lineAreaChart .ct-series-a .ct-area {
-  // fill : #B583FF;
-  fill: url($dashboard2-gradient-path +  #gradient) !important;
-
-}
-
-:host ::ng-deep .lineAreaChart .ct-series-a .ct-point-circle, .lineAreaChart .ct-series-a .ct-line {
-  stroke : #975AFF;
-}
-
-:host ::ng-deep .lineAreaChart .ct-series-b .ct-area {
-  fill : #F9877C;
-  fill-opacity : 0.1;
-}
-
-:host ::ng-deep .lineAreaChart .ct-series-b .ct-point-circle {
-  stroke : #F55252;
+  .save-btn, .cancel-btn {
+    padding: 10px 22px;
+  }
 }

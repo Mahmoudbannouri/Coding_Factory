@@ -1,0 +1,201 @@
+/* Table Container */
+.entreprise-table-container {
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Header Styling */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+}
+
+.btn-create {
+  padding: 12px 22px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s ease-in-out, transform 0.3s ease;
+}
+
+.btn-create:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Table Styling */
+.entreprise-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #f4f7fa;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+}
+
+.entreprise-table th, .entreprise-table td {
+  padding: 15px 20px;
+  text-align: left;
+  font-size: 15px;
+  color: #444;
+  border-bottom: 1px solid #ddd;
+}
+
+.entreprise-table th {
+  background-color: #1d8ebe;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.entreprise-table td {
+  background-color: #ffffff;
+}
+
+.entreprise-table tr:nth-child(even) td {
+  background-color: #f9f9f9;
+}
+
+.entreprise-table tr {
+  transition: all 0.3s ease;
+}
+
+.entreprise-table tr:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.entreprise-table tr:first-child {
+  border-radius: 8px;
+}
+
+.entreprise-table tr:last-child {
+  border-bottom: none;
+}
+
+/* Action Buttons */
+.btn {
+  padding: 10px 20px;
+  border-radius: 50px;  /* Fully rounded buttons */
+  font-size: 16px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  min-width: 120px;
+  justify-content: center;
+}
+
+/* Edit Button */
+.btn-primary {
+  background: linear-gradient(135deg, #007bff, #0069d9);
+  color: white;
+  border-radius: 25px;  /* Soft rounded edges */
+  padding: 12px 22px;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #0056b3, #004085);
+  transform: translateY(-3px);  /* Slight raise on hover */
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.3);
+}
+
+/* Delete Button */
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border-radius: 25px;
+  padding: 12px 22px;
+  box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, #c82333, #9b2c2c);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(220, 53, 69, 0.3);
+}
+
+.btn-danger:disabled {
+  background: #e0a800;
+  cursor: not-allowed;
+}
+
+/* Create Button */
+.btn-create {
+  padding: 12px 22px;
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: white;
+  border-radius: 25px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.3s ease-in-out, transform 0.3s ease;
+  box-shadow: 0 5px 15px rgba(40, 167, 69, 0.2);
+}
+
+.btn-create:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34);
+  transform: scale(1.05);
+  box-shadow: 0 6px 18px rgba(40, 167, 69, 0.3);
+}
+
+/* General Button Icons */
+.btn i {
+  font-size: 18px;  /* Slightly larger icons for better visibility */
+  display: inline-block;
+}
+
+/* Modal Action Buttons */
+.form-actions .btn {
+  min-width: 150px;
+  padding: 12px 25px;
+  text-transform: uppercase;
+}
+
+/* Success Button */
+.btn-success {
+  background: linear-gradient(135deg, #28a745, #218838);
+  color: white;
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, #218838, #1e7e34);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(40, 167, 69, 0.3);
+}
+
+/* Secondary Button */
+.btn-secondary {
+  background: linear-gradient(135deg, #6c757d, #5a6268);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #5a6268, #4e555b);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(108, 117, 125, 0.3);
+}

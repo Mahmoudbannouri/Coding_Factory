@@ -1,8 +1,9 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../models/courses';
-import { SupabaseService } from '../../services/supabase.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { StorageService } from 'app/shared/auth/storage.service';
 
 @Component({
   selector: 'app-add-course-modal',
@@ -16,140 +17,174 @@ export class AddCourseModalComponent {
   categoryEnum = ["WEB_DEVELOPMENT", "DATA_SCIENCE", "SECURITY", "AI", "CLOUD"];
 
   newCourse: Course = new Course();
-  imageUploading: boolean = false; // Flag to handle the image upload process
+  imageUploading: boolean = false;
 
-  constructor(private courseService: CourseService, private supabaseService: SupabaseService) {}
+  // Error messages for validation
+  titleError: string | null = null;
+  descriptionError: string | null = null;
+  categoryError: string | null = null;
+  levelError: string | null = null;
+  imageError: string | null = null;
+
+  constructor(
+    private courseService: CourseService,
+    private http: HttpClient,
+    private storageService: StorageService // Inject StorageService
+
+  ) {}
 
   closeModal(): void {
     this.showModal = false;
     this.showModalChange.emit(this.showModal);
+    this.resetForm();
   }
 
-  // Handle image selection and upload
- // Handle image selection and upload
-async onImageSelected(event: Event): Promise<void> {
-  const file = (event.target as HTMLInputElement).files?.[0];
-  if (file) {
-    try {
-      console.log('Selected file:', file);
-
-      // Check if the file already exists in Supabase storage
-      let fileName = file.name;
-      const fileExists = await this.supabaseService.fileExists(fileName); 
-
-      // If file exists, generate a new name with versioning
-      let version = 1;
-      while (fileExists) {
-        version++;
-        const fileExtension = fileName.split('.').pop();
-        fileName = fileName.replace(`.${fileExtension}`, `-v${version}.${fileExtension}`);
-        const fileExists = await this.supabaseService.fileExists(fileName); // Check again with the new name
-      }
-
-      // Upload the file with the new or original name
-      const uploadData = await this.uploadFileToSupabase(file, fileName); // Pass the new name if needed
-      if (uploadData && uploadData.publicUrl) {
-        this.newCourse.image = uploadData.publicUrl; // Set the new image URL
-        Swal.fire({
-          title: 'Success!',
-          text: 'File uploaded successfully!',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-      } else {
-        Swal.fire({
-          title: 'Error',
-          text: 'Error uploading the image. Please try again.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
-      }
-
-    } catch (error) {
-      console.error('Error handling image:', error);
-      Swal.fire({
-        title: 'Error',
-        text: 'An error occurred while handling the image.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-    }
+  resetForm(): void {
+    this.newCourse = new Course();
+    this.titleError = null;
+    this.descriptionError = null;
+    this.categoryError = null;
+    this.levelError = null;
+    this.imageError = null;
   }
-}
 
-  
+  validateForm(): boolean {
+    let isValid = true;
 
-  
-  
-  
-
-  // Upload image to Supabase and get the URL/path
-// Upload image to Supabase and get the URL/path
-async uploadFileToSupabase(file: File, fileName: string) {
-  this.imageUploading = true; // Set flag to indicate upload in progress
-  try {
-    // Upload the file to Supabase with the new name
-    const data = await this.supabaseService.uploadFile(fileName, file);
-
-    if (data && data.path) {
-      // Once uploaded, get the public URL
-      const publicUrl = await this.supabaseService.getPublicUrl(data.path);
-      return { publicUrl };
+    // Validate Title
+    if (!this.newCourse.title) {
+      this.titleError = 'Title is required.';
+      isValid = false;
+    } else if (this.newCourse.title.length > 20) {
+      this.titleError = 'Title must be less than 20 characters.';
+      isValid = false;
     } else {
-      return null;
+      this.titleError = null;
     }
-  } catch (error) {
-    console.error('Error uploading file:', error);
-    return null;
-  } finally {
-    this.imageUploading = false; // Reset flag after upload attempt
-  }
-}
 
+    // Validate Description
+    if (!this.newCourse.description) {
+      this.descriptionError = 'Description is required.';
+      isValid = false;
+    } else if (this.newCourse.description.length > 100) {
+      this.descriptionError = 'Description must be less than 100 characters.';
+      isValid = false;
+    } else {
+      this.descriptionError = null;
+    }
 
-  // Add course after image upload is successful
-  addCourse(): void {
+    // Validate Category
+    if (!this.newCourse.categoryCourse) {
+      this.categoryError = 'Category is required.';
+      isValid = false;
+    } else {
+      this.categoryError = null;
+    }
+
+    // Validate Level
+    if (!this.newCourse.level) {
+      this.levelError = 'Level is required.';
+      isValid = false;
+    } else {
+      this.levelError = null;
+    }
+
+    // Validate Image
     if (!this.newCourse.image) {
-      // Ensure image is set before submitting
-      Swal.fire({
-        title: 'Error',
-        text: 'Image is required!',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
+      this.imageError = 'Image is required.';
+      isValid = false;
+    } else {
+      this.imageError = null;
+    }
+
+    return isValid;
+  }
+
+  isFormValid(): boolean {
+    return (
+      !!this.newCourse.title &&
+      this.newCourse.title.length <= 20 &&
+      !!this.newCourse.description &&
+      this.newCourse.description.length <= 100 &&
+      !!this.newCourse.categoryCourse &&
+      !!this.newCourse.level &&
+      !!this.newCourse.image
+    );
+  }
+
+  async onImageSelected(event: Event): Promise<void> {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (!file) return;
+
+    this.imageUploading = true;
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const token = StorageService.getToken();
+      if (!token) {
+        throw new Error('No authentication token found');
+      }
+
+      const fileUrl = await this.http.post(
+        'http://localhost:8090/courses/upload',
+        formData,
+        {
+          responseType: 'text',
+          headers: new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+            // Don't set Content-Type - let browser set it with boundary
+          })
+        }
+      ).toPromise();
+
+      if (fileUrl) {
+        this.newCourse.image = fileUrl;
+        this.imageError = null;
+        Swal.fire('Success!', 'File uploaded successfully!', 'success');
+      }
+    } catch (error: any) {
+      console.error('Error uploading file:', error);
+      const errorMsg = error.error?.message || error.message || 'Failed to upload image';
+      this.imageError = errorMsg;
+      Swal.fire('Error', errorMsg, 'error');
+    } finally {
+      this.imageUploading = false;
+    }
+  }
+
+// Update the addCourse method in AddCourseModalComponent
+// Update the addCourse method in AddCourseModalComponent
+  addCourse(): void {
+    console.log('[Add Course] Starting add course process...');
+
+    if (!this.validateForm()) {
+      console.log('[Add Course] Form validation failed');
       return;
     }
 
-    this.courseService.addCourse(this.newCourse).subscribe(
-      (course) => {
+    const user = this.storageService.getUser();
+    if (!user?.id) {
+      console.error('User ID not available');
+      Swal.fire('Error', 'User not authenticated', 'error');
+      return;
+    }
+
+    console.log('Adding course with trainer ID:', user.id);
+    this.newCourse.trainerId = user.id;
+
+    this.courseService.addCourse(this.newCourse,user.id).subscribe({
+      next: (course) => {
+        console.log('[Add Course] Successfully added course:', course);
         this.courseAdded.emit(course);
         this.closeModal();
-        Swal.fire({
-          title: 'Success!',
-          text: 'Course added successfully!',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
+        Swal.fire('Success!', 'Course added successfully!', 'success');
       },
-      (error) => {
-        console.error('Error adding course:', error);
-        if (error.error) {
-          const errorMessages = Object.values(error.error).join('\n');
-          Swal.fire({
-            title: 'Validation Error',
-            text: errorMessages,
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        } else {
-          Swal.fire({
-            title: 'Error',
-            text: 'Something went wrong while adding the course.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-          });
-        }
+      error: (error) => {
+        console.error('[Add Course] Error:', error);
+        Swal.fire('Error', error.error?.message || 'Failed to add course', 'error');
       }
-    );
+    });
   }
 }

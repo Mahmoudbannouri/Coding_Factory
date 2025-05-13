@@ -1,0 +1,179 @@
+/* Container for the form with modern design */
+.add-entreprise-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative; /* Important for positioning the arrows */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1; /* Ensure the container has a higher z-index if needed */
+}
+
+/* Add yellow arrows pointing to the form */
+.add-entreprise-container::before,
+.add-entreprise-container::after {
+  content: '';
+  position: absolute;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid yellow;
+  width: 0;
+  height: 0;
+  z-index: 2; /* Ensure arrows are above other elements */
+}
+
+.add-entreprise-container::before {
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.add-entreprise-container::after {
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg); /* Rotates the arrow */
+}
+
+/* Header styling */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Add Entreprise Form Styling */
+.add-entreprise-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Styling for individual form group sections */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Label styling */
+label {
+  font-weight: bold;
+  color: #555;
+}
+
+/* Input and Textarea Fields */
+input,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus styling for input and textarea fields */
+input:focus,
+textarea:focus {
+  border-color: #007bff;
+}
+
+/* Textarea resizing behavior */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Styling for the feedback messages */
+.invalid-feedback {
+  font-size: 0.875rem;
+  color: #dc3545;
+}
+
+/* Form Action Buttons Section */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Button styles for Submit and Cancel */
+.btn-submit,
+.btn-cancel {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Submit Button Styling */
+.btn-submit {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-submit:hover {
+  background-color: #0056b3;
+}
+
+/* Cancel Button Styling */
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #5a6268;
+}
+
+/* Input fields with larger sizes */
+.form-control {
+  border-radius: 0.5rem; /* Rounded borders for inputs */
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Focus glow */
+  border-color: #007bff;
+}
+
+.form-control-lg {
+  font-size: 1.2rem;
+}
+
+/* Card styling for the form container */
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+/* Ensure responsiveness on smaller screens */
+@media (max-width: 768px) {
+  .add-entreprise-container {
+    padding: 15px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-submit,
+  .btn-cancel {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}

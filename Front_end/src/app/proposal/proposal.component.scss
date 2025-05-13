@@ -1,0 +1,452 @@
+/* Modal Styles */
+.modal, .popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #fff;
+  width: 90%;
+  max-width: 600px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  overflow-y: auto;
+  max-height: 80vh;
+  animation: slideIn 0.3s ease-out;
+}
+
+.modal-body {
+  padding: 10px 0;
+  position: relative; /* Keep relative positioning for dropdown alignment */
+}
+
+/* Dropdown Menu */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%; /* Dropdown appears directly below the button */
+  left: 0;
+  display: none; /* Hidden by default */
+  background-color: #fff;
+  min-width: 160px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10000; /* Ensure it's above other content */
+}
+
+.dropdown:hover .dropdown-menu {
+  display: block; /* Show dropdown when parent is hovered */
+}
+
+.dropdown-item {
+  padding: 8px 16px;
+  color: #333;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Modal Dropdown Styles for Correct Alignment */
+.modal .dropdown-menu {
+  max-height: 200px;
+  overflow-y: auto; /* Prevents the dropdown from overflowing */
+}
+
+/* General Modal Header, Body, Footer Styles */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+.modal-header h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.close-btn {
+  font-size: 1.8rem;
+  color: #777;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #dc3545;
+}
+
+/* Modal Body */
+.modal-body {
+  padding: 10px 0;
+}
+
+.proposal-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.proposal-description {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.proposal-info {
+  display: grid;
+  gap: 10px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.proposal-info div {
+  font-size: 1rem;
+}
+
+.proposal-info strong {
+  color: #007bff;
+}
+
+/* Modal Footer */
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.modal-footer button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-footer button:hover {
+  background-color: #0056b3;
+}
+
+/* General Styles for Proposals */
+.proposal-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #343a40;
+    text-align: center;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .no-data {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+  }
+
+  /* Proposal List Styles */
+  .proposals-list {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+ /* Proposal Card Container */
+/* Make sure the card has relative positioning */
+.proposal-item {
+  position: relative; /* Make this the containing block for absolute positioning */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Position icons at the top right corner */
+.status-icons {
+  position: absolute; /* Ensure it's positioned relative to the .proposal-item */
+  top: 10px; /* Distance from the top */
+  right: 10px; /* Distance from the right */
+  display: flex;
+  gap: 10px;
+}
+
+/* Styles for each individual status icon */
+.status-icon {
+  font-size: 1.8rem;
+  padding: 8px;
+  border-radius: 50%;
+  background-color: #fff; /* Background ensures icon stands out */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.status-icon.open {
+  color: #4caf50;  /* Green for Open */
+}
+
+.status-icon.pending {
+  color: #ff9800;  /* Orange for Pending */
+}
+
+.status-icon.fulfilled {
+  color: #2196f3;  /* Blue for Fulfilled */
+}
+
+.status-icon.rejected {
+  color: #f44336;  /* Red for Rejected */
+}
+
+/* Ensure the icons are within the modal too */
+.modal .status-icons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+
+
+  
+  .proposal-item.selected {
+    background-color: #f0f8ff;
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .proposal-item:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+  }
+
+  .proposal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .proposal-details div {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .proposal-details strong {
+    color: #007bff;
+  }
+
+  /* Updated: Move Icons Outside Status Section */
+  .status-icons {
+    display: flex;
+    justify-content: flex-end; /* Position icons on the top-right corner */
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .fas.fa-flag, .fas.fa-clock {
+    font-size: 1.5rem;
+    color: #fff;
+    border-radius: 50%;
+    padding: 8px;
+    background-color: #28a745;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fas.fa-clock {
+    background-color: #ffc107;
+  }
+
+  .proposal-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .proposal-description {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+
+  .proposal-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .proposal-info div {
+    flex: 1 1 45%;
+    color: #777;
+  }
+
+  .proposal-info strong {
+    color: #007bff;
+  }
+
+  .proposal-item .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+    border-top: 1px solid #e0e0e0;
+    padding-top: 15px;
+  }
+
+  .actions .btn {
+    display: flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+  }
+
+  .actions .btn i {
+    margin-right: 8px;
+  }
+
+  .actions .btn-primary {
+    background-color: #007bff;
+    color: white;
+  
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+
+  .actions .btn-danger {
+    background-color: #dc3545;
+    color: white;
+  
+    &:hover {
+      background-color: #c82333;
+    }
+  }
+  
+  /* Proposal Details Status */
+.proposal-details .status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.proposal-details .status {
+  font-size: 1rem;
+  color: #333;
+}
+
+.proposal-details .status-icon {
+  position: relative;  /* Absolute positioning inside this container */
+  font-size: 1.5rem;
+  margin-top: 10px;  /* Adjust top margin to space out the icon */
+}
+
+/* Icon-specific styles */
+.proposal-details .status-icon.open {
+  color: #4c6faf;  /* Green for Open */
+}
+
+.proposal-details .status-icon.pending {
+  color: #ff9800;  /* Orange for Pending */
+}
+
+.proposal-details .status-icon.fulfilled {
+  color: #07a905;  /* Blue for Fulfilled */
+}
+
+.proposal-details .status-icon.rejected {
+  color: #f44336;  /* Red for Rejected */
+}
+
+  .alert {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    background-color: #f8d7da;
+    color: #721c24;
+    font-size: 1rem;
+  }
+
+  .loading p {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+
+  .buttons-container {
+    display: flex;
+    gap: 15px;
+    justify-content: left;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    flex: 0 0 auto;
+    width: auto;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  
+    &:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-warning {
+    background-color: #ffc107;
+    color: white;
+  
+    &:hover {
+      background-color: #e0a800;
+      transform: translateY(-2px);
+    }
+  }
+}

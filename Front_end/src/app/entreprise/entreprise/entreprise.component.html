@@ -1,0 +1,88 @@
+<div class="entreprise-table-container">
+  <div class="header">
+    <h2>Entreprises</h2>
+    <button class="btn-create" (click)="navigateToAdd()">
+      <i class="fas fa-plus-circle"></i> Create
+    </button>
+  </div>
+
+  <table class="entreprise-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entreprise of entreprises; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ entreprise.nameEntreprise }}</td>
+        <td>{{ entreprise.addressEntreprise }}</td>
+        <td>{{ entreprise.emailEntreprise }}</td>
+        <td>{{ entreprise.phoneEntreprise }}</td>
+        <td>{{ entreprise.descriptionEntreprise }}</td>
+        <td>
+          <button class="btn btn-edit" (click)="editEntreprise(entreprise)">
+            <i class="fas fa-pencil-alt"></i> Edit
+          </button>
+          <button
+            class="btn btn-delete"
+            (click)="deleteEntreprise(entreprise.idEntreprise)"
+            [disabled]="deletingId === entreprise.idEntreprise"
+          >
+            <i *ngIf="deletingId !== entreprise.idEntreprise" class="fas fa-trash-alt"></i>
+            <i *ngIf="deletingId === entreprise.idEntreprise" class="fas fa-spinner fa-spin"></i>
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!loading && entreprises.length === 0" class="no-data">
+    No entreprises found.
+  </div>
+
+  <!-- Modal for Edit Form -->
+  <div *ngIf="editingId" class="modal-overlay">
+    <div class="modal-content">
+      <h3>Edit Entreprise</h3>
+      <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="edit-form">
+        <div class="form-field">
+          <label for="nameEntreprise">Name</label>
+          <input type="text" formControlName="nameEntreprise" class="form-control" placeholder="Name" />
+        </div>
+        <div class="form-field">
+          <label for="addressEntreprise">Address</label>
+          <input type="text" formControlName="addressEntreprise" class="form-control" placeholder="Address" />
+        </div>
+        <div class="form-field">
+          <label for="emailEntreprise">Email</label>
+          <input type="email" formControlName="emailEntreprise" class="form-control" placeholder="Email" />
+        </div>
+        <div class="form-field">
+          <label for="phoneEntreprise">Phone</label>
+          <input type="text" formControlName="phoneEntreprise" class="form-control" placeholder="Phone" />
+        </div>
+        <div class="form-field">
+          <label for="descriptionEntreprise">Description</label>
+          <input type="text" formControlName="descriptionEntreprise" class="form-control" placeholder="Description" />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="editForm.invalid || loading" class="btn btn-success">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+          <button type="button" (click)="cancelEditMode()" class="btn btn-secondary">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

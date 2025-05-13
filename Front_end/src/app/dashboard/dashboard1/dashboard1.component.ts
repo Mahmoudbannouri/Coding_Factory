@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as Chartist from 'chartist';
-import { ChartType, ChartEvent } from "ng-chartist";
+import { ChartType, ChartEvent } from 'ng-chartist';
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+import { CourseService } from 'app/services/course.service';
+import { ReviewService } from 'app/services/review';
+
 
 declare var require: any;
-
 const data: any = require('../../shared/data/chartist.json');
 
 export interface Chart {
@@ -13,7 +15,6 @@ export interface Chart {
   options?: any;
   responsiveOptions?: any;
   events?: ChartEvent;
-  // plugins?: any;
 }
 
 @Component({
@@ -21,9 +22,7 @@ export interface Chart {
   templateUrl: './dashboard1.component.html',
   styleUrls: ['./dashboard1.component.scss']
 })
-
-export class Dashboard1Component {
-
+export class Dashboard1Component implements OnInit {
   // Line area chart configuration Starts
   lineArea: Chart = {
     type: 'Line',
@@ -137,8 +136,7 @@ export class Dashboard1Component {
             x1: data.x1 + 0.001
           });
 
-        }
-        else if (data.type === 'label') {
+        } else if (data.type === 'label') {
           data.element.attr({
             y: 270
           })
@@ -235,8 +233,7 @@ export class Dashboard1Component {
             class: 'ct-point-circle'
           });
           data.element.replace(circle);
-        }
-        else if (data.type === 'label') {
+        } else if (data.type === 'label') {
           // adjust label position for rotation
           const dX = data.width / 2 + (30 - data.width)
           data.element.attr({ x: data.element.attr('x') - dX })
@@ -285,15 +282,13 @@ export class Dashboard1Component {
           });
 
           data.element.replace(circle);
-        }
-        else if (data.type === 'label') {
+        } else if (data.type === 'label') {
           // adjust label position for rotation
           const dX = data.width / 2 + (30 - data.width)
           data.element.attr({ x: data.element.attr('x') - dX })
         }
       }
     },
-
   };
   // Line chart configuration Ends
 
@@ -323,7 +318,6 @@ export class Dashboard1Component {
             data.element.remove();
           }
         }
-
       }
     }
   };
@@ -409,7 +403,6 @@ export class Dashboard1Component {
           offset: 1,
           'stop-color': '#F55252'
         });
-
       },
       draw(data: any): void {
         var barHorizontalCenter, barVerticalCenter, label, value;
@@ -423,7 +416,6 @@ export class Dashboard1Component {
         }
       }
     },
-
   };
   // Bar chart configuration Ends
 
@@ -473,53 +465,53 @@ export class Dashboard1Component {
   };
   // Line chart configuration Ends
 
-    // line chart configuration Starts
-    WidgetlineChart1: Chart = {
-      type: 'Line', data: data['Dashboard1_WidgetlineChart1'],
-      options: {
-        axisX: {
-          showGrid: false,
-          showLabel: false,
-          offset: 0
-        },
-        axisY: {
-          showGrid: false,
-          low: 40,
-          showLabel: false,
-          offset: 0
-        },
-        plugins: [
-          ChartistTooltip({
-            appendToBody: true,
-            currency: '$',
-            pointClass: 'ct-point-regular'
-          })
-        ],
-        lineSmooth: Chartist.Interpolation.cardinal({
-          tension: 0
-        }),
-        fullWidth: true
+  // line chart configuration Starts
+  WidgetlineChart1: Chart = {
+    type: 'Line', data: data['Dashboard1_WidgetlineChart1'],
+    options: {
+      axisX: {
+        showGrid: false,
+        showLabel: false,
+        offset: 0
       },
-      events: {
-        draw(data: any): void {
-          if (data.type === 'point') {
-            var circle = new Chartist.Svg('circle', {
-              cx: data.x,
-              cy: data.y,
-              r: 4,
-              'ct:value': data.value.y,
-              'ct:meta': data.meta,
-              style: 'pointer-events: all !important',
-              class: 'ct-point-regular'
-            });
-            data.element.replace(circle);
-          }
+      axisY: {
+        showGrid: false,
+        low: 40,
+        showLabel: false,
+        offset: 0
+      },
+      plugins: [
+        ChartistTooltip({
+          appendToBody: true,
+          currency: '$',
+          pointClass: 'ct-point-regular'
+        })
+      ],
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      fullWidth: true
+    },
+    events: {
+      draw(data: any): void {
+        if (data.type === 'point') {
+          var circle = new Chartist.Svg('circle', {
+            cx: data.x,
+            cy: data.y,
+            r: 4,
+            'ct:value': data.value.y,
+            'ct:meta': data.meta,
+            style: 'pointer-events: all !important',
+            class: 'ct-point-regular'
+          });
+          data.element.replace(circle);
         }
       }
-    };
-    // Line chart configuration Ends
+    }
+  };
+  // Line chart configuration Ends
 
-      // line chart configuration Starts
+  // line chart configuration Starts
   WidgetlineChart2: Chart = {
     type: 'Line', data: data['Dashboard1_WidgetlineChart2'],
     options: {
@@ -565,51 +557,162 @@ export class Dashboard1Component {
   };
   // Line chart configuration Ends
 
-    // line chart configuration Starts
-    WidgetlineChart3: Chart = {
-      type: 'Line', data: data['Dashboard1_WidgetlineChart3'],
-      options: {
-        axisX: {
-          showGrid: false,
-          showLabel: false,
-          offset: 0
-        },
-        axisY: {
-          showGrid: false,
-          low: 40,
-          showLabel: false,
-          offset: 0
-        },
-        plugins: [
-          ChartistTooltip({
-            appendToBody: true,
-            currency: '$',
-            pointClass: 'ct-point-regular'
-          })
-        ],
-        lineSmooth: Chartist.Interpolation.cardinal({
-          tension: 0
-        }),
-        fullWidth: true
+  // line chart configuration Starts
+  WidgetlineChart3: Chart = {
+    type: 'Line', data: data['Dashboard1_WidgetlineChart3'],
+    options: {
+      axisX: {
+        showGrid: false,
+        showLabel: false,
+        offset: 0
       },
-      events: {
-        draw(data: any): void {
-          if (data.type === 'point') {
-            var circle = new Chartist.Svg('circle', {
-              cx: data.x,
-              cy: data.y,
-              r: 4,
-              'ct:value': data.value.y,
-              'ct:meta': data.meta,
-              style: 'pointer-events: all !important',
-              class: 'ct-point-regular'
-            });
-            data.element.replace(circle);
-          }
+      axisY: {
+        showGrid: false,
+        low: 40,
+        showLabel: false,
+        offset: 0
+      },
+      plugins: [
+        ChartistTooltip({
+          appendToBody: true,
+          currency: '$',
+          pointClass: 'ct-point-regular'
+        })
+      ],
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      fullWidth: true
+    },
+    events: {
+      draw(data: any): void {
+        if (data.type === 'point') {
+          var circle = new Chartist.Svg('circle', {
+            cx: data.x,
+            cy: data.y,
+            r: 4,
+            'ct:value': data.value.y,
+            'ct:meta': data.meta,
+            style: 'pointer-events: all !important',
+            class: 'ct-point-regular'
+          });
+          data.element.replace(circle);
         }
       }
+    }
+  };
+  // Line chart configuration Ends
+
+  // New course statistics
+  totalCourses: number = 0;
+  totalEnrollments: number = 0;
+  topRatedCourses: any[] = [];
+  mostEnrolledCourses: any[] = [];
+  recentCourses: any[] = [];
+  loadingStats: boolean = true;
+
+  // Enrollments by category chart
+  enrollmentsByCategory: Chart = {
+    type: 'Bar',
+    data: {
+      labels: ['WEB', 'DATA', 'SECURITY', 'AI', 'CLOUD'],
+      series: [[0, 0, 0, 0, 0]] // Will be updated
+    },
+    options: {
+      axisX: {
+        showGrid: false
+      },
+      axisY: {
+        showGrid: false,
+        showLabel: false,
+        offset: 0
+      },
+      low: 0,
+      high: 10,
+      plugins: [
+        ChartistTooltip({
+          appendToBody: true,
+          pointClass: 'ct-point-circle'
+        })
+      ]
+    }
+  };
+
+  constructor(
+    private courseService: CourseService,
+    private reviewService: ReviewService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadCourseStatistics();
+  }
+
+  loadCourseStatistics(): void {
+    this.loadingStats = true;
+
+    // Get all courses
+    this.courseService.getAllCourses().subscribe(courses => {
+      this.totalCourses = courses.length;
+
+      // Calculate total enrollments
+      this.totalEnrollments = courses.reduce((sum, course) =>
+        sum + (course.studentIds?.length || 0), 0);
+
+      // Get top rated courses (sort by rate)
+      this.topRatedCourses = [...courses]
+        .sort((a, b) => b.rate - a.rate)
+        .slice(0, 5);
+
+      // Get most enrolled courses
+      this.mostEnrolledCourses = [...courses]
+        .sort((a, b) =>
+          (b.studentIds?.length || 0) - (a.studentIds?.length || 0))
+        .slice(0, 5);
+
+      // Get recent courses (assuming you have a date field)
+      this.recentCourses = [...courses]
+        .slice(0, 5);
+
+      // Update enrollments by category
+      const categoryEnrollments = {
+        'WEB_DEVELOPMENT': 0,
+        'DATA_SCIENCE': 0,
+        'SECURITY': 0,
+        'AI': 0,
+        'CLOUD': 0
+      };
+
+      courses.forEach(course => {
+        const count = course.studentIds?.length || 0;
+        if (categoryEnrollments.hasOwnProperty(course.categoryCourse)) {
+          categoryEnrollments[course.categoryCourse] += count;
+        }
+      });
+
+      this.enrollmentsByCategory.data.series = [
+        [
+          categoryEnrollments.WEB_DEVELOPMENT,
+          categoryEnrollments.DATA_SCIENCE,
+          categoryEnrollments.SECURITY,
+          categoryEnrollments.AI,
+          categoryEnrollments.CLOUD
+        ]
+      ];
+
+      this.loadingStats = false;
+    });
+  }
+
+  getCategoryColor(category: string): string {
+    const colors: { [key: string]: string } = {
+      'WEB_DEVELOPMENT': '#4e73df',
+      'DATA_SCIENCE': '#1cc88a',
+      'SECURITY': '#36b9cc',
+      'AI': '#f6c23e',
+      'CLOUD': '#e74a3b'
     };
-    // Line chart configuration Ends
+    return colors[category] || '#858796';
+  }
 
   onResized(event: any) {
     setTimeout(() => {
@@ -622,5 +725,4 @@ export class Dashboard1Component {
     evt.initEvent("resize", true, false);
     window.dispatchEvent(evt);
   };
-
 }

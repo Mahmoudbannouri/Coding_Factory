@@ -7,9 +7,13 @@ export class Course {
   title!: string;
   description!: string;
   level!: string;
+  rate!: number;
   image!: string;
-  categoryCourse!: CategoryEnum;
-  trainer?: User;
-  resources?: CourseResource[];
-  students?: User[];
+  categoryCourse!: CategoryEnum | string; // Allow both enum and string
+  trainerId!: number;
+  resources!: CourseResource[];
+  qrCodeUrl!: string;
+  hasReviewed?: boolean; // Made optional
+  studentIds?: number[];
 }
+

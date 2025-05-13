@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: false,
+  apiUrl: 'http://localhost:8090' // Your API Gateway URL
 };

@@ -1,0 +1,109 @@
+<div class="proposal-container">
+  <h2>Proposals</h2>
+
+  <div *ngIf="loading" class="loading">
+    <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-clip-rotate">
+      <p style="color: white">Loading...</p>
+    </ngx-spinner>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">{{ error }}</div>
+
+  <div class="buttons-container mb-3">
+    <button class="btn btn-primary" (click)="navigateToAdd()">
+      <i class="fas fa-plus"></i> Add New Proposal
+    </button>
+    <button class="btn btn-warning" (click)="deleteExpiredProposals()">
+      <i class="fas fa-trash"></i> Delete Expired Proposals
+    </button>
+  </div>
+
+  <div class="proposals-list" *ngIf="!loading && proposals.length > 0">
+    <div class="proposal-item" 
+         [class.selected]="selectedProposal?.idProposal === proposal.idProposal"
+         *ngFor="let proposal of proposals" 
+         (click)="selectProposal(proposal)">
+      <h3>{{ proposal.proposalName }}</h3>
+      <p>{{ proposal.proposalDescription }}</p>
+
+      <div class="proposal-details">
+        <div class="status-container">
+          <div class="status">
+            <strong>Status:</strong> 
+            {{ proposal.proposalStatus }}
+          </div>
+        </div>
+
+        <!-- Icons placed outside the status container -->
+        <div class="status-icons">
+          <i *ngIf="proposal.proposalStatus === 'OPEN'" class="fas fa-folder-open status-icon open"></i>
+          <i *ngIf="proposal.proposalStatus === 'PENDING'" class="fas fa-clock status-icon pending"></i>
+          <i *ngIf="proposal.proposalStatus === 'fulfilled'" class="fas fa-flag-checkered status-icon fulfilled"></i>
+          <i *ngIf="proposal.proposalStatus === 'REJECTED'" class="fas fa-times-circle status-icon rejected"></i>
+        </div>
+
+        <div><strong>Type:</strong> {{ proposal.proposalType }}</div>
+        <div><strong>Amount:</strong> {{ proposal.plannedAmount | currency }}</div>
+        <div><strong>Start Date:</strong> {{ proposal.startDate | date }}</div>
+        <div><strong>End Date:</strong> {{ proposal.endDate | date }}</div>
+        <div *ngIf="proposal.user"><strong>User:</strong> {{ proposal.user.username }}</div>
+        <div *ngIf="proposal.center"><strong>Center:</strong> {{ proposal.center.name }}</div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary mr-3" (click)="navigateToEdit(proposal.idProposal)">
+          <i class="fas fa-pencil-alt"></i> Edit
+        </button>
+        <button class="btn btn-danger" (click)="deleteProposal(proposal.idProposal)" [disabled]="isDeleting(proposal.idProposal)">
+          <span *ngIf="!isDeleting(proposal.idProposal)">
+            <i class="fas fa-trash-alt"></i> Delete
+          </span>
+          <span *ngIf="isDeleting(proposal.idProposal)">
+            <i class="fas fa-spinner fa-spin"></i> Deleting...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && proposals.length === 0" class="no-data">
+    No proposals found.
+  </div>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()"></div>
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-header">
+      <h2>Proposal Details</h2>
+      <button class="close-btn" (click)="closeModal()">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <h3 class="proposal-title">{{ selectedProposal?.proposalName }}</h3>
+      <p class="proposal-description">{{ selectedProposal?.proposalDescription }}</p>
+      
+      <div class="proposal-info">
+        <div class="status">
+          <strong>Status:</strong> 
+          {{ selectedProposal?.proposalStatus }}
+          <div class="status-icons">
+            <i *ngIf="selectedProposal?.proposalStatus === 'OPEN'" class="fas fa-folder-open status-icon open"></i>
+            <i *ngIf="selectedProposal?.proposalStatus === 'PENDING'" class="fas fa-clock status-icon pending"></i>
+            <i *ngIf="selectedProposal?.proposalStatus === 'fulfilled'" class="fas fa-flag-checkered status-icon fulfilled"></i>
+            <i *ngIf="selectedProposal?.proposalStatus === 'REJECTED'" class="fas fa-times-circle status-icon rejected"></i>
+          </div>
+        </div>
+        <div><strong>Type:</strong> {{ selectedProposal?.proposalType }}</div>
+        <div><strong>Amount:</strong> {{ selectedProposal?.plannedAmount | currency }}</div>
+        <div><strong>Start Date:</strong> {{ selectedProposal?.startDate | date }}</div>
+        <div><strong>End Date:</strong> {{ selectedProposal?.endDate | date }}</div>
+        <div *ngIf="selectedProposal?.user"><strong>User:</strong> {{ selectedProposal?.user.username }}</div>
+        <div *ngIf="selectedProposal?.center"><strong>Center:</strong> {{ selectedProposal?.center.name }}</div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="close-btn" (click)="closeModal()">Close</button>
+    </div>
+  </div>
+</div>

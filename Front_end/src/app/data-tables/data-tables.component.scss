@@ -1,0 +1,104 @@
+.search-bar {
+  margin-bottom: 15px;
+}
+.custom-table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+.custom-table thead {
+  background: #f8f9fa;
+}
+.custom-table tbody tr {
+  background: #ffffff;
+  transition: 0.3s;
+}
+.custom-table tbody tr:hover {
+  background: #f1f1f1;
+}
+.badge {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.action-buttons {
+  display: flex;
+  gap: 5px;
+}
+.action-buttons .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+.partnership-details {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.add-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease-in-out;
+  
+    h5 {
+      margin-bottom: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+  
+    .form-group {
+      margin-bottom: 15px;
+  
+      label {
+        font-weight: bold;
+        color: #555;
+      }
+  
+      select, input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+  
+        &:focus {
+          border-color: #007bff;
+          outline: none;
+        }
+      }
+    }
+  
+    button {
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+      border-radius: 4px;
+      transition: all 0.2s ease-in-out;
+      margin-right: 10px;
+  
+      &.btn-success {
+        background-color: #28a745;
+        border: none;
+  
+        &:hover {
+          background-color: #218838;
+        }
+      }
+  
+      &.btn-danger {
+        background-color: #dc3545;
+        border: none;
+  
+        &:hover {
+          background-color: #c82333;
+        }
+      }
+    }
+  }
+  

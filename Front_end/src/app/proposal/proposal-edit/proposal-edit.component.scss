@@ -1,0 +1,138 @@
+.proposal-edit-container {
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+
+  h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .loading {
+    text-align: center;
+    padding: 20px;
+    color: #555;
+  }
+
+  .alert-danger {
+    padding: 15px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    margin-bottom: 1.5rem;
+    border-radius: 5px;
+  }
+
+  .form-group {
+    margin-bottom: 2rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #333;
+    }
+
+    .form-control {
+      font-size: 1.2rem; /* Increased font size */
+      padding: 14px 16px; /* Larger padding */
+      border-radius: 8px; /* More rounded corners */
+      border: 1px solid #e0e0e0;
+      width: 100%;
+      background-color: #f9f9f9;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+      &::placeholder {
+        color: #aaa;
+        font-size: 1.1rem; /* Placeholder text size */
+      }
+
+      &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+      }
+    }
+
+    select.form-control {
+      padding: 14px 16px; /* Increased padding for select dropdown */
+      background-color: #fff;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #555; /* Make sure the text color is visible */
+      border: 1px solid #e0e0e0;
+      width: 100%; /* Ensure select spans the full width of its container */
+
+      /* Placeholder for select dropdown */
+      option {
+        font-size: 1.2rem; /* Match option font size */
+      }
+      
+      option:disabled {
+        color: #aaa; /* Lighter color for disabled options */
+      }
+
+      /* Ensures the placeholder text is visible and not overwritten */
+      option:first-child {
+        color: #aaa; /* Color for default placeholder option */
+      }
+
+      &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+      }
+    }
+
+    textarea.form-control {
+      padding: 14px 16px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      resize: vertical; /* Allow vertical resizing of textarea */
+      width: 100%;
+    }
+  }
+
+  .form-actions {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 2rem;
+
+    .btn {
+      font-size: 1.3rem;
+      padding: 14px 22px; /* Larger buttons */
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      letter-spacing: 1px;
+
+      &.btn-primary {
+        background-color: #007bff;
+        color: white;
+
+        &:hover {
+          background-color: #0056b3;
+          transform: translateY(-2px);
+        }
+      }
+
+      &.btn-secondary {
+        background-color: #f8f9fa;
+        color: #333;
+        border: 1px solid #ccc;
+
+        &:hover {
+          background-color: #e9ecef;
+          transform: translateY(-2px);
+        }
+      }
+    }
+  }
+}

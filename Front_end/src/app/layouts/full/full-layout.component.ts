@@ -9,15 +9,16 @@ import {
   ChangeDetectorRef,
   HostListener
 } from "@angular/core";
-import { ConfigService } from "app/shared/services/config.service";
-import { DOCUMENT } from "@angular/common";
-import { Subscription } from "rxjs";
+
 import { CustomizerService } from 'app/shared/services/customizer.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { LayoutService } from 'app/shared/services/layout.service';
 import { WINDOW } from 'app/shared/services/window.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {ConfigService} from '../../shared/services/config.service';
+import {DOCUMENT} from '@angular/common';
 
 @Component({
   selector: "app-full-layout",

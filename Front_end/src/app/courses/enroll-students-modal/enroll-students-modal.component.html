@@ -2,22 +2,30 @@
   <div class="modal-content">
     <h3>Enroll Students in {{ selectedCourse?.title }}</h3>
 
-    <div class="student-list">
-      <label for="studentSelect">Search and Select a Student:</label>
-      <ng-select [items]="filteredStudents"
-                 bindLabel="name"
-                 bindValue="id"
-                 [(ngModel)]="selectedStudentId"
-                 (change)="onStudentSelectChange($event)"
-                 [searchable]="true"
-                 placeholder="Search students..."
-                 class="ng-select">
-      </ng-select>
+    <div *ngIf="loading" class="loading-indicator">
+      Loading students...
+    </div>
+
+    <div *ngIf="!loading" class="student-list">
+      <label>Available Students:</label>
+      <select [(ngModel)]="selectedStudent" class="form-control">
+        <option [ngValue]="null" disabled>Select a student</option>
+        <option *ngFor="let student of filteredStudents" [ngValue]="student">
+          {{ student.name }} ({{ student.email }})
+        </option>
+      </select>
     </div>
 
     <div class="modal-actions">
-      <button (click)="enrollSelectedStudent()" class="btn-primary">Enroll Selected Student</button>
-      <button (click)="closeModal()" class="btn-secondary">Close</button>
+      <button
+        (click)="enrollSelectedStudent()"
+        class="btn btn-primary"
+        [disabled]="!selectedStudent || loading">
+        {{ loading ? 'Enrolling...' : 'Enroll Selected Student' }}
+      </button>
+      <button (click)="closeModal()" class="btn btn-secondary">
+        Close
+      </button>
     </div>
   </div>
 </div>

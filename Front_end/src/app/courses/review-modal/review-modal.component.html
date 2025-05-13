@@ -1,0 +1,41 @@
+<div class="modal-overlay" *ngIf="showModal">
+  <div class="modal-content">
+    <h2>Leave a Review</h2>
+
+    <div *ngIf="checkingReview" class="loading-message">
+      Checking review status...
+    </div>
+
+    <form *ngIf="!checkingReview" (ngSubmit)="submitReview()">
+      <div class="form-group">
+        <label>Rating</label>
+        <div class="star-rating-picker">
+          <span *ngFor="let star of [1, 2, 3, 4, 5]" class="star"
+                [ngClass]="{ 'filled': star <= review.rating, 'disabled': hasReviewed }"
+                (click)="!hasReviewed && setRating(star)">
+            <i *ngIf="star <= review.rating" class="bi bi-star-fill"></i>
+            <i *ngIf="star > review.rating" class="bi bi-star"></i>
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="comment">Comment</label>
+        <textarea id="comment" [(ngModel)]="review.comment" name="comment" rows="3"
+                  [disabled]="hasReviewed"></textarea>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" [disabled]="loading || hasReviewed">
+          <span *ngIf="!loading">Submit</span>
+          <span *ngIf="loading">Submitting...</span>
+        </button>
+        <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="loading">Cancel</button>
+      </div>
+
+      <div *ngIf="hasReviewed" class="already-reviewed">
+        <i class="bi bi-info-circle"></i> You've already reviewed this course.
+      </div>
+    </form>
+  </div>
+</div>

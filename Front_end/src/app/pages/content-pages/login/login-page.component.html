@@ -12,9 +12,12 @@
               <div class="col-lg-6 col-12 px-4 py-3">
                 <h4 class="mb-2 card-title">Login</h4>
                 <p>Welcome back, please login to your account.</p>
+                
+                <!-- Login Error Message -->
                 <ngb-alert type="light-danger" class="mb-2" *ngIf="isLoginFailed" (close)="isLoginFailed = false">
                   <p class="mb-0">Login failed!</p>
                 </ngb-alert>
+                
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                   <div class="form-group">
                     <input type="email" formControlName="email" class="form-control" placeholder="Email"

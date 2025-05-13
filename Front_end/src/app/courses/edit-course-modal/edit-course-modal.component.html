@@ -16,10 +16,13 @@
       </div>
 
       <!-- Category Selection -->
+      <!-- Category Selection -->
       <div class="form-group">
         <label for="category">Category</label>
         <select id="category" [(ngModel)]="course.categoryCourse" name="category" required>
-          <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
+          <option *ngFor="let category of categories" [value]="category.value">
+            {{ category.display }}
+          </option>
         </select>
       </div>
 

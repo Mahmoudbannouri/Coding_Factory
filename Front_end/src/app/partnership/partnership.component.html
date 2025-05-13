@@ -1,0 +1,52 @@
+<div class="partnership-container">
+  <h2>Partnerships</h2>
+
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading">
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.8)"
+      size="medium"
+      color="#fff"
+      type="ball-clip-rotate"
+      [fullScreen]="false"
+    >
+      <p style="color: white">Loading...</p>
+    </ngx-spinner>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Partnership List -->
+  <div class="partnerships-list" *ngIf="!loading && partnerships.length > 0">
+    <div class="partnership-item" *ngFor="let partnership of partnerships">
+      <div class="partnership-header">
+        <!-- Display Entreprise Name -->
+        <h3>{{ getEntrepriseName(partnership.entreprise?.idEntreprise) }}</h3>
+      </div>
+      <div class="partnership-details">
+        <p><strong>Proposal:</strong> {{ partnership.proposals?.proposalName }}</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-primary" (click)="navigateToEdit(partnership.idPartnership)">
+          ✏ Edit
+        </button>
+        <button class="btn btn-danger" 
+                (click)="deletePartnership(partnership.idPartnership)"
+                [disabled]="isDeleting(partnership.idPartnership)">
+          <span *ngIf="!isDeleting(partnership.idPartnership)">🗑 Delete</span>
+          <span *ngIf="isDeleting(partnership.idPartnership)">
+            <i class="fas fa-spinner fa-spin"></i> Deleting...
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="!loading && partnerships.length === 0" class="no-data">
+    <p>No partnerships found.</p>
+  </div>
+</div>

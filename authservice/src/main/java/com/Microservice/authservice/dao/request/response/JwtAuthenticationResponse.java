@@ -15,6 +15,7 @@ public class JwtAuthenticationResponse {
     private String refreshToken;
     private Integer userId;
     private String role;
+    private boolean isVerified;
 
 
 }

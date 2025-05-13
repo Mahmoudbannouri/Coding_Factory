@@ -1,0 +1,422 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: pi_work_ms
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - microservice-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-prootpassword"]
+      interval: 5s
+      timeout: 10s
+      retries: 30
+    command: --wait_timeout=28800 --interactive_timeout=28800
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8085:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: rootpassword
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - microservice-net
+
+  eureka-server:
+    build:
+      context: ./EEureka
+    container_name: eureka-server
+    hostname: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "false"
+      EUREKA_CLIENT_FETCH_REGISTRY: "false"
+      EUREKA_INSTANCE_HOSTNAME: eureka-server
+    networks:
+      - microservice-net
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8761/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  config-server:
+    build:
+      context: ./config-server
+    container_name: config-server
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./config-server/config:/config
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_HOSTNAME: config-server
+    networks:
+      - microservice-net
+    depends_on:
+      - eureka-server
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8888/actuator/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  api-gateway:
+    build:
+      context: ./ApiGetway
+    container_name: api-gateway
+    hostname: api-gateway
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_APPLICATION_NAME: api-gateway
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_HOSTNAME: api-gateway
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      STUDENT_PERFORMANCE_SERVICE_URL: http://student-performance-service:5000
+    networks:
+      - microservice-net
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8090/actuator/health" ]
+      interval: 30s
+      timeout: 5s
+      retries: 10
+
+  partnership-management:
+    build:
+      context: ./Partnership-Managment
+    container_name: partnership-management
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_APPLICATION_NAME: PartnershipManagement
+      SERVER_PORT: 8088
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/PartnershipPI?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SERVER_SERVLET_CONTEXT_PATH: /Partnership
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: rabiezerrim@gmail.com
+      SPRING_MAIL_PASSWORD: bcon cdjs yizi mjla
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_HOSTNAME: partnership-management
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      ZOOM_CLIENTID: ogC9gso1RIyxo2Eggrt4aQ
+      ZOOM_CLIENTSECRET: Ra2gz4nLHGCnfrpGbsg709FgRZRRbBtz
+      ZOOM_ACCOUNTID: _DehC3NATBWd40qRu6Tahw
+      ZOOM_AUTHURL: https://zoom.us/oauth/token
+      ZOOM_APIURL: https://api.zoom.us/v2
+      ZOOM_REDIRECTURI: http://localhost:8088/api/zoom/callback
+    networks:
+      - microservice-net
+    depends_on:
+      - config-server
+      - eureka-server
+      - mysql
+
+  authservice:
+    build:
+      context: ./authservice
+    container_name: authservice
+    hostname: authservice
+    ports:
+      - "8887:8887"
+    environment:
+      SPRING_APPLICATION_NAME: authservice
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CLOUD_CONFIG_FAIL_FAST: "true"
+      SERVER_PORT: 8887
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/DbAuth?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "true"
+      EUREKA_INSTANCE_HOSTNAME: authservice
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: amira.laabidi26@gmail.com
+      SPRING_MAIL_PASSWORD: chvh riwf ijyy ufxk
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_DEBUG: "true"
+      APP_VERIFICATION_URL: http://localhost:8090/api/v1/auth/verify
+    networks:
+      - microservice-net
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8887/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  exam-microservice:
+    build:
+      context: ./exam-master
+    container_name: exam-microservice
+    hostname: exam-microservice
+    ports:
+      - "8880:8880"
+    environment:
+      SPRING_APPLICATION_NAME: exam-microservice
+      SERVER_PORT: 8880
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/e-learning?createDatabaseIfNotExist=true&useSSL=false
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_HOSTNAME: exam-microservice
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      SPRING_MAIL_USERNAME: nizaraoun1919@gmail.com
+      SPRING_MAIL_PASSWORD: pkdp eoyw ssdz jbmh
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH: "true"
+      SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE: "true"
+    volumes:
+      - ./exam-master/certificates:/app/certificates
+      - ./exam-master/templates:/app/templates
+      - ./exam-master/uploads:/app/uploads
+    networks:
+      - microservice-net
+    depends_on:
+      - mysql
+      - eureka-server
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8880/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  gestion-pfe:
+    build:
+      context: ./Gestion-PFE
+    container_name: gestion-pfe
+    hostname: gestion-pfe
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_APPLICATION_NAME: Gestion-PFE
+      SERVER_PORT: 8089
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/Gestion-PFE?createDatabaseIfNotExist=true&userSSL=false&max_allowed_packet=15728640
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: rootpassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_CLIENT_REGISTER_WITH_EUREKA: "true"
+      EUREKA_CLIENT_FETCH_REGISTRY: "true"
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_HOSTNAME: gestion-pfe
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRINGDOC_API_DOCS_ENABLED: "true"
+      SPRINGDOC_SWAGGER_UI_ENABLED: "true"
+    networks:
+      - microservice-net
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8089/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  gestion-courses:
+    build:
+      context: ./Gestion-Courses
+    container_name: gestion-courses
+    hostname: gestion-courses
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_APPLICATION_NAME: gestion-courses
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CLOUD_CONFIG_FAIL_FAST: "true"
+      SPRING_CLOUD_CONFIG_RETRY_INITIAL_INTERVAL: "2000"
+      SPRING_CLOUD_CONFIG_RETRY_MAX_INTERVAL: "10000"
+      SPRING_CLOUD_CONFIG_RETRY_MAX_ATTEMPTS: "10"
+      SPRING_PROFILES_ACTIVE: docker
+    networks:
+      - microservice-net
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8081/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  event-service:
+    build:
+      context: ./Event
+    container_name: event-service
+    hostname: event-service
+    ports:
+      - "8028:8028"
+    volumes:
+      - event-uploads:/uploads
+    environment:
+      SPRING_APPLICATION_NAME: event-service
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_CLOUD_CONFIG_URI: http://config-server:8888
+      SPRING_CLOUD_CONFIG_FAIL_FAST: "true"
+      SERVER_PORT: 8028
+      SERVER_SERVLET_CONTEXT_PATH: /event
+      UPLOAD_DIRECTORY: /uploads
+    networks:
+      - microservice-net
+    depends_on:
+      config-server:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+      partnership-management:
+        condition: service_healthy
+      authservice:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8028/event/actuator/health" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  reviews-service:
+    build:
+      context: ./review_node
+    container_name: reviews-service
+    hostname: reviews-service
+    ports:
+      - "8082:8082"
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: reviews_db
+      DB_USER: postgres
+      DB_PASSWORD: rootpassword
+      DB_DIALECT: postgres
+      EUREKA_HOST: eureka-server
+      EUREKA_PORT: 8761
+      HOSTNAME: reviews-service
+      PORT: 8082
+    networks:
+      - microservice-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+      eureka-server:
+        condition: service_healthy
+    healthcheck:
+      test: [ "CMD", "node", "-e", "require('http').get('http://localhost:8082/health', (r) => {if(r.statusCode !== 200) throw new Error()} )" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: reviews_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - microservice-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  student-performance-service:
+    build:
+      context: student-performance-service
+    container_name: student-performance-service
+    hostname: student-performance-service
+    ports:
+      - "5000:5000"
+    environment:
+      FLASK_ENV: production
+      FLASK_APP: app.main
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_INSTANCE_PREFER_IP_ADDRESS: "false"
+      EUREKA_INSTANCE_APPNAME: student-performance-service
+      EUREKA_INSTANCE_HOSTNAME: student-performance-service
+      EUREKA_INSTANCE_NON_SECURE_PORT: 5000
+      MODEL_PATH: /app/model/student_performance_model.joblib
+    volumes:
+      - ./student-performance-service/model:/app/model
+    networks:
+      - microservice-net
+    depends_on:
+      - eureka-server
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:5000/health" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  mysql_data:
+  event-uploads:
+  postgres_data:
+
+networks:
+  microservice-net:
+    driver: bridge

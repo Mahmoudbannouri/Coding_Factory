@@ -1,10 +1,24 @@
-<div class="modal" [ngClass]="{'show': showModal}">
-    <div class="modal-content">
-      <h2>Enrolled Students</h2>
-      <ul>
-        <li *ngFor="let student of students">{{ student.name }}</li>
+<div class="modal" [ngClass]="{ 'show': showModal }">
+  <div class="modal-content">
+    <h3>Enrolled Students</h3>
+
+    <div *ngIf="loading" class="loading-indicator">
+      Loading students...
+    </div>
+
+    <div *ngIf="!loading">
+      <ul class="student-list">
+        <li *ngFor="let student of students">
+          {{ student.name }} ({{ student.email }})
+        </li>
+        <li *ngIf="students.length === 0">No students enrolled yet</li>
       </ul>
-      <button class="btn-close" (click)="closeModal()">Close</button>
+    </div>
+
+    <div class="modal-actions">
+      <button (click)="closeModal()" class="btn btn-primary">
+        Close
+      </button>
     </div>
   </div>
-  
+</div>

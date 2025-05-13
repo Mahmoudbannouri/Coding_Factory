@@ -26,6 +26,9 @@ import { UsersViewComponent } from "./users/users-view/users-view.component";
 import { UsersEditComponent } from "./users/users-edit/users-edit.component";
 
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
+import { PerformancePredictionComponent } from './performance-prediction/performance-prediction.component';
+import { PerformanceResultsComponent } from './performance-results/performance-results.component';
+import { InputFormComponent } from './input-form/input-form.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -55,6 +58,14 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
     UsersListComponent,
     UsersViewComponent,
     UsersEditComponent,
+    PerformancePredictionComponent,
+    PerformanceResultsComponent,
+    InputFormComponent,
   ],
+  exports: [
+    UsersListComponent,
+    PerformancePredictionComponent,
+    PerformanceResultsComponent
+  ]
 })
 export class FullPagesModule {}
