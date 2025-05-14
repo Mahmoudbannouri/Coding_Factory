@@ -40,6 +40,7 @@ export const Full_ROUTES: Routes = [
     loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
   },
 
+
   {
     path: 'modules',
     children: [
@@ -52,5 +53,19 @@ export const Full_ROUTES: Routes = [
         loadChildren: () => import('../../modules/ExmanQuiz/ExmanQuiz.module').then(m => m.ExmanQuizModule)
       }
     ]
-  }
+  },
+
+{
+    path: 'pages',
+    loadChildren: () => import('../../pages/full-pages/full-pages.module').then(m => m.FullPagesModule)
+  },
+ {
+    path: 'calendar',
+    loadChildren: () => import('../../calendar/calendar.module').then(m => m.CalendarsModule)
+  },
+   {
+    path: 'components',
+    loadChildren: () => import('../../components/ui-components.module').then(m => m.UIComponentsModule)
+  },
+
 ];
