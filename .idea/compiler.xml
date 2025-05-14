@@ -54,7 +54,7 @@
       <module name="EEureka" options="-parameters" />
       <module name="Event" options="-parameters" />
       <module name="Gestion-PFE" options="-parameters" />
-      <module name="Gestion_Pfe" options="" />
+      <module name="Gestion_Pfe" options="-parameters" />
       <module name="PartnershipManagement" options="-parameters" />
       <module name="authservice" options="-parameters -parameters" />
       <module name="certification" options="-parameters" />
