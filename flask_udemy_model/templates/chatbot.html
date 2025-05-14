@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot - Prédiction Niveau Cours</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --bot-bubble: #f1f3ff;
+            --user-bubble: #d4edda;
+            --text-dark: #2b2d42;
+            --text-light: #f8f9fa;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            width: 100%;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .chat-box {
+            flex: 1;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .bot-msg, .user-msg {
+            padding: 12px 15px;
+            border-radius: 18px;
+            margin: 5px 0;
+            max-width: 80%;
+            display: inline-block;
+            clear: both;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .bot-msg {
+            background: var(--bot-bubble);
+            float: left;
+            border-bottom-left-radius: 5px;
+        }
+
+        .user-msg {
+            background: var(--user-bubble);
+            float: right;
+            border-bottom-right-radius: 5px;
+        }
+
+        .avatar {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        input {
+            width: calc(100% - 60px);
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: var(--secondary);
+        }
+
+        #loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .result-card {
+            background: white;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: var(--shadow);
+        }
+        
+        /* Spinner et indicateur de saisie */
+        .loader {
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(67, 97, 238, 0.3);
+            border-radius: 50%;
+            border-top-color: #4361ee;
+            animation: spin 1s ease-in-out infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .typing-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 15px;
+            background: var(--bot-bubble);
+            border-radius: 18px;
+            margin-bottom: 5px;
+            float: left;
+            clear: both;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingAnimation {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-5px); }
+        }
+
+                /* Ajoutez ceci à votre CSS */
+        .popular {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .not-popular {
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+        .popularity-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 5px;
+        }
+
+        .popularity-badge.popular {
+            background-color: #d4edda;
+        }
+
+        .popularity-badge.not-popular {
+            background-color: #f8d7da;
+        }
+
+        /* Ajoutez ces styles à votre section CSS existante */
+.popularity-container {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.popularity-meter {
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #dc3545, #ffc107, #28a745);
+    margin: 10px 0;
+    position: relative;
+}
+
+.popularity-indicator {
+    position: absolute;
+    height: 30px;
+    width: 2px;
+    background: #000;
+    top: -5px;
+    transform: translateX(-50%);
+}
+
+.popularity-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+.popularity-value {
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: center;
+}
+
+/* Styles pour la nouvelle visualisation */
+.result-card {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.prediction-section, .popularity-section {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.popularity-meter-container {
+    margin: 15px 0;
+}
+
+.popularity-meter {
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #dc3545, #ffc107, #28a745);
+    position: relative;
+    margin: 5px 0;
+}
+
+.popularity-indicator {
+    position: absolute;
+    height: 30px;
+    width: 2px;
+    background: #000;
+    top: -5px;
+    transform: translateX(-50%);
+}
+
+.popularity-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.popularity-summary {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.popularity-details {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.popularity-details ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+.popularity-details li {
+    margin: 3px 0;
+}
+
+.detailed-analysis {
+    font-size: 0.9rem;
+}
+
+.detailed-analysis table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.detailed-analysis th, .detailed-analysis td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.detailed-analysis th {
+    background-color: #f2f2f2;
+}
+
+.probability-display {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 1.1rem;
+}
+
+.probability-value {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.final-assessment {
+    font-style: italic;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+/* Ajoutez ceci dans votre section CSS */
+.message-time {
+    font-size: 0.7rem;
+    color: #6c757d;
+    margin-top: 3px;
+    display: block;
+    text-align: right;
+}
+
+.bot-msg .message-time {
+    text-align: left;
+}
+
+    </style>
+</head>
+<body>
+<div class="chat-container">
+    <h2>Assistant Udemy - Prédire le Niveau du Cours</h2>
+    <div id="chat-box" class="chat-box">
+        <p id="bot-typing" class="bot-msg">
+            <span class="avatar">
+                <img src="/static/images/image-chatbot.avif" alt="Avatar du bot" style="width: 24px; height: 24px; border-radius: 50%; vertical-align: middle; margin-right: 5px;">
+            </span>
+            Bonjour ! Je vais t'aider à prédire le niveau du cours. Quel est le titre du cours ?
+            <span class="message-time" id="initial-time"></span>
+        </p>
+    </div>
+    <form id="chat-form" style="display: flex; margin-top: 10px;">
+        <input type="text" id="question" placeholder="Écrivez votre réponse..." required />
+        <button type="submit">Envoyer</button>
+    </form>
+</div>
+
+<script>
+    // Ajoutez ceci au début de votre script pour l'heure initiale
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('initial-time').textContent = getCurrentTime();
+        
+
+    });
+
+    const form = document.getElementById('chat-form');
+    const chatBox = document.getElementById('chat-box');
+    const input = document.getElementById('question');
+    const loading = document.getElementById('loading');
+    const questions = [
+        "Quel est le titre du cours ?",
+        "Peux-tu me donner une description du cours ?",
+        "Quelle est la note du cours (entre 0 et 5) ?",
+        "Combien d'avis ce cours a-t-il reçus ?",
+        "Quelle est la durée totale du cours (en heures) ?",
+        "Combien de leçons (lectures) contient le cours ?"
+    ];
+
+    let step = 0;
+    const userData = {};
+    let waitingForAnalysisAnswer = false;
+    let storedAnalysisHtml = '';
+    let predictedLevel = '';
+
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typing-indicator';
+        typingDiv.innerHTML = `
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <span class="message-time">${getCurrentTime()}</span>
+        `;
+        chatBox.appendChild(typingDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        return typingDiv;
+    }
+   
+    function removeTypingIndicator() {
+        const typing = document.getElementById('typing-indicator');
+        if (typing) typing.remove();
+    }
+
+    function getCurrentTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        return `${hours}:${minutes}`;
+    }
+    
+    function appendMessage(sender, message) {
+        const msg = document.createElement('p');
+        msg.className = sender === 'bot' ? 'bot-msg' : 'user-msg';
+        const time = getCurrentTime();
+        
+        msg.innerHTML = `
+            <span class="avatar">
+                <img src="${sender === 'bot' ? '/static/images/image-chatbot.avif' : '/static/images/image-nermine.jpg'}" 
+                     alt="avatar" 
+                     style="width: 24px; height: 24px; border-radius: 50%; vertical-align: middle; margin-right: 5px;">
+            </span> 
+            ${message}
+            <span class="message-time">${time}</span>
+        `;
+        
+        chatBox.appendChild(msg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function showLoader() {
+        const loader = document.createElement('div');
+        loader.className = 'loader';
+        loader.id = 'loader';
+        loader.innerHTML = '<div class="spinner"></div>';
+        chatBox.appendChild(loader);
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function hideLoader() {
+        const loader = document.getElementById('loader');
+        if (loader) loader.remove();
+    }
+
+    function askNextQuestion() {
+        showTypingIndicator();
+        setTimeout(() => {
+            removeTypingIndicator();
+            appendMessage('bot', questions[step]);
+        }, 1500);
+    }
+
+
+    function analyzeUserLevel() {
+        showLoader();
+    
+        fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams(userData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            hideLoader();
+    
+            if (data.error) {
+                appendMessage('bot', `❌ Erreur: ${data.error}`);
+            } else {
+                predictedLevel = data.predicted_level;
+                const popularityPercent = Math.round(data.popularity_probability * 100);
+                
+                // Détermination de la couleur en fonction du pourcentage
+                let popularityColor = '#dc3545'; // Rouge par défaut
+                let popularityLabel = 'Peu populaire';
+                let popularityIcon = '❌';
+                
+                if (popularityPercent > 70) {
+                    popularityColor = '#28a745'; // Vert
+                    popularityLabel = 'Très populaire';
+                    popularityIcon = '✅';
+                } else if (popularityPercent > 30) {
+                    popularityColor = '#ffc107'; // Jaune
+                    popularityLabel = 'Moyennement populaire';
+                    popularityIcon = '⚠️';
+                }
+    
+                // Création du HTML pour l'affichage complet
+                let resultHtml = `
+                    <div class="result-card">
+                        <strong>📊 Résultat complet :</strong>
+                        
+                        <div class="prediction-section">
+                            <p><strong>Niveau du cours :</strong> ${predictedLevel}</p>
+                            <p>${data.explanation}</p>
+                        </div>
+                        
+                        <div class="popularity-section">
+                            <strong>Analyse de popularité :</strong>
+                            
+                            <div class="popularity-meter-container">
+                                <div class="popularity-meter">
+                                    <div class="popularity-indicator" style="left: ${popularityPercent}%"></div>
+                                </div>
+                                <div class="popularity-labels">
+                                    <span>0%</span>
+                                    <span>50%</span>
+                                    <span>100%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="popularity-summary" style="color: ${popularityColor}">
+                                ${popularityIcon} <strong>${popularityPercent}%</strong>  ${popularityLabel}
+                            </div>
+                            
+                            <div class="popularity-details">
+                                <p><small>${data.popularity_explanation}</small></p>
+                                <ul>
+                                    <li>Note: ${userData.rating}/5</li>
+                                    <li>Avis: ${userData.reviewcount}</li>
+                                    <li>Durée: ${userData.duration}h</li>
+                                    <li>Leçons: ${userData.lectures}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                appendMessage('bot', resultHtml);
+    
+                // Stockage pour l'analyse détaillée
+                storedAnalysisHtml = `
+                    <div class="detailed-analysis">
+                        <h4>Analyse approfondie</h4>
+                        <table>
+                            <tr><th>Critère</th><th>Valeur</th><th>Évaluation</th></tr>
+                            <tr>
+                                <td>Note</td>
+                                <td>${userData.rating}/5</td>
+                                <td>${userData.rating >= 4 ? 'Excellent' : userData.rating >= 3 ? 'Correct' : 'Faible'}</td>
+                            </tr>
+                            <tr>
+                                <td>Nombre d'avis</td>
+                                <td>${userData.reviewcount}</td>
+                                <td>${userData.reviewcount > 1000 ? 'Élevé' : userData.reviewcount > 100 ? 'Moyen' : 'Faible'}</td>
+                            </tr>
+                            <tr>
+                                <td>Durée</td>
+                                <td>${userData.duration}h</td>
+                                <td>${userData.duration >= 20 ? 'Longue' : userData.duration >= 5 ? 'Moyenne' : 'Courte'}</td>
+                            </tr>
+                            <tr>
+                                <td>Leçons</td>
+                                <td>${userData.lectures}</td>
+                                <td>${userData.lectures >= 100 ? 'Nombreuses' : userData.lectures >= 30 ? 'Normales' : 'Peu'}</td>
+                            </tr>
+                        </table>
+                        <p class="probability-display">
+                            Probabilité de popularité: 
+                            <span class="probability-value" style="color: ${popularityColor}">
+                                ${popularityPercent}%
+                            </span>
+                        </p>
+                        <p class="final-assessment">${data.popularity_explanation}</p>
+                    </div>
+                `;
+    
+                setTimeout(() => {
+                    appendMessage('bot', "Souhaitez-vous voir l'analyse détaillée complète ?");
+                    waitingForAnalysisAnswer = true;
+                }, 1000);
+            }
+        })
+        .catch(err => {
+            hideLoader();
+            appendMessage('bot', `❌ Une erreur est survenue: ${err.message}`);
+        });
+    }
+    
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const value = input.value.trim();
+        if (!value) return;
+
+        appendMessage('user', value);
+        input.value = '';
+
+        if (waitingForAnalysisAnswer) {
+            waitingForAnalysisAnswer = false;
+
+            if (value.toLowerCase() === 'oui' || value.toLowerCase() === 'yes') {
+                Swal.fire({
+                    title: 'Analyse détaillée du cours',
+                    html: storedAnalysisHtml,
+                    icon: 'info',
+                    confirmButtonText: 'Compris'
+                });
+
+                const level = predictedLevel.toLowerCase();
+                if (level.includes("débutant")) {
+                    Swal.fire({
+                        title: 'Parfait pour débuter !',
+                        text: "Ce cours semble bien adapté aux débutants.",
+                        icon: 'info'
+                    });
+                } else if (level.includes("intermédiaire")) {
+                    Swal.fire({
+                        title: 'Bon niveau !',
+                        text: "Ce cours demande déjà quelques bases.",
+                        icon: 'warning'
+                    });
+                } else if (level.includes("avancé")) {
+                    Swal.fire({
+                        title: 'Cours avancé détecté',
+                        text: "Ce cours est destiné à des utilisateurs expérimentés.",
+                        icon: 'error'
+                    });
+                }
+            } else {
+                appendMessage('bot', "Très bien, pas d'analyse détaillée affichée.");
+            }
+
+            return;
+        }
+
+        switch (step) {
+            case 0: userData.title = value; break;
+            case 1: userData.description = value; break;
+            case 2: userData.rating = parseFloat(value); break;
+            case 3: userData.reviewcount = parseInt(value); break;
+            case 4: userData.duration = parseFloat(value); break;
+            case 5: userData.lectures = parseInt(value); break;
+        }
+
+        step++;
+
+        if (step < questions.length) {
+            askNextQuestion();
+        } else {
+            analyzeUserLevel();
+        }
+    });
+</script>
+</body>
+</html>

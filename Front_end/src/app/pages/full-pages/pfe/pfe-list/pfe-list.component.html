@@ -1,0 +1,122 @@
+<!-- Filter Datatables -->
+<section id="ngx-datatable-filter">
+  <div class="row">
+    <div class="col-12">
+      <!-- Filter starts -->
+      <div class="pfe-list-filter px-2">
+        <form>
+          <div class="row border rounded py-2 mb-2 mx-n2">
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="pfe-list-verified">Statut</label>
+              <fieldset class="form-group">
+                <select id="pfe-list-verified" class="form-control" (change)="onFilterChange($event, 'status')">
+                  <option value="">Any</option>
+                  <option value="EN_COURS">En cours</option>
+                  <option value="TERMINE">Terminé</option>
+                  <option value="VALIDE">Validé</option>
+                  <option value="REFUSE">Refusé</option>
+                </select>
+              </fieldset>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="pfe-list-role">Niveau</label>
+              <fieldset class="form-group">
+                <select id="pfe-list-role" class="form-control" (change)="onFilterChange($event, 'level')">
+                  <option value="">Any</option>
+                  <option value="LICENCE">Licence</option>
+                  <option value="MASTER">Master</option>
+                  <option value="INGENIEUR">Ingénieur</option>
+                </select>
+              </fieldset>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+              <label for="pfe-list-status">Catégorie</label>
+              <fieldset class="form-group">
+                <select id="pfe-list-status" class="form-control" (change)="onFilterChange($event, 'category')">
+                  <option value="">Any</option>
+                  <option value="WEB_DEVELOPMENT">Web Development</option>
+                  <option value="DATA_SCIENCE">Data Science</option>
+                  <option value="SECURITY">Security</option>
+                  <option value="AI">AI</option>
+                  <option value="CLOUD">Cloud</option>
+                </select>
+              </fieldset>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
+              <button type="reset" class="btn btn-primary btn-block pfe-list-clear glow mb-0" (click)="clearFilters()">
+                Clear
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- Filter ends -->
+    </div>
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-body">
+            <!-- ngx-datatable-filter -->
+            <fieldset class="form-group">
+              <label>Show
+                <select name="pfe-list-select"
+                  class="form-control form-control-sm d-inline-block width-100 p-right-25 pl-4 mx-1"
+                  (click)="updateLimit($event)">
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                entries</label>
+              <label for="ngx-filter-ref" class="float-right">Search:
+                <input id="ngx-filter-ref" class="form-control form-control-sm d-inline-block width-200 ml-1"
+                  type="text" (keyup)="filterUpdate($event)" />
+              </label>
+            </fieldset>
+
+
+            <ngx-datatable class="bootstrap core-bootstrap" [columnMode]="ColumnMode.force" [headerHeight]="50"
+              [footerHeight]="50" rowHeight="auto" [limit]="limitRef" [rows]="filteredRows" [scrollbarH]="true"
+              [columns]="columns">
+              <ngx-datatable-column name="ID" prop="id" [width]="50"></ngx-datatable-column>
+              <ngx-datatable-column name="Project Title" prop="projectTitle" [width]="200">
+                <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                  <a [routerLink]="['/pages/pfe-view', row.id]">{{ value }}</a>                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Student ID" prop="studentId" [width]="100"></ngx-datatable-column>
+              <ngx-datatable-column name="Trainer ID" prop="trainerId" [width]="100"></ngx-datatable-column>
+              <ngx-datatable-column name="Start Date" prop="startDate" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="End Date" prop="endDate" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="Status" prop="status" [width]="100">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                  <div class="badge" [ngClass]="{
+                      'bg-light-success': value == 'EN_COURS',
+                      'bg-light-warning': value == 'TERMINE',
+                      'bg-light-info': value == 'VALIDE',
+                      'bg-light-danger': value == 'REFUSE'
+                    }">
+                    {{ value }}
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Level" prop="level" [width]="100"></ngx-datatable-column>
+              <ngx-datatable-column name="Category" prop="category" [width]="120"></ngx-datatable-column>
+              <ngx-datatable-column name="Actions" [width]="50">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <a [routerLink]="['/pages/pfe-edit', row.id]">
+                    <i class="ft-edit text-primary cursor-pointer"></i>
+                  </a>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <!-- ngx-datatable-filter -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--/ Filter Datatables -->

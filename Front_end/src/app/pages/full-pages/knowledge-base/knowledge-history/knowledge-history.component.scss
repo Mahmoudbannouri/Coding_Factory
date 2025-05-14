@@ -1,0 +1,311 @@
+/* course-chatbot.component.css */
+:root {
+    --primary: #4361ee;
+    --secondary: #3a0ca3;
+    --bot-bubble: #f1f3ff;
+    --user-bubble: #d4edda;
+    --text-dark: #2b2d42;
+    --text-light: #f8f9fa;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.good-feedback {
+    color: green;
+  }
+  
+  .bad-feedback {
+    color: red;
+  }
+.chat-container {
+    max-width: 600px;
+    width: 100%;
+    background: white;
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    color: var(--primary);
+    margin-bottom: 20px;
+}
+
+.chat-box {
+    flex: 1;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 10px;
+    margin-bottom: 20px;
+}
+
+.bot-msg, .user-msg {
+    padding: 12px 15px;
+    border-radius: 18px;
+    margin: 5px 0;
+    max-width: 80%;
+    display: inline-block;
+    clear: both;
+    position: relative;
+    line-height: 1.4;
+}
+
+.bot-msg {
+    background: var(--bot-bubble);
+    float: left;
+    border-bottom-left-radius: 5px;
+}
+
+.user-msg {
+    background: var(--user-bubble);
+    float: right;
+    border-bottom-right-radius: 5px;
+}
+
+.avatar-img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.input-area {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.input-area input {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #e9ecef;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s;
+}
+
+.input-area input:focus {
+    border-color: var(--primary);
+}
+
+.input-area button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.input-area button:hover {
+    background: var(--secondary);
+}
+
+/* Typing indicator */
+.typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 15px;
+    background: var(--bot-bubble);
+    border-radius: 18px;
+    margin-bottom: 5px;
+    float: left;
+    clear: both;
+}
+
+.typing-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    margin: 0 2px;
+    animation: typingAnimation 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(1) { animation-delay: 0s; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingAnimation {
+    0%, 60%, 100% { transform: translateY(0); }
+    30% { transform: translateY(-5px); }
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: #6c757d;
+    margin-top: 3px;
+    display: block;
+    text-align: right;
+}
+
+.bot-msg .message-time {
+    text-align: left;
+}
+
+/* Result card styles */
+.result-card {
+    background: white;
+    border-left: 5px solid var(--primary);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 15px;
+    box-shadow: var(--shadow);
+}
+
+.prediction-section, .popularity-section {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.popularity-meter-container {
+    margin: 15px 0;
+}
+
+.popularity-meter {
+    height: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #dc3545, #ffc107, #28a745);
+    position: relative;
+    margin: 5px 0;
+}
+
+.popularity-indicator {
+    position: absolute;
+    height: 30px;
+    width: 2px;
+    background: #000;
+    top: -5px;
+    transform: translateX(-50%);
+}
+
+.popularity-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.popularity-summary {
+    text-align: center;
+    font-size: 1.1rem;
+    margin: 10px 0;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.popularity-details {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.popularity-details ul {
+    margin: 5px 0;
+    padding-left: 20px;
+}
+
+.popularity-details li {
+    margin: 3px 0;
+}
+
+.detailed-analysis {
+    font-size: 0.9rem;
+    margin-top: 15px;
+}
+
+.detailed-analysis table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+}
+
+.detailed-analysis th, .detailed-analysis td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.detailed-analysis th {
+    background-color: #f2f2f2;
+}
+
+.probability-display {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 1.1rem;
+}
+
+.probability-value {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.final-assessment {
+    font-style: italic;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+    margin-top: 15px;
+}
+
+.text-success { color: #28a745; }
+.text-warning { color: #ffc107; }
+.text-danger { color: #dc3545; }
+
+.btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+.mt-3 { margin-top: 1rem; }
+
+.loading-message, .empty-message, .error-message {
+    padding: 20px;
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+  }
+  
+  .error-message {
+    color: #d32f2f;
+    background-color: #fde8e8;
+    border-radius: 4px;
+    
+    button {
+      margin-top: 10px;
+      padding: 5px 15px;
+      background-color: #d32f2f;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }

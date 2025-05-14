@@ -1,0 +1,131 @@
+from flask import Flask, request, jsonify, render_template # type: ignore
+import joblib # type: ignore
+import pandas as pd # type: ignore
+
+# 📦 Charger les modèles
+model = joblib.load('svm_udemy_model.pkl')
+label_encoder = joblib.load('label_encoder.pkl')
+tfidf = joblib.load('tfidf.pkl')
+svd = joblib.load('svd.pkl')
+
+# 🚀 Créer l'application Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        # ✍️ Récupérer les données du formulaire
+        title = request.form.get('title')
+        description = request.form.get('description')
+        rating = float(request.form.get('rating'))
+        reviewcount = float(request.form.get('reviewcount'))
+        duration = float(request.form.get('duration'))
+        lectures = int(request.form.get('lectures'))
+
+        combined_text = title + " " + description
+
+        # 🧠 Appliquer les mêmes transformations qu'à l'entraînement
+        tfidf_matrix = tfidf.transform([combined_text])
+        tfidf_svd = svd.transform(tfidf_matrix)
+
+        numeric_features = pd.DataFrame([{
+            'rating': rating,
+            'reviewcount': reviewcount,
+            'duration': duration,
+            'lectures': lectures,
+            'rating_to_reviews': rating / (reviewcount + 1),
+            'duration_per_lecture': duration / (lectures + 1)
+        }])
+
+        X = pd.concat([numeric_features, pd.DataFrame(tfidf_svd, columns=[f'tfidf_svd_{i}' for i in range(50)])], axis=1)
+
+        prediction = model.predict(X)[0]
+        level = label_encoder.inverse_transform([prediction])[0]
+
+        return jsonify({'predicted_level': level})
+
+    except Exception as e:
+        print("🔥 Erreur serveur :", e)
+        return jsonify({'error': str(e)}), 500
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot - Prédiction Niveau Cours</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 0; }
+        .chat-container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .chat-box { margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; margin-top: 10px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .response { margin-top: 20px; padding: 10px; background: #e7f5ff; border-left: 5px solid #2196F3; }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Chatbot - Prédire le Niveau du Cours 🎯</h2>
+        <form id="chat-form">
+            <div class="chat-box">
+                <textarea name="title" placeholder="Titre du cours..." required></textarea>
+                <textarea name="description" placeholder="Description du cours..." required></textarea>
+                <input type="number" step="0.1" name="rating" placeholder="Note (rating)" required>
+                <input type="number" name="reviewcount" placeholder="Nombre d'avis (reviewcount)" required>
+                <input type="number" step="0.1" name="duration" placeholder="Durée (heures)" required>
+                <input type="number" name="lectures" placeholder="Nombre de lectures" required>
+            </div>
+            <button type="submit">Envoyer</button>
+        </form>
+        <div id="response" class="response" style="display:none;"></div>
+    </div>
+
+    <script>
+        const form = document.getElementById('chat-form');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            if (result.predicted_level) {
+                document.getElementById('response').style.display = 'block';
+                document.getElementById('response').innerHTML = "📚 Niveau prédit : " + result.predicted_level;
+            } else {
+                document.getElementById('response').style.display = 'block';
+                document.getElementById('response').innerHTML = "❌ Erreur : " + result.error;
+            }
+        });
+    </script>
+</body>
+</html>
+
