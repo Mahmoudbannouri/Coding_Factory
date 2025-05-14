@@ -14,6 +14,8 @@ function getUserRole(): string {
   return user.roles;
 }
 
+
+
 // Function to check if the user is an admin
 function isAdmin(): boolean {
   const role = getUserRole();
