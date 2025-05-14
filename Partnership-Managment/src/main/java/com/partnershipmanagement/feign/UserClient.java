@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@FeignClient(name = "authservice", url = "http://localhost:8887")
+@FeignClient(name = "authservice", url = "http://localhost:8080")
 public interface UserClient {
 
     // Partner endpoints
