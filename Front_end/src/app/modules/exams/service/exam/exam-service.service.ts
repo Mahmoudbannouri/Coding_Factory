@@ -9,7 +9,7 @@ import { Exam } from '../../model/exam/exam';
 export class ExamServiceService {
 
 
-  private apiUrl = 'http://localhost:8080/api/exams';
+  private apiUrl = 'http://localhost:8888/api/exams';
 
   constructor(private http: HttpClient) { }
 

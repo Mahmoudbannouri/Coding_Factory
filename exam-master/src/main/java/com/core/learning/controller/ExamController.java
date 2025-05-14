@@ -11,7 +11,7 @@ import com.core.learning.service.ExamService;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/exams")
 public class ExamController {

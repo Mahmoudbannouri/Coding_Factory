@@ -208,15 +208,37 @@ export const ROUTES: RouteInfo[] = [
   { path: 'https://pixinvent.com/apex-angular-4-bootstrap-admin-template/documentation', title: 'Documentation', icon: 'ft-book', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
   { path: 'https://pixinvent.ticksy.com/', title: 'Support', icon: 'ft-life-buoy', class: '', badge: '', badgeClass: '', isExternalLink: true, submenu: [] },
 
-  { path: '/modules', title: 'modules', icon: 'ft-arrow-right submenu-icon', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] }
+
+  { path: '/calendar', title: 'Calendar', icon: 'ft-calendar', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+
+  { 
+    path: '/modules/exman-quiz', 
+    title: 'Exman Quiz', 
+    icon: 'ft-edit', 
+    class: '', 
+    badge: '', 
+    badgeClass: '', 
+    isExternalLink: false,
+    submenu: [] 
+  },
+    { 
+    path: '/modules/exams', 
+    title: 'Exman ', 
+    icon: 'ft-edit', 
+    class: '', 
+    badge: '', 
+    badgeClass: '', 
+    isExternalLink: false,
+    submenu: [] 
+  },
 ];
 
 
    
-{ path: '/calendar', title: 'Calendar', icon: 'ft-calendar', class: '', badge: '', badgeClass: '', isExternalLink: false, submenu: [] },
+
 
  
-];
+
  
 
 

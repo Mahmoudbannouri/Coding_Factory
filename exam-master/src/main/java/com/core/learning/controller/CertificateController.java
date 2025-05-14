@@ -20,7 +20,7 @@ import com.core.learning.service.CertificationService;
 
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/certificates")
 @RequiredArgsConstructor

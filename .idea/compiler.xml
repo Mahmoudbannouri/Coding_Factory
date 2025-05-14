@@ -12,6 +12,7 @@
         <module name="EEureka" />
         <module name="ApiGetway" />
         <module name="reviews" />
+        <module name="certification" />
       </profile>
       <profile name="Annotation profile for authservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -53,6 +54,7 @@
       <module name="Gestion_Pfe" options="-parameters" />
       <module name="PartnershipManagement" options="-parameters" />
       <module name="authservice" options="-parameters -parameters" />
+      <module name="certification" options="-parameters" />
       <module name="esponline" options="-parameters" />
       <module name="reviews" options="-parameters" />
     </option>

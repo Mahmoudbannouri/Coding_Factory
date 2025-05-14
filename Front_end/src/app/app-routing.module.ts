@@ -22,7 +22,9 @@ import {ScrapedCompaniesComponent} from './PartnershipManagement/ScrapedCompanie
 import {ScrapingComponent} from './PartnershipManagement/WebScraping/scraping.component';
 import {data} from './shared/data/smart-data-table';
 import {EntrepriseAddComponent} from './PartnershipManagement/entreprise/entreprise/entreprise-add/entreprise-add.component';
-
+import { Module } from 'module';
+import { ExamModule } from './modules/exams/exam.module';
+import { ExmanQuizModule } from './modules/ExmanQuiz/ExmanQuiz.module';
 const appRoutes: Routes = [
   {
     path: '',
@@ -109,7 +111,20 @@ const appRoutes: Routes = [
   {
     path: '**',
     redirectTo: 'pages/error'
-  }
+  },
+  {
+  path: 'modules',
+  children: [
+    {
+      path: 'exams', // accès via /modules/exams
+      loadChildren: () => import('./modules/exams/exam.module').then(m => m.ExamModule)
+    },
+    {
+      path: 'exman-quiz', // accès via /modules/exman-quiz
+      loadChildren: () => import('./modules/ExmanQuiz/ExmanQuiz.module').then(m => m.ExmanQuizModule)
+    }
+  ]
+}
 ];
 
 

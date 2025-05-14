@@ -7,7 +7,7 @@ import { Quiz } from '../../model/exam/quiz';
   providedIn: 'root'
 })
 export class QuizService {
-  private apiUrl = `http://localhost:8080/quizzes`;
+  private apiUrl = `http://localhost:8888/quizzes`;
 
   constructor(private http: HttpClient) { }
 

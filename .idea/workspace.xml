@@ -9,12 +9,21 @@
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/juryNames.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/models/meetingDates.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/pfe/pfe-view/pfe-view.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/pfe/pfe-view/pfe-view.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/certificat/certificat.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/certificat/certificat.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/exam/exam-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/exam/exam-service.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/quiz/quiz.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/quiz/quiz.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/routes/full-layout.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/routes/full-layout.routes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/CertificateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/CertificateController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/EvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/EvaluationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/ExamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/ExamController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QRCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QRCodeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QuizController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/SmsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/SmsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exam-master/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +83,7 @@
     "Spring Boot.EEurekaApplication.executor": "Run",
     "Spring Boot.EsponlineApplication.executor": "Run",
     "Spring Boot.EventApplication.executor": "Run",
+    "Spring Boot.ExamApplication.executor": "Run",
     "Spring Boot.GestionPfeApplication.executor": "Run",
     "Spring Boot.ReviewsApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
@@ -151,6 +161,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ExamApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="certification" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.core.learning.ExamApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GestionPfeApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="Gestion_Pfe" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="tn.esprit.gestion_pfe.GestionPfeApplication" />
@@ -180,6 +197,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Spring Boot.ExamApplication" />
       <item itemvalue="Spring Boot.GestionPfeApplication (1)" />
       <item itemvalue="Spring Boot.EventApplication" />
       <item itemvalue="Spring Boot.PartnershipManagementApplication" />
@@ -246,7 +264,7 @@
       <workItem from="1747212930409" duration="869000" />
       <workItem from="1747214119909" duration="447000" />
       <workItem from="1747214639563" duration="179000" />
-      <workItem from="1747215507165" duration="2556000" />
+      <workItem from="1747215507165" duration="3938000" />
     </task>
     <servers />
   </component>

@@ -7,7 +7,7 @@ import com.core.learning.model.Quiz;
 import com.core.learning.service.QuizService;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/quizzes")
 public class QuizController {
