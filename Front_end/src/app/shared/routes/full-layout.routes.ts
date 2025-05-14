@@ -40,5 +40,17 @@ export const Full_ROUTES: Routes = [
     loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
   },
 
-
+  {
+    path: 'modules',
+    children: [
+      {
+        path: 'exams', // accès via /modules/exams
+        loadChildren: () => import('../../modules/exams/exam.module').then(m => m.ExamModule)
+      },
+      {
+        path: 'exman-quiz', // accès via /modules/exman-quiz
+        loadChildren: () => import('../../modules/ExmanQuiz/ExmanQuiz.module').then(m => m.ExmanQuizModule)
+      }
+    ]
+  }
 ];
