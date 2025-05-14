@@ -1088,7 +1088,7 @@
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
       </MavenGeneralSettings>
     </option>
   </component>
@@ -1107,21 +1107,31 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Maven.EEureka [clean].executor": "Run",
+    "Maven.EEureka [install].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.ApiGetwayApplication.executor": "Run",
+    "Spring Boot.AuthserviceApplication.executor": "Run",
+    "Spring Boot.EEurekaApplication.executor": "Run",
+    "Spring Boot.EsponlineApplication.executor": "Run",
+    "Spring Boot.EventApplication.executor": "Run",
+    "Spring Boot.ReviewsApplication.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/banno/OneDrive/Bureau/new crm project/Coding_Factory_Backend/authservice/src/main/java/com/Microservice/authservice",
+    "last_opened_file_path": "C:/Users/nermi/OneDrive/Documents/GitHub/Coding_Factory",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "run.configurations.included.in.services": "true",
     "ts.external.directory.path": "C:\\Users\\banno\\OneDrive\\Bureau\\new crm project\\Coding_Factory_Backend\\Front_end\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -1144,6 +1154,9 @@
   <component name="RunDashboard">
     <option name="configurationTypes">
       <set>
+        <option value="KtorApplicationConfigurationType" />
+        <option value="MicronautRunConfigurationType" />
+        <option value="QuarkusRunConfigurationType" />
         <option value="SpringBootApplicationConfigurationType" />
       </set>
     </option>
@@ -1217,6 +1230,14 @@
       <item itemvalue="Spring Boot.ReviewsApplication" />
     </list>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.25410.129" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-IU-251.25410.129" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -1261,6 +1282,7 @@
       <workItem from="1747040833456" duration="11195000" />
       <workItem from="1747131197266" duration="644000" />
       <workItem from="1747142832879" duration="8830000" />
+      <workItem from="1747212930409" duration="388000" />
     </task>
     <servers />
   </component>
