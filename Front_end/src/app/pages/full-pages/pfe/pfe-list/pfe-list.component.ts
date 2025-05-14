@@ -41,6 +41,7 @@ export class PfeListComponent implements OnInit {
 ngAfterViewInit(): void {
   console.log('Données chargées:', this.filteredRows);
   console.log('Premier élément:', this.filteredRows[0]);
+  
 }
   // Active filters
   public activeFilters = {

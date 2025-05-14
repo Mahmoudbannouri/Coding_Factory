@@ -25,6 +25,7 @@ import {EntrepriseAddComponent} from './PartnershipManagement/entreprise/entrepr
 import { Module } from 'module';
 import { ExamModule } from './modules/exams/exam.module';
 import { ExmanQuizModule } from './modules/ExmanQuiz/ExmanQuiz.module';
+import { PfeViewComponent } from './pages/full-pages/pfe/pfe-view/pfe-view.component';
 const appRoutes: Routes = [
   {
     path: '',
@@ -111,6 +112,10 @@ const appRoutes: Routes = [
   {
     path: '**',
     redirectTo: 'pages/error'
+  },
+   { 
+    path: 'pages/pfe-view/:id', 
+    component: PfeViewComponent 
   },
   {
   path: 'modules',

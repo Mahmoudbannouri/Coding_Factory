@@ -37,7 +37,32 @@ export class PfeEditComponent implements OnInit {
   constructor(private pfeService: PfeService, 
     private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void { const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.isEditMode = true;
+      this.loadPfe(+id); // Convert string to number with +
+    }}
+ loadPfe(id: number): void {
+    this.pfeService.getPfeById(id).subscribe({
+      next: (pfe) => {
+        this.pfe = pfe;
+        // Convert string dates to Date objects if needed
+        if (typeof pfe.startDate === 'string') {
+          this.pfe.startDate = new Date(pfe.startDate);
+        }
+        if (typeof pfe.endDate === 'string') {
+          this.pfe.endDate = new Date(pfe.endDate);
+        }
+        if (typeof pfe.meetingDate === 'string') {
+          this.pfe.meetingDate = new Date(pfe.meetingDate);
+        }
+      },
+      error: (error) => {
+        console.error('Error loading PFE:', error);
+        alert('Failed to load PFE data');
+      }
+    });
+  }
 
   // Fonction pour formater la date pour l'input HTML (format yyyy-MM-dd)
   formatDateForInput(date: Date): string {
@@ -52,6 +77,7 @@ export class PfeEditComponent implements OnInit {
   onSubmit() {
     // Validation des champs obligatoires
     if (!this.pfe.projectTitle || !this.pfe.studentId) {
+      
       alert('Le titre du projet et l\'ID étudiant sont obligatoires');
       return;
     }

@@ -28,7 +28,7 @@ export class PfeService {
     );
   }
 
-  getPfeById(id: number): Observable<Pfe> {
+  /*getPfeById(id: number): Observable<Pfe> {
     if (!id || isNaN(id)) {
       throw new Error('ID invalide fourni');
     }
@@ -44,9 +44,24 @@ export class PfeService {
         return throwError(() => new Error('Erreur lors du chargement du PFE'));
       })
     );
+  }*/
+getPfeById(id: number): Observable<Pfe> {
+    if (!id || isNaN(id)) {
+      return throwError(() => new Error('Invalid ID provided'));
+    }
+    return this.http.get<Pfe>(`${this.apiUrl}/${id}`, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
-
-
+ private handleError(error: any): Observable<never> {
+    console.error('API Error:', error);
+    return throwError(() => new Error(error.message || 'Server error'));
+  }
+   private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+  }
   
 
   // Créer un PFE
@@ -80,13 +95,20 @@ export class PfeService {
   }
   
   // Mettre à jour un PFE
-  updatePfe(id: number, pfe: Pfe): Observable<Pfe> {
+ /* updatePfe(id: number, pfe: Pfe): Observable<Pfe> {
     const headers = new HttpHeaders({
       'Authorization': 'Bearer your-token',
       'Content-Type': 'application/json'
     });
     return this.http.put<Pfe>(`${this.apiUrl}/${id}`, pfe, { headers });
+  }*/
+  updatePfe(id: number, pfe: Pfe): Observable<Pfe> {
+    return this.http.put<Pfe>(`${this.apiUrl}/${id}`, pfe, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
+
+
 
   // Supprimer un PFE
   deletePfe(id: number): Observable<string> {

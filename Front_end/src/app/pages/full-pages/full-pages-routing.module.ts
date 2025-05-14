@@ -128,6 +128,13 @@ const routes: Routes = [
         }
       },
       {
+        path: 'pfe-view/:id',
+        component: PfeViewComponent,
+        data: {
+          title: 'View'
+        }
+      },
+       {
         path: 'pfe-view',
         component: PfeViewComponent,
         data: {
@@ -140,7 +147,16 @@ const routes: Routes = [
         data: {
           title: 'Edit'
         }
+      },
+       {
+        path: 'pfe-edit/:id',
+        component: PfeEditComponent,
+        data: {
+          title: 'Edit'
+        }
       }
+      
+      
     ]
   }
 ];

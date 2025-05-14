@@ -5,25 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="837be1dd-3955-43e2-aeb2-851e001f04e1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Front_end/src/app/app-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/app-routing.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/certificat/certificat.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/certificat/certificat.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/exam/exam-service.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/exam/exam-service.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/quiz/quiz.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/modules/exams/service/quiz/quiz.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/routes/full-layout.routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/routes/full-layout.routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/shared/vertical-menu/vertical-menu-routes.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/config/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/CertificateController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/CertificateController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/EvaluationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/EvaluationController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/ExamController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/ExamController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QRCodeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QRCodeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QuizController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/QuizController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/SmsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/java/com/core/learning/controller/SmsController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exam-master/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/exam-master/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/full-pages-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/pfe/pfe-edit/pfe-edit.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/pfe/pfe-edit/pfe-edit.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/pfe/pfe-list/pfe-list.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/pages/full-pages/pfe/pfe-list/pfe-list.component.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Front_end/src/app/services/pfe.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/Front_end/src/app/services/pfe.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -264,7 +251,7 @@
       <workItem from="1747212930409" duration="869000" />
       <workItem from="1747214119909" duration="447000" />
       <workItem from="1747214639563" duration="179000" />
-      <workItem from="1747215507165" duration="3938000" />
+      <workItem from="1747215507165" duration="6531000" />
     </task>
     <servers />
   </component>
