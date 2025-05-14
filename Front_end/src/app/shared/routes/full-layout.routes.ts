@@ -39,6 +39,16 @@ export const Full_ROUTES: Routes = [
     path: 'courses',
     loadChildren: () => import('../../courses/course.module').then(m => m.CourseModule)
   },
-
-
+{
+    path: 'pages',
+    loadChildren: () => import('../../pages/full-pages/full-pages.module').then(m => m.FullPagesModule)
+  },
+ {
+    path: 'calendar',
+    loadChildren: () => import('../../calendar/calendar.module').then(m => m.CalendarsModule)
+  },
+   {
+    path: 'components',
+    loadChildren: () => import('../../components/ui-components.module').then(m => m.UIComponentsModule)
+  },
 ];
