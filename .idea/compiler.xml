@@ -9,9 +9,10 @@
         <outputRelativeToContentRoot value="true" />
         <module name="PartnershipManagement" />
         <module name="Gestion-PFE" />
+        <module name="reviews" />
+        <module name="Gestion_Pfe" />
         <module name="EEureka" />
         <module name="ApiGetway" />
-        <module name="reviews" />
         <module name="certification" />
       </profile>
       <profile name="Annotation profile for authservice" enabled="true">
@@ -33,17 +34,19 @@
         </processorPath>
         <module name="Event" />
       </profile>
-      <profile name="Annotation profile for Gestion_Pfe" enabled="true">
+      <profile name="Annotation profile for esponline" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.36/lombok-1.18.36.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
-        <module name="Gestion_Pfe" />
         <module name="esponline" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Gestion-PFE" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -51,7 +54,7 @@
       <module name="EEureka" options="-parameters" />
       <module name="Event" options="-parameters" />
       <module name="Gestion-PFE" options="-parameters" />
-      <module name="Gestion_Pfe" options="-parameters" />
+      <module name="Gestion_Pfe" options="" />
       <module name="PartnershipManagement" options="-parameters" />
       <module name="authservice" options="-parameters -parameters" />
       <module name="certification" options="-parameters" />
