@@ -1,0 +1,29 @@
+<div class="modal" [ngClass]="{ 'show': showModal }">
+    <div class="modal-content">
+     
+        <h1>Add New exam</h1>
+    
+      <form (ngSubmit)="addexam()">
+        <!-- exam Title -->
+        <label for="title">Title</label>
+        <input id="title" [(ngModel)]="newexam.title" name="title" required />
+  
+        <!-- exam Description -->
+        <label for="description">Description</label>
+        <textarea id="description" [(ngModel)]="newexam.description" name="description" required></textarea>
+  
+        <!-- exam Question Count -->
+        <label for="question_count">Question Count</label>
+        <input id="question_count" type="number" [(ngModel)]="newexam.questionCount" name="question_count" required />
+  
+        <!-- exam Chrono -->
+        <label for="chrono">Chrono</label>
+        <input id="chrono" type="text" [(ngModel)]="newexam.chrono" name="chrono" required />
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn-primary">Add exam</button>
+      </form>
+  
+      <button (click)="closeModal()" class="btn-close">Close</button>
+    </div>
+  </div>
