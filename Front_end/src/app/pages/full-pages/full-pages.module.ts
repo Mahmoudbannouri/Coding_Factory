@@ -10,6 +10,10 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { SwiperModule } from "ngx-swiper-wrapper";
 import { PipeModule } from "app/shared/pipes/pipe.module";
 
+import { PfeEditComponent } from "./pfe/pfe-edit/pfe-edit.component";
+import { PfeListComponent } from "./pfe/pfe-list/pfe-list.component";
+import { PfeViewComponent } from "./pfe/pfe-view/pfe-view.component";
+
 import { GalleryPageComponent } from "./gallery/gallery-page.component";
 import { InvoicePageComponent } from "./invoice/invoice-page.component";
 import { HorizontalTimelinePageComponent } from "./timeline/horizontal/horizontal-timeline-page.component";
@@ -29,6 +33,7 @@ import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { PerformancePredictionComponent } from './performance-prediction/performance-prediction.component';
 import { PerformanceResultsComponent } from './performance-results/performance-results.component';
 import { InputFormComponent } from './input-form/input-form.component';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -57,6 +62,9 @@ import { InputFormComponent } from './input-form/input-form.component';
     AccountSettingsComponent,
     UsersListComponent,
     UsersViewComponent,
+    PfeEditComponent,
+    PfeListComponent,
+    PfeViewComponent,
     UsersEditComponent,
     PerformancePredictionComponent,
     PerformanceResultsComponent,
@@ -64,6 +72,7 @@ import { InputFormComponent } from './input-form/input-form.component';
   ],
   exports: [
     UsersListComponent,
+    PfeListComponent,
     PerformancePredictionComponent,
     PerformanceResultsComponent
   ]

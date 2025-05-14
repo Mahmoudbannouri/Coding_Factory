@@ -5,8 +5,6 @@ import { PfeService } from '../../../../services/pfe.service';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import{Document} from  'app/models/document';
-import{Meeting} from 'app/models/meetingDates';
-import{Jury} from 'app/models/juryNames';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
@@ -213,7 +211,7 @@ handleFileInput(event: any): void {
 }
 
 
-  scheduleMeeting(): void {
+  /*scheduleMeeting(): void {
     const modalRef = this.modalService.open(Meeting);
     modalRef.componentInstance.pfeId = this.pfe.id;
     modalRef.result.then((result) => {
@@ -221,7 +219,7 @@ handleFileInput(event: any): void {
         this.loadPfe(this.pfe.id);
       }
     }).catch(() => {});
-  }
+  }/*
 
  /* removeMeetingDate(meetingDate: Date): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer cette réunion ?')) {
@@ -261,15 +259,7 @@ handleFileInput(event: any): void {
       );
     }
   }
-  addJuryMember(): void {
-    const modalRef = this.modalService.open(Jury);
-    modalRef.componentInstance.pfeId = this.pfe.id;
-    modalRef.result.then((result) => {
-      if (result) {
-        this.loadPfe(this.pfe.id);
-      }
-    }).catch(() => {});
-  }
+
 
  
 }

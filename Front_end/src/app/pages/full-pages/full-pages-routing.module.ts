@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
+import { PfeEditComponent } from "./pfe/pfe-edit/pfe-edit.component";
+import { PfeListComponent } from "./pfe/pfe-list/pfe-list.component";
+import { PfeViewComponent } from "./pfe/pfe-view/pfe-view.component";
+
 import { GalleryPageComponent } from "./gallery/gallery-page.component";
 import { InvoicePageComponent } from "./invoice/invoice-page.component";
 import { HorizontalTimelinePageComponent } from "./timeline/horizontal/horizontal-timeline-page.component";
@@ -111,6 +115,28 @@ const routes: Routes = [
       {
         path: 'users-edit',
         component: UsersEditComponent,
+        data: {
+          title: 'Edit'
+        }
+      },
+
+      {
+        path: 'pfe-list',
+        component: PfeListComponent,
+        data: {
+          title: 'List'
+        }
+      },
+      {
+        path: 'pfe-view',
+        component: PfeViewComponent,
+        data: {
+          title: 'View'
+        }
+      },
+      {
+        path: 'pfe-edit',
+        component: PfeEditComponent,
         data: {
           title: 'Edit'
         }
