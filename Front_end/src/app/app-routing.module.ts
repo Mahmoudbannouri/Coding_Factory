@@ -36,6 +36,61 @@ const appRoutes: Routes = [
     path: '',
     component: FullLayoutComponent,
     data: { title: 'full Views' },
+    children: [
+      ...Full_ROUTES,
+
+      {
+        path: 'partnerships',
+        loadChildren: () => import('./PartnershipManagement/data-tables/data-tables.module').then(m => m.DataTablesModule)
+      },
+      {
+        path: 'partnership',
+        loadChildren: () => import('./PartnershipManagement/partnership/partnership.module').then(m => m.PartnershipModule)
+      },
+      {
+        path: 'entreprise',
+        loadChildren: () => import('./PartnershipManagement/entreprise/entreprise/entreprise.module').then(m => m.EntrepriseModule),
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMIN'] }
+      },
+      {
+        path: 'scraping',
+        component: ScrapingComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMIN'] }
+      },
+      {
+        path: 'potentialpartners',
+        component: PotentialPartnersComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMIN'] }
+      },
+
+      {
+        path: 'proposal',
+        loadChildren: () => import('./PartnershipManagement/proposal/proposal.module').then(m => m.ProposalModule)
+      },
+
+      {
+        path: 'chat',
+        loadChildren: () => import('./PartnershipManagement/chat/chat.module').then(m => m.ChatModule),
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMIN'] }
+      }
+    ],
+    canActivate: [AuthGuard]
+  },
+  {
+    path: '',
+    component: ContentLayoutComponent,
+    data: { title: 'content Views' },
+    children: CONTENT_ROUTES
+  },
+  { path: 'entreprise/add', component: EntrepriseAddComponent },
+  {
+    path: '',
+    component: FullLayoutComponent,
+    data: { title: 'full Views' },
     children: Full_ROUTES,
     canActivate: [AuthGuard]
   },
@@ -113,9 +168,9 @@ const appRoutes: Routes = [
     path: '**',
     redirectTo: 'pages/error'
   },
-   { 
-    path: 'pages/pfe-view/:id', 
-    component: PfeViewComponent 
+   {
+    path: 'pages/pfe-view/:id',
+    component: PfeViewComponent
   },
   {
   path: 'modules',

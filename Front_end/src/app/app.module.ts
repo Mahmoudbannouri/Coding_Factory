@@ -31,6 +31,7 @@ import { CommonModule } from '@angular/common'; // Import CommonModule
 import { AuthService } from "./shared/auth/auth.service";
 import { AuthGuard } from "./shared/auth/auth-guard.service";
 import { WINDOW_PROVIDERS } from './shared/services/window.service';
+import { PotentialPartnersComponent } from "./PartnershipManagement/potentialpartners/potentialpartners.component";
 
 var firebaseConfig = {
   apiKey: "AIzaSyC9XfnIpwNoSv7cyAsoccFQ5EYPd7lZXrk", //YOUR_API_KEY
@@ -57,6 +58,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     FullLayoutComponent,
     ContentLayoutComponent,
+    PotentialPartnersComponent // Declare your component here
   ],
   imports: [
     BrowserAnimationsModule,

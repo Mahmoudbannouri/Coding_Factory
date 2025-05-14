@@ -6,7 +6,6 @@ import { AppComponent } from 'app/app.component';
 import { ContentLayoutComponent } from 'app/layouts/content/content-layout.component';
 import { FullLayoutComponent } from 'app/layouts/full/full-layout.component';
 import { AddAgreementsComponent } from '../add-agreements/add-agreements.component';
-import { PotentialPartnersComponent } from '../potentialpartners/potentialpartners.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,13 +17,11 @@ import { ProposalModule } from '../proposal/proposal.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
 
 
 
-    AddAgreementsComponent,
+   
 
-    PotentialPartnersComponent
   ],
 
   imports: [

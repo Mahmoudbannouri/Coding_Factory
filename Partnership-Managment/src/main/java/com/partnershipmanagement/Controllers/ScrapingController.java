@@ -9,6 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/scraping")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ScrapingController {
     private final ScrapingService scrapingService;
 
