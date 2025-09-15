@@ -49,6 +49,7 @@ export class CourseComponent implements OnInit {
   selectedCategory = '';
   showAIImprovementsModal = false;
   loading = false;
+  viewMode: 'grid' | 'list' = 'grid';
   public isTrainerLoggedIn = false;
   public isStudentLoggedIn = false;
   public StorageService = StorageService;
@@ -63,13 +64,14 @@ export class CourseComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.updateRoleFlags(); // Update role flags first
+    
     // Load recommendations if user is logged in
     if (this.storageService.isLoggedIn()) {
       this.loadRecommendations();
-
     }
-    console.log('User role:', StorageService.getUserRole(), 'Is student:', this.isStudentLoggedIn);
-    this.updateRoleFlags();
+    
+    console.log('User role:', StorageService.getUserRole(), 'Is trainer:', this.isTrainerLoggedIn, 'Is student:', this.isStudentLoggedIn);
     this.assignRandomColorsToCategories();
     this.loadInitialCourses();
   }
@@ -131,11 +133,20 @@ export class CourseComponent implements OnInit {
     const role = StorageService.getUserRole();
     console.log('Raw role from storage:', role); // Debug log
 
-    // Normalize the role by removing brackets
-    const normalizedRole = role.replace(/[\[\]]/g, '').trim();
+    if (!role) {
+      this.isTrainerLoggedIn = false;
+      this.isStudentLoggedIn = false;
+      return;
+    }
+
+    // Normalize the role by removing brackets and quotes
+    const normalizedRole = role.replace(/[\\\[\\\]"']/g, '').trim().toUpperCase();
+    console.log('Normalized role:', normalizedRole);
 
     this.isTrainerLoggedIn = normalizedRole === 'TRAINER';
     this.isStudentLoggedIn = normalizedRole === 'STUDENT';
+    
+    console.log('Role flags set - Trainer:', this.isTrainerLoggedIn, 'Student:', this.isStudentLoggedIn);
     this.cdr.detectChanges();
   }
 
@@ -153,7 +164,7 @@ export class CourseComponent implements OnInit {
   ngAfterViewInit() {
     if (this.isTrainerLoggedIn) {
       setTimeout(() => {
-        const btn = document.querySelector('.floating-add-button');
+        const btn = document.querySelector('.add-course-btn');
         if (!btn) {
           console.warn('Add course button missing for trainer');
         }
@@ -165,40 +176,39 @@ export class CourseComponent implements OnInit {
     this.loading = true;
     this.cdr.detectChanges();
 
-    const subscription = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
+    const observable = (this.isTrainerLoggedIn || this.isStudentLoggedIn)
       ? this.courseService.searchMyCourses(
-        this.searchQuery,
-        this.selectedCategory,
-        this.page.number,
-        this.page.size
-      ).subscribe(
-        (page: Page<Course>) => {
-          this.handleCoursesResponse(page);
-        },
-        (err: any) => {
-          this.handleCoursesError(err);
-        }
-      )
+          this.searchQuery,
+          this.selectedCategory,
+          this.page.number,
+          this.page.size
+        )
       : this.courseService.getAllCoursesWithPagination(
-        this.searchQuery,
-        this.selectedCategory,
-        this.page.number,
-        this.page.size
-      ).subscribe(
-        (page: Page<Course>) => {
-          this.handleCoursesResponse(page);
-        },
-        (err: any) => {
-          this.handleCoursesError(err);
-        }
-      );
+          this.searchQuery,
+          this.selectedCategory,
+          this.page.number,
+          this.page.size
+        );
+
+    observable.subscribe({
+      next: (page: Page<Course>) => {
+        console.log('Loaded courses page:', page);
+        this.handleCoursesResponse(page);
+      },
+      error: (err: any) => {
+        console.error('Error loading initial courses:', err);
+        this.handleCoursesError(err);
+      }
+    });
   }
 
-  private handleCoursesResponse(courses: Course[] | Page<Course>): void {
-    const courseList = Array.isArray(courses) ? courses : courses.content;
+  private handleCoursesResponse(pageResponse: Page<Course>): void {
+    console.log('Handling courses response:', pageResponse);
+    const courseList = pageResponse.content || [];
     const studentId = StorageService.getUserId();
 
     courseList.forEach(course => {
+      console.log('Course data:', course);
       if (this.isStudentLoggedIn && studentId) {
         this.reviewService.hasStudentReviewed(studentId, course.id)
           .subscribe(hasReviewed => {
@@ -211,18 +221,20 @@ export class CourseComponent implements OnInit {
           course.resources = resources;
           this.cdr.detectChanges();
         },
-        error => console.error('Error loading resources', error)
+        error => console.error('Error loading resources for course', course.id, error)
       );
     });
 
     this.page = {
       content: courseList,
-      totalElements: Array.isArray(courses) ? courses.length : courses.totalElements,
-      totalPages: Array.isArray(courses) ? Math.ceil(courses.length / this.page.size) : courses.totalPages,
-      size: this.page.size,
-      number: Array.isArray(courses) ? 0 : courses.number,
-      numberOfElements: Array.isArray(courses) ? courses.length : courses.numberOfElements
+      totalElements: pageResponse.totalElements || 0,
+      totalPages: pageResponse.totalPages || 0,
+      size: pageResponse.size || this.page.size,
+      number: pageResponse.number || 0,
+      numberOfElements: pageResponse.numberOfElements || courseList.length
     };
+
+    console.log('Updated page object:', this.page);
     this.loading = false;
     this.cdr.detectChanges();
   }
@@ -579,5 +591,10 @@ export class CourseComponent implements OnInit {
     this.selectedCategory = '';
     this.page.number = 0;
     this.searchCourses();
+  }
+
+  setViewMode(mode: 'grid' | 'list'): void {
+    this.viewMode = mode;
+    this.cdr.detectChanges();
   }
 }

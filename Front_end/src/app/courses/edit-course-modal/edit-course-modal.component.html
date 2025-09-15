@@ -1,50 +1,191 @@
-<!-- Edit Course Modal -->
-<div class="modal" [ngClass]="{ 'show': showModal }" tabindex="-1" role="dialog" *ngIf="showModal">
-  <div class="modal-content">
-    <h3>Edit Course</h3>
-    <form (ngSubmit)="updateCourse()">
-      <!-- Course Title -->
-      <div class="form-group">
-        <label for="title">Title</label>
-        <input id="title" [(ngModel)]="course.title" name="title" required />
+<!-- Modern Edit Course Modal -->
+<div *ngIf="showModal" class="modern-modal-overlay">
+  <div class="modern-modal-container">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="header-content">
+        <div class="modal-icon">
+          <i class="bi bi-pencil-square"></i>
+        </div>
+        <div class="header-text">
+          <h2 class="modal-title">Edit Course</h2>
+          <p class="modal-subtitle">Update course information and settings</p>
+        </div>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
+    </div>
 
-      <!-- Course Description -->
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea id="description" [(ngModel)]="course.description" name="description" required></textarea>
-      </div>
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <form (ngSubmit)="updateCourse()" class="course-form">
+        <!-- Course Basic Info Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-info-circle-fill"></i>
+            <h3>Course Information</h3>
+          </div>
 
-      <!-- Category Selection -->
-      <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" [(ngModel)]="course.categoryCourse" name="category" required>
-          <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
-        </select>
-      </div>
+          <!-- Course Title -->
+          <div class="form-group">
+            <label for="title" class="form-label">
+              <i class="bi bi-type"></i>
+              Course Title
+            </label>
+            <div class="input-container">
+              <input
+                id="title"
+                type="text"
+                [(ngModel)]="course.title"
+                name="title"
+                placeholder="Enter course title..."
+                class="modern-input"
+                required
+                maxlength="100"
+              />
+              <div class="input-decoration"></div>
+            </div>
+          </div>
 
-      <!-- Course Level (Text Input) -->
-      <div class="form-group">
-        <label for="level">Level</label>
-        <select id="level" [(ngModel)]="course.level" name="level" required>
-          <option value="beginner">Beginner</option>
-          <option value="intermediate">Intermediate</option>
-          <option value="advanced">Advanced</option>
-        </select>
-      </div>
+          <!-- Course Description -->
+          <div class="form-group">
+            <label for="description" class="form-label">
+              <i class="bi bi-text-paragraph"></i>
+              Course Description
+            </label>
+            <div class="textarea-container">
+              <textarea
+                id="description"
+                [(ngModel)]="course.description"
+                name="description"
+                placeholder="Describe the course content and objectives..."
+                class="modern-textarea"
+                required
+                maxlength="500"
+                rows="4"
+              ></textarea>
+              <div class="character-counter">
+                {{ course.description?.length || 0 }}/500 characters
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <!-- Image URL -->
-      <div class="form-group">
-        <label for="image">Course Image URL</label>
-        <input type="file" (change)="onImageSelected($event)" />
-        <p *ngIf="course.image" class="success-text">Image uploaded successfully!</p>
-      </div>
+        <!-- Course Details Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-gear-fill"></i>
+            <h3>Course Settings</h3>
+          </div>
 
-      <!-- Submit Button -->
-      <div class="modal-actions">
-        <button type="submit" class="submit-btn">Update Course</button>
-        <button type="button" class="cancel-btn" (click)="closeModal()">Cancel</button>
-      </div>
-    </form>
+          <div class="form-row">
+            <!-- Category Selection -->
+            <div class="form-group">
+              <label for="category" class="form-label">
+                <i class="bi bi-tags-fill"></i>
+                Category
+              </label>
+              <div class="select-container">
+                <select
+                  id="category"
+                  [(ngModel)]="course.categoryCourse"
+                  name="category"
+                  class="modern-select"
+                  required
+                >
+                  <option *ngFor="let category of categoryEnum" [value]="category">
+                    {{ getCategoryDisplayName(category) }}
+                  </option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+            </div>
+
+            <!-- Course Level -->
+            <div class="form-group">
+              <label for="level" class="form-label">
+                <i class="bi bi-trophy-fill"></i>
+                Difficulty Level
+              </label>
+              <div class="select-container">
+                <select
+                  id="level"
+                  [(ngModel)]="course.level"
+                  name="level"
+                  class="modern-select"
+                  required
+                >
+                  <option value="BEGINNER">Beginner</option>
+                  <option value="INTERMEDIATE">Intermediate</option>
+                  <option value="ADVANCED">Advanced</option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current Course Info Display -->
+        <div class="form-section info-section">
+          <div class="section-header">
+            <i class="bi bi-eye-fill"></i>
+            <h3>Current Course Preview</h3>
+          </div>
+
+          <div class="course-preview">
+            <div class="preview-card">
+              <div class="preview-image" *ngIf="course.image">
+                <img [src]="getFile(course.image)" [alt]="course.title" class="course-thumbnail">
+                <div class="image-overlay">
+                  <i class="bi bi-image-fill"></i>
+                </div>
+              </div>
+              <div *ngIf="!course.image" class="preview-placeholder">
+                <i class="bi bi-image"></i>
+                <span>No image available</span>
+              </div>
+              
+              <div class="preview-info">
+                <div class="preview-badges">
+                  <div class="category-badge">
+                    {{ getCategoryDisplayName(course.categoryCourse) }}
+                  </div>
+                  <div class="level-badge" [class]="course.level?.toLowerCase()">
+                    <i class="bi bi-trophy-fill"></i>
+                    {{ course.level }}
+                  </div>
+                </div>
+                
+                <h4 class="preview-title">{{ course.title }}</h4>
+                <p class="preview-description">{{ course.description }}</p>
+                
+                <div class="preview-meta">
+                  <div class="rating-display" *ngIf="course.rate">
+                    <div class="stars">
+                      <i class="bi bi-star-fill" *ngFor="let star of [1,2,3,4,5].slice(0, Math.floor(course.rate))"></i>
+                      <i class="bi bi-star-half" *ngIf="course.rate % 1 !== 0"></i>
+                    </div>
+                    <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" class="action-btn cancel-btn" (click)="closeModal()">
+            <i class="bi bi-x-circle"></i>
+            Cancel
+          </button>
+          <button type="submit" class="action-btn submit-btn">
+            <i class="bi bi-check-circle-fill"></i>
+            Update Course
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

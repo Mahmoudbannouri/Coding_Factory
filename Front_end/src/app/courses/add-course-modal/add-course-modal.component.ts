@@ -154,7 +154,13 @@ export class AddCourseModalComponent {
     }
 }
 
-// Update the addCourse method in AddCourseModalComponent
+getCategoryDisplayName(category: string): string {
+  if (!category) return '';
+  return category.toLowerCase().split('_').map(word =>
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+}
+
 // Update the addCourse method in AddCourseModalComponent
 addCourse(): void {
   console.log('[Add Course] Starting add course process...');

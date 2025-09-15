@@ -17,15 +17,12 @@ export class EditCourseModalComponent implements OnInit {
 
   categoryEnum = ["WEB_DEVELOPMENT", "DATA_SCIENCE", "SECURITY", "AI", "CLOUD"];
   course: Course = new Course();
-  imageUploading: boolean = false;
-  imageUploaded: boolean = false;
 
   // Error messages for validation
   titleError: string | null = null;
   descriptionError: string | null = null;
   categoryError: string | null = null;
   levelError: string | null = null;
-  imageError: string | null = null;
 
   constructor(
     private courseService: CourseService,
@@ -49,7 +46,6 @@ export class EditCourseModalComponent implements OnInit {
     this.courseService.getCourseById(this.courseId).subscribe(
       (data) => {
         this.course = data;
-        this.imageUploaded = !!this.course.image;
         this.cdr.detectChanges();
       },
       (error) => {
@@ -145,36 +141,17 @@ export class EditCourseModalComponent implements OnInit {
     );
   }
 
-  async onImageSelected(event: Event): Promise<void> {
-    const file = (event.target as HTMLInputElement).files?.[0];
-    if (!file) return;
+  getCategoryDisplayName(category: string): string {
+    if (!category) return '';
+    return category.toLowerCase().split('_').map(word =>
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
+  }
 
-    this.imageUploading = true;
-    
-    try {
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const fileUrl = await this.http.post(
-        'http://localhost:8090/courses/upload',
-        formData,
-        { responseType: 'text' }
-      ).toPromise();
-
-      if (fileUrl) {
-        this.course.image = fileUrl;
-        this.imageUploaded = true;
-        this.imageError = null;
-        Swal.fire('Success!', 'Image uploaded successfully!', 'success');
-      }
-    } catch (error: any) {
-      console.error('Error uploading image:', error);
-      const errorMsg = error.error?.message || error.message || 'Failed to upload image';
-      this.imageError = errorMsg;
-      Swal.fire('Error', errorMsg, 'error');
-    } finally {
-      this.imageUploading = false;
-      this.cdr.detectChanges();
+  getFile(fileName: string): string {
+    if (fileName.startsWith('https://')) {
+      return fileName;
     }
+    return `https://wbptqnvcpiorvwjotqwx.supabase.co/storage/v1/object/public/course-images/${fileName}`;
   }
 }

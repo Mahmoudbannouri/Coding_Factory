@@ -1,52 +1,110 @@
-<div class="modal" [ngClass]="{ 'show': showModal }">
-  <div class="modal-content">
-    <h3>Resources for {{ selectedCourse?.title }}</h3>
-
-    <!-- Search Bar -->
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Search resources..."
-      class="search-bar"
-    />
-
-    <div *ngFor="let resource of filteredResources" class="resource-card">
-      <div class="resource-header">
-        <!-- Resource Dropdown Button -->
-        <button (click)="toggleResourceDetails(resource)" class="resource-btn">
-          <i class="fas fa-archive"></i> <!-- Archive Icon -->
-          {{ resource.title }}
-          <span *ngIf="expandedResource?.id === resource.id">▼</span>
-          <span *ngIf="expandedResource?.id !== resource.id">▶</span>
-        </button>
-
-        <!-- Delete Button (Same Size) -->
-        <!-- Delete Button (Only for trainers) -->
-  <button *ngIf="isTrainer" 
-  (click)="deleteResource(resource.id)" 
-  class="resource-btn delete-btn">
-🗑️ Delete
-</button>
-      </div>
-
-      <div *ngIf="expandedResource?.id === resource.id" class="resource-details">
-        <p><strong>Description:</strong> {{ resource.description }}</p>
-
-        <div class="resource-media">
-          <div class="resource-video" *ngIf="resource.link_video">
-            <video width="100%" controls>
-              <source [src]="resource.link_video" type="video/mp4">
-              Your browser does not support the video tag.
-            </video>
-          </div>
-
-          <div class="resource-document" *ngIf="resource.link_doccument">
-            <iframe [src]="getDocumentUrl(resource.link_doccument)" class="document-frame"></iframe>
+<div class="modal resource-modal" [ngClass]="{ 'show': showModal }">
+  <div class="modal-content modern-modal">
+    <div class="modal-header">
+      <div class="header-content">
+        <div class="course-info">
+          <i class="bi bi-folder2-open"></i>
+          <div>
+            <h3 class="modal-title">Course Resources</h3>
+            <p class="course-subtitle">{{ selectedCourse?.title }}</p>
           </div>
         </div>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
       </div>
     </div>
 
-    <button (click)="closeModal()" class="btn-danger btn-close">Close</button>
+    <div class="modal-body">
+      <div class="search-section">
+        <div class="search-container-modal">
+          <i class="bi bi-search search-icon"></i>
+          <input
+            type="text"
+            [(ngModel)]="searchTerm"
+            placeholder="Search resources by title or description..."
+            class="search-input-modal"
+          />
+        </div>
+        <div class="resources-count" *ngIf="filteredResources.length > 0">
+          {{ filteredResources.length }} resource{{ filteredResources.length !== 1 ? 's' : '' }} found
+        </div>
+      </div>
+
+      <div class="resources-grid" *ngIf="filteredResources.length > 0">
+        <div *ngFor="let resource of filteredResources; let i = index" class="resource-item">
+          <div class="resource-card-header">
+            <div class="resource-main-info">
+              <div class="resource-icon">
+                <i class="bi bi-file-earmark-text" *ngIf="resource.link_doccument"></i>
+                <i class="bi bi-play-circle" *ngIf="resource.link_video"></i>
+                <i class="bi bi-folder" *ngIf="!resource.link_doccument && !resource.link_video"></i>
+              </div>
+              <div class="resource-title-section">
+                <h4 class="resource-title">{{ resource.title }}</h4>
+                <p class="resource-type">
+                  <span *ngIf="resource.link_video">Video Resource</span>
+                  <span *ngIf="resource.link_doccument">Document Resource</span>
+                  <span *ngIf="!resource.link_video && !resource.link_doccument">General Resource</span>
+                </p>
+              </div>
+            </div>
+            <div class="resource-actions">
+              <button (click)="toggleResourceDetails(resource)" class="expand-btn">
+                <i class="bi" [class.bi-chevron-down]="expandedResource?.id !== resource.id" 
+                   [class.bi-chevron-up]="expandedResource?.id === resource.id"></i>
+              </button>
+              <button *ngIf="isTrainer" 
+                      (click)="deleteResource(resource.id)" 
+                      class="delete-resource-btn"
+                      title="Delete Resource">
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="expandedResource?.id === resource.id" class="resource-details-expanded">
+            <div class="resource-description">
+              <h5>Description</h5>
+              <p>{{ resource.description || 'No description available.' }}</p>
+            </div>
+
+            <div class="resource-media-section">
+              <div class="media-item video-container" *ngIf="resource.link_video">
+                <div class="media-header">
+                  <i class="bi bi-play-circle"></i>
+                  <span>Video Resource</span>
+                </div>
+                <video class="resource-video" controls preload="metadata">
+                  <source [src]="resource.link_video" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              <div class="media-item document-container" *ngIf="resource.link_doccument">
+                <div class="media-header">
+                  <i class="bi bi-file-earmark-text"></i>
+                  <span>Document Resource</span>
+                  <a [href]="resource.link_doccument" target="_blank" class="open-external-btn">
+                    <i class="bi bi-box-arrow-up-right"></i>
+                    Open in New Tab
+                  </a>
+                </div>
+                <iframe [src]="getDocumentUrl(resource.link_doccument)" class="document-preview"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="empty-state" *ngIf="filteredResources.length === 0">
+        <div class="empty-icon">
+          <i class="bi bi-folder-x"></i>
+        </div>
+        <h4>No Resources Found</h4>
+        <p *ngIf="searchTerm">No resources match your search "{{ searchTerm }}". Try adjusting your search terms.</p>
+        <p *ngIf="!searchTerm">This course doesn't have any resources yet.</p>
+      </div>
+    </div>
   </div>
 </div>

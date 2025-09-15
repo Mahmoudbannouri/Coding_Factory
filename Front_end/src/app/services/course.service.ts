@@ -229,11 +229,15 @@ searchMyCourses(searchQuery: string = '', category: string = '', page: number = 
     return throwError(() => new Error('User not authenticated'));
   }
 
+  let userRole = StorageService.getUserRole();
+  // Clean up the role string
+  userRole = userRole.replace(/[\[\]"']/g, '').trim().toUpperCase();
+
   let params = new HttpParams()
     .set('page', page.toString())
     .set('size', size.toString())
     .set('userId', user.id.toString())
-    .set('userRole', StorageService.getUserRole());
+    .set('userRole', userRole);
 
   if (searchQuery) {
     params = params.set('searchQuery', searchQuery);
@@ -242,7 +246,19 @@ searchMyCourses(searchQuery: string = '', category: string = '', page: number = 
     params = params.set('category', category);
   }
 
-  return this.http.get<Page<Course>>(`${this.apiUrl}/my-courses/search`, { params });
+  console.log('searchMyCourses API call with params:', params.toString());
+  console.log('API URL:', `${this.apiUrl}/my-courses/search`);
+
+  return this.http.get<Page<Course>>(`${this.apiUrl}/my-courses/search`, {
+    params,
+    headers: this.getAuthHeaders()
+  }).pipe(
+    tap(response => console.log('searchMyCourses response:', response)),
+    catchError(error => {
+      console.error('searchMyCourses error:', error);
+      return throwError(() => error);
+    })
+  );
 }
 
 }

@@ -22,10 +22,10 @@ export class ReviewModalComponent {
   };
   hasReviewed = false; // Add this flag
 
-  loading = false; // Add a loading state
+  loading = false;
+  hoverRating = 0;
 
-  constructor(private reviewService: ReviewService,    private cdr: ChangeDetectorRef
-  ) {}
+  constructor(private reviewService: ReviewService, private cdr: ChangeDetectorRef) {}
 // In review-modal.component.ts
 ngOnInit(): void {
   this.review.studentId = StorageService.getUserId();
@@ -90,5 +90,30 @@ submitReview() {
       });
     }
   );
+}
+
+getFile(fileName: string): string {
+  if (fileName.startsWith('https://')) {
+    return fileName;
+  }
+  return `https://wbptqnvcpiorvwjotqwx.supabase.co/storage/v1/object/public/course-images/${fileName}`;
+}
+
+getCategoryDisplayName(category: string): string {
+  if (!category) return '';
+  return category.toLowerCase().split('_').map(word =>
+    word.charAt(0).toUpperCase() + word.slice(1)
+  ).join(' ');
+}
+
+getRatingDescription(rating: number): string {
+  switch (rating) {
+    case 1: return 'Poor';
+    case 2: return 'Fair';
+    case 3: return 'Good';
+    case 4: return 'Very Good';
+    case 5: return 'Excellent';
+    default: return '';
+  }
 }
 }

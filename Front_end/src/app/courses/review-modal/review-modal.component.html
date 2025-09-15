@@ -1,48 +1,117 @@
-<!-- In review-modal.component.html -->
-<div class="modal" [class.show]="showModal">
-  <div class="modal-content">
-    <h3>
-      {{ hasReviewed ? 'Your Review for ' : 'Add a Review for ' }}
-      {{ selectedCourse?.title }}
-    </h3>
-
-    <div *ngIf="hasReviewed" class="already-reviewed">
-      <p>You've already reviewed this course.</p>
-      <button type="button" class="btn-cancel" (click)="closeModal()">Close</button>
+<!-- Enhanced Review Modal -->
+<div class="modal review-modal" [class.show]="showModal">
+  <div class="modal-content modern-review-modal">
+    <div class="modal-header">
+      <div class="header-content">
+        <div class="review-info">
+          <div class="review-icon">
+            <i class="bi bi-star-fill"></i>
+          </div>
+          <div class="header-text">
+            <h3 class="modal-title">
+              {{ hasReviewed ? 'Your Review' : 'Add Your Review' }}
+            </h3>
+            <p class="course-title">{{ selectedCourse?.title }}</p>
+          </div>
+        </div>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
     </div>
 
-    <form *ngIf="!hasReviewed" (ngSubmit)="submitReview()">
-      <!-- Existing form content -->
-      <div class="form-group">
-        <label>Rating</label>
-        <div class="star-rating-picker">
-          <span
-            *ngFor="let star of [1, 2, 3, 4, 5]"
-            class="star"
-            [ngClass]="{ 'filled': star <= review.rating }"
-            (click)="setRating(star)"
-          >
-            <i *ngIf="star <= review.rating" class="bi bi-star-fill"></i>
-            <i *ngIf="star > review.rating" class="bi bi-star"></i>
-          </span>
+    <div class="modal-body">
+      <div *ngIf="hasReviewed" class="already-reviewed-section">
+        <div class="reviewed-badge">
+          <i class="bi bi-check-circle-fill"></i>
+          <span>Review Submitted</span>
+        </div>
+        <div class="review-summary">
+          <p>Thank you for sharing your feedback! Your review helps other students make informed decisions about this course.</p>
+          <div class="review-actions">
+            <button type="button" class="btn-secondary" (click)="closeModal()">
+              <i class="bi bi-arrow-left"></i>
+              Back to Course
+            </button>
+          </div>
         </div>
       </div>
-      <div class="form-group">
-        <label for="comment">Comment</label>
-        <textarea
-          id="comment"
-          [(ngModel)]="review.comment"
-          name="comment"
-          rows="3"
-        ></textarea>
-      </div>
-      <div class="form-actions">
-        <button type="submit" class="btn-submit" [disabled]="loading">
-          <span *ngIf="!loading">Submit</span>
-          <span *ngIf="loading">Submitting...</span>
-        </button>
-        <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="loading">Cancel</button>
-      </div>
-    </form>
+
+      <form *ngIf="!hasReviewed" (ngSubmit)="submitReview()" class="review-form">
+        <!-- Course Preview Card -->
+        <div class="course-preview-card">
+          <div class="course-info-section">
+            <div class="course-image-small" *ngIf="selectedCourse?.image">
+              <img [src]="getFile(selectedCourse.image)" [alt]="selectedCourse?.title">
+            </div>
+            <div class="course-details">
+              <h4>{{ selectedCourse?.title }}</h4>
+              <p class="course-category">{{ getCategoryDisplayName(selectedCourse?.categoryCourse) }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating Section -->
+        <div class="rating-section">
+          <label class="section-label">Your Rating</label>
+          <div class="star-rating-container">
+            <div class="star-rating-picker">
+              <span
+                *ngFor="let star of [1, 2, 3, 4, 5]"
+                class="rating-star"
+                [class.filled]="star <= review.rating"
+                (click)="setRating(star)"
+                (mouseenter)="hoverRating = star"
+                (mouseleave)="hoverRating = 0"
+              >
+                <i class="bi bi-star-fill" 
+                   [class.hover]="star <= hoverRating && hoverRating !== 0"></i>
+              </span>
+            </div>
+            <div class="rating-text" *ngIf="review.rating > 0">
+              <span class="rating-value">{{ review.rating }}/5</span>
+              <span class="rating-description">{{ getRatingDescription(review.rating) }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Comment Section -->
+        <div class="comment-section">
+          <label for="comment" class="section-label">Your Review (Optional)</label>
+          <div class="textarea-container">
+            <textarea
+              id="comment"
+              [(ngModel)]="review.comment"
+              name="comment"
+              rows="4"
+              placeholder="Share your experience with this course. What did you like? What could be improved?"
+              class="review-textarea"
+              maxlength="500"
+            ></textarea>
+            <div class="character-count">
+              {{ review.comment?.length || 0 }}/500 characters
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="form-actions">
+          <button type="button" class="btn-cancel" (click)="closeModal()" [disabled]="loading">
+            <i class="bi bi-x-circle"></i>
+            Cancel
+          </button>
+          <button type="submit" class="btn-submit" [disabled]="loading || !review.rating">
+            <span *ngIf="!loading" class="submit-content">
+              <i class="bi bi-star"></i>
+              Submit Review
+            </span>
+            <span *ngIf="loading" class="loading-content">
+              <div class="spinner"></div>
+              Submitting...
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

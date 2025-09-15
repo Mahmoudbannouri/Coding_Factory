@@ -1,83 +1,260 @@
-<!-- Add Course Modal -->
-<div *ngIf="showModal" class="modal-overlay">
-    <div class="modal-content">
-      <h2>Add New Course</h2>
-  
-      <form (ngSubmit)="addCourse()">
-        <!-- Course Title -->
-        <div class="form-group">
-          <label for="title">Title:</label>
-          <input
-            id="title"
-            [(ngModel)]="newCourse.title"
-            name="title"
-            placeholder="Enter course title"
-            (input)="validateForm()"
-            required
-          />
-          <div *ngIf="titleError" class="error-message">{{ titleError }}</div>
+<div *ngIf="showModal" class="modern-modal-overlay">
+  <div class="modern-modal-container">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="header-content">
+        <div class="modal-icon">
+          <i class="bi bi-plus-circle-fill"></i>
         </div>
-  
-        <!-- Course Description -->
-        <div class="form-group">
-          <label for="description">Description:</label>
-          <textarea
-            id="description"
-            [(ngModel)]="newCourse.description"
-            name="description"
-            placeholder="Enter course description"
-            (input)="validateForm()"
-            required
-          ></textarea>
-          <div *ngIf="descriptionError" class="error-message">{{ descriptionError }}</div>
+        <div class="header-text">
+          <h2 class="modal-title">Create New Course</h2>
+          <p class="modal-subtitle">Share knowledge and inspire learning</p>
         </div>
-  
-        <!-- Category Selection -->
-        <div class="form-group">
-          <label for="category">Category:</label>
-          <select
-            id="category"
-            [(ngModel)]="newCourse.categoryCourse"
-            name="category"
-            (change)="validateForm()"
-            required
-          >
-            <option *ngFor="let category of categoryEnum" [value]="category">{{ category }}</option>
-          </select>
-          <div *ngIf="categoryError" class="error-message">{{ categoryError }}</div>
+        <button class="close-btn" (click)="closeModal()">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <form (ngSubmit)="addCourse()" class="course-form">
+        <!-- Course Basic Info Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-info-circle-fill"></i>
+            <h3>Course Information</h3>
+          </div>
+
+          <!-- Course Title -->
+          <div class="form-group">
+            <label for="title" class="form-label">
+              <i class="bi bi-type"></i>
+              Course Title
+            </label>
+            <div class="input-container">
+              <input
+                id="title"
+                type="text"
+                [(ngModel)]="newCourse.title"
+                name="title"
+                placeholder="Enter an engaging course title..."
+                class="modern-input"
+                (input)="validateForm()"
+                required
+                maxlength="100"
+              />
+              <div class="input-decoration"></div>
+            </div>
+            <div *ngIf="titleError" class="error-message">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ titleError }}
+            </div>
+          </div>
+
+          <!-- Course Description -->
+          <div class="form-group">
+            <label for="description" class="form-label">
+              <i class="bi bi-text-paragraph"></i>
+              Course Description
+            </label>
+            <div class="textarea-container">
+              <textarea
+                id="description"
+                [(ngModel)]="newCourse.description"
+                name="description"
+                placeholder="Describe what students will learn and achieve in this course..."
+                class="modern-textarea"
+                (input)="validateForm()"
+                required
+                maxlength="500"
+                rows="4"
+              ></textarea>
+              <div class="character-counter">
+                {{ newCourse.description?.length || 0 }}/500 characters
+              </div>
+            </div>
+            <div *ngIf="descriptionError" class="error-message">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ descriptionError }}
+            </div>
+          </div>
         </div>
-  
-        <!-- Course Level -->
-        <div class="form-group">
-          <label for="level">Level:</label>
-          <select
-            id="level"
-            [(ngModel)]="newCourse.level"
-            name="level"
-            (change)="validateForm()"
-            required
-          >
-            <option value="beginner">Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-          </select>
-          <div *ngIf="levelError" class="error-message">{{ levelError }}</div>
+
+        <!-- Course Details Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-gear-fill"></i>
+            <h3>Course Settings</h3>
+          </div>
+
+          <div class="form-row">
+            <!-- Category Selection -->
+            <div class="form-group">
+              <label for="category" class="form-label">
+                <i class="bi bi-tags-fill"></i>
+                Category
+              </label>
+              <div class="select-container">
+                <select
+                  id="category"
+                  [(ngModel)]="newCourse.categoryCourse"
+                  name="category"
+                  class="modern-select"
+                  (change)="validateForm()"
+                  required
+                >
+                  <option value="" disabled>Select a category</option>
+                  <option *ngFor="let category of categoryEnum" [value]="category">
+                    {{ getCategoryDisplayName(category) }}
+                  </option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+              <div *ngIf="categoryError" class="error-message">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ categoryError }}
+              </div>
+            </div>
+
+            <!-- Course Level -->
+            <div class="form-group">
+              <label for="level" class="form-label">
+                <i class="bi bi-trophy-fill"></i>
+                Difficulty Level
+              </label>
+              <div class="select-container">
+                <select
+                  id="level"
+                  [(ngModel)]="newCourse.level"
+                  name="level"
+                  class="modern-select"
+                  (change)="validateForm()"
+                  required
+                >
+                  <option value="" disabled>Select difficulty</option>
+                  <option value="BEGINNER">Beginner</option>
+                  <option value="INTERMEDIATE">Intermediate</option>
+                  <option value="ADVANCED">Advanced</option>
+                </select>
+                <i class="bi bi-chevron-down select-arrow"></i>
+              </div>
+              <div *ngIf="levelError" class="error-message">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{ levelError }}
+              </div>
+            </div>
+          </div>
         </div>
-  
-        <!-- Image Upload -->
-        <div class="form-group">
-          <label>Upload Image:</label>
-          <input type="file" (change)="onImageSelected($event)" accept="image/*" />
-          <div *ngIf="imageUploading" class="loading-spinner">Loading...</div>
-          <p *ngIf="newCourse.image && !imageUploading" class="success-text">Image uploaded successfully!</p>
-          <div *ngIf="imageError" class="error-message">{{ imageError }}</div>
+
+        <!-- Course Image Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <i class="bi bi-image-fill"></i>
+            <h3>Course Image</h3>
+          </div>
+
+          <div class="upload-section">
+            <div class="upload-area" [class.has-image]="newCourse.image && !imageUploading">
+              <input
+                type="file"
+                #fileInput
+                (change)="onImageSelected($event)"
+                accept="image/*"
+                class="file-input"
+                id="imageUpload"
+              />
+              
+              <div *ngIf="!newCourse.image && !imageUploading" class="upload-prompt">
+                <label for="imageUpload" class="upload-label">
+                  <div class="upload-icon">
+                    <i class="bi bi-cloud-upload-fill"></i>
+                  </div>
+                  <div class="upload-text">
+                    <span class="upload-title">Upload Course Image</span>
+                    <span class="upload-subtitle">Click to browse or drag & drop</span>
+                  </div>
+                </label>
+              </div>
+
+              <div *ngIf="imageUploading" class="upload-loading">
+                <div class="loading-spinner">
+                  <div class="spinner"></div>
+                </div>
+                <p class="loading-text">Uploading image...</p>
+              </div>
+
+              <div *ngIf="newCourse.image && !imageUploading" class="upload-success">
+                <div class="success-icon">
+                  <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <div class="success-content">
+                  <p class="success-title">Image uploaded successfully!</p>
+                  <button type="button" class="change-image-btn" (click)="fileInput.click()">
+                    <i class="bi bi-pencil-square"></i>
+                    Change Image
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="imageError" class="error-message">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ imageError }}
+            </div>
+          </div>
         </div>
-  
-        <!-- Modal Actions -->
-        <div class="modal-actions">
-          <button (click)="closeModal()" class="cancel-btn">Cancel</button>
-          <button type="submit" class="submit-btn" [disabled]="!isFormValid()">Add Course</button>
+
+        <!-- Course Preview Section -->
+        <div class="form-section info-section">
+          <div class="section-header">
+            <i class="bi bi-eye-fill"></i>
+            <h3>Course Preview</h3>
+          </div>
+
+          <div class="course-preview">
+            <div class="preview-card">
+              <div class="preview-image" *ngIf="newCourse.image">
+                <img [src]="getFile(newCourse.image)" [alt]="newCourse.title" class="course-thumbnail">
+                <div class="image-overlay">
+                  <i class="bi bi-image-fill"></i>
+                </div>
+              </div>
+              <div *ngIf="!newCourse.image" class="preview-placeholder">
+                <i class="bi bi-image"></i>
+                <span>No image available</span>
+              </div>
+              
+              <div class="preview-info">
+                <div class="preview-badges">
+                  <div class="category-badge">
+                    {{ getCategoryDisplayName(newCourse.categoryCourse) || 'No Category' }}
+                  </div>
+                  <div class="level-badge" [class]="newCourse.level?.toLowerCase()">
+                    <i class="bi bi-trophy-fill"></i>
+                    {{ newCourse.level || 'No Level' }}
+                  </div>
+                </div>
+                
+                <h4 class="preview-title">{{ newCourse.title || 'Course Title' }}</h4>
+                <p class="preview-description">{{ newCourse.description || 'Course description will appear here...' }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form Actions -->
+        <div class="form-actions">
+          <button type="button" class="action-btn cancel-btn" (click)="closeModal()">
+            <i class="bi bi-x-circle"></i>
+            Cancel
+          </button>
+          <button type="submit" class="action-btn submit-btn" [disabled]="!isFormValid()">
+            <i class="bi bi-plus-circle-fill"></i>
+            Create Course
+          </button>
         </div>
       </form>
     </div>
   </div>
+</div>

@@ -1,120 +1,460 @@
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    overflow-y: auto;
-    transition: opacity 0.3s ease;
+/* Enhanced Review Modal */
+.review-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(5px);
+}
+
+.review-modal.show {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.modern-review-modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Modal Header */
+.modal-header {
+  background: linear-gradient(135deg, #ffd700 0%, #ffb347 100%);
+  color: #2c3e50;
+  padding: 1.5rem;
+  border-radius: 16px 16px 0 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.review-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #2c3e50;
+}
+
+.header-text {
+  flex: 1;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #2c3e50;
+}
+
+.course-title {
+  font-size: 0.95rem;
+  margin: 0.25rem 0 0 0;
+  opacity: 0.8;
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.close-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #2c3e50;
+}
+
+.close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+/* Modal Body */
+.modal-body {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+/* Already Reviewed Section */
+.already-reviewed-section {
+  text-align: center;
+  padding: 2rem 0;
+}
+
+.reviewed-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, #52c41a 0%, #73d13d 100%);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(82, 196, 26, 0.3);
+}
+
+.reviewed-badge i {
+  font-size: 1.25rem;
+}
+
+.review-summary p {
+  color: #6c757d;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.review-actions {
+  display: flex;
+  justify-content: center;
+}
+
+/* Review Form */
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Course Preview Card */
+.course-preview-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid #dee2e6;
+}
+
+.course-info-section {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.course-image-small {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.course-image-small img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.course-details h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.3;
+}
+
+.course-category {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Section Labels */
+.section-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+/* Rating Section */
+.rating-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.star-rating-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.star-rating-picker {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.rating-star {
+  cursor: pointer;
+  font-size: 2rem;
+  color: #dee2e6;
+  transition: all 0.3s ease;
+  position: relative;
+  user-select: none;
+}
+
+.rating-star:hover {
+  transform: scale(1.1);
+}
+
+.rating-star.filled i {
+  color: #ffd700;
+}
+
+.rating-star i.hover {
+  color: #ffed4e !important;
+}
+
+.rating-star:hover ~ .rating-star i {
+  color: #dee2e6 !important;
+}
+
+.rating-text {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+}
+
+.rating-value {
+  font-size: 1.1rem;
+}
+
+.rating-description {
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+/* Comment Section */
+.comment-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea-container {
+  position: relative;
+}
+
+.review-textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #f8f9fa;
+  min-height: 120px;
+}
+
+.review-textarea:focus {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.character-count {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1rem;
+  font-size: 0.8rem;
+  color: #6c757d;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.btn-cancel,
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  border: 2px solid #6c757d;
+  background: transparent;
+  color: #6c757d;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.btn-cancel:hover,
+.btn-secondary:hover {
+  background: #6c757d;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 160px;
+  justify-content: center;
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.submit-content,
+.loading-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Loading Spinner */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-  
-  .modal.show {
-    display: flex;
+  to {
     opacity: 1;
   }
-  
-  .modal-content {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: modalIn 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .modern-review-modal {
+    margin: 10px;
+    max-height: 90vh;
   }
   
-  @keyframes modalIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  .modal-header {
+    padding: 1rem;
   }
   
-  .form-group {
-    margin-bottom: 15px;
+  .modal-body {
+    padding: 1rem;
   }
   
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
+  .course-info-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
   }
   
-  .form-group input,
-  .form-group textarea {
+  .course-image-small {
     width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    outline: none;
-    transition: border-color 0.3s ease;
-  }
-  
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: #007bff;
+    max-width: 120px;
+    height: 80px;
   }
   
   .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+    flex-direction: column-reverse;
   }
   
-  .btn-submit,
-  .btn-cancel {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
+  .btn-cancel,
+  .btn-secondary,
   .btn-submit {
-    background-color: #007bff;
-    color: white;
+    width: 100%;
+    justify-content: center;
   }
   
-  .btn-submit:hover {
-    background-color: #0056b3;
+  .rating-text {
+    align-self: stretch;
+    justify-content: center;
   }
-  
-  .btn-cancel {
-    background-color: #dc3545;
-    color: white;
-  }
-  
-  .btn-cancel:hover {
-    background-color: #c82333;
-  }
-  .star-rating-picker {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .star-rating-picker .star {
-    font-size: 24px; /* Adjust size as needed */
-    color: #ddd; /* Default color for empty stars */
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
-  }
-  
-  .star-rating-picker .star.filled i {
-    color: #ffd700; /* Color for filled stars */
-  }
-  
-  .star-rating-picker .star:hover {
-    transform: scale(1.2); /* Hover effect */
-  }
+}

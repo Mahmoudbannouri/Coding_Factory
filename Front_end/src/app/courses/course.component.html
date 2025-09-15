@@ -1,6 +1,7 @@
 <div class="course-container">
-  <div class="recommendation-section">
-    <div class="recommendation-header" *ngIf="isStudentLoggedIn" (click)="toggleRecommendations()">
+  <!-- Recommendation Section -->
+  <div class="recommendation-section" *ngIf="isStudentLoggedIn">
+    <div class="recommendation-header" (click)="toggleRecommendations()">
       <h3>
         <i class="bi bi-stars"></i>
         Recommended For You
@@ -10,7 +11,7 @@
     </div>
 
     <div *ngIf="showRecommendations" class="recommendation-container">
-      <div *ngIf="recommendedCourses.length > 0;">
+      <div *ngIf="recommendedCourses.length > 0">
         <div class="recommendation-scroller" #recommendationScroller>
           <div class="recommendation-cards">
             <div *ngFor="let course of recommendedCourses" class="recommendation-card">
@@ -22,8 +23,6 @@
                 <div class="rcard-content">
                   <div class="rcard-category">{{ getCategoryDisplayName(course.categoryCourse) }}</div>
                   <h4 class="rcard-title">{{ course.title }}</h4>
-
-                  <!-- Added description -->
                   <p class="course-description">{{ course.description }}</p>
                   <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round level-badge">
                     <i class="fas fa-file-pdf"></i>
@@ -37,7 +36,6 @@
                       </div>
                       <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
                     </div>
-                    <!-- Updated level badge -->
                     <div class="level-badge" [class]="course.level.toLowerCase()">
                       {{ course.level }}
                     </div>
@@ -50,7 +48,6 @@
             <button (click)="scrollRecommendations(-1)" class="scroll-btn">
               <i class="bi bi-chevron-left"></i>
             </button>
-
           </div>
         </div>
         <ng-template #noRecommendations>
@@ -62,126 +59,267 @@
         </ng-template>
       </div>
     </div>
-    <br>
-    <div class="search-container">
-      <input type="text" [(ngModel)]="searchQuery" placeholder="Search by name or category..."
-             class="search-input" (ngModelChange)="onSearchChange()">
-      <select [(ngModel)]="selectedCategory" class="category-dropdown" (ngModelChange)="onSearchChange()">
-        <option value="">All Categories</option>
-        <option *ngFor="let category of getCategoryValues()" [value]="category">
-          {{ getCategoryDisplayName(category) }}
-        </option>
-      </select>
-      <div style="display: flex; align-items: center; gap: 10px;">
-        <button class="clear-button" (click)="clearFilters()">Clear</button>
-        <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-                (click)="openAddCourseModal()"
-                class="floating-plus btn-floating">
-          +
+  </div>
+
+  <!-- Modern Search Section -->
+  <div class="search-section">
+    <div class="section-header">
+      <h3 class="section-title">
+        <i class="bi bi-search"></i>
+        Find Your Perfect Course
+      </h3>
+      <p class="section-subtitle">Search through our comprehensive course catalog</p>
+    </div>
+    
+    <div class="search-controls">
+      <div class="search-left">
+        <div class="search-input-container">
+          <i class="bi bi-search search-icon"></i>
+          <input type="text"
+                 [(ngModel)]="searchQuery"
+                 placeholder="Search by course name, description, or keyword..."
+                 class="modern-search-input"
+                 (ngModelChange)="onSearchChange()">
+          <button *ngIf="searchQuery"
+                  class="clear-search-btn"
+                  (click)="searchQuery = ''; onSearchChange()">
+            <i class="bi bi-x-circle-fill"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="search-right">
+        <div class="filter-group">
+          <div class="category-select-container">
+            <i class="bi bi-funnel-fill filter-icon"></i>
+            <select [(ngModel)]="selectedCategory"
+                    class="modern-category-dropdown"
+                    (ngModelChange)="onSearchChange()">
+              <option value="">All Categories</option>
+              <option *ngFor="let category of getCategoryValues()" [value]="category">
+                {{ getCategoryDisplayName(category) }}
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="action-group">
+        
+          <button *ngIf="isTrainerLoggedIn"
+                  (click)="openAddCourseModal()"
+                  class="add-course-btn">
+            <i class="bi bi-plus-circle-fill"></i>
+            Add Course
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-content">
+      <div class="spinner-container">
+        <div class="loading-spinner"></div>
+      </div>
+      <h3 class="loading-title">
+        <i class="bi bi-mortarboard-fill"></i>
+        Loading Courses
+      </h3>
+      <p class="loading-subtitle">Discovering amazing learning opportunities for you...</p>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && page.content.length === 0" class="empty-state">
+    <div class="empty-content">
+      <div class="empty-icon">
+        <i class="bi bi-book"></i>
+      </div>
+      <h3 class="empty-title">No Courses Found</h3>
+      <p class="empty-subtitle">
+        <span *ngIf="searchQuery || selectedCategory">
+          Try adjusting your search criteria or clearing filters to see more results.
+        </span>
+        <span *ngIf="!searchQuery && !selectedCategory">
+          No courses are currently available. Check back soon for new learning opportunities!
+        </span>
+      </p>
+      <div class="empty-actions">
+        <button *ngIf="searchQuery || selectedCategory" 
+                class="clear-filters-btn" 
+                (click)="clearFilters()">
+          <i class="bi bi-arrow-clockwise"></i>
+          Clear All Filters
         </button>
       </div>
     </div>
+  </div>
 
-    <div *ngIf="loading" class="loading-indicator">
-      Loading courses...
-    </div>
+  <app-add-course-modal
+    [showModal]="showModal"
+    (showModalChange)="showModal = $event"
+    (courseAdded)="onCourseAdded($event)">
+  </app-add-course-modal>
 
-    <div *ngIf="!loading && page.content.length === 0">
-      <p>No courses available.</p>
-    </div>
+  <app-edit-course-modal
+    [showModal]="showEditModal"
+    [courseId]="selectedCourse?.id"
+    (showModalChange)="showEditModal = $event"
+    (courseUpdated)="onCourseUpdated($event)">
+  </app-edit-course-modal>
 
-    <app-add-course-modal
-      [showModal]="showModal"
-      (showModalChange)="showModal = $event"
-      (courseAdded)="onCourseAdded($event)">
-    </app-add-course-modal>
-
-    <app-edit-course-modal
-      [showModal]="showEditModal"
-      [courseId]="selectedCourse?.id"
-      (showModalChange)="showEditModal = $event"
-      (courseUpdated)="onCourseUpdated($event)">
-    </app-edit-course-modal>
-
-    <div *ngIf="!loading && page.content.length > 0">
-      <h3>All Courses</h3>
-      <div class="course-cards-container">
-        <div *ngFor="let course of page.content; let i = index" class="course-card">
-          <div class="card">
-            <div class="card-header">
-              <h4 class="card-title">{{ course.title }}</h4>
+  <!-- Modern Courses Section -->
+  <div *ngIf="!loading && page.content.length > 0" class="courses-section">
+    <div class="courses-header">
+      <div class="header-left">
+        <div class="courses-info">
+          <h3 class="courses-title">
+            <i class="bi bi-mortarboard-fill"></i>
+            All Courses
+          </h3>
+          <div class="courses-meta">
+            <div class="courses-count">
+              <i class="bi bi-collection"></i>
+              <span>{{ page.totalElements }} Course{{ page.totalElements !== 1 ? 's' : '' }}</span>
             </div>
-            <div class="card-content">
-              <a [href]="course.link" target="_blank">
-                <img *ngIf="course.image" [src]="getFile(course.image)" alt="Course Image" class="course-image">
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <div class="view-controls">
+          <div class="view-toggle">
+            <button 
+              class="view-btn" 
+              [class.active]="viewMode === 'grid'"
+              (click)="setViewMode('grid')"
+              title="Grid View">
+              <i class="bi bi-grid-3x3-gap"></i>
+            </button>
+            <button 
+              class="view-btn" 
+              [class.active]="viewMode === 'list'"
+              (click)="setViewMode('list')"
+              title="List View">
+              <i class="bi bi-list-ul"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="courses-container" [class.list-view]="viewMode === 'list'" [class.grid-view]="viewMode === 'grid'">
+      <div *ngFor="let course of page.content; let i = index" class="modern-course-card">
+        <div class="course-card-inner">
+          <!-- Course Image Section -->
+          <div class="course-image-section">
+            <div class="course-image-container">
+              <a [href]="course.link" target="_blank" class="course-link">
+                <img *ngIf="course.image"
+                     [src]="getFile(course.image)"
+                     [alt]="course.title"
+                     class="course-image"
+                     loading="lazy">
+                <div *ngIf="!course.image" class="course-image-placeholder">
+                  <i class="bi bi-mortarboard-fill"></i>
+                </div>
               </a>
-              <div class="card-body">
-                <p><strong>Description:</strong> {{ course.description }}</p>
-                <p ><strong>Level:</strong> {{ course.level }}</p>
-                <p class="badge">{{ getCategoryDisplayName(course.categoryCourse) }}</p>
+              <div class="course-badges">
+                <div [ngClass]="['level-indicator', course.level?.toLowerCase()]">
+                  <i class="bi bi-trophy-fill"></i>
+                  {{ course.level }}
+                </div>
               </div>
-              <div class="rating">
+            </div>
+          </div>
+
+          <!-- Course Content Wrapper for List View -->
+          <div class="course-content-wrapper">
+            <!-- Course Header Info -->
+            <div class="course-header-info">
+              <div class="category-section">
+                <div class="category-badge-main">
+                  <i class="bi bi-tag-fill"></i>
+                  {{ getCategoryDisplayName(course.categoryCourse) }}
+                </div>
+              </div>
+              <h4 class="course-title-main">{{ course.title }}</h4>
+            </div>
+
+            <!-- Course Description Section -->
+            <div class="course-description-section">
+              <p class="course-description-main">{{ course.description }}</p>
+            </div>
+
+            <!-- Rating Section -->
+            <div class="course-rating-section">
+              <div class="rating-display">
                 <div class="stars-container">
-                  <i *ngFor="let star of getFilledStars(course.rate)" class="bi bi-star-fill star filled"></i>
-                  <i *ngIf="hasPartialStar(course.rate)" class="bi bi-star-half star partial"></i>
-                  <i *ngFor="let star of getEmptyStars(course.rate)" class="bi bi-star star"></i>
+                  <i *ngFor="let star of getFilledStars(course.rate)"
+                     class="bi bi-star-fill star-filled"></i>
+                  <i *ngIf="hasPartialStar(course.rate)"
+                     class="bi bi-star-half star-partial"></i>
+                  <i *ngFor="let star of getEmptyStars(course.rate)"
+                     class="bi bi-star star-empty"></i>
                 </div>
                 <span class="rating-value">{{ course.rate | number:'1.1-1' }}</span>
-                <button *ngIf="isStudentLoggedIn"
-                        (click)="!course.hasReviewed && openReviewModal(course)"
-                        class="add-review-button round"
-                        [class.reviewed]="course.hasReviewed"
-                        [disabled]="course.hasReviewed">
-                  <i *ngIf="!course.hasReviewed" class="bi bi-star-fill icon"></i>
-                  <i *ngIf="course.hasReviewed" class="bi bi-check-circle-fill icon"></i>
-                  {{ course.hasReviewed ? 'Reviewed' : 'Rate' }}
+              </div>
+              <button *ngIf="isStudentLoggedIn"
+                      (click)="!course.hasReviewed && openReviewModal(course)"
+                      class="rate-btn-main"
+                      [class.reviewed]="course.hasReviewed"
+                      [disabled]="course.hasReviewed">
+                <i *ngIf="!course.hasReviewed" class="bi bi-star-fill"></i>
+                <i *ngIf="course.hasReviewed" class="bi bi-check-circle-fill"></i>
+                {{ course.hasReviewed ? 'Reviewed' : 'Rate' }}
+              </button>
+            </div>
+
+            <!-- Course Actions -->
+            <div class="course-actions">
+              <div class="action-row">
+                <button (click)="openResourcesModal(course)" class="action-btn resources-btn">
+                  <i class="bi bi-folder-fill"></i>
+                  <span>Resources</span>
+                </button>
+                <button (click)="downloadPdf(course.id)" class="action-btn download-btn">
+                  <i class="bi bi-file-earmark-pdf-fill"></i>
+                  <span>Module File</span>
+                </button>
+                <button (click)="downloadResourcesZip(course.id)" class="action-btn archive-btn" [disabled]="!course.resources || course.resources.length === 0">
+  <i class="bi bi-file-earmark-zip-fill"></i>
+  <span>{{ (course.resources?.length > 0) ? 'Resources (' + course.resources.length + ')' : 'No Resources' }}</span>
+</button>
+              </div>
+              <div class="action-row" *ngIf="isTrainerLoggedIn">
+                <button (click)="openAddResourceModal(course)" class="action-btn add-resource-btn">
+                  <i class="bi bi-plus-circle-fill"></i>
+                  <span>Resource</span>
+                </button>
+                <button (click)="openEditModal(course)" class="action-btn edit-btn">
+                  <i class="bi bi-pencil-square"></i>
+                  <span>Edit</span>
+                </button>
+                <button (click)="openStudentsModal(course)" class="action-btn students-btn">
+                  <i class="bi bi-people-fill"></i>
+                  <span>Students</span>
                 </button>
               </div>
-            </div>
-            <div class="card-footer">
-              <button (click)="openResourcesModal(course)" class="btn-primary round">
-                <span class="icon">📦</span>Resources
-              </button>
-              <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-                      (click)="openAddResourceModal(course)"
-                      class="btn-secondary round">
-                <span class="icon" style="color: white;">➕</span>Add Resource
-              </button>
-              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                      (click)="deleteCourse(course.id)"
-                      class="btn-danger round">
-                <span class="icon">🗑️</span> Delete
-              </button>
-              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                      (click)="openEditModal(course)"
-                      class="btn-warning round">
-                <span class="icon">✏️</span> Edit
-              </button>
-              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                      (click)="openStudentsModal(course)"
-                      class="btn-info round">
-                <span class="icon">👥</span> View Students
-              </button>
-              <button *ngIf="isTrainerLoggedIn || StorageService.isAdminLoggedIn()"
-                      (click)="openEnrollModal(course)"
-                      class="btn-success round">
-                <span class="icon">👥</span> Enroll Students
-              </button>
-              <button *ngIf="isTrainerLoggedIn && !StorageService.isAdminLoggedIn()"
-                      (click)="openAIImprovementsModal(course)"
-                      class="btn-ai-improvements round">
-                <span class="icon">🤖</span> AI Improvements
-              </button>
-              <button (click)="downloadPdf(course.id)" class="btn-pdf-download fancy-btn round">
-                <i class="fas fa-file-pdf"></i>
-                <span>Module file</span>
-              </button>
-              <button (click)="downloadResourcesZip(course.id)"
-                      class="btn-download-resources round"
-                      [disabled]="!course.resources || course.resources.length === 0">
-                <i class="fas fa-file-archive"></i>
-                {{ (course.resources?.length > 0) ? 'Download Resources (' + course.resources.length + ')' : 'No Resources' }}
-              </button>
+              <div class="action-row" *ngIf="isTrainerLoggedIn">
+                <button (click)="openEnrollModal(course)" class="action-btn enroll-btn">
+                  <i class="bi bi-person-plus-fill"></i>
+                  <span>Enroll</span>
+                </button>
+                <button (click)="openAIImprovementsModal(course)" class="action-btn ai-btn">
+                  <i class="bi bi-robot"></i>
+                  <span>AI Improvements</span>
+                </button>
+                <button (click)="deleteCourse(course.id)" class="action-btn delete-btn">
+                  <i class="bi bi-trash-fill"></i>
+                  <span>Delete</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -189,10 +327,34 @@
     </div>
   </div>
 
-  <div class="pagination-controls" *ngIf="page.totalPages > 1">
-    <button (click)="prevPage()" [disabled]="page.number === 0">Previous</button>
-    <span>Page {{ page.number + 1 }} of {{ page.totalPages }}</span>
-    <button (click)="nextPage()" [disabled]="page.number >= page.totalPages - 1">Next</button>
+  <!-- Modern Pagination -->
+  <div class="modern-pagination" *ngIf="page.totalPages > 1">
+    <div class="pagination-container">
+      <button class="pagination-btn prev-btn" 
+              (click)="prevPage()" 
+              [disabled]="page.number === 0">
+        <i class="bi bi-chevron-left"></i>
+        Previous
+      </button>
+      
+      <div class="page-info">
+        <div class="page-indicator">
+          <span class="current-page">{{ page.number + 1 }}</span>
+          <span class="page-separator">of</span>
+          <span class="total-pages">{{ page.totalPages }}</span>
+        </div>
+        <div class="results-count">
+          Showing {{ page.content.length }} of {{ page.totalElements }} courses
+        </div>
+      </div>
+      
+      <button class="pagination-btn next-btn" 
+              (click)="nextPage()" 
+              [disabled]="page.number >= page.totalPages - 1">
+        Next
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
   </div>
 
   <app-add-course-resource
@@ -235,3 +397,4 @@
     [selectedCourse]="selectedCourse"
     (showModalChange)="showAIImprovementsModal = $event">
   </app-ai-improvements-modal>
+</div>
